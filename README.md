@@ -1,13 +1,13 @@
 # Izomod - Bygone Nether
 > To advance the ancient history of the nether dimension.
 
-Herein lies the my changelog and motivation for developing a mod for Minecraft 1.18.1 aiming to advance the lore behind the nether dimension, as well as provide additional challenges and compelling gameplay in the surivial game mode.
+Herein lies my changelog and motivation for developing a mod for Minecraft 1.18.1 aiming to advance the lore behind the nether dimension, as well as provide additional challenges and compelling gameplay in the survival game mode.
 
 ## Motivation
 
 Modifications and additions to Nether structure spawning offer wide potential to introduce new lore implications.
 
-I will add a structure unique to the soul sand valley, called wither forts, that spawns an increased number of wither skeletons, as well as harbors wither skulls, to make the spawning of the wither less grindy. This will make the soul sand valley the true home of the wither skeletons, as will as provide a unique challenge to the player: A vertical structure (not unlike the end city) but such that the only feasible entrance (pre-netherite) is at the top of the structure, and the player must fight their way down.
+I will add a structure unique to the soul sand valley, called wither forts, that spawns an increased number of wither skeletons, as well as harbors wither skulls, to make the spawning of the wither less grindy. This will make the soul sand valley the true home of the wither skeletons, as well as provide a unique challenge to the player: A vertical structure (not unlike the end city) but such that the only feasible entrance (pre-netherite) is at the top of the structure, and the player must fight their way down.
 
 I will add the citadel to the warped forest, indicative of an attempt by enderman (or their ancestors) to settle in the nether. However, the warp corrupted some of its inhabitants, making them immediately hostile to intruders. If the player can overcome these dangerous mobs, precious loot is to be acquired.
 

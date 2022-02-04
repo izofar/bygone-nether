@@ -1,7 +1,7 @@
 
 modLoader="javafml" #mandatory
 loaderVersion="[38,)" #mandatory
-license="All rights reserved"
+license="MIT"
 
 [[mods]] #mandatory
 modId="bygonenether" #mandatory
