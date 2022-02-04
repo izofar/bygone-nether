@@ -1,0 +1,36 @@
+{
+	"item.bygonenether.gilded_netherite_helmet": "Gilded Netherite Helmet",
+	"item.bygonenether.gilded_netherite_chestplate": "Gilded Netherite Chestplate",
+	"item.bygonenether.gilded_netherite_leggings": "Gilded Netherite Leggings",
+	"item.bygonenether.gilded_netherite_boots": "Gilded Netherite Boots",
+	
+	"item.bygonenether.cobbled_blackstone": "Cobbled Blackstone",
+	"item.bygonenether.cracked_withered_blackstone": "Cracked Withered Blackstone",
+	"item.bygonenether.chiseled_withered_blackstone": "Chiseled Withered Blackstone",
+	"item.bygonenether.withered_blackstone": "Withered Blackstone",
+	"item.bygonenether.withered_debris": "Withered Debris",
+	"item.bygonenether.soul_stone": "Soul Stone",
+	"item.bygonenether.warped_nether_bricks": "Warped Nether Bricks",
+	"item.bygonenether.chiseled_warped_nether_bricks": "Chiseled Warped Nether Bricks",
+	"item.bygonenether.warped_nether_brick_stairs": "Warped Nether Brick Stairs",
+	"item.bygonenether.warped_nether_brick_slab": "Warped Nether Brick Slab",
+	
+	"item.bygonenether.piglin_prisoner_spawn_egg": "Piglin Prisoner Spawn Egg",
+	"item.bygonenether.wex_spawn_egg": "Wex Spawn Egg",
+	"item.bygonenether.warped_enderman_spawn_egg": "Warped Enderman Spawn Egg",
+
+	"block.bygonenether.cobbled_blackstone": "Cobbled Blackstone",
+	"block.bygonenether.withered_blackstone": "Withered Blackstone",
+	"block.bygonenether.chiseled_withered_blackstone": "Chiseled Withered Blackstone",
+	"block.bygonenether.cracked_withered_blackstone": "Cracked Withered Blackstone",
+	"block.bygonenether.withered_debris": "Withered Debris",
+	"block.bygonenether.soul_stone": "Soul Stone",
+	"block.bygonenether.warped_nether_bricks": "Warped Nether Bricks",
+	"block.bygonenether.chiseled_warped_nether_bricks": "Chiseled Warped Nether Bricks",
+	"block.bygonenether.warped_nether_brick_stairs": "Warped Nether Brick Stairs",
+	"block.bygonenether.warped_nether_brick_slab": "Warped Nether Brick Slab",
+
+	"entity.bygonenether.piglin_prisoner": "Piglin Prisoner",
+	"entity.bygonenether.wex": "Wex",
+	"entity.bygonenether.warped_enderman": "Warped Enderman"
+}

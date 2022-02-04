@@ -1,0 +1,30 @@
+
+modLoader="javafml" #mandatory
+loaderVersion="[38,)" #mandatory
+license="All rights reserved"
+
+[[mods]] #mandatory
+modId="bygonenether" #mandatory
+version="${file.jarVersion}" #mandatory
+displayName="Bygone Nether" #mandatory
+logoFile="bygonenether.png" #optional
+#credits="" #optional
+authors="Izofar" #optional
+
+description='''
+To advance the ancient history of the nether dimension.
+'''
+
+[[dependencies.survivalprime]] #optional
+    modId="forge" #mandatory
+    mandatory=true #mandatory
+    versionRange="[39,)" #mandatory
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.survivalprime]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.1,1.19)"
+    ordering="NONE"
+    side="BOTH"

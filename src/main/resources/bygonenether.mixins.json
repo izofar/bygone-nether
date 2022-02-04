@@ -1,0 +1,14 @@
+{
+	"required": true,
+	"package": "com.izofar.bygonenether.mixin",
+	"compatibilityLevel": "JAVA_17",
+	"refmap": "bygonenether.refmap.json",
+	"mixins": [
+		"NoBasaltColumnsInStructuresMixin",
+		"NoDeltasInStructuresMixin",
+		"ModifyDamageInSmithingRecipes"
+	],
+	"client": [
+	],
+	"minVersion": "0.8"
+}

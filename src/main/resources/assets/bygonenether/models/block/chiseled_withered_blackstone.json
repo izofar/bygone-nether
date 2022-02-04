@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "bygonenether:block/chiseled_withered_blackstone_top",
+    "side": "bygonenether:block/chiseled_withered_blackstone"
+  }
+}
