@@ -24,7 +24,6 @@ public class BygoneNetherMod
         ModItems.register(eventBus);
         ModBlocks.register(eventBus);
         ModEntityTypes.register(eventBus);
-        ModSoundEvents.register(eventBus);
         ModStructures.register(eventBus);
         ModSensorTypes.register(eventBus);
         ModMemoryModuleTypes.register(eventBus);
@@ -37,6 +36,7 @@ public class BygoneNetherMod
 
     private void setup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
+            ModProcessors.registerProcessors();
             ModStructures.setupStructures();
             ModConfiguredStructures.registerConfiguredStructures();
             ModConfiguredFeatures.registerConfiguredFeatures();

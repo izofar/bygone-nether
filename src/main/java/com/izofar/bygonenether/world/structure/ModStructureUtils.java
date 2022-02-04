@@ -4,11 +4,15 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.izofar.bygonenether.init.ModBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.NoiseColumn;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.StructureSettings;
 import net.minecraft.world.level.levelgen.feature.BasaltColumnsFeature;
@@ -143,6 +147,25 @@ public abstract class ModStructureUtils {
 			return false;
 		}
 	}
+
+	public static int getFirstLandYFromPos(LevelReader worldView, BlockPos pos) {
+		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+		mutable.set(pos);
+		ChunkAccess currentChunk = worldView.getChunk(mutable);
+		BlockState currentState = currentChunk.getBlockState(mutable);
+
+		while(mutable.getY() >= worldView.getMinBuildHeight() && isReplaceableByStructures(currentState)) {
+			mutable.move(Direction.DOWN);
+			currentState = currentChunk.getBlockState(mutable);
+		}
+
+		return mutable.getY();
+	}
+
+	private static boolean isReplaceableByStructures(BlockState blockState) {
+		return blockState.isAir() || blockState.getMaterial().isLiquid() || blockState.getMaterial().isReplaceable();
+	}
+
 	public static <F extends StructureFeature<?>> void setupMapSpacingAndLand(F structure, StructureFeatureConfiguration config, boolean transformLand) {
 		StructureFeature.STRUCTURES_REGISTRY.put(structure.getRegistryName().toString(), structure);
 

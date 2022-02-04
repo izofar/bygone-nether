@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "bygonenether:cobblestoned_blackstone"
+          "name": "bygonenether:cobbled_blackstone"
         }
       ],
       "conditions": [

@@ -12,7 +12,7 @@
       "weight": 10,
       "element": {
         "location": "bygonenether:fortress/straight_inside",
-        "processors": "minecraft:empty",
+        "processors": "bygonenether:fortress/fortress",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"
       }
@@ -21,7 +21,7 @@
       "weight": 4,
       "element": {
         "location": "bygonenether:fortress/4_way_inside",
-        "processors": "minecraft:empty",
+        "processors": "bygonenether:fortress/fortress",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"
       }
@@ -30,7 +30,7 @@
       "weight": 3,
       "element": {
         "location": "bygonenether:fortress/turn_inside",
-        "processors": "minecraft:empty",
+        "processors": "bygonenether:fortress/fortress",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"
       }
@@ -39,7 +39,7 @@
       "weight": 3,
       "element": {
         "location": "bygonenether:fortress/turn_inside_chest",
-        "processors": "minecraft:empty",
+        "processors": "bygonenether:fortress/fortress",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"
       }
@@ -48,7 +48,7 @@
       "weight": 2,
       "element": {
         "location": "bygonenether:fortress/stairs_inside",
-        "processors": "minecraft:empty",
+        "processors": "bygonenether:fortress/fortress",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"
       }
@@ -57,7 +57,7 @@
       "weight": 2,
       "element": {
         "location": "bygonenether:fortress/stairs_inside_plants",
-        "processors": "minecraft:empty",
+        "processors": "bygonenether:fortress/fortress",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"
       }
@@ -66,7 +66,7 @@
       "weight": 2,
       "element": {
         "location": "bygonenether:fortress/balcony",
-        "processors": "minecraft:empty",
+        "processors": "bygonenether:fortress/fortress",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"
       }
