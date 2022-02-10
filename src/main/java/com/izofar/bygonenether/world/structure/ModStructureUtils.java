@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.StructureSettings;
 import net.minecraft.world.level.levelgen.feature.BasaltColumnsFeature;
 import net.minecraft.world.level.levelgen.feature.DeltaFeature;
@@ -134,8 +135,7 @@ public abstract class ModStructureUtils {
 
 	public static boolean isNearStructure(ChunkGenerator chunk, long dist, ChunkPos inChunkPos, StructureFeature<? extends FeatureConfiguration> feature) {
 		StructureFeatureConfiguration structurefeatureconfiguration = chunk.getSettings().getConfig(feature);
-		if (structurefeatureconfiguration == null) return false;
-		else {
+		if (structurefeatureconfiguration != null) {
 			int i = inChunkPos.x;
 			int j = inChunkPos.z;
 
@@ -144,8 +144,8 @@ public abstract class ModStructureUtils {
 					ChunkPos chunkpos = feature.getPotentialFeatureChunk(structurefeatureconfiguration, dist, k, l);
 					if (k == chunkpos.x && l == chunkpos.z) return true;
 				}
-			return false;
 		}
+		return false;
 	}
 
 	public static int getFirstLandYFromPos(LevelReader worldView, BlockPos pos) {
@@ -164,6 +164,24 @@ public abstract class ModStructureUtils {
 
 	private static boolean isReplaceableByStructures(BlockState blockState) {
 		return blockState.isAir() || blockState.getMaterial().isLiquid() || blockState.getMaterial().isReplaceable();
+	}
+
+	public static boolean isRelativelyFlat(PieceGeneratorSupplier.Context<JigsawConfiguration> context, int chunk_search_radius, int max_terrain_height){
+		ChunkPos chunkpos = context.chunkPos();
+		int maxterrainheight = Integer.MIN_VALUE;
+		int minterrainheight = Integer.MAX_VALUE;
+		for(int chunkX = chunkpos.x - chunk_search_radius; chunkX <= chunkpos.x + chunk_search_radius; chunkX ++) {
+			for(int chunkZ = chunkpos.z - chunk_search_radius; chunkZ <= chunkpos.z + chunk_search_radius; chunkZ ++) {
+				BlockPos blockpos = new BlockPos((chunkX << 4) + 7, 0, (chunkZ << 4) + 7);
+				int height = context.chunkGenerator().getBaseHeight(blockpos.getX(), blockpos.getZ(), Heightmap.Types.WORLD_SURFACE_WG, context.heightAccessor());
+				maxterrainheight = Math.max(maxterrainheight, height);
+				minterrainheight = Math.min(minterrainheight, height);
+				if (!context.chunkGenerator().getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor()).getBlock(height).getFluidState().isEmpty()) return false;
+			}
+		}
+		if(maxterrainheight - minterrainheight > max_terrain_height)
+			return false;
+		return true;
 	}
 
 	public static <F extends StructureFeature<?>> void setupMapSpacingAndLand(F structure, StructureFeatureConfiguration config, boolean transformLand) {

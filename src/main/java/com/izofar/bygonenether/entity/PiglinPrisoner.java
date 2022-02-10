@@ -38,11 +38,11 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import javax.annotation.Nullable;
 import java.util.function.Predicate;
 
-public class PiglinPrisonerEntity extends AbstractPiglin implements CrossbowAttackMob, InventoryCarrier {
+public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob, InventoryCarrier {
 
 	private static final EntityDataAccessor<Boolean> DATA_IS_CHARGING_CROSSBOW = SynchedEntityData.defineId(Piglin.class, EntityDataSerializers.BOOLEAN);
 
-	protected static final ImmutableList<SensorType<? extends Sensor<? super PiglinPrisonerEntity>>> SENSOR_TYPES =
+	protected static final ImmutableList<SensorType<? extends Sensor<? super PiglinPrisoner>>> SENSOR_TYPES =
 			ImmutableList.of(
 					SensorType.NEAREST_LIVING_ENTITIES, 
 					SensorType.NEAREST_PLAYERS, 
@@ -74,7 +74,7 @@ public class PiglinPrisonerEntity extends AbstractPiglin implements CrossbowAtta
 	
 	private final SimpleContainer inventory = new SimpleContainer(8); 
 
-	public PiglinPrisonerEntity(EntityType<? extends AbstractPiglin> entitytype, Level world) {
+	public PiglinPrisoner(EntityType<? extends AbstractPiglin> entitytype, Level world) {
 		super(entitytype, world);
 		this.xpReward = 5;
 	}
@@ -98,10 +98,10 @@ public class PiglinPrisonerEntity extends AbstractPiglin implements CrossbowAtta
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Brain<PiglinPrisonerEntity> getBrain() { return  (Brain<PiglinPrisonerEntity>) super.getBrain(); }
+	public Brain<PiglinPrisoner> getBrain() { return  (Brain<PiglinPrisoner>) super.getBrain(); }
 
 	@Override
-	protected Brain.Provider<PiglinPrisonerEntity> brainProvider() { return Brain.provider(MEMORY_TYPES, SENSOR_TYPES); }
+	protected Brain.Provider<PiglinPrisoner> brainProvider() { return Brain.provider(MEMORY_TYPES, SENSOR_TYPES); }
 
 	public boolean wantsToPickUp(ItemStack itemstack) { return WANTS_TO_PICK_UP.test(itemstack.getItem()); }
 

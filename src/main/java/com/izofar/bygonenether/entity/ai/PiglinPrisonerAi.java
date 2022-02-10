@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import com.izofar.bygonenether.entity.PiglinPrisonerEntity;
+import com.izofar.bygonenether.entity.PiglinPrisoner;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.BlockPos;
@@ -45,7 +45,7 @@ public class PiglinPrisonerAi {
 
 	private static final UniformInt AVOID_ZOMBIFIED_DURATION = TimeUtil.rangeOfSeconds(5, 7);
 
-	public static Brain<?> makeBrain(PiglinPrisonerEntity piglin, Brain<PiglinPrisonerEntity> brain) {
+	public static Brain<?> makeBrain(PiglinPrisoner piglin, Brain<PiglinPrisoner> brain) {
 		initCoreActivity(brain);
 		initIdleActivity(brain);
 		initFightActivity(piglin, brain);
@@ -55,7 +55,7 @@ public class PiglinPrisonerAi {
 		return brain;
 	}
 
-	private static void initCoreActivity(Brain<PiglinPrisonerEntity> brain) {
+	private static void initCoreActivity(Brain<PiglinPrisoner> brain) {
 		brain.addActivity(Activity.CORE, 0,
 				ImmutableList.of(
 						new LookAtTargetSink(45, 90), 
@@ -67,7 +67,7 @@ public class PiglinPrisonerAi {
 				);
 	}
 
-	private static void initIdleActivity(Brain<PiglinPrisonerEntity> brain) {
+	private static void initIdleActivity(Brain<PiglinPrisoner> brain) {
 		brain.addActivity(Activity.IDLE, 10,
 				ImmutableList.of(
 	    				new StartAttacking<>(PiglinPrisonerAi::findNearestValidAttackTarget),
@@ -80,20 +80,20 @@ public class PiglinPrisonerAi {
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private static void initFightActivity(PiglinPrisonerEntity piglin, Brain<PiglinPrisonerEntity> brain) {
+	private static void initFightActivity(PiglinPrisoner piglin, Brain<PiglinPrisoner> brain) {
 	      brain.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 10, 
-	    		  ImmutableList.<net.minecraft.world.entity.ai.behavior.Behavior<? super PiglinPrisonerEntity>>of(
-	    				  new StopAttackingIfTargetInvalid<PiglinPrisonerEntity>((target) -> { return !isNearestValidAttackTarget(piglin, target); }),
+	    		  ImmutableList.<net.minecraft.world.entity.ai.behavior.Behavior<? super PiglinPrisoner>>of(
+	    				  new StopAttackingIfTargetInvalid<PiglinPrisoner>((target) -> { return !isNearestValidAttackTarget(piglin, target); }),
 	    				  new RunIf<Mob>(PiglinPrisonerAi::hasCrossbow, new BackUpIfTooClose<>(5, 0.75F)), 
 	    				  new SetWalkTargetFromAttackTargetIfTargetOutOfReach(1.0F), 
 	    				  new MeleeAttack(20), 
 	    				  new CrossbowAttack(), 
-	    				  new EraseMemoryIf<PiglinPrisonerEntity>(PiglinPrisonerAi::isNearZombified, MemoryModuleType.ATTACK_TARGET)
+	    				  new EraseMemoryIf<PiglinPrisoner>(PiglinPrisonerAi::isNearZombified, MemoryModuleType.ATTACK_TARGET)
     				  ), 
 	    		  MemoryModuleType.ATTACK_TARGET);
 	   }
 	
-	private static RunOne<PiglinPrisonerEntity> createIdleLookBehaviors() {
+	private static RunOne<PiglinPrisoner> createIdleLookBehaviors() {
 		return new RunOne<>(
 				ImmutableList.of(
 					Pair.of(new SetEntityLookTarget(EntityType.PLAYER, 8.0F), 1),
@@ -104,7 +104,7 @@ public class PiglinPrisonerAi {
 			);
 	}
 
-	private static RunOne<PiglinPrisonerEntity> createIdleMovementBehaviors() {
+	private static RunOne<PiglinPrisoner> createIdleMovementBehaviors() {
 		return new RunOne<>(
 				ImmutableList.of(
 					Pair.of(new RandomStroll(0.6F), 2),
@@ -114,8 +114,8 @@ public class PiglinPrisonerAi {
 			);
 	}
 	
-	public static void updateActivity(PiglinPrisonerEntity piglin) {
-		Brain<PiglinPrisonerEntity> brain = piglin.getBrain();
+	public static void updateActivity(PiglinPrisoner piglin) {
+		Brain<PiglinPrisoner> brain = piglin.getBrain();
 		Activity activity = brain.getActiveNonCoreActivity().orElse((Activity)null);
 		brain.setActiveActivityToFirstValid(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
 		Activity activity1 = brain.getActiveNonCoreActivity().orElse((Activity)null);
@@ -123,10 +123,10 @@ public class PiglinPrisonerAi {
 		piglin.setAggressive(brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET));
 	}
 
-	private static boolean isNearestValidAttackTarget(PiglinPrisonerEntity piglin, LivingEntity target) { return findNearestValidAttackTarget(piglin).filter((potentialTarget) -> potentialTarget == target).isPresent(); }
+	private static boolean isNearestValidAttackTarget(PiglinPrisoner piglin, LivingEntity target) { return findNearestValidAttackTarget(piglin).filter((potentialTarget) -> potentialTarget == target).isPresent(); }
 	
-	private static Optional<? extends LivingEntity> findNearestValidAttackTarget(PiglinPrisonerEntity piglin) {
-		Brain<PiglinPrisonerEntity> brain = piglin.getBrain();
+	private static Optional<? extends LivingEntity> findNearestValidAttackTarget(PiglinPrisoner piglin) {
+		Brain<PiglinPrisoner> brain = piglin.getBrain();
 		if (isNearZombified(piglin)) return Optional.empty();
 		else {
 			Optional<LivingEntity> optional = BehaviorUtils.getLivingEntityFromUUIDMemory(piglin, MemoryModuleType.ANGRY_AT);
@@ -141,8 +141,8 @@ public class PiglinPrisonerAi {
 	
 	private static boolean hasCrossbow(LivingEntity entity) { return entity.isHolding(is -> is.getItem() instanceof net.minecraft.world.item.CrossbowItem); }
 
-	private static CopyMemoryWithExpiry<PiglinPrisonerEntity, LivingEntity> avoidZombified() {
-		return new CopyMemoryWithExpiry<PiglinPrisonerEntity, LivingEntity>(
+	private static CopyMemoryWithExpiry<PiglinPrisoner, LivingEntity> avoidZombified() {
+		return new CopyMemoryWithExpiry<PiglinPrisoner, LivingEntity>(
 					PiglinPrisonerAi::isNearZombified, 
 					MemoryModuleType.NEAREST_VISIBLE_ZOMBIFIED,
 					MemoryModuleType.AVOID_TARGET, 
@@ -150,8 +150,8 @@ public class PiglinPrisonerAi {
 				);
 	}
 	
-	private static boolean isNearZombified(PiglinPrisonerEntity entity) {
-		Brain<PiglinPrisonerEntity> brain = entity.getBrain();
+	private static boolean isNearZombified(PiglinPrisoner entity) {
+		Brain<PiglinPrisoner> brain = entity.getBrain();
 		if (brain.hasMemoryValue(MemoryModuleType.NEAREST_VISIBLE_ZOMBIFIED)) {
 			LivingEntity livingentity = brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_ZOMBIFIED).get();
 			return entity.closerThan(livingentity, 6.0D);
@@ -160,9 +160,9 @@ public class PiglinPrisonerAi {
 
 	private static SetWalkTargetAwayFrom<BlockPos> avoidRepellent() { return SetWalkTargetAwayFrom.pos(MemoryModuleType.NEAREST_REPELLENT, 1.0F, 8, false); }
 	
-	public static Optional<SoundEvent> getSoundForCurrentActivity(PiglinPrisonerEntity piglin) { return piglin.getBrain().getActiveNonCoreActivity().map((activity) -> getSoundForActivity(piglin, activity)); }
+	public static Optional<SoundEvent> getSoundForCurrentActivity(PiglinPrisoner piglin) { return piglin.getBrain().getActiveNonCoreActivity().map((activity) -> getSoundForActivity(piglin, activity)); }
 	
-	private static SoundEvent getSoundForActivity(PiglinPrisonerEntity piglin, Activity activity) {
+	private static SoundEvent getSoundForActivity(PiglinPrisoner piglin, Activity activity) {
 		if (activity == Activity.FIGHT) return SoundEvents.PIGLIN_ANGRY;
 		else if (piglin.isConverting()) return SoundEvents.PIGLIN_RETREAT;
 		else if (activity == Activity.AVOID && isNearAvoidTarget(piglin)) return SoundEvents.PIGLIN_RETREAT;
@@ -171,11 +171,11 @@ public class PiglinPrisonerAi {
 		else return isNearRepellent(piglin) ? SoundEvents.PIGLIN_RETREAT : SoundEvents.PIGLIN_AMBIENT;
 	}
 	
-	private static boolean isNearAvoidTarget(PiglinPrisonerEntity piglin) {
-		Brain<PiglinPrisonerEntity> brain = piglin.getBrain();
+	private static boolean isNearAvoidTarget(PiglinPrisoner piglin) {
+		Brain<PiglinPrisoner> brain = piglin.getBrain();
 		return !brain.hasMemoryValue(MemoryModuleType.AVOID_TARGET) ? false : brain.getMemory(MemoryModuleType.AVOID_TARGET).get().closerThan(piglin, 12.0D);
 	}
 	
-	private static boolean isNearRepellent(PiglinPrisonerEntity piglin) { return piglin.getBrain().hasMemoryValue(MemoryModuleType.NEAREST_REPELLENT); }
+	private static boolean isNearRepellent(PiglinPrisoner piglin) { return piglin.getBrain().hasMemoryValue(MemoryModuleType.NEAREST_REPELLENT); }
 	
 }

@@ -1,6 +1,6 @@
 package com.izofar.bygonenether.mixin;
 
-import com.izofar.bygonenether.init.ModTags;
+import com.izofar.bygonenether.util.ModLists;
 import net.minecraft.core.SectionPos;
 import net.minecraft.world.level.levelgen.feature.DeltaFeature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
@@ -24,12 +24,9 @@ public class NoDeltasInStructuresMixin {
 		)
     private void izomod_noDeltasInStructures(FeaturePlaceContext<DeltaFeatureConfiguration> context, CallbackInfoReturnable<Boolean> cir) {
         SectionPos sectionPos = SectionPos.of(context.origin());
-        for (StructureFeature<?> structure : ModTags.REVERSED_TAGGED_STRUCTURES.get(ModTags.STRUCTURE_TAGS.NO_DELTAS)) {
+        for (StructureFeature<?> structure : ModLists.DELTALESS_STRUCTURES) {
             List<? extends StructureStart<?>> structureStarts = context.level().startsForFeature(sectionPos, structure);
-            boolean checkCenterOnly = ModTags.TAGGED_STRUCTURES.get(structure).contains(ModTags.STRUCTURE_TAGS.DELTA_CHECK_CENTER_PIECE);
-            if (!structureStarts.isEmpty() && (checkCenterOnly ?
-                    structureStarts.stream().anyMatch(structureStart -> structureStart.getPieces().get(0).getBoundingBox().isInside(context.origin())) :
-                    structureStarts.stream().anyMatch(structureStart -> structureStart.getPieces().stream().anyMatch(box -> box.getBoundingBox().isInside(context.origin())))))
+            if (!structureStarts.isEmpty() && structureStarts.stream().anyMatch(structureStart -> structureStart.getPieces().stream().anyMatch(box -> box.getBoundingBox().isInside(context.origin()))))
             {
                 cir.setReturnValue(false);
                 break;

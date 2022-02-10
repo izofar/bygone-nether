@@ -8,6 +8,7 @@ import com.izofar.bygonenether.init.ModConfiguredStructures;
 import com.izofar.bygonenether.init.ModStructures;
 import com.izofar.bygonenether.world.structure.CitadelStructure;
 import com.izofar.bygonenether.world.structure.NetherFortressStructure;
+import com.izofar.bygonenether.world.structure.PiglinManorStructure;
 import com.izofar.bygonenether.world.structure.WitherFortStructure;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
@@ -25,13 +26,11 @@ import net.minecraft.world.level.levelgen.StructureSettings;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
-import net.minecraftforge.event.TickEvent.WorldTickEvent;
 import net.minecraftforge.event.world.StructureSpawnListGatherEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -46,6 +45,8 @@ public abstract class ModWorldEvents {
 			event.addEntitySpawns(MobCategory.MONSTER, WitherFortStructure.FORTRESS_ENEMIES);
 		else if (event.getStructure() == ModStructures.CITADEL.get())
 			event.addEntitySpawns(MobCategory.MONSTER, CitadelStructure.CITADEL_ENEMIES);
+		else if (event.getStructure() == ModStructures.PIGLIN_MANOR.get())
+			event.addEntitySpawns(MobCategory.MONSTER, PiglinManorStructure.MANOR_ENEMIES);
 	}
 	
 	@SubscribeEvent
@@ -77,7 +78,9 @@ public abstract class ModWorldEvents {
 					
 					if(biome == getBiomeFromEntrySet(entrySet, Biomes.WARPED_FOREST))
 						associateBiomeToConfiguredStructure(multimap, ModConfiguredStructures.CONFIGURED_CITADEL, biomeKey);
-					
+					else if(biome == getBiomeFromEntrySet(entrySet, Biomes.CRIMSON_FOREST))
+						associateBiomeToConfiguredStructure(multimap, ModConfiguredStructures.CONFIGURED_PIGLIN_MANOR, biomeKey);
+
 					if(biome != getBiomeFromEntrySet(entrySet, Biomes.NETHER_WASTES)) disassociateBiomeToConfiguredStructure(blacklist_multimap, StructureFeatures.NETHER_BRIDGE, biomeKey);
 					if(biome == getBiomeFromEntrySet(entrySet, Biomes.SOUL_SAND_VALLEY)) associateBiomeToConfiguredStructure(multimap, ModConfiguredStructures.CONFIGURED_WITHER_FORT, biomeKey);
 				}

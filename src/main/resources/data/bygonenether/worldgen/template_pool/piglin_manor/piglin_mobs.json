@@ -1,0 +1,14 @@
+{
+  "name": "bygonenether:piglin_manor/piglin_mobs",
+  "fallback": "bygonenether:piglin_manor/piglin_mobs",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "feature": "bygonenether:mob_feature_piglin_manor",
+        "projection": "rigid",
+        "element_type": "minecraft:feature_pool_element"
+      }
+    }
+  ]
+}

@@ -1,9 +1,6 @@
 package com.izofar.bygonenether.world.feature;
 
-import java.util.function.Supplier;
-
 import com.izofar.bygonenether.util.random.MobWeightedEntry;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.entity.EntityType;
@@ -12,6 +9,8 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+
+import java.util.function.Supplier;
 
 public class MobFeature<T extends Mob> extends Feature<NoneFeatureConfiguration> {
 

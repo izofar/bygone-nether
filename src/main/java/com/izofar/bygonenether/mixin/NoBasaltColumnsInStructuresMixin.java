@@ -1,7 +1,7 @@
 package com.izofar.bygonenether.mixin;
 
 import com.izofar.bygonenether.BygoneNetherMod;
-import com.izofar.bygonenether.init.ModTags;
+import com.izofar.bygonenether.util.ModLists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.world.level.LevelAccessor;
@@ -31,12 +31,9 @@ public class NoBasaltColumnsInStructuresMixin {
             BygoneNetherMod.LOGGER.warn("Bygone Nether: Detected a mod with a broken basalt columns configuredfeature that is trying to place blocks outside the 3x3 safe chunk area for features. Find the broken mod and report to them to fix the placement of their basalt columns feature.");
             return;
         }
-        for (StructureFeature<?> structure : ModTags.REVERSED_TAGGED_STRUCTURES.get(ModTags.STRUCTURE_TAGS.NO_DELTAS)) {
+        for (StructureFeature<?> structure : ModLists.DELTALESS_STRUCTURES) {
             List<? extends StructureStart<?>> structureStarts = ((WorldGenLevel)levelAccessor).startsForFeature(sectionPos, structure);
-            boolean checkCenterOnly = ModTags.TAGGED_STRUCTURES.get(structure).contains(ModTags.STRUCTURE_TAGS.DELTA_CHECK_CENTER_PIECE);
-            if (!structureStarts.isEmpty() && (checkCenterOnly ?
-                    structureStarts.stream().anyMatch(structureStart -> structureStart.getPieces().get(0).getBoundingBox().isInside(mutableBlockPos)) :
-                    structureStarts.stream().anyMatch(structureStart -> structureStart.getPieces().stream().anyMatch(box -> box.getBoundingBox().isInside(mutableBlockPos)))))
+            if (!structureStarts.isEmpty() && structureStarts.stream().anyMatch(structureStart -> structureStart.getPieces().stream().anyMatch(box -> box.getBoundingBox().isInside(mutableBlockPos))))
             {
                 cir.setReturnValue(false);
                 break;

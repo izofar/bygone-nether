@@ -40,7 +40,6 @@ public class BygoneNetherMod
             ModStructures.setupStructures();
             ModConfiguredStructures.registerConfiguredStructures();
             ModConfiguredFeatures.registerConfiguredFeatures();
-            ModTags.setupTags();
             ModStructureUtils.addWitheredRestrictions();
             ModFeatureUtils.replaceBlackstoneBlobs();
             ModFeatureUtils.replaceBlackstoneInBastion();

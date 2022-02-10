@@ -17,9 +17,9 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
-public class WarpedEnderManEntity extends EnderMan{
+public class WarpedEnderMan extends EnderMan{
 
-	public WarpedEnderManEntity(EntityType<? extends EnderMan> entityType, Level world) { super(entityType, world); }
+	public WarpedEnderMan(EntityType<? extends EnderMan> entityType, Level world) { super(entityType, world); }
 
 	@Override
 	protected void registerGoals() {
