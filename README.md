@@ -34,6 +34,7 @@ Finally, Piglin hunters stay in piglin manors in the crimson forests, where they
     * Pigling Brutes treat players wearing gilded netherite armor like piglins treat players wearing gold
 * Added the Wex, vex-like wither mobs that swarm wither forts
 * Added the Piglin Prisoner, which spawns as hostage in wither fort ribs and will pick up any gold-tiered gear the player drops to them
+* Added the Piglin Hunter, which spawns in piglin manors
 * Added the Warped Enderman, a hostile enderman variant that spawns in citadels
 
 ### Recipes
@@ -46,6 +47,7 @@ Finally, Piglin hunters stay in piglin manors in the crimson forests, where they
 * Bastions now generate only in Basalt Deltas
 * Nether Fortresses now generate only in Nether Wastes
 * Wither Forts now generate in Soul Sand Valleys
+* Piglin Manors now generate in Crimson Forests
 * Citadels now generate in Warped Forests
 * Bastions generate with cobbled blackstone instead of blackstone
 
@@ -53,6 +55,8 @@ Finally, Piglin hunters stay in piglin manors in the crimson forests, where they
 * [None]
 
 ## Todo
-* Add piglin manors to crimson forests
-* Create necessary processors and features to create nether fortress columns
-* Rename Wither Forts
+* Add soul stone clusters to soul sand valleys
+* Give piglin hunters unique purpose
+* Adjust piglin manor spawn list and loot
+* Refine piglin manor spawn
+* Adjust nether fortress pieces and pools
