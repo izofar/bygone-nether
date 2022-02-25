@@ -133,7 +133,7 @@ public abstract class ModStructureUtils {
 
 	}
 
-	public static boolean isNearStructure(ChunkGenerator chunk, long dist, ChunkPos inChunkPos, StructureFeature<? extends FeatureConfiguration> feature) {
+	public static boolean isNearStructure(ChunkGenerator chunk, long seed, ChunkPos inChunkPos, StructureFeature<? extends FeatureConfiguration> feature) {
 		StructureFeatureConfiguration structurefeatureconfiguration = chunk.getSettings().getConfig(feature);
 		if (structurefeatureconfiguration != null) {
 			int i = inChunkPos.x;
@@ -141,7 +141,7 @@ public abstract class ModStructureUtils {
 
 			for (int k = i - 10; k <= i + 10; ++k) 
 				for (int l = j - 10; l <= j + 10; ++l) {
-					ChunkPos chunkpos = feature.getPotentialFeatureChunk(structurefeatureconfiguration, dist, k, l);
+					ChunkPos chunkpos = feature.getPotentialFeatureChunk(structurefeatureconfiguration, seed, k, l);
 					if (k == chunkpos.x && l == chunkpos.z) return true;
 				}
 		}

@@ -22,7 +22,7 @@ public class NoDeltasInStructuresMixin {
             at = @At(value = "HEAD"),
             cancellable = true
 		)
-    private void izomod_noDeltasInStructures(FeaturePlaceContext<DeltaFeatureConfiguration> context, CallbackInfoReturnable<Boolean> cir) {
+    private void bygonenether_noDeltasInStructures(FeaturePlaceContext<DeltaFeatureConfiguration> context, CallbackInfoReturnable<Boolean> cir) {
         SectionPos sectionPos = SectionPos.of(context.origin());
         for (StructureFeature<?> structure : ModLists.DELTALESS_STRUCTURES) {
             List<? extends StructureStart<?>> structureStarts = context.level().startsForFeature(sectionPos, structure);

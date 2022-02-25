@@ -34,7 +34,7 @@
 					},
 					"input_predicate": {
 						"block": "minecraft:chest",
-						"probability": 0.5,
+						"probability": 0.25,
 						"predicate_type": "minecraft:random_block_match"
 					},
 					"location_predicate": {

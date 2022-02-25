@@ -1,0 +1,78 @@
+{
+  "name": "bygonenether:fortress/inside_connector",
+  "fallback": "bygonenether:fortress/terminator",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygonenether:fortress/terminator_1",
+        "processors": "bygonenether:fortress/fortress",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygonenether:fortress/terminator_2",
+        "processors": "bygonenether:fortress/fortress",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygonenether:fortress/terminator_3",
+        "processors": "bygonenether:fortress/fortress",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygonenether:fortress/terminator_4",
+        "processors": "bygonenether:fortress/fortress",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 6,
+      "element": {
+        "location": "bygonenether:fortress/straight_inside",
+        "processors": "bygonenether:fortress/fortress",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 7,
+      "element": {
+        "location": "bygonenether:fortress/4_way_inside",
+        "processors": "bygonenether:fortress/fortress",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 10,
+      "element": {
+        "location": "bygonenether:fortress/turn_inside",
+        "processors": "bygonenether:fortress/fortress",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "location": "bygonenether:fortress/turn_inside_chest",
+        "processors": "bygonenether:fortress/fortress",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    }
+  ]
+}

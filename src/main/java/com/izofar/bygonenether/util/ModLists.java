@@ -19,6 +19,6 @@ public abstract class ModLists {
 	public static final List<StructureFeature<?>> DELTALESS_STRUCTURES = ImmutableList.of(StructureFeature.BASTION_REMNANT, ModStructures.WITHER_FORT.get(), ModStructures.NETHER_FORTRESS.get(), ModStructures.CITADEL.get());
     public static final WeightedRandomList<MobWeightedEntry<EntityType<? extends AbstractPiglin>>> PIGLIN_MANOR_MOBS = WeightedRandomList.create(
 			new MobWeightedEntry<>(ModEntityTypes.PIGLIN_HUNTER.get(), 1),
-			new MobWeightedEntry<>(EntityType.PIGLIN, 2)
+			new MobWeightedEntry<>(EntityType.PIGLIN, 3)
 		);
 }

@@ -18,7 +18,7 @@ public class ModifyDamageInSmithingRecipes {
 			at = @At(value = "RETURN"),
 			cancellable = true
 		)
-	private void izomod_setDamage(Container container, CallbackInfoReturnable<ItemStack> cir) {
+	private void bygonenether_setDamage(Container container, CallbackInfoReturnable<ItemStack> cir) {
 		ItemStack itemstack = cir.getReturnValue();
 		if(!(itemstack.getItem() instanceof ModArmorItem)) return;
 		int damage = itemstack.getDamageValue();
