@@ -7,7 +7,7 @@ Herein lies my changelog and motivation for developing a mod for Minecraft 1.18.
 
 Modifications and additions to Nether structure spawning offer wide potential to introduce new lore implications.
 
-I will add a structure unique to the soul sand valley, called wither forts, that spawns an increased number of wither skeletons, as well as harbors wither skulls, to make the spawning of the wither less grindy. This will make the soul sand valley the true home of the wither skeletons, as well as provide a unique challenge to the player: A vertical structure (not unlike the end city) but such that the only feasible entrance (pre-netherite) is at the top of the structure, and the player must fight their way down.
+I will add a structure unique to the soul sand valley, called catacombs, that spawns an increased number of wither skeletons, as well as harbors wither skulls, to make the spawning of the wither less grindy. This will make the soul sand valley the true home of the wither skeletons, as well as provide a unique challenge to the player: A vertical structure (not unlike the end city) but such that the only feasible entrance (pre-netherite) is at the top of the structure, and the player must fight their way down.
 
 I will add the citadel to the warped forest, indicative of an attempt by enderman (or their ancestors) to settle in the nether. However, the warp corrupted some of its inhabitants, making them immediately hostile to intruders. If the player can overcome these dangerous mobs, precious loot is to be acquired.
 
@@ -32,8 +32,8 @@ Finally, Piglin hunters stay in piglin manors in the crimson forests, where they
 ### Mobs
 * Unprovoked, neither piglins nor piglin brutes will attack players equipped with Gilded Netherite
     * Pigling Brutes treat players wearing gilded netherite armor like piglins treat players wearing gold
-* Added the Wex, vex-like wither mobs that swarm wither forts
-* Added the Piglin Prisoner, which spawns as hostage in wither fort ribs and will pick up any gold-tiered gear the player drops to them
+* Added the Wex, vex-like wither mobs that swarm catacombs
+* Added the Piglin Prisoner, which spawns as a hostage in catacomb ribs and will pick up any gold-tiered gear the player drops to them
 * Added the Piglin Hunter, which spawns in piglin manors
 * Added the Warped Enderman, a hostile enderman variant that spawns in citadels
 
@@ -41,12 +41,12 @@ Finally, Piglin hunters stay in piglin manors in the crimson forests, where they
 * Gilded Netherite is craftable in a smithing table (netherite armor + gold armor)
 
 ### Loot
-* [NONE]
+* [None]
 
 ### World
 * Bastions now generate only in Basalt Deltas
 * Nether Fortresses now generate only in Nether Wastes
-* Wither Forts now generate in Soul Sand Valleys
+* Catacombs now generate in Soul Sand Valleys
 * Piglin Manors now generate in Crimson Forests
 * Citadels now generate in Warped Forests
 * Bastions generate with cobbled blackstone instead of blackstone
@@ -55,8 +55,4 @@ Finally, Piglin hunters stay in piglin manors in the crimson forests, where they
 * [None]
 
 ## Todo
-* Add soul stone clusters to soul sand valleys
-* Give piglin hunters unique purpose
-* Redesign some nether fortress pieces to merge with columns
-* Integration with biome mods (Biomes O'Plenty, O The Biomes You Will Go, etc.)
-* Adjust structure spawn height to account for Amplified Nether
+* [None]
