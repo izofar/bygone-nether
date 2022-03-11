@@ -20,7 +20,7 @@ Finally, Piglin hunters stay in piglin manors in the crimson forests, where they
 ## Changelog
 
 ### Blocks
-* Withered Blackstone + variants and Withered Debris added, which naturally generate in wither forts, and can only be broken by netherite-tiered items
+* Withered Blackstone + variants and Withered Debris added, which naturally generate in catacombs, and can only be broken by netherite-tiered items
 * Soul Stone added, which [TODO] generates in soul sand valleys
 * Blackstone split into stone and cobbled variants, like overworld stone
 
