@@ -1,45 +1,24 @@
  package com.izofar.bygonenether.entity.ai;
 
-import java.util.Optional;
+ import com.google.common.collect.ImmutableList;
+ import com.google.common.collect.ImmutableSet;
+ import com.izofar.bygonenether.entity.PiglinPrisoner;
+ import com.mojang.datafixers.util.Pair;
+ import net.minecraft.core.BlockPos;
+ import net.minecraft.sounds.SoundEvent;
+ import net.minecraft.sounds.SoundEvents;
+ import net.minecraft.util.TimeUtil;
+ import net.minecraft.util.valueproviders.UniformInt;
+ import net.minecraft.world.entity.EntityType;
+ import net.minecraft.world.entity.LivingEntity;
+ import net.minecraft.world.entity.Mob;
+ import net.minecraft.world.entity.ai.Brain;
+ import net.minecraft.world.entity.ai.behavior.*;
+ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+ import net.minecraft.world.entity.ai.sensing.Sensor;
+ import net.minecraft.world.entity.schedule.Activity;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
-import com.izofar.bygonenether.entity.PiglinPrisoner;
-import com.mojang.datafixers.util.Pair;
-
-import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.TimeUtil;
-import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.ai.Brain;
-import net.minecraft.world.entity.ai.behavior.BackUpIfTooClose;
-import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
-import net.minecraft.world.entity.ai.behavior.CopyMemoryWithExpiry;
-import net.minecraft.world.entity.ai.behavior.CrossbowAttack;
-import net.minecraft.world.entity.ai.behavior.DoNothing;
-import net.minecraft.world.entity.ai.behavior.EraseMemoryIf;
-import net.minecraft.world.entity.ai.behavior.InteractWith;
-import net.minecraft.world.entity.ai.behavior.InteractWithDoor;
-import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
-import net.minecraft.world.entity.ai.behavior.MeleeAttack;
-import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
-import net.minecraft.world.entity.ai.behavior.RandomStroll;
-import net.minecraft.world.entity.ai.behavior.RunIf;
-import net.minecraft.world.entity.ai.behavior.RunOne;
-import net.minecraft.world.entity.ai.behavior.SetEntityLookTarget;
-import net.minecraft.world.entity.ai.behavior.SetLookAndInteract;
-import net.minecraft.world.entity.ai.behavior.SetWalkTargetAwayFrom;
-import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromAttackTargetIfTargetOutOfReach;
-import net.minecraft.world.entity.ai.behavior.StartAttacking;
-import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
-import net.minecraft.world.entity.ai.behavior.StopBeingAngryIfTargetDead;
-import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.ai.sensing.Sensor;
-import net.minecraft.world.entity.schedule.Activity;
+ import java.util.Optional;
 
 public class PiglinPrisonerAi {
 
@@ -83,12 +62,12 @@ public class PiglinPrisonerAi {
 	private static void initFightActivity(PiglinPrisoner piglin, Brain<PiglinPrisoner> brain) {
 	      brain.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 10, 
 	    		  ImmutableList.<net.minecraft.world.entity.ai.behavior.Behavior<? super PiglinPrisoner>>of(
-	    				  new StopAttackingIfTargetInvalid<PiglinPrisoner>((target) -> { return !isNearestValidAttackTarget(piglin, target); }),
+						  new StopAttackingIfTargetInvalid<>((target) -> !isNearestValidAttackTarget(piglin, target)),
 	    				  new RunIf<Mob>(PiglinPrisonerAi::hasCrossbow, new BackUpIfTooClose<>(5, 0.75F)), 
 	    				  new SetWalkTargetFromAttackTargetIfTargetOutOfReach(1.0F), 
 	    				  new MeleeAttack(20), 
-	    				  new CrossbowAttack(), 
-	    				  new EraseMemoryIf<PiglinPrisoner>(PiglinPrisonerAi::isNearZombified, MemoryModuleType.ATTACK_TARGET)
+	    				  new CrossbowAttack(),
+						  new EraseMemoryIf<>(PiglinPrisonerAi::isNearZombified, MemoryModuleType.ATTACK_TARGET)
     				  ), 
 	    		  MemoryModuleType.ATTACK_TARGET);
 	   }
@@ -116,9 +95,9 @@ public class PiglinPrisonerAi {
 	
 	public static void updateActivity(PiglinPrisoner piglin) {
 		Brain<PiglinPrisoner> brain = piglin.getBrain();
-		Activity activity = brain.getActiveNonCoreActivity().orElse((Activity)null);
+		Activity activity = brain.getActiveNonCoreActivity().orElse(null);
 		brain.setActiveActivityToFirstValid(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
-		Activity activity1 = brain.getActiveNonCoreActivity().orElse((Activity)null);
+		Activity activity1 = brain.getActiveNonCoreActivity().orElse(null);
 		if (activity != activity1) getSoundForCurrentActivity(piglin).ifPresent(piglin::playSound);
 		piglin.setAggressive(brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET));
 	}
@@ -142,12 +121,12 @@ public class PiglinPrisonerAi {
 	private static boolean hasCrossbow(LivingEntity entity) { return entity.isHolding(is -> is.getItem() instanceof net.minecraft.world.item.CrossbowItem); }
 
 	private static CopyMemoryWithExpiry<PiglinPrisoner, LivingEntity> avoidZombified() {
-		return new CopyMemoryWithExpiry<PiglinPrisoner, LivingEntity>(
-					PiglinPrisonerAi::isNearZombified, 
-					MemoryModuleType.NEAREST_VISIBLE_ZOMBIFIED,
-					MemoryModuleType.AVOID_TARGET, 
-					AVOID_ZOMBIFIED_DURATION
-				);
+		return new CopyMemoryWithExpiry<>(
+				PiglinPrisonerAi::isNearZombified,
+				MemoryModuleType.NEAREST_VISIBLE_ZOMBIFIED,
+				MemoryModuleType.AVOID_TARGET,
+				AVOID_ZOMBIFIED_DURATION
+		);
 	}
 	
 	private static boolean isNearZombified(PiglinPrisoner entity) {
@@ -173,7 +152,7 @@ public class PiglinPrisonerAi {
 	
 	private static boolean isNearAvoidTarget(PiglinPrisoner piglin) {
 		Brain<PiglinPrisoner> brain = piglin.getBrain();
-		return !brain.hasMemoryValue(MemoryModuleType.AVOID_TARGET) ? false : brain.getMemory(MemoryModuleType.AVOID_TARGET).get().closerThan(piglin, 12.0D);
+		return brain.hasMemoryValue(MemoryModuleType.AVOID_TARGET) && brain.getMemory(MemoryModuleType.AVOID_TARGET).get().closerThan(piglin, 12.0D);
 	}
 	
 	private static boolean isNearRepellent(PiglinPrisoner piglin) { return piglin.getBrain().hasMemoryValue(MemoryModuleType.NEAREST_REPELLENT); }

@@ -1,56 +1,11 @@
 {
   "name": "bygonenether:fortress/outside_connector",
-  "fallback": "bygonenether:fortress/terminator",
+  "fallback": "bygonenether:fortress/outside_connector",
   "elements": [
     {
-      "weight": 1,
+      "weight": 3,
       "element": {
-        "location": "bygonenether:fortress/terminator_1",
-        "processors": "bygonenether:fortress/fortress",
-        "projection": "rigid",
-        "element_type": "minecraft:legacy_single_pool_element"
-      }
-    },
-    {
-      "weight": 1,
-      "element": {
-        "location": "bygonenether:fortress/terminator_2",
-        "processors": "bygonenether:fortress/fortress",
-        "projection": "rigid",
-        "element_type": "minecraft:legacy_single_pool_element"
-      }
-    },
-    {
-      "weight": 1,
-      "element": {
-        "location": "bygonenether:fortress/terminator_3",
-        "processors": "bygonenether:fortress/fortress",
-        "projection": "rigid",
-        "element_type": "minecraft:legacy_single_pool_element"
-      }
-    },
-    {
-      "weight": 1,
-      "element": {
-        "location": "bygonenether:fortress/terminator_4",
-        "processors": "bygonenether:fortress/fortress",
-        "projection": "rigid",
-        "element_type": "minecraft:legacy_single_pool_element"
-      }
-    },
-    {
-      "weight": 10,
-      "element": {
-        "location": "bygonenether:fortress/4_way_outside",
-        "processors": "bygonenether:fortress/fortress",
-        "projection": "rigid",
-        "element_type": "minecraft:legacy_single_pool_element"
-      }
-    },
-    {
-      "weight": 14,
-      "element": {
-        "location": "bygonenether:fortress/4_way_outside_large",
+        "location": "bygonenether:fortress/4_way_outside1",
         "processors": "bygonenether:fortress/fortress",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"
@@ -59,7 +14,7 @@
     {
       "weight": 4,
       "element": {
-        "location": "bygonenether:fortress/4_way_inside",
+        "location": "bygonenether:fortress/4_way_outside2",
         "processors": "bygonenether:fortress/fortress",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"

@@ -5,7 +5,7 @@ license="MIT"
 
 [[mods]] #mandatory
 modId="bygonenether" #mandatory
-version="${file.jarVersion}" #mandatory
+version="0.0.5-1.18.1" #mandatory
 displayName="Bygone Nether" #mandatory
 logoFile="bygonenether.png" #optional
 #credits="" #optional

@@ -15,16 +15,16 @@ public abstract class ModStructures {
 	public static final DeferredRegister<StructureFeature<?>> MODDED_STRUCTURES = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, BygoneNetherMod.MODID);
 
 	public static final RegistryObject<StructureFeature<JigsawConfiguration>> NETHER_FORTRESS = MODDED_STRUCTURES.register("fortress", () -> new NetherFortressStructure(JigsawConfiguration.CODEC));
-	public static final RegistryObject<StructureFeature<JigsawConfiguration>> WITHER_FORT = MODDED_STRUCTURES.register("wither_fort", () -> new WitherFortStructure(JigsawConfiguration.CODEC));
+	public static final RegistryObject<StructureFeature<JigsawConfiguration>> CATACOMB = MODDED_STRUCTURES.register("catacomb", () -> new CatacombStructure(JigsawConfiguration.CODEC));
 	public static final RegistryObject<StructureFeature<JigsawConfiguration>> CITADEL = MODDED_STRUCTURES.register("citadel", () -> new CitadelStructure(JigsawConfiguration.CODEC));
 	public static final RegistryObject<StructureFeature<JigsawConfiguration>> PIGLIN_MANOR = MODDED_STRUCTURES.register("piglin_manor", () -> new PiglinManorStructure(JigsawConfiguration.CODEC));
 
 
 	public static void setupStructures() {
-		ModStructureUtils.setupMapSpacingAndLand(NETHER_FORTRESS.get(), new StructureFeatureConfiguration(35, 27, 1206458988), false);
-		ModStructureUtils.setupMapSpacingAndLand(WITHER_FORT.get(), new StructureFeatureConfiguration(35, 27, 1163018812), false);
-		ModStructureUtils.setupMapSpacingAndLand(CITADEL.get(), new StructureFeatureConfiguration(35, 27, 1621815507), true);
-		ModStructureUtils.setupMapSpacingAndLand(PIGLIN_MANOR.get(), new StructureFeatureConfiguration(35, 27, 292421824), true);
+		ModStructureUtils.setupMapSpacingAndLand(NETHER_FORTRESS.get(), new StructureFeatureConfiguration(27, 18, 1206458988), false);
+		ModStructureUtils.setupMapSpacingAndLand(CATACOMB.get(), new StructureFeatureConfiguration(27, 18, 1163018812), false);
+		ModStructureUtils.setupMapSpacingAndLand(CITADEL.get(), new StructureFeatureConfiguration(22, 16, 1621815507), true);
+		ModStructureUtils.setupMapSpacingAndLand(PIGLIN_MANOR.get(), new StructureFeatureConfiguration(22, 16, 292421824), true);
 	}
 	
 	public static void register(IEventBus eventBus) { MODDED_STRUCTURES.register(eventBus); }

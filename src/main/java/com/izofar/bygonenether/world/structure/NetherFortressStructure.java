@@ -31,7 +31,8 @@ public class NetherFortressStructure extends StructureFeature<JigsawConfiguratio
 			new MobSpawnSettings.SpawnerData(EntityType.ZOMBIFIED_PIGLIN, 5, 4, 4),
 			new MobSpawnSettings.SpawnerData(EntityType.WITHER_SKELETON, 8, 5, 5),
 			new MobSpawnSettings.SpawnerData(EntityType.SKELETON, 2, 5, 5),
-			new MobSpawnSettings.SpawnerData(EntityType.MAGMA_CUBE, 3, 4, 4)
+			new MobSpawnSettings.SpawnerData(EntityType.MAGMA_CUBE, 3, 4, 4),
+			new MobSpawnSettings.SpawnerData(EntityType.MAGMA_CUBE, 4, 3, 3)
 		);
 
 	public NetherFortressStructure(Codec<JigsawConfiguration> codec) { super(codec, NetherFortressStructure::checkLocation); }
@@ -51,14 +52,13 @@ public class NetherFortressStructure extends StructureFeature<JigsawConfiguratio
 	private static boolean checkChunk(PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
 		WorldgenRandom worldgenrandom = new WorldgenRandom(new LegacyRandomSource(0L));
 		worldgenrandom.setLargeFeatureSeed(context.seed(), context.chunkPos().x, context.chunkPos().z);
-		return worldgenrandom.nextInt(5) >= 2 ? false : context.validBiome().test(context.chunkGenerator().getNoiseBiome(QuartPos.fromBlock(context.chunkPos().getMiddleBlockX()), QuartPos.fromBlock(64), QuartPos.fromBlock(context.chunkPos().getMiddleBlockZ())));
+		return context.validBiome().test(context.chunkGenerator().getNoiseBiome(QuartPos.fromBlock(context.chunkPos().getMiddleBlockX()), QuartPos.fromBlock(64), QuartPos.fromBlock(context.chunkPos().getMiddleBlockZ())));
 	}
 	
 	public static Optional<PieceGenerator<JigsawConfiguration>> createPiecesGenerator( PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
-		BlockPos blockpos = ModStructureUtils.getElevation(context, 48, 70);
-		JigsawConfiguration newConfig = new JigsawConfiguration(() -> context.registryAccess().ownedRegistryOrThrow(Registry.TEMPLATE_POOL_REGISTRY).get(new ResourceLocation(BygoneNetherMod.MODID, "fortress/start_pool")), 10);
-		Optional<PieceGenerator<JigsawConfiguration>> structurePiecesGenerator = JigsawPlacement.addPieces(ModStructureUtils.duplicateContext(context, newConfig), PoolElementStructurePiece::new, blockpos, false, false);
-		return structurePiecesGenerator;
+		BlockPos blockpos = ModStructureUtils.getElevation(context, 45, ModStructureUtils.getScaledNetherHeight(54));
+		JigsawConfiguration newConfig = new JigsawConfiguration(() -> context.registryAccess().ownedRegistryOrThrow(Registry.TEMPLATE_POOL_REGISTRY).get(new ResourceLocation(BygoneNetherMod.MODID, "fortress/start_pool")), 7);
+		return JigsawPlacement.addPieces(ModStructureUtils.duplicateContext(context, newConfig), PoolElementStructurePiece::new, blockpos, false, false);
 	}
 
 }

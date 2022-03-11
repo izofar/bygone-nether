@@ -16,7 +16,7 @@ import java.util.function.Supplier;
 @SuppressWarnings("deprecation")
 public enum ModArmorMaterial implements ArmorMaterial {
 	
-	GILDED_NETHERITE(BygoneNetherMod.MODID + ":gilded_netherite", 8/*37 /*8*/, new int[]{3, 6, 8, 3}, 20, SoundEvents.ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F, () -> { return Ingredient.of(Items.NETHERITE_INGOT); });
+	GILDED_NETHERITE(BygoneNetherMod.MODID + ":gilded_netherite", 8/*37 /*8*/, new int[]{3, 6, 8, 3}, 20, SoundEvents.ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F, () -> Ingredient.of(Items.NETHERITE_INGOT));
 
 	private static final int[] HEALTH_PER_SLOT = new int[] { 13, 15, 16, 11 };
 	private final String name;
@@ -28,7 +28,7 @@ public enum ModArmorMaterial implements ArmorMaterial {
 	private final float knockbackResistance;
 	private final LazyLoadedValue<Ingredient> repairIngredient;
 
-	private ModArmorMaterial(String name, int durabilityMultiplier, int[] slotProtections, int enchantmentValue, SoundEvent sound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
+	ModArmorMaterial(String name, int durabilityMultiplier, int[] slotProtections, int enchantmentValue, SoundEvent sound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
 		this.name = name;
 		this.durabilityMultiplier = durabilityMultiplier;
 		this.slotProtections = slotProtections;

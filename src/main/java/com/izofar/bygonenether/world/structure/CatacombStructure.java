@@ -22,14 +22,14 @@ import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplie
 import java.util.List;
 import java.util.Optional;
 
-public class WitherFortStructure extends StructureFeature<JigsawConfiguration> {
+public class CatacombStructure extends StructureFeature<JigsawConfiguration> {
 
 	public static final List<SpawnerData> FORTRESS_ENEMIES = List.of(
 			new MobSpawnSettings.SpawnerData(ModEntityTypes.WEX.get(), 1, 1, 1),
 			new MobSpawnSettings.SpawnerData(EntityType.MAGMA_CUBE, 2, 1, 1)
 		);
 	
-	public WitherFortStructure(Codec<JigsawConfiguration> codec) { super(codec, WitherFortStructure::checkLocation); }
+	public CatacombStructure(Codec<JigsawConfiguration> codec) { super(codec, CatacombStructure::checkLocation); }
 	
 	@Override
 	public GenerationStep.Decoration step() { return GenerationStep.Decoration.SURFACE_STRUCTURES; }
@@ -44,10 +44,9 @@ public class WitherFortStructure extends StructureFeature<JigsawConfiguration> {
 	}
 	
 	public static Optional<PieceGenerator<JigsawConfiguration>> createPiecesGenerator(PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
-		BlockPos blockpos = ModStructureUtils.getElevation(context, 56, 84);
-		JigsawConfiguration newConfig = new JigsawConfiguration(() -> context.registryAccess().ownedRegistryOrThrow(Registry.TEMPLATE_POOL_REGISTRY).get(new ResourceLocation(BygoneNetherMod.MODID, "wither_fort/start_pool")), 3);
-		Optional<PieceGenerator<JigsawConfiguration>> structurePiecesGenerator = JigsawPlacement.addPieces(ModStructureUtils.duplicateContext(context, newConfig), PoolElementStructurePiece::new, blockpos, true, false);
-		return structurePiecesGenerator;
+		BlockPos blockpos = ModStructureUtils.getElevation(context, 56, ModStructureUtils.getScaledNetherHeight(84));
+		JigsawConfiguration newConfig = new JigsawConfiguration(() -> context.registryAccess().ownedRegistryOrThrow(Registry.TEMPLATE_POOL_REGISTRY).get(new ResourceLocation(BygoneNetherMod.MODID, "catacomb/start_pool")), 3);
+		return JigsawPlacement.addPieces(ModStructureUtils.duplicateContext(context, newConfig), PoolElementStructurePiece::new, blockpos, true, false);
 	}
 	
 }

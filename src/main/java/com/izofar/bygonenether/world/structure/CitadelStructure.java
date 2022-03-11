@@ -49,13 +49,13 @@ public class CitadelStructure extends StructureFeature<JigsawConfiguration> {
 	private static boolean checkChunk(PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
 		WorldgenRandom worldgenrandom = new WorldgenRandom(new LegacyRandomSource(0L));
 		worldgenrandom.setLargeFeatureSeed(context.seed(), context.chunkPos().x, context.chunkPos().z);
-		return worldgenrandom.nextInt(5) >= 2 ? false : context.validBiome().test(context.chunkGenerator().getNoiseBiome(QuartPos.fromBlock(context.chunkPos().getMiddleBlockX()), QuartPos.fromBlock(64), QuartPos.fromBlock(context.chunkPos().getMiddleBlockZ())));
+		return context.validBiome().test(context.chunkGenerator().getNoiseBiome(QuartPos.fromBlock(context.chunkPos().getMiddleBlockX()), QuartPos.fromBlock(64), QuartPos.fromBlock(context.chunkPos().getMiddleBlockZ())));
 	}
 	
 	public static Optional<PieceGenerator<JigsawConfiguration>> createPiecesGenerator( PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
-		BlockPos blockpos = ModStructureUtils.getElevation(context, 48, 70);
+		BlockPos blockpos = ModStructureUtils.getElevation(context, 48, ModStructureUtils.getScaledNetherHeight(70));
+		BygoneNetherMod.LOGGER.info("/////////////////////////" + context.heightAccessor().getHeight() + "////////////////////////////////////////");
 		JigsawConfiguration newConfig = new JigsawConfiguration(() -> context.registryAccess().ownedRegistryOrThrow(Registry.TEMPLATE_POOL_REGISTRY).get(new ResourceLocation(BygoneNetherMod.MODID, "citadel/start_pool")), 1);
-		Optional<PieceGenerator<JigsawConfiguration>> structurePiecesGenerator = JigsawPlacement.addPieces(ModStructureUtils.duplicateContext(context, newConfig), PoolElementStructurePiece::new, blockpos, false, false);
-		return structurePiecesGenerator;
+		return JigsawPlacement.addPieces(ModStructureUtils.duplicateContext(context, newConfig), PoolElementStructurePiece::new, blockpos, false, false);
 	}
 }

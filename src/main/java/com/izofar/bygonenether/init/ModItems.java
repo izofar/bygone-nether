@@ -18,10 +18,11 @@ public abstract class ModItems {
 	public static final DeferredRegister<Item> MODDED_ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, BygoneNetherMod.MODID);
 	public static final DeferredRegister<Item> VANILLA_ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, "minecraft");
 
-	public static final RegistryObject<Item> PIGLIN_BRUTE_SPAWN_EGG = VANILLA_ITEMS.register("piglin_brute_spawn_egg", () -> new ForgeSpawnEggItem(() -> ModEntityTypes.PIGLIN_BRUTE.get(), 5843472, 16380836, (new Item.Properties()).tab(CreativeModeTab.TAB_MISC)));
-	public static final RegistryObject<Item> PIGLIN_PRISONER_SPAWN_EGG = MODDED_ITEMS.register("piglin_prisoner_spawn_egg", () -> new ForgeSpawnEggItem(() -> ModEntityTypes.PIGLIN_PRISONER.get(), 0xc79e88, 16380836, (new Item.Properties()).tab(CreativeModeTab.TAB_MISC)));
-	public static final RegistryObject<Item> WEX_SPAWN_EGG = MODDED_ITEMS.register("wex_spawn_egg", () -> new ForgeSpawnEggItem(() -> ModEntityTypes.WEX.get(), 0x7198c8, 0x2b4667, (new Item.Properties()).tab(CreativeModeTab.TAB_MISC)));
-	public static final RegistryObject<Item> WARPED_ENDERMAN_SPAWN_EGG = MODDED_ITEMS.register("warped_enderman_spawn_egg", () -> new ForgeSpawnEggItem(() -> ModEntityTypes.WARPED_ENDERMAN.get(), 0x0e8281, 0x0, (new Item.Properties()).tab(CreativeModeTab.TAB_MISC)));
+	public static final RegistryObject<Item> PIGLIN_BRUTE_SPAWN_EGG = VANILLA_ITEMS.register("piglin_brute_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityTypes.PIGLIN_BRUTE, 5843472, 16380836, (new Item.Properties()).tab(CreativeModeTab.TAB_MISC)));
+	public static final RegistryObject<Item> PIGLIN_PRISONER_SPAWN_EGG = MODDED_ITEMS.register("piglin_prisoner_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityTypes.PIGLIN_PRISONER, 0xc79e88, 16380836, (new Item.Properties()).tab(CreativeModeTab.TAB_MISC)));
+	public static final RegistryObject<Item> PIGLIN_HUNTER_SPAWN_EGG = MODDED_ITEMS.register("piglin_hunter_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityTypes.PIGLIN_HUNTER, 0xba6645, 16380836, (new Item.Properties()).tab(CreativeModeTab.TAB_MISC)));
+	public static final RegistryObject<Item> WEX_SPAWN_EGG = MODDED_ITEMS.register("wex_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityTypes.WEX, 0x7198c8, 0x2b4667, (new Item.Properties()).tab(CreativeModeTab.TAB_MISC)));
+	public static final RegistryObject<Item> WARPED_ENDERMAN_SPAWN_EGG = MODDED_ITEMS.register("warped_enderman_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityTypes.WARPED_ENDERMAN, 0x0e8281, 0x0, (new Item.Properties()).tab(CreativeModeTab.TAB_MISC)));
 
 	public static final RegistryObject<Item> GILDED_NETHERITE_HELMET = MODDED_ITEMS.register("gilded_netherite_helmet", () -> new ModArmorItem(ModArmorMaterial.GILDED_NETHERITE, EquipmentSlot.HEAD, (new Item.Properties()).tab(CreativeModeTab.TAB_COMBAT).fireResistant()));
 	public static final RegistryObject<Item> GILDED_NETHERITE_CHESTPLATE = MODDED_ITEMS.register("gilded_netherite_chestplate", () -> new ModArmorItem(ModArmorMaterial.GILDED_NETHERITE, EquipmentSlot.CHEST, (new Item.Properties()).tab(CreativeModeTab.TAB_COMBAT).fireResistant()));

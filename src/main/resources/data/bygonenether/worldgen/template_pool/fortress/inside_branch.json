@@ -39,7 +39,7 @@
       }
     },
     {
-      "weight": 14,
+      "weight": 18,
       "element": {
         "location": "bygonenether:fortress/straight_inside_long",
         "processors": "bygonenether:fortress/fortress",
@@ -48,7 +48,7 @@
       }
     },
     {
-      "weight": 10,
+      "weight": 4,
       "element": {
         "location": "bygonenether:fortress/stairs_inside_plants",
         "processors": "bygonenether:fortress/fortress",
@@ -57,9 +57,18 @@
       }
     },
     {
-      "weight": 4,
+      "weight": 3,
       "element": {
-        "location": "bygonenether:fortress/balcony",
+        "location": "bygonenether:fortress/spawner1",
+        "processors": "bygonenether:fortress/fortress",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "location": "bygonenether:fortress/spawner2",
         "processors": "bygonenether:fortress/fortress",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"

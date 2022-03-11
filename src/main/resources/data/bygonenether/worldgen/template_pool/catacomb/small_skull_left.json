@@ -1,12 +1,12 @@
 {
-  "name": "bygonenether:wither_fort/start_pool",
+  "name": "bygonenether:catacomb/small_skull_left",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
-        "location": "bygonenether:wither_fort/big_skull",
-        "processors": "bygonenether:wither_fort/withered_blackstone",
+        "location": "bygonenether:catacomb/small_skull_left",
+        "processors": "bygonenether:catacomb/withered_blackstone",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"
       }

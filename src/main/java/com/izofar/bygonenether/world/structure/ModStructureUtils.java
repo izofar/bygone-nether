@@ -23,6 +23,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
 import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier;
+import net.minecraftforge.fml.ModList;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +32,7 @@ import java.util.function.Predicate;
 
 public abstract class ModStructureUtils {
 
-	private static Predicate<Block> isAir = (block) -> block == Blocks.AIR || block == Blocks.CAVE_AIR;
+	private static final Predicate<Block> isAir = (block) -> block == Blocks.AIR || block == Blocks.CAVE_AIR;
 	
 	public static boolean isLavaLake(NoiseColumn blockReader) {
 		boolean isLake = true;
@@ -90,7 +91,7 @@ public abstract class ModStructureUtils {
 				context.registryAccess());
 	}
 	
-	public static void addWitheredRestrictions() {
+	public static void addBasaltRestrictions() {
 		   BasaltColumnsFeature.CANNOT_PLACE_ON = ImmutableList.of(
 				   // Default
 				   Blocks.LAVA, 
@@ -103,6 +104,14 @@ public abstract class ModStructureUtils {
 				   Blocks.NETHER_WART, 
 				   Blocks.CHEST, 
 				   Blocks.SPAWNER,
+				   // New Fortresses:
+				   Blocks.NETHER_BRICK_SLAB,
+				   Blocks.CRACKED_NETHER_BRICKS,
+				   Blocks.CHISELED_NETHER_BRICKS,
+				   Blocks.RED_NETHER_BRICKS,
+				   Blocks.RED_NETHER_BRICK_STAIRS,
+				   Blocks.RED_NETHER_BRICK_SLAB,
+				   Blocks.CRIMSON_TRAPDOOR,
 				   // Wither Forts:
 				   ModBlocks.COBBLED_BLACKSTONE.get(),
 				   ModBlocks.WITHERED_BLACKSTONE.get(),
@@ -121,6 +130,14 @@ public abstract class ModStructureUtils {
 				   Blocks.NETHER_WART, 
 				   Blocks.CHEST, 
 				   Blocks.SPAWNER,
+				   // New Fortresses:
+				   Blocks.NETHER_BRICK_SLAB,
+				   Blocks.CRACKED_NETHER_BRICKS,
+				   Blocks.CHISELED_NETHER_BRICKS,
+				   Blocks.RED_NETHER_BRICKS,
+				   Blocks.RED_NETHER_BRICK_STAIRS,
+				   Blocks.RED_NETHER_BRICK_SLAB,
+				   Blocks.CRIMSON_TRAPDOOR,
 				   // Wither Forts:
 				   ModBlocks.COBBLED_BLACKSTONE.get(),
 				   ModBlocks.WITHERED_BLACKSTONE.get(),
@@ -179,9 +196,7 @@ public abstract class ModStructureUtils {
 				if (!context.chunkGenerator().getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor()).getBlock(height).getFluidState().isEmpty()) return false;
 			}
 		}
-		if(maxterrainheight - minterrainheight > max_terrain_height)
-			return false;
-		return true;
+		return maxterrainheight - minterrainheight <= max_terrain_height;
 	}
 
 	public static <F extends StructureFeature<?>> void setupMapSpacingAndLand(F structure, StructureFeatureConfiguration config, boolean transformLand) {
@@ -201,6 +216,10 @@ public abstract class ModStructureUtils {
 			} else
 				structureMap.put(structure, config);
 		});
+	}
+
+	public static int getScaledNetherHeight(int vanillaHeight){
+		return (int) (vanillaHeight / 128.0F * (ModList.get().isLoaded("amplifiednether") ? 256.0F : 128.0F));
 	}
 	
 }

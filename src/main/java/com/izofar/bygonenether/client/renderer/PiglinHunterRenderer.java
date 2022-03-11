@@ -34,5 +34,5 @@ public class PiglinHunterRenderer extends HumanoidMobRenderer<PiglinHunter, Pigl
         return PIGLIN_HUNTER_LOCATION;
     }
 
-    protected boolean isShaking(PiglinHunter hunter) { return super.isShaking(hunter) || hunter instanceof AbstractPiglin && ((AbstractPiglin) hunter).isConverting(); }
+    protected boolean isShaking(PiglinHunter hunter) { return super.isShaking(hunter) || hunter instanceof AbstractPiglin && hunter.isConverting(); }
 }

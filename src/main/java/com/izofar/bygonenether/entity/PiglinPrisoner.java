@@ -82,7 +82,7 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 	public static AttributeSupplier.Builder createAttributes() { 
 		return Monster.createMonsterAttributes()
 				.add(Attributes.MAX_HEALTH, 24.0D)
-				.add(Attributes.MOVEMENT_SPEED, (double) 0.35F)
+				.add(Attributes.MOVEMENT_SPEED, 0.35F)
 				.add(Attributes.ATTACK_DAMAGE, 6.0D); 
 		}
 	

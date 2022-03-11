@@ -16,6 +16,7 @@
 	"item.bygonenether.warped_nether_brick_slab": "Warped Nether Brick Slab",
 	
 	"item.bygonenether.piglin_prisoner_spawn_egg": "Piglin Prisoner Spawn Egg",
+	"item.bygonenether.piglin_hunter_spawn_egg": "Piglin Hunter Spawn Egg",
 	"item.bygonenether.wex_spawn_egg": "Wex Spawn Egg",
 	"item.bygonenether.warped_enderman_spawn_egg": "Warped Enderman Spawn Egg",
 
@@ -31,6 +32,7 @@
 	"block.bygonenether.warped_nether_brick_slab": "Warped Nether Brick Slab",
 
 	"entity.bygonenether.piglin_prisoner": "Piglin Prisoner",
+	"entity.bygonenether.piglin_hunter": "Piglin Hunter",
 	"entity.bygonenether.wex": "Wex",
 	"entity.bygonenether.warped_enderman": "Warped Enderman"
 }

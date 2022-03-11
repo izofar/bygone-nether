@@ -1,6 +1,6 @@
 {
-  "name": "bygonenether:wither_fort/piglin_prisoner",
-  "fallback": "bygonenether:wither_fort/piglin_prisoner",
+  "name": "bygonenether:catacomb/piglin_prisoner",
+  "fallback": "bygonenether:catacomb/piglin_prisoner",
   "elements": [
     {
       "weight": 1,

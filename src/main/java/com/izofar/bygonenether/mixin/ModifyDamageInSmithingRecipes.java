@@ -22,7 +22,7 @@ public class ModifyDamageInSmithingRecipes {
 		ItemStack itemstack = cir.getReturnValue();
 		if(!(itemstack.getItem() instanceof ModArmorItem)) return;
 		int damage = itemstack.getDamageValue();
-		itemstack.getTag().put("NetheriteDamage", IntTag.valueOf(damage));
+		itemstack.getOrCreateTag().put("NetheriteDamage", IntTag.valueOf(damage));
 		itemstack.setDamageValue(0);
 	}
 	

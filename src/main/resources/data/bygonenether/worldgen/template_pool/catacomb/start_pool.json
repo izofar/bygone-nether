@@ -1,12 +1,12 @@
 {
-  "name": "bygonenether:wither_fort/arm",
+  "name": "bygonenether:catacomb/start_pool",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
-        "location": "bygonenether:wither_fort/arm",
-        "processors": "bygonenether:wither_fort/withered_blackstone",
+        "location": "bygonenether:catacomb/big_skull",
+        "processors": "bygonenether:catacomb/withered_blackstone",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"
       }

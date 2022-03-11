@@ -1,13 +1,10 @@
 package com.izofar.bygonenether.entity;
 
-import javax.annotation.Nullable;
-
 import com.google.common.collect.ImmutableList;
 import com.izofar.bygonenether.entity.ai.PiglinBruteAi;
 import com.izofar.bygonenether.init.ModMemoryModuleTypes;
 import com.izofar.bygonenether.init.ModSensorTypes;
 import com.mojang.serialization.Dynamic;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -15,11 +12,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -34,6 +27,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+
+import javax.annotation.Nullable;
 
 public class ModPiglinBrute extends AbstractPiglin {
 	
@@ -69,7 +64,7 @@ public class ModPiglinBrute extends AbstractPiglin {
 	public static AttributeSupplier.Builder createAttributes() { 
 		return Monster.createMonsterAttributes()
 				.add(Attributes.MAX_HEALTH, 50.0D)
-				.add(Attributes.MOVEMENT_SPEED, (double) 0.35F)
+				.add(Attributes.MOVEMENT_SPEED, 0.35F)
 				.add(Attributes.ATTACK_DAMAGE, 7.0D); 
 		}
 
@@ -91,7 +86,7 @@ public class ModPiglinBrute extends AbstractPiglin {
 
 	public boolean canHunt() { return false; }
 
-	public boolean wantsToPickUp(ItemStack itemstack) { return itemstack.is(Items.GOLDEN_AXE) ? super.wantsToPickUp(itemstack) : false; }
+	public boolean wantsToPickUp(ItemStack itemstack) { return itemstack.is(Items.GOLDEN_AXE) && super.wantsToPickUp(itemstack); }
 
 	protected void customServerAiStep() {
 		this.level.getProfiler().push("piglinBruteBrain");

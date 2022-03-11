@@ -8,7 +8,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 
 public abstract class ModProcessors {
 
-    public static StructureProcessorType<DataBlockProcessor> DATA_BLOCK_PROCESSOR = () -> DataBlockProcessor.CODEC;
+    public static final StructureProcessorType<DataBlockProcessor> DATA_BLOCK_PROCESSOR = () -> DataBlockProcessor.CODEC;
 
     public static void registerProcessors(){
         Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(BygoneNetherMod.MODID, "data_block_processor"), DATA_BLOCK_PROCESSOR);

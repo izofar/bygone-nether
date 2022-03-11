@@ -99,9 +99,9 @@ public class PiglinBruteAi {
 
 	public static void updateActivity(ModPiglinBrute piglin) {
 		Brain<ModPiglinBrute> brain = piglin.getBrain();
-		Activity activity = brain.getActiveNonCoreActivity().orElse((Activity) null);
+		Activity activity = brain.getActiveNonCoreActivity().orElse(null);
 		brain.setActiveActivityToFirstValid(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
-		Activity activity1 = brain.getActiveNonCoreActivity().orElse((Activity) null);
+		Activity activity1 = brain.getActiveNonCoreActivity().orElse(null);
 		if (activity != activity1) playActivitySound(piglin);
 		piglin.setAggressive(brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET));
 	}

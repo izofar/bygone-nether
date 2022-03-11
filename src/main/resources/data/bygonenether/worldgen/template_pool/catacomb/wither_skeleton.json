@@ -1,6 +1,6 @@
 {
-  "name": "bygonenether:wither_fort/wither_skeleton",
-  "fallback": "bygonenether:wither_fort/wither_skeleton",
+  "name": "bygonenether:catacomb/wither_skeleton",
+  "fallback": "bygonenether:catacomb/wither_skeleton",
   "elements": [
     {
       "weight": 1,
