@@ -57,6 +57,6 @@ Finally, Piglin hunters stay in piglin manors in the crimson forests, where they
 ## Todo
 * Add soul stone clusters to soul sand valleys
 * Give piglin hunters unique purpose
-* Adjust piglin manor spawn list and loot
-* Refine piglin manor spawn
-* Adjust nether fortress pieces and pools
+* Redesign some nether fortress pieces to merge with columns
+* Integration with biome mods (Biomes O'Plenty, O The Biomes You Will Go, etc.)
+* Adjust structure spawn height to account for Amplified Nether
