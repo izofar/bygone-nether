@@ -2,51 +2,89 @@ package com.izofar.bygonenether.world.structure;
 
 import com.izofar.bygonenether.BygoneNetherMod;
 import com.izofar.bygonenether.init.ModEntityTypes;
-import com.mojang.serialization.Codec;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.level.NoiseColumn;
-import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
-import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
-import net.minecraft.world.level.levelgen.feature.structures.JigsawPlacement;
-import net.minecraft.world.level.levelgen.structure.PoolElementStructurePiece;
-import net.minecraft.world.level.levelgen.structure.pieces.PieceGenerator;
-import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier;
-import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier.Context;
+import com.izofar.bygonenether.world.structure.util.ModStructureUtils;
+import net.minecraft.entity.EntityType;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SharedSeedRandom;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.MutableBoundingBox;
+import net.minecraft.util.math.vector.Vector3i;
+import net.minecraft.util.registry.DynamicRegistries;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.world.biome.provider.BiomeProvider;
+import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.feature.jigsaw.JigsawManager;
+import net.minecraft.world.gen.feature.structure.*;
+import net.minecraft.world.gen.feature.template.TemplateManager;
 
 import java.util.List;
-import java.util.Optional;
 
-public class CatacombStructure extends StructureFeature<JigsawConfiguration> {
+public class CatacombStructure extends Structure<NoFeatureConfig> {
 
-	public static final List<SpawnerData> FORTRESS_ENEMIES = List.of(
-			new MobSpawnSettings.SpawnerData(ModEntityTypes.WEX.get(), 1, 1, 1),
-			new MobSpawnSettings.SpawnerData(EntityType.MAGMA_CUBE, 2, 1, 1)
+	public static final List<MobSpawnInfo.Spawners> CATACOMB_ENEMIES = List.of(
+			new MobSpawnInfo.Spawners(ModEntityTypes.WEX.get(), 1, 1, 1),
+			new MobSpawnInfo.Spawners(EntityType.MAGMA_CUBE, 2, 1, 1)
 		);
-	
-	public CatacombStructure(Codec<JigsawConfiguration> codec) { super(codec, CatacombStructure::checkLocation); }
-	
+
+	private static final String CATACOMB_START_POOL = "catacomb/start_pool";
+
+	public CatacombStructure() { super(NoFeatureConfig.CODEC); }
+
 	@Override
-	public GenerationStep.Decoration step() { return GenerationStep.Decoration.SURFACE_STRUCTURES; }
-	
-	private static Optional<PieceGenerator<JigsawConfiguration>> checkLocation(Context<JigsawConfiguration> context) {
-		BlockPos blockpos  = context.chunkPos().getMiddleBlockPosition(0);
-		NoiseColumn blockReader = context.chunkGenerator().getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor());
-		if (ModStructureUtils.isBuried(blockReader, 48, 72) || ModStructureUtils.isLavaLake(blockReader))
-			return Optional.empty();
-		else
-			return createPiecesGenerator(context);
+	public  IStartFactory<NoFeatureConfig> getStartFactory() { return CatacombStructure.Start::new; }
+
+	@Override
+	public GenerationStage.Decoration step() { return GenerationStage.Decoration.SURFACE_STRUCTURES; }
+
+	@Override
+	public List<MobSpawnInfo.Spawners> getDefaultSpawnList() { return CATACOMB_ENEMIES; }
+
+	@Override
+	protected boolean isFeatureChunk(ChunkGenerator chunkGenerator, BiomeProvider biomeSource, long seed, SharedSeedRandom chunkRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, NoFeatureConfig featureConfig){
+		int x = chunkX * 16, z = chunkZ * 16;
+		BlockPos centerOfChunk = new BlockPos(x, 0, z);
+		return !ModStructureUtils.isBuried(chunkGenerator, x, z, 48, ModStructureUtils.getScaledNetherHeight(72)) && !ModStructureUtils.isLavaLake(chunkGenerator, x, z);
 	}
-	
-	public static Optional<PieceGenerator<JigsawConfiguration>> createPiecesGenerator(PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
-		BlockPos blockpos = ModStructureUtils.getElevation(context, 56, ModStructureUtils.getScaledNetherHeight(84));
-		JigsawConfiguration newConfig = new JigsawConfiguration(() -> context.registryAccess().ownedRegistryOrThrow(Registry.TEMPLATE_POOL_REGISTRY).get(new ResourceLocation(BygoneNetherMod.MODID, "catacomb/start_pool")), 3);
-		return JigsawPlacement.addPieces(ModStructureUtils.duplicateContext(context, newConfig), PoolElementStructurePiece::new, blockpos, true, false);
+
+	public static class Start extends StructureStart<NoFeatureConfig> {
+
+		public Start(Structure<NoFeatureConfig> structureIn, int chunkX, int chunkZ, MutableBoundingBox mutableBoundingBox, int referenceIn, long seedIn) {
+			super(structureIn, chunkX, chunkZ, mutableBoundingBox, referenceIn, seedIn);
+		}
+
+		@Override
+		public void generatePieces(DynamicRegistries dynamicRegistryManager, ChunkGenerator chunkGenerator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, NoFeatureConfig config){
+			int x = chunkX * 16, z = chunkZ * 16;
+			BlockPos centerPos = ModStructureUtils.getElevation(chunkGenerator, x, z, 56, ModStructureUtils.getScaledNetherHeight(84));
+
+
+			JigsawManager.addPieces(
+					dynamicRegistryManager,
+					new VillageConfig(() -> dynamicRegistryManager.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY)
+							.get(new ResourceLocation(BygoneNetherMod.MODID, CATACOMB_START_POOL)),
+							3),
+					AbstractVillagePiece::new,
+					chunkGenerator,
+					templateManagerIn,
+					centerPos,
+					this.pieces,
+					this.random,
+					false,
+					false);
+
+			Vector3i structureCenter = this.pieces.get(0).getBoundingBox().getCenter();
+			int xOffset = centerPos.getX() - structureCenter.getX();
+			int zOffset = centerPos.getZ() - structureCenter.getZ();
+			for(StructurePiece structurePiece : this.pieces){
+				structurePiece.move(xOffset, 0, zOffset);
+			}
+
+			this.calculateBoundingBox();
+		}
 	}
-	
 }

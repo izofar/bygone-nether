@@ -1,64 +1,88 @@
 package com.izofar.bygonenether.world.structure;
 
 import com.izofar.bygonenether.BygoneNetherMod;
-import com.mojang.serialization.Codec;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.QuartPos;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.level.NoiseColumn;
-import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
-import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.LegacyRandomSource;
-import net.minecraft.world.level.levelgen.WorldgenRandom;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
-import net.minecraft.world.level.levelgen.feature.structures.JigsawPlacement;
-import net.minecraft.world.level.levelgen.structure.PoolElementStructurePiece;
-import net.minecraft.world.level.levelgen.structure.pieces.PieceGenerator;
-import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier;
-import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier.Context;
+import com.izofar.bygonenether.world.structure.util.ModStructureUtils;
+import net.minecraft.entity.EntityType;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SharedSeedRandom;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.MutableBoundingBox;
+import net.minecraft.util.math.vector.Vector3i;
+import net.minecraft.util.registry.DynamicRegistries;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.world.biome.provider.BiomeProvider;
+import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.feature.jigsaw.JigsawManager;
+import net.minecraft.world.gen.feature.structure.*;
+import net.minecraft.world.gen.feature.template.TemplateManager;
 
 import java.util.List;
-import java.util.Optional;
 
-public class NetherFortressStructure extends StructureFeature<JigsawConfiguration> {
+public class NetherFortressStructure extends Structure<NoFeatureConfig> {
 
-	public static final List<SpawnerData> FORTRESS_ENEMIES = List.of(
-			new MobSpawnSettings.SpawnerData(EntityType.BLAZE, 10, 2, 3),
-			new MobSpawnSettings.SpawnerData(EntityType.ZOMBIFIED_PIGLIN, 5, 4, 4),
-			new MobSpawnSettings.SpawnerData(EntityType.WITHER_SKELETON, 8, 5, 5),
-			new MobSpawnSettings.SpawnerData(EntityType.SKELETON, 2, 5, 5),
-			new MobSpawnSettings.SpawnerData(EntityType.MAGMA_CUBE, 3, 4, 4),
-			new MobSpawnSettings.SpawnerData(EntityType.MAGMA_CUBE, 4, 3, 3)
+	public static final List<MobSpawnInfo.Spawners> FORTRESS_ENEMIES = List.of(
+			new MobSpawnInfo.Spawners(EntityType.BLAZE, 10, 2, 3),
+			new MobSpawnInfo.Spawners(EntityType.ZOMBIFIED_PIGLIN, 5, 4, 4),
+			new MobSpawnInfo.Spawners(EntityType.WITHER_SKELETON, 8, 5, 5),
+			new MobSpawnInfo.Spawners(EntityType.SKELETON, 2, 5, 5),
+			new MobSpawnInfo.Spawners(EntityType.MAGMA_CUBE, 3, 4, 4),
+			new MobSpawnInfo.Spawners(EntityType.MAGMA_CUBE, 4, 3, 3)
 		);
+	private static final String FORTRESS_START_POOL = "fortress/start_pool";
 
-	public NetherFortressStructure(Codec<JigsawConfiguration> codec) { super(codec, NetherFortressStructure::checkLocation); }
+	public NetherFortressStructure() { super(NoFeatureConfig.CODEC); }
 
 	@Override
-	public GenerationStep.Decoration step() { return GenerationStep.Decoration.SURFACE_STRUCTURES; }
-	
-	private static Optional<PieceGenerator<JigsawConfiguration>> checkLocation(Context<JigsawConfiguration> context) {
-		BlockPos blockpos  = context.chunkPos().getMiddleBlockPosition(0);
-		NoiseColumn blockReader = context.chunkGenerator().getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor());
-		if (!(checkChunk(context) && ModStructureUtils.isLavaLake(blockReader)))
-			return Optional.empty();
-		else
-			return NetherFortressStructure.createPiecesGenerator(context);
+	public  IStartFactory<NoFeatureConfig> getStartFactory() { return NetherFortressStructure.Start::new; }
+
+	@Override
+	public GenerationStage.Decoration step() { return GenerationStage.Decoration.SURFACE_STRUCTURES; }
+
+	@Override
+	public List<MobSpawnInfo.Spawners> getDefaultSpawnList() { return FORTRESS_ENEMIES; }
+
+	@Override
+	protected boolean isFeatureChunk(ChunkGenerator chunkGenerator, BiomeProvider biomeSource, long seed, SharedSeedRandom chunkRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, NoFeatureConfig featureConfig) {
+		return ModStructureUtils.isLavaLake(chunkGenerator, chunkX * 16, chunkZ * 16);
 	}
 
-	private static boolean checkChunk(PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
-		WorldgenRandom worldgenrandom = new WorldgenRandom(new LegacyRandomSource(0L));
-		worldgenrandom.setLargeFeatureSeed(context.seed(), context.chunkPos().x, context.chunkPos().z);
-		return context.validBiome().test(context.chunkGenerator().getNoiseBiome(QuartPos.fromBlock(context.chunkPos().getMiddleBlockX()), QuartPos.fromBlock(64), QuartPos.fromBlock(context.chunkPos().getMiddleBlockZ())));
-	}
-	
-	public static Optional<PieceGenerator<JigsawConfiguration>> createPiecesGenerator( PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
-		BlockPos blockpos = ModStructureUtils.getElevation(context, 45, ModStructureUtils.getScaledNetherHeight(54));
-		JigsawConfiguration newConfig = new JigsawConfiguration(() -> context.registryAccess().ownedRegistryOrThrow(Registry.TEMPLATE_POOL_REGISTRY).get(new ResourceLocation(BygoneNetherMod.MODID, "fortress/start_pool")), 7);
-		return JigsawPlacement.addPieces(ModStructureUtils.duplicateContext(context, newConfig), PoolElementStructurePiece::new, blockpos, false, false);
+	public static class Start extends StructureStart<NoFeatureConfig>{
+
+		public Start(Structure<NoFeatureConfig> structureIn, int chunkX, int chunkZ, MutableBoundingBox mutableBoundingBox, int referenceIn, long seedIn) {
+			super(structureIn, chunkX, chunkZ, mutableBoundingBox, referenceIn, seedIn);
+		}
+
+		@Override
+		public void generatePieces(DynamicRegistries dynamicRegistryManager, ChunkGenerator chunkGenerator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, NoFeatureConfig config){
+			BlockPos centerPos = ModStructureUtils.getElevation(chunkGenerator, chunkX * 16, chunkZ * 16, 45, ModStructureUtils.getScaledNetherHeight(54));
+			JigsawManager.addPieces(
+					dynamicRegistryManager,
+					new VillageConfig(() -> dynamicRegistryManager.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY)
+							.get(new ResourceLocation(BygoneNetherMod.MODID, FORTRESS_START_POOL)),
+							10),
+					AbstractVillagePiece::new,
+					chunkGenerator,
+					templateManagerIn,
+					centerPos,
+					this.pieces,
+					this.random,
+					false,
+					false);
+
+			Vector3i structureCenter = this.pieces.get(0).getBoundingBox().getCenter();
+			int xOffset = centerPos.getX() - structureCenter.getX();
+			int zOffset = centerPos.getZ() - structureCenter.getZ();
+			for(StructurePiece structurePiece : this.pieces){
+				structurePiece.move(xOffset, 0, zOffset);
+			}
+
+			this.calculateBoundingBox();
+		}
 	}
 
 }

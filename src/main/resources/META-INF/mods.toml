@@ -1,11 +1,11 @@
 
 modLoader="javafml" #mandatory
-loaderVersion="[38,)" #mandatory
+loaderVersion="[36,)" #mandatory
 license="MIT"
 
 [[mods]] #mandatory
 modId="bygonenether" #mandatory
-version="0.0.5-1.18.1" #mandatory
+version="0.0.5-1.16.5" #mandatory
 displayName="Bygone Nether" #mandatory
 logoFile="bygonenether.png" #optional
 #credits="" #optional
@@ -15,16 +15,9 @@ description='''
 To advance the ancient history of the nether dimension.
 '''
 
-[[dependencies.survivalprime]] #optional
-    modId="forge" #mandatory
-    mandatory=true #mandatory
-    versionRange="[39,)" #mandatory
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies.survivalprime]]
+[[dependencies.bygonenether]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.18.1,1.19)"
+    versionRange="[1.16.5,1.17.0)"
     ordering="NONE"
     side="BOTH"

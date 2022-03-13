@@ -1,32 +1,35 @@
 package com.izofar.bygonenether.mixin;
 
 import com.izofar.bygonenether.util.ModLists;
-import net.minecraft.core.SectionPos;
-import net.minecraft.world.level.levelgen.feature.DeltaFeature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.DeltaFeatureConfiguration;
-import net.minecraft.world.level.levelgen.structure.StructureStart;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.SectionPos;
+import net.minecraft.world.ISeedReader;
+import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.feature.BasaltDeltasFeature;
+import net.minecraft.world.gen.feature.structure.BasaltDeltasStructure;
+import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraft.world.gen.feature.structure.StructureStart;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
-@Mixin(DeltaFeature.class)
+@Mixin(BasaltDeltasStructure.class)
 public class NoDeltasInStructuresMixin {
 
     @Inject(
-            method = "place(Lnet/minecraft/world/level/levelgen/feature/FeaturePlaceContext;)Z",
+            method = "place(Lnet/minecraft/world/ISeedReader;Lnet/minecraft/world/gen/ChunkGenerator;Ljava/util/Random;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/world/gen/feature/BasaltDeltasFeature;)Z",
             at = @At(value = "HEAD"),
             cancellable = true
 		)
-    private void bygonenether_noDeltasInStructures(FeaturePlaceContext<DeltaFeatureConfiguration> context, CallbackInfoReturnable<Boolean> cir) {
-        SectionPos sectionPos = SectionPos.of(context.origin());
-        for (StructureFeature<?> structure : ModLists.DELTALESS_STRUCTURES) {
-            List<? extends StructureStart<?>> structureStarts = context.level().startsForFeature(sectionPos, structure);
-            if (!structureStarts.isEmpty() && structureStarts.stream().anyMatch(structureStart -> structureStart.getPieces().stream().anyMatch(box -> box.getBoundingBox().isInside(context.origin()))))
+    private void bygonenether_noDeltasInStructures(ISeedReader serverWorldAccess, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, BasaltDeltasFeature config, CallbackInfoReturnable<Boolean> cir) {
+        SectionPos sectionPos = SectionPos.of(blockPos);
+        for (Structure<?> structure : ModLists.DELTALESS_STRUCTURES) {
+            Optional<? extends StructureStart<?>> structureStart = serverWorldAccess.startsForFeature(sectionPos, structure).findAny();
+            if (structureStart.isPresent() && structureStart.get().getPieces().stream().anyMatch(box -> box.getBoundingBox().isInside(blockPos)))
             {
                 cir.setReturnValue(false);
                 break;

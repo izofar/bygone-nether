@@ -1,20 +1,20 @@
 package com.izofar.bygonenether.item;
 
 import com.izofar.bygonenether.BygoneNetherMod;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.LazyLoadedValue;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.IArmorMaterial;
+import net.minecraft.item.Items;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.LazyValue;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.function.Supplier;
 
 @SuppressWarnings("deprecation")
-public enum ModArmorMaterial implements ArmorMaterial {
+public enum ModArmorMaterial implements IArmorMaterial {
 	
 	GILDED_NETHERITE(BygoneNetherMod.MODID + ":gilded_netherite", 8/*37 /*8*/, new int[]{3, 6, 8, 3}, 20, SoundEvents.ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F, () -> Ingredient.of(Items.NETHERITE_INGOT));
 
@@ -26,7 +26,7 @@ public enum ModArmorMaterial implements ArmorMaterial {
 	private final SoundEvent sound;
 	private final float toughness;
 	private final float knockbackResistance;
-	private final LazyLoadedValue<Ingredient> repairIngredient;
+	private final LazyValue<Ingredient> repairIngredient;
 
 	ModArmorMaterial(String name, int durabilityMultiplier, int[] slotProtections, int enchantmentValue, SoundEvent sound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
 		this.name = name;
@@ -36,14 +36,14 @@ public enum ModArmorMaterial implements ArmorMaterial {
 		this.sound = sound;
 		this.toughness = toughness;
 		this.knockbackResistance = knockbackResistance;
-		this.repairIngredient = new LazyLoadedValue<>(repairIngredient);
+		this.repairIngredient = new LazyValue<>(repairIngredient);
 	}
 
-	public int getDurabilityForSlot(EquipmentSlot slot) { return HEALTH_PER_SLOT[slot.getIndex()] * this.durabilityMultiplier; }
+	public int getDurabilityForSlot(EquipmentSlotType slot) { return HEALTH_PER_SLOT[slot.getIndex()] * this.durabilityMultiplier; }
 	
 	public int getDurabilityMultiplier() { return this.durabilityMultiplier; }
 
-	public int getDefenseForSlot(EquipmentSlot slot) { return this.slotProtections[slot.getIndex()]; }
+	public int getDefenseForSlot(EquipmentSlotType slot) { return this.slotProtections[slot.getIndex()]; }
 
 	public int getEnchantmentValue() { return this.enchantmentValue; }
 

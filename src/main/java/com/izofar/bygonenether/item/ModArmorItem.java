@@ -1,22 +1,22 @@
 package com.izofar.bygonenether.item;
 
 import com.izofar.bygonenether.init.ModItems;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.*;
+import net.minecraft.nbt.ListNBT;
 
 import java.util.function.Consumer;
 
 public class ModArmorItem extends ArmorItem {
 
-	public ModArmorItem(ArmorMaterial material, EquipmentSlot slot, Properties properties) { super(material, slot, properties); }
+	public ModArmorItem(IArmorMaterial material, EquipmentSlotType slot, Properties properties) { super(material, slot, properties); }
 	
 	@Override
 	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
-		if (!entity.level.isClientSide && entity instanceof ServerPlayer player && !player.getAbilities().instabuild) {
+		if (!entity.level.isClientSide && entity instanceof ServerPlayerEntity player && !player.abilities.instabuild) {
 			if (stack.hurt(amount, player.getRandom(), player)) {
 				onBroken.accept(entity);
 				replaceArmor(stack, player);
@@ -25,8 +25,8 @@ public class ModArmorItem extends ArmorItem {
 		return 0;
 	}
 	
-	private void replaceArmor(ItemStack stack, Player player) {
-		ListTag list = stack.getEnchantmentTags();
+	private void replaceArmor(ItemStack stack, PlayerEntity player) {
+		ListNBT list = stack.getEnchantmentTags();
 		Item item;
 		int slot;
 		stack.shrink(1);
@@ -47,7 +47,7 @@ public class ModArmorItem extends ArmorItem {
 		ItemStack newStack = new ItemStack(item, 1);
 		newStack.addTagElement("Enchantments", list);
 		newStack.setDamageValue(stack.getTag().getInt("NetheriteDamage"));
-		player.getInventory().armor.set(slot, newStack);
+		player.inventory.armor.set(slot, newStack);
 	}
 
 	@Override

@@ -1,23 +1,25 @@
 package com.izofar.bygonenether.world.processors;
 
 import com.izofar.bygonenether.init.ModProcessors;
-import com.izofar.bygonenether.world.structure.ModStructureUtils;
+import com.izofar.bygonenether.world.structure.util.ModStructureUtils;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
-import net.minecraft.commands.arguments.blocks.BlockStateParser;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.command.arguments.BlockStateParser;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorldReader;
+import net.minecraft.world.gen.feature.template.IStructureProcessorType;
+import net.minecraft.world.gen.feature.template.PlacementSettings;
+import net.minecraft.world.gen.feature.template.StructureProcessor;
+import net.minecraft.world.gen.feature.template.Template;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.util.Locale;
+
+import static java.lang.Integer.parseInt;
 
 public class DataBlockProcessor extends StructureProcessor {
 
@@ -33,8 +35,9 @@ public class DataBlockProcessor extends StructureProcessor {
     public static final Codec<DataBlockProcessor> CODEC = Codec.unit(DataBlockProcessor::new);
     private DataBlockProcessor() { }
 
+
     @Override
-    public StructureTemplate.StructureBlockInfo processBlock(LevelReader worldView, BlockPos pos, BlockPos blockPos, StructureTemplate.StructureBlockInfo structureBlockInfoLocal, StructureTemplate.StructureBlockInfo structureBlockInfoWorld, StructurePlaceSettings structurePlacementData) {
+    public Template.BlockInfo processBlock(IWorldReader worldView, BlockPos pos, BlockPos blockPos, Template.BlockInfo structureBlockInfoLocal, Template.BlockInfo structureBlockInfoWorld, PlacementSettings structurePlacementData) {
         BlockState blockState = structureBlockInfoWorld.state;
         if (blockState.is(Blocks.STRUCTURE_BLOCK)) {
             String metadata = structureBlockInfoWorld.nbt.getString("metadata");
@@ -42,31 +45,31 @@ public class DataBlockProcessor extends StructureProcessor {
 
             try {
                 // Pillar mode activated
-                if(metadata.contains(DATA_PROCESSOR_MODE.PILLARS.symbol)) {
+                if(metadata.contains(DATA_PROCESSOR_MODE.PILLARS.symbol)){
                     String[] splitString = metadata.split(DATA_PROCESSOR_MODE.PILLARS.symbol);
 
-                    // Parses the data block's field to get direction, blockstate, and depth
+                    // Parses the data block's name field to get direction, blockstate, and depth
                     Direction direction = Direction.valueOf(splitString[0].toUpperCase(Locale.ROOT));
                     BlockStateParser blockArgumentParser = new BlockStateParser(new StringReader(splitString[1]), false);
                     blockArgumentParser.parse(true);
                     BlockState replacementState = blockArgumentParser.getState();
                     BlockState currentBlock = worldView.getBlockState(worldPos);
-                    BlockPos.MutableBlockPos currentPos = new BlockPos.MutableBlockPos().set(worldPos);
+                    BlockPos.Mutable currentPos = new BlockPos.Mutable().set(worldPos);
 
-                    int depth = Integer.MAX_VALUE;
-                    if(splitString.length > 2) {
+                    int depth = 256;
+                    if(splitString.length > 2){
                         String thirdArgument = splitString[2];
-                        if(NumberUtils.isParsable(thirdArgument)) {
-                            depth = Integer.parseInt(thirdArgument) + 1;
+                        if(NumberUtils.isParsable(thirdArgument)){
+                            depth = parseInt(thirdArgument) + 1;
                         }
                     }
 
                     int terrainY = Integer.MIN_VALUE;
                     if(direction == Direction.DOWN && depth == Integer.MAX_VALUE) {
                         terrainY = ModStructureUtils.getFirstLandYFromPos(worldView, worldPos);
-                        if(terrainY <= worldView.getMinBuildHeight()) {
+                        if(terrainY <= 0) {
                             // Replaces the data block itself
-                            return replacementState == null || replacementState.is(Blocks.STRUCTURE_VOID) ? null : new StructureTemplate.StructureBlockInfo(worldPos, replacementState, null);
+                            return replacementState == null || replacementState.is(Blocks.STRUCTURE_VOID) ? null : new Template.BlockInfo(worldPos, replacementState, null);
                         }
                     }
 
@@ -75,18 +78,18 @@ public class DataBlockProcessor extends StructureProcessor {
                             currentPos.getY() <= worldView.dimensionType().logicalHeight() &&
                             currentPos.getY() >= terrainY &&
                             currentPos.closerThan(worldPos, depth)
-                    ) {
-                        StructureTemplate.StructureBlockInfo newPillarState1 = new StructureTemplate.StructureBlockInfo(structureBlockInfoLocal.pos, replacementState, null);
-                        StructureTemplate.StructureBlockInfo newPillarState2 = new StructureTemplate.StructureBlockInfo(currentPos.immutable(), replacementState, null);
+                    ){
+                        Template.BlockInfo newPillarState1 = new Template.BlockInfo(structureBlockInfoLocal.pos, replacementState, null);
+                        Template.BlockInfo newPillarState2 = new Template.BlockInfo(currentPos.immutable(), replacementState, null);
 
-                        for(StructureProcessor processor : structurePlacementData.getProcessors()) {
-                            if(newPillarState2 == null) {
+                        for(StructureProcessor processor : structurePlacementData.getProcessors()){
+                            if(newPillarState2 == null){
                                 break;
                             }
                             newPillarState2 = processor.processBlock(worldView, pos, blockPos, newPillarState1, newPillarState2, structurePlacementData);
                         }
 
-                        if(newPillarState2 != null) {
+                        if(newPillarState2 != null){
                             worldView.getChunk(currentPos).setBlockState(currentPos, newPillarState2.state, false);
                         }
 
@@ -95,7 +98,7 @@ public class DataBlockProcessor extends StructureProcessor {
                     }
 
                     // Replaces the data block itself
-                    return replacementState == null || replacementState.is(Blocks.STRUCTURE_VOID) ? null : new StructureTemplate.StructureBlockInfo(worldPos, replacementState, null);
+                    return replacementState == null || replacementState.is(Blocks.STRUCTURE_VOID) ? null : new Template.BlockInfo(worldPos, replacementState, null);
                 }
             }
             catch (CommandSyntaxException var11) {
@@ -105,8 +108,9 @@ public class DataBlockProcessor extends StructureProcessor {
         return structureBlockInfoWorld;
     }
 
+
     @Override
-    protected StructureProcessorType<?> getType() {
+    protected IStructureProcessorType<?> getType() {
         return ModProcessors.DATA_BLOCK_PROCESSOR;
     }
 }
