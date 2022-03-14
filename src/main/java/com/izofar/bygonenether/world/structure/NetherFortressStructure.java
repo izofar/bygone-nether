@@ -1,5 +1,6 @@
 package com.izofar.bygonenether.world.structure;
 
+import com.google.common.collect.ImmutableList;
 import com.izofar.bygonenether.BygoneNetherMod;
 import com.izofar.bygonenether.world.structure.util.ModStructureUtils;
 import net.minecraft.entity.EntityType;
@@ -25,7 +26,7 @@ import java.util.List;
 
 public class NetherFortressStructure extends Structure<NoFeatureConfig> {
 
-	public static final List<MobSpawnInfo.Spawners> FORTRESS_ENEMIES = List.of(
+	public static final List<MobSpawnInfo.Spawners> FORTRESS_ENEMIES = ImmutableList.of(
 			new MobSpawnInfo.Spawners(EntityType.BLAZE, 10, 2, 3),
 			new MobSpawnInfo.Spawners(EntityType.ZOMBIFIED_PIGLIN, 5, 4, 4),
 			new MobSpawnInfo.Spawners(EntityType.WITHER_SKELETON, 8, 5, 5),

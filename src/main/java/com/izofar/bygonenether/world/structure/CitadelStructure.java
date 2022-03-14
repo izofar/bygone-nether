@@ -1,5 +1,6 @@
 package com.izofar.bygonenether.world.structure;
 
+import com.google.common.collect.ImmutableList;
 import com.izofar.bygonenether.BygoneNetherMod;
 import com.izofar.bygonenether.init.ModEntityTypes;
 import com.izofar.bygonenether.world.structure.util.ModStructureUtils;
@@ -26,7 +27,7 @@ import java.util.List;
 
 public class CitadelStructure extends Structure<NoFeatureConfig> {
 	
-	public static final List<MobSpawnInfo.Spawners> CITADEL_ENEMIES = List.of(
+	public static final List<MobSpawnInfo.Spawners> CITADEL_ENEMIES = ImmutableList.of(
 			new MobSpawnInfo.Spawners(ModEntityTypes.WARPED_ENDERMAN.get(), 1, 1, 1),
 			new MobSpawnInfo.Spawners(EntityType.ENDERMAN, 1, 1, 1)
 		);

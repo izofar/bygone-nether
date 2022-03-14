@@ -1,5 +1,6 @@
 package com.izofar.bygonenether.world.structure;
 
+import com.google.common.collect.ImmutableList;
 import com.izofar.bygonenether.BygoneNetherMod;
 import com.izofar.bygonenether.init.ModEntityTypes;
 import com.izofar.bygonenether.world.structure.util.ModStructureUtils;
@@ -26,10 +27,10 @@ import java.util.List;
 
 public class CatacombStructure extends Structure<NoFeatureConfig> {
 
-	public static final List<MobSpawnInfo.Spawners> CATACOMB_ENEMIES = List.of(
+	public static final List<MobSpawnInfo.Spawners> CATACOMB_ENEMIES = ImmutableList.of(
 			new MobSpawnInfo.Spawners(ModEntityTypes.WEX.get(), 1, 1, 1),
 			new MobSpawnInfo.Spawners(EntityType.MAGMA_CUBE, 2, 1, 1)
-		);
+	);
 
 	private static final String CATACOMB_START_POOL = "catacomb/start_pool";
 

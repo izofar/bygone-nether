@@ -1,5 +1,6 @@
 package com.izofar.bygonenether.world.structure;
 
+import com.google.common.collect.ImmutableList;
 import com.izofar.bygonenether.BygoneNetherMod;
 import com.izofar.bygonenether.init.ModEntityTypes;
 import com.izofar.bygonenether.world.structure.util.ModStructureUtils;
@@ -31,7 +32,7 @@ public class PiglinManorStructure extends Structure<NoFeatureConfig> {
 
     private static final String PIGLIN_MANOR_START_POOL = "piglin_manor/start_pool";
 
-    public static final List<MobSpawnInfo.Spawners> MANOR_ENEMIES = List.of(
+    public static final List<MobSpawnInfo.Spawners> MANOR_ENEMIES = ImmutableList.of(
             new MobSpawnInfo.Spawners(EntityType.PIGLIN, 2, 1, 1),
             new MobSpawnInfo.Spawners(ModEntityTypes.PIGLIN_HUNTER.get(), 1, 1, 1)
     );

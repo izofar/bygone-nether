@@ -49,8 +49,9 @@ public class ModPiglinBruteSpecificSensor extends Sensor<LivingEntity> {
 		Optional<PlayerEntity> optional2 = Optional.empty();
 		
 		for (LivingEntity livingentity : brain.getMemory(MemoryModuleType.LIVING_ENTITIES).orElse(ImmutableList.of())) {
-			if (livingentity instanceof PlayerEntity player && optional2.isEmpty() && !PiglinBruteAi.isWearingGild(player) && entity.canAttack(livingentity))
-				optional2 = Optional.of(player);
+			if (livingentity instanceof PlayerEntity && !optional2.isPresent() && !PiglinBruteAi.isWearingGild(livingentity) && entity.canAttack(livingentity))
+					optional2 = Optional.of((PlayerEntity) livingentity);
+
 			else if (livingentity instanceof AbstractPiglinEntity && ((AbstractPiglinEntity) livingentity).isAdult())
 				list.add((AbstractPiglinEntity) livingentity);
 		}

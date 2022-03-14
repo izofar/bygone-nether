@@ -43,7 +43,7 @@ public class PiglinPrisonerEntity extends AbstractPiglinEntity implements ICross
 
 	private static final DataParameter<Boolean> DATA_IS_CHARGING_CROSSBOW = EntityDataManager.defineId(PiglinPrisonerEntity.class, DataSerializers.BOOLEAN);
 	private final Inventory inventory = new Inventory(8);
-	private static final Predicate<Item> WANTS_TO_PICK_UP = (item) -> (item instanceof TieredItem tiereditem && tiereditem.getTier() == ItemTier.GOLD) || (item instanceof ArmorItem armoritem && armoritem.getMaterial() == ArmorMaterial.GOLD);
+	private static final Predicate<Item> WANTS_TO_PICK_UP = (item) -> (item instanceof TieredItem && ((TieredItem) item).getTier() == ItemTier.GOLD) || (item instanceof ArmorItem && ((ArmorItem) item).getMaterial() == ArmorMaterial.GOLD);
 
 	protected static final ImmutableList<SensorType<? extends Sensor<? super PiglinPrisonerEntity>>> SENSOR_TYPES =
 			ImmutableList.of(

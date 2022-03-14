@@ -52,10 +52,10 @@ public class PiglinPrisonerSensor extends Sensor<LivingEntity> {
 		Optional<PlayerEntity> optional2 = Optional.empty();
 		
 		for (LivingEntity livingentity : brain.getMemory(MemoryModuleType.LIVING_ENTITIES).orElse(ImmutableList.of()))
-			if (livingentity instanceof AbstractPiglinEntity piglin && piglin.isAdult())
+			if (livingentity instanceof AbstractPiglinEntity && ((AbstractPiglinEntity) livingentity).isAdult())
 				list.add((AbstractPiglinEntity) livingentity);
-			else if(livingentity instanceof PlayerEntity player)
-				optional2 = Optional.of(player);
+			else if(livingentity instanceof PlayerEntity)
+				optional2 = Optional.of((PlayerEntity) livingentity);
 
 		brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_NEMESIS, optional1);
 		brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_PLAYER, optional2);

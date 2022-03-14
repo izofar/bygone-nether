@@ -3,13 +3,14 @@ package com.izofar.bygonenether.util.random;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.util.WeightedRandom;
 
+import java.util.List;
 import java.util.Random;
 
 public class WeightedRandomList<T> extends WeightedRandom {
 
-    private final ImmutableList<WeightedEntry<T>> list;
+    private final List<WeightedEntry<T>> list;
 
-    private WeightedRandomList(ImmutableList<WeightedEntry<T>> list){
+    private WeightedRandomList(List<WeightedEntry<T>> list){
         this.list = list;
     }
 

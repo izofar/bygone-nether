@@ -8,6 +8,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 public abstract class ModEntityEvents {
 
 	@SubscribeEvent
-	public static void preventPiglinPrisonersFromDespawning(LivingSpawnEvent.AllowDespawn event) { if (event.getEntityLiving()instanceof PiglinPrisonerEntity entity) event.setResult(Event.Result.DENY); }
+	public static void preventPiglinPrisonersFromDespawning(LivingSpawnEvent.AllowDespawn event) { if (event.getEntityLiving()instanceof PiglinPrisonerEntity) event.setResult(Event.Result.DENY); }
 
 }

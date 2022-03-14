@@ -16,7 +16,8 @@ public class ModArmorItem extends ArmorItem {
 	
 	@Override
 	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
-		if (!entity.level.isClientSide && entity instanceof ServerPlayerEntity player && !player.abilities.instabuild) {
+		if (!entity.level.isClientSide && entity instanceof ServerPlayerEntity && !((ServerPlayerEntity) entity).abilities.instabuild) {
+			ServerPlayerEntity player = (ServerPlayerEntity) entity;
 			if (stack.hurt(amount, player.getRandom(), player)) {
 				onBroken.accept(entity);
 				replaceArmor(stack, player);

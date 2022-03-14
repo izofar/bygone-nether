@@ -21,7 +21,7 @@ version = '0.0.5-1.16.5'
 group = 'com.izofar.bygonenether'
 archivesBaseName = 'bygonenether'
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
@@ -64,7 +64,7 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 repositories { }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.5-36.2.20'
+    minecraft 'net.minecraftforge:forge:1.16.5-36.2.31'
     annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 }
 
