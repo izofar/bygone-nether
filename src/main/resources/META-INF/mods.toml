@@ -1,19 +1,17 @@
 
 modLoader="javafml" #mandatory
-loaderVersion="[36.2.17,)" #mandatory
+loaderVersion="[36.2,)" #mandatory
 license="MIT"
 
 [[mods]] #mandatory
 modId="bygonenether" #mandatory
-version="0.0.5-1.16.5" #mandatory
+version="1.0.0" #mandatory
 displayName="Bygone Nether" #mandatory
 logoFile="bygonenether.png" #optional
 #credits="" #optional
 authors="Izofar" #optional
 
-description='''
-To advance the ancient history of the nether dimension.
-'''
+description="Remnants of the nether dimension's ancient history"
 
 [[dependencies.bygonenether]]
     modId="minecraft"
