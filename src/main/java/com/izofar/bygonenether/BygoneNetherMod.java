@@ -54,12 +54,10 @@ public class BygoneNetherMod
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
-        event.enqueueWork(() -> {
-            RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.PIGLIN_PRISONER.get(), (entityRendererManager) -> new ModPiglinRenderer(entityRendererManager,false));
-            RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.PIGLIN_HUNTER.get(), (entityRendererManager) -> new PiglinHunterRenderer(entityRendererManager, false));
-            RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.PIGLIN_BRUTE.get(), (entityRendererManager) -> new ModPiglinRenderer(entityRendererManager, false));
-            RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WEX.get(), WexRenderer:: new);
-            RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WARPED_ENDERMAN.get(), WarpedEnderManRenderer::new);
-        });
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.PIGLIN_PRISONER.get(), (entityRendererManager) -> new ModPiglinRenderer(entityRendererManager,false));
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.PIGLIN_HUNTER.get(), (entityRendererManager) -> new PiglinHunterRenderer(entityRendererManager, false));
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.PIGLIN_BRUTE.get(), (entityRendererManager) -> new ModPiglinRenderer(entityRendererManager, false));
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WEX.get(), WexRenderer:: new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WARPED_ENDERMAN.get(), WarpedEnderManRenderer::new);
     }
 }

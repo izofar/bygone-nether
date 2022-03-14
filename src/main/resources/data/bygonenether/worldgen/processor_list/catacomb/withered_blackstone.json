@@ -147,7 +147,10 @@
 				},
 				{
 					"output_state": {
-						"Name": "minecraft:lava"
+						"Name": "minecraft:lava",
+						"Properties": {
+							"level": "0"
+						}
 					},
 					"input_predicate": {
 						"block": "minecraft:dirt",

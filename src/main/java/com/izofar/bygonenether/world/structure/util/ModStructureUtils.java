@@ -30,14 +30,14 @@ public abstract class ModStructureUtils {
 	
 	public static boolean isLavaLake(ChunkGenerator chunkGenerator, int x, int z) {
 		IBlockReader columnOfBlocks = chunkGenerator.getBaseColumn(x, z);
-		BlockPos.Mutable currentPos = new BlockPos.Mutable(x, 32, z);
+		BlockPos.Mutable currentPos = new BlockPos.Mutable(x, 31, z);
 
 		boolean isLake = true;
 
 		if(columnOfBlocks.getBlockState(currentPos).getBlock() != Blocks.LAVA) isLake = false;
 		else while(currentPos.getY() < 70) {
-			isLake = isLake && (isAir.test(columnOfBlocks.getBlockState(currentPos).getBlock()));
 			currentPos.move(Direction.UP);
+			isLake = isLake && (isAir.test(columnOfBlocks.getBlockState(currentPos).getBlock()));
 		}
 		return isLake;
 	}

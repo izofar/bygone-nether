@@ -27,8 +27,7 @@ public abstract class ModWorldEvents {
 	public static void addFeaturesToBiomes(final BiomeLoadingEvent event){
 		if(event.getCategory() == Biome.Category.NETHER){
 			event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_NETHER_FORTRESS);
-
-			if(!event.getName().toString().equals("minecraft:basalt_deltas")) event.getGeneration().getStructures().removeIf((supplier) -> supplier.get() == StructureFeatures.BASTION_REMNANT);
+			event.getGeneration().getStructures().removeIf((supplier) -> supplier.get().feature == StructureFeatures.NETHER_BRIDGE.feature);
 
 			if(event.getName().toString().equals("minecraft:soul_sand_valley")) {
 				event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_CATACOMB);
@@ -38,8 +37,11 @@ public abstract class ModWorldEvents {
 				event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_PIGLIN_MANOR);
 			else if(event.getName().toString().equals("minecraft:warped_forest"))
 				event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_CITADEL);
-			else if(event.getName().toString().equals("minecraft:basalt_deltas"))
+
+			if(event.getName().toString().equals("minecraft:basalt_deltas"))
 				event.getGeneration().getStructures().add(() -> StructureFeatures.BASTION_REMNANT);
+			else
+				event.getGeneration().getStructures().removeIf((supplier) -> supplier.get().feature == StructureFeatures.BASTION_REMNANT.feature);
 		}
 	}
 
