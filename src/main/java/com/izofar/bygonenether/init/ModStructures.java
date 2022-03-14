@@ -18,10 +18,10 @@ public abstract class ModStructures {
 
 	public static final DeferredRegister<Structure<?>> MODDED_STRUCTURES = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, BygoneNetherMod.MODID);
 
-	public static final RegistryObject<Structure<NoFeatureConfig>> NETHER_FORTRESS = MODDED_STRUCTURES.register("fortress", () -> new NetherFortressStructure());
-	public static final RegistryObject<Structure<NoFeatureConfig>> CATACOMB = MODDED_STRUCTURES.register("catacomb", () -> new CatacombStructure());
-	public static final RegistryObject<Structure<NoFeatureConfig>> CITADEL = MODDED_STRUCTURES.register("citadel", () -> new CitadelStructure());
-	public static final RegistryObject<Structure<NoFeatureConfig>> PIGLIN_MANOR = MODDED_STRUCTURES.register("piglin_manor", () -> new PiglinManorStructure());
+	public static final RegistryObject<Structure<NoFeatureConfig>> NETHER_FORTRESS = MODDED_STRUCTURES.register("fortress", NetherFortressStructure::new);
+	public static final RegistryObject<Structure<NoFeatureConfig>> CATACOMB = MODDED_STRUCTURES.register("catacomb", CatacombStructure::new);
+	public static final RegistryObject<Structure<NoFeatureConfig>> CITADEL = MODDED_STRUCTURES.register("citadel", CitadelStructure::new);
+	public static final RegistryObject<Structure<NoFeatureConfig>> PIGLIN_MANOR = MODDED_STRUCTURES.register("piglin_manor", PiglinManorStructure::new);
 
 
 	public static void setupStructures() {

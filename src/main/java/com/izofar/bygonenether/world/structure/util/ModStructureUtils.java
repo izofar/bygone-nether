@@ -102,27 +102,8 @@ public abstract class ModStructureUtils {
 	}
 
 	private static boolean isReplaceableByStructures(BlockState blockState) {
-		return blockState.isAir() || blockState.getMaterial().isLiquid() || blockState.getMaterial().isReplaceable();
+		return isAir.test(blockState.getBlock()) || blockState.getMaterial().isLiquid() || blockState.getMaterial().isReplaceable();
 	}
-/*
-	public static boolean isRelativelyFlat(ChunkGenerator chunkGenerator, int chunkXIn, int chunkZIn, int chunk_search_radius, int max_terrain_height){
-		IBlockReader columnOfBlocks = chunkGenerator.getBaseColumn(x, z);
-		BlockPos.Mutable currentPos = new BlockPos.Mutable(x, chunkGenerator.getGenDepth(), z);
-
-		ChunkPos chunkpos = new ChunkPos(chunkXIn, chunkZIn);
-		int maxterrainheight = Integer.MIN_VALUE;
-		int minterrainheight = Integer.MAX_VALUE;
-		for(int chunkX = chunkpos.x - chunk_search_radius; chunkX <= chunkpos.x + chunk_search_radius; chunkX ++) {
-			for(int chunkZ = chunkpos.z - chunk_search_radius; chunkZ <= chunkpos.z + chunk_search_radius; chunkZ ++) {
-				BlockPos blockpos = new BlockPos((chunkX << 4) + 7, 0, (chunkZ << 4) + 7);
-				int height = chunkGenerator.getBaseHeight(blockpos.getX(), blockpos.getZ(), Heightmap.Types.WORLD_SURFACE_WG, context.heightAccessor());
-				maxterrainheight = Math.max(maxterrainheight, height);
-				minterrainheight = Math.min(minterrainheight, height);
-				if (!chunkGenerator.getBaseColumn(blockpos.getX(), blockpos.getZ()).getBlockState(height).getFluidState().isEmpty()) return false;
-			}
-		}
-		return maxterrainheight - minterrainheight <= max_terrain_height;
-	}*/
 	
 	public static void addBasaltRestrictions() {
 		   BasaltColumnFeature.CANNOT_PLACE_ON = ImmutableList.of(

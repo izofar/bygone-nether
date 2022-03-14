@@ -3,10 +3,8 @@ package com.izofar.bygonenether.client.model;
 import com.izofar.bygonenether.entity.PiglinHunterEntity;
 import net.minecraft.client.renderer.model.ModelHelper;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.monster.piglin.AbstractPiglinEntity;
 import net.minecraft.entity.monster.piglin.PiglinAction;
-import net.minecraft.entity.monster.piglin.PiglinEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -70,39 +68,34 @@ public class PiglinHunterModel extends ModPlayerModel<PiglinHunterEntity> {
         float f2 = 0.08F + pLimbSwingAmount * 0.4F;
         this.earRight.zRot = (-(float)Math.PI / 6F) - MathHelper.cos(f1 * 1.2F) * f2;
         this.earLeft.zRot = ((float)Math.PI / 6F) + MathHelper.cos(f1) * f2;
-        if (pEntity instanceof AbstractPiglinEntity) {
-            AbstractPiglinEntity abstractpiglinentity = (AbstractPiglinEntity)pEntity;
-            PiglinAction piglinaction = abstractpiglinentity.getArmPose();
-            if (piglinaction == PiglinAction.DANCING) {
-                float f3 = pAgeInTicks / 60.0F;
-                this.earLeft.zRot = ((float)Math.PI / 6F) + ((float)Math.PI / 180F) * MathHelper.sin(f3 * 30.0F) * 10.0F;
-                this.earRight.zRot = (-(float)Math.PI / 6F) - ((float)Math.PI / 180F) * MathHelper.cos(f3 * 30.0F) * 10.0F;
-                this.head.x = MathHelper.sin(f3 * 10.0F);
-                this.head.y = MathHelper.sin(f3 * 40.0F) + 0.4F;
-                this.rightArm.zRot = ((float)Math.PI / 180F) * (70.0F + MathHelper.cos(f3 * 40.0F) * 10.0F);
-                this.leftArm.zRot = this.rightArm.zRot * -1.0F;
-                this.rightArm.y = MathHelper.sin(f3 * 40.0F) * 0.5F + 1.5F;
-                this.leftArm.y = MathHelper.sin(f3 * 40.0F) * 0.5F + 1.5F;
-                this.body.y = MathHelper.sin(f3 * 40.0F) * 0.35F;
-            } else if (piglinaction == PiglinAction.ATTACKING_WITH_MELEE_WEAPON && this.attackTime == 0.0F) {
-                this.holdWeaponHigh(pEntity);
-            } else if (piglinaction == PiglinAction.CROSSBOW_HOLD) {
-                ModelHelper.animateCrossbowHold(this.rightArm, this.leftArm, this.head, !pEntity.isLeftHanded());
-            } else if (piglinaction == PiglinAction.CROSSBOW_CHARGE) {
-                ModelHelper.animateCrossbowCharge(this.rightArm, this.leftArm, pEntity, !pEntity.isLeftHanded());
-            } else if (piglinaction == PiglinAction.ADMIRING_ITEM) {
-                this.head.xRot = 0.5F;
-                this.head.yRot = 0.0F;
-                if (pEntity.isLeftHanded()) {
-                    this.rightArm.yRot = -0.5F;
-                    this.rightArm.xRot = -0.9F;
-                } else {
-                    this.leftArm.yRot = 0.5F;
-                    this.leftArm.xRot = -0.9F;
-                }
+        PiglinAction piglinaction = ((AbstractPiglinEntity)pEntity).getArmPose();
+        if (piglinaction == PiglinAction.DANCING) {
+            float f3 = pAgeInTicks / 60.0F;
+            this.earLeft.zRot = ((float)Math.PI / 6F) + ((float)Math.PI / 180F) * MathHelper.sin(f3 * 30.0F) * 10.0F;
+            this.earRight.zRot = (-(float)Math.PI / 6F) - ((float)Math.PI / 180F) * MathHelper.cos(f3 * 30.0F) * 10.0F;
+            this.head.x = MathHelper.sin(f3 * 10.0F);
+            this.head.y = MathHelper.sin(f3 * 40.0F) + 0.4F;
+            this.rightArm.zRot = ((float)Math.PI / 180F) * (70.0F + MathHelper.cos(f3 * 40.0F) * 10.0F);
+            this.leftArm.zRot = this.rightArm.zRot * -1.0F;
+            this.rightArm.y = MathHelper.sin(f3 * 40.0F) * 0.5F + 1.5F;
+            this.leftArm.y = MathHelper.sin(f3 * 40.0F) * 0.5F + 1.5F;
+            this.body.y = MathHelper.sin(f3 * 40.0F) * 0.35F;
+        } else if (piglinaction == PiglinAction.ATTACKING_WITH_MELEE_WEAPON && this.attackTime == 0.0F) {
+            this.holdWeaponHigh(pEntity);
+        } else if (piglinaction == PiglinAction.CROSSBOW_HOLD) {
+            ModelHelper.animateCrossbowHold(this.rightArm, this.leftArm, this.head, !pEntity.isLeftHanded());
+        } else if (piglinaction == PiglinAction.CROSSBOW_CHARGE) {
+            ModelHelper.animateCrossbowCharge(this.rightArm, this.leftArm, pEntity, !pEntity.isLeftHanded());
+        } else if (piglinaction == PiglinAction.ADMIRING_ITEM) {
+            this.head.xRot = 0.5F;
+            this.head.yRot = 0.0F;
+            if (pEntity.isLeftHanded()) {
+                this.rightArm.yRot = -0.5F;
+                this.rightArm.xRot = -0.9F;
+            } else {
+                this.leftArm.yRot = 0.5F;
+                this.leftArm.xRot = -0.9F;
             }
-        } else if (pEntity.getType() == EntityType.ZOMBIFIED_PIGLIN) {
-            ModelHelper.animateZombieArms(this.leftArm, this.rightArm, pEntity.isAggressive(), this.attackTime, pAgeInTicks);
         }
 
         this.leftPants.copyFrom(this.leftLeg);
@@ -114,7 +107,7 @@ public class PiglinHunterModel extends ModPlayerModel<PiglinHunterEntity> {
     }
 
     protected void setupAttackAnimation(PiglinHunterEntity entity, float pTick) {
-        if (this.attackTime > 0.0F && entity instanceof PiglinEntity && ((PiglinEntity)entity).getArmPose() == PiglinAction.ATTACKING_WITH_MELEE_WEAPON) {
+        if (this.attackTime > 0.0F && entity.getArmPose() == PiglinAction.ATTACKING_WITH_MELEE_WEAPON) {
             ModelHelper.swingWeaponDown(this.rightArm, this.leftArm, entity, this.attackTime, pTick);
         } else {
             super.setupAttackAnimation(entity, pTick);

@@ -252,7 +252,7 @@ public class PiglinPrisonerEntity extends AbstractPiglinEntity implements ICross
 			} else if (!flag && flag1) {
 				return false;
 			} else {
-				return this.isAdult() && pCandidate.getItem() != Items.CROSSBOW && pExisting.getItem() == Items.CROSSBOW ? false : super.canReplaceCurrentItem(pCandidate, pExisting);
+				return (!this.isAdult() || pCandidate.getItem() == Items.CROSSBOW || pExisting.getItem() != Items.CROSSBOW) && super.canReplaceCurrentItem(pCandidate, pExisting);
 			}
 		}
 	}
@@ -275,7 +275,7 @@ public class PiglinPrisonerEntity extends AbstractPiglinEntity implements ICross
 	}
 
 	protected SoundEvent getAmbientSound() {
-		return this.level.isClientSide ? null : PiglinPrisonerAi.getSoundForCurrentActivity(this).orElse((SoundEvent)null);
+		return this.level.isClientSide ? null : PiglinPrisonerAi.getSoundForCurrentActivity(this).orElse(null);
 	}
 
 	protected SoundEvent getHurtSound(DamageSource pDamageSource) {
