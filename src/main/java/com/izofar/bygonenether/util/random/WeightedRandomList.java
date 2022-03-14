@@ -6,7 +6,7 @@ import net.minecraft.util.WeightedRandom;
 import java.util.List;
 import java.util.Random;
 
-public class WeightedRandomList<T> extends WeightedRandom {
+public class WeightedRandomList<T> {
 
     private final List<WeightedEntry<T>> list;
 
@@ -15,7 +15,7 @@ public class WeightedRandomList<T> extends WeightedRandom {
     }
 
     public static <T> WeightedRandomList<T> create(WeightedEntry<T> ...entries){
-        return new WeightedRandomList<T>(ImmutableList.copyOf(entries));
+        return new WeightedRandomList<>(ImmutableList.copyOf(entries));
     }
 
     public T getRandom(Random random){
