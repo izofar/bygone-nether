@@ -1,7 +1,7 @@
 package com.izofar.bygonenether.world.processors;
 
 import com.izofar.bygonenether.init.ModProcessors;
-import com.izofar.bygonenether.world.structure.ModStructureUtils;
+import com.izofar.bygonenether.world.structure.util.ModStructureUtils;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;

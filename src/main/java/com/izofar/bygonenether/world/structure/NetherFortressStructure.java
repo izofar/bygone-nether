@@ -1,6 +1,7 @@
 package com.izofar.bygonenether.world.structure;
 
 import com.izofar.bygonenether.BygoneNetherMod;
+import com.izofar.bygonenether.world.structure.util.ModStructureUtils;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.QuartPos;

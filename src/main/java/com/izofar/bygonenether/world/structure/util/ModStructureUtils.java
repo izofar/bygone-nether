@@ -1,4 +1,4 @@
-package com.izofar.bygonenether.world.structure;
+package com.izofar.bygonenether.world.structure.util;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;

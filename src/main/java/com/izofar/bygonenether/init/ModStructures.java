@@ -2,6 +2,7 @@ package com.izofar.bygonenether.init;
 
 import com.izofar.bygonenether.BygoneNetherMod;
 import com.izofar.bygonenether.world.structure.*;
+import com.izofar.bygonenether.world.structure.util.ModStructureUtils;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
