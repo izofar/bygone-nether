@@ -1,0 +1,38 @@
+{
+	"item.bygonenether.gilded_netherite_helmet": "镀金下界合金头盔",
+	"item.bygonenether.gilded_netherite_chestplate": "镀金下界合金胸甲",
+	"item.bygonenether.gilded_netherite_leggings": "镀金下界合金护腿",
+	"item.bygonenether.gilded_netherite_boots": "镀金下界合金靴子",
+	
+	"item.bygonenether.cobbled_blackstone": "黑石圆石",
+	"item.bygonenether.cracked_withered_blackstone": "裂纹凋零黑石",
+	"item.bygonenether.chiseled_withered_blackstone": "錾制凋零黑石",
+	"item.bygonenether.withered_blackstone": "凋零黑石",
+	"item.bygonenether.withered_debris": "凋零残骸",
+	"item.bygonenether.soul_stone": "灵魂石",
+	"item.bygonenether.warped_nether_bricks": "诡异下界砖",
+	"item.bygonenether.chiseled_warped_nether_bricks": "錾制诡异下界砖",
+	"item.bygonenether.warped_nether_brick_stairs": "诡异下界砖楼梯",
+	"item.bygonenether.warped_nether_brick_slab": "诡异下界砖台阶",
+	
+	"item.bygonenether.piglin_prisoner_spawn_egg": "猪灵囚犯刷怪蛋",
+	"item.bygonenether.piglin_hunter_spawn_egg": "猪灵猎人刷怪蛋",
+	"item.bygonenether.wex_spawn_egg": "凋灵恼鬼刷怪蛋",
+	"item.bygonenether.warped_enderman_spawn_egg": "诡异末影人刷怪蛋",
+
+	"block.bygonenether.cobbled_blackstone": "黑石圆石",
+	"block.bygonenether.withered_blackstone": "凋零黑石",
+	"block.bygonenether.chiseled_withered_blackstone": "錾制凋零黑石",
+	"block.bygonenether.cracked_withered_blackstone": "裂纹凋零黑石",
+	"block.bygonenether.withered_debris": "凋零残骸",
+	"block.bygonenether.soul_stone": "灵魂石",
+	"block.bygonenether.warped_nether_bricks": "诡异下界砖",
+	"block.bygonenether.chiseled_warped_nether_bricks": "錾制诡异下界砖",
+	"block.bygonenether.warped_nether_brick_stairs": "诡异下界砖楼梯",
+	"block.bygonenether.warped_nether_brick_slab": "诡异下界砖台阶",
+
+	"entity.bygonenether.piglin_prisoner": "猪灵囚犯",
+	"entity.bygonenether.piglin_hunter": "猪灵猎人",
+	"entity.bygonenether.wex": "凋灵恼鬼",
+	"entity.bygonenether.warped_enderman": "诡异末影人"
+}
