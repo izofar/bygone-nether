@@ -1,6 +1,6 @@
 package com.izofar.bygonenether;
 
-import com.izofar.bygonenether.client.renderer.ModPiglinRenderer;
+import com.izofar.bygonenether.client.renderer.PiglinPrisonerRenderer;
 import com.izofar.bygonenether.client.renderer.PiglinHunterRenderer;
 import com.izofar.bygonenether.client.renderer.WarpedEnderManRenderer;
 import com.izofar.bygonenether.client.renderer.WexRenderer;
@@ -54,8 +54,8 @@ public class BygoneNetherMod
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.PIGLIN_PRISONER.get(), (entityRendererManager) -> new ModPiglinRenderer(entityRendererManager,false));
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.PIGLIN_HUNTER.get(), (entityRendererManager) -> new PiglinHunterRenderer(entityRendererManager, false));
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.PIGLIN_PRISONER.get(), PiglinPrisonerRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.PIGLIN_HUNTER.get(), PiglinHunterRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WEX.get(), WexRenderer:: new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WARPED_ENDERMAN.get(), WarpedEnderManRenderer::new);
     }

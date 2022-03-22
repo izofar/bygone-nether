@@ -14,10 +14,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class PiglinHunterRenderer extends BipedRenderer<PiglinHunterEntity, PiglinHunterModel> {
+
     private static final ResourceLocation PIGLIN_HUNTER_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/piglin_hunter.png");
 
-    public PiglinHunterRenderer(EntityRendererManager entityRendererManager, boolean wearingArmor) {
-        super(entityRendererManager, createModel(wearingArmor), 0.5F, 1.0019531F, 1.0F, 1.0019531F);
+    public PiglinHunterRenderer(EntityRendererManager entityRendererManager) {
+        super(entityRendererManager, createModel(false), 0.5F, 1.0019531F, 1.0F, 1.0019531F);
         this.addLayer(new BipedArmorLayer(this, new BipedModel(0.5F), new BipedModel(1.02F)));
     }
 
