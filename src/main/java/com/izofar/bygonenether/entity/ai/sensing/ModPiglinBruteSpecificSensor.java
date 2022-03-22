@@ -3,13 +3,13 @@ package com.izofar.bygonenether.entity.ai.sensing;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
-import com.izofar.bygonenether.entity.ai.PiglinBruteAi;
+import com.izofar.bygonenether.entity.ai.ModPiglinBruteAi;
 import com.izofar.bygonenether.init.ModMemoryModuleTypes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.memory.MemoryModuleType;
-import net.minecraft.entity.ai.brain.sensor.Sensor;
+import net.minecraft.entity.ai.brain.sensor.PiglinBruteSpecificSensor;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.monster.WitherSkeletonEntity;
 import net.minecraft.entity.monster.piglin.AbstractPiglinEntity;
@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-public class ModPiglinBruteSpecificSensor extends Sensor<LivingEntity> {
+public class ModPiglinBruteSpecificSensor extends PiglinBruteSpecificSensor {
 	
 	@Override
 	public Set<MemoryModuleType<?>> requires() {
@@ -28,7 +28,6 @@ public class ModPiglinBruteSpecificSensor extends Sensor<LivingEntity> {
 				MemoryModuleType.VISIBLE_LIVING_ENTITIES,
 				MemoryModuleType.NEAREST_VISIBLE_NEMESIS, 
 				MemoryModuleType.NEARBY_ADULT_PIGLINS,
-				MemoryModuleType.UNIVERSAL_ANGER,
 				ModMemoryModuleTypes.NEAREST_TARGETABLE_PLAYER_NOT_WEARING_GILD.get()
 			);
 	}
@@ -49,7 +48,7 @@ public class ModPiglinBruteSpecificSensor extends Sensor<LivingEntity> {
 		Optional<PlayerEntity> optional2 = Optional.empty();
 		
 		for (LivingEntity livingentity : brain.getMemory(MemoryModuleType.LIVING_ENTITIES).orElse(ImmutableList.of())) {
-			if (livingentity instanceof PlayerEntity && !optional2.isPresent() && !PiglinBruteAi.isWearingGild(livingentity) && entity.canAttack(livingentity))
+			if (livingentity instanceof PlayerEntity && !optional2.isPresent() && !ModPiglinBruteAi.isWearingGild(livingentity) && entity.canAttack(livingentity))
 					optional2 = Optional.of((PlayerEntity) livingentity);
 
 			else if (livingentity instanceof AbstractPiglinEntity && ((AbstractPiglinEntity) livingentity).isAdult())

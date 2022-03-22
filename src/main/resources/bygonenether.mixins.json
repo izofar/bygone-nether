@@ -6,7 +6,10 @@
 	"mixins": [
 		"NoBasaltColumnsInStructuresMixin",
 		"NoDeltasInStructuresMixin",
-		"ModifyDamageInSmithingRecipes"
+		"ModifyDamageInSmithingRecipes",
+		"ModifyPiglinBruteAi",
+		"ModifyPiglinAi",
+		"ModifyPiglinBruteBrain"
 	],
 	"client": [
 	],
