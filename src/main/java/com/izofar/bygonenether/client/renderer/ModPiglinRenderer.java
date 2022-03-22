@@ -22,7 +22,7 @@ import java.util.Map;
 @OnlyIn(Dist.CLIENT)
 public class ModPiglinRenderer extends HumanoidMobRenderer<Mob, PiglinModel<Mob>> {
 	
-	private static final Map<EntityType<?>, ResourceLocation> TEXTURES = ImmutableMap.of(EntityType.PIGLIN_BRUTE, new ResourceLocation("textures/entity/piglin/piglin_brute.png"), ModEntityTypes.PIGLIN_PRISONER.get(), new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/piglin_prisoner.png"));
+	private static final Map<EntityType<?>, ResourceLocation> TEXTURES = ImmutableMap.of(ModEntityTypes.PIGLIN_PRISONER.get(), new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/piglin_prisoner.png"));
 
 	public ModPiglinRenderer(EntityRendererProvider.Context context, ModelLayerLocation layer0, ModelLayerLocation layer1, ModelLayerLocation layer3, boolean wearingArmor) {
 		super(context, createModel(context.getModelSet(), layer0, wearingArmor), 0.5F, 1.0019531F, 1.0F, 1.0019531F);
