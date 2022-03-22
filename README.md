@@ -21,17 +21,17 @@ Finally, Piglin hunters stay in piglin manors in the crimson forests, where they
 
 ### Blocks
 * Withered Blackstone + variants and Withered Debris added, which naturally generate in catacombs, and can only be broken by netherite-tiered items
-* Soul Stone added, which [TODO] generates in soul sand valleys
+* Soul Stone added, which generates in soul sand valleys
 * Blackstone split into stone and cobbled variants, like overworld stone
 
 ### Items
 * Added gilded netherite armor, a higher tier than netherite
-    * Craft it by placing netherite armor and golden armor in the smithing table
-    * The gild will wear off at the speed of gold, yielding the original netherite armor with the durability at the time of crafting. It will then need to be reapplied
+  * Craft it by placing netherite armor and golden armor in the smithing table
+  * The gild will wear off at the speed of gold, yielding the original netherite armor with the durability at the time of crafting. It will then need to be reapplied
 
 ### Mobs
 * Unprovoked, neither piglins nor piglin brutes will attack players equipped with Gilded Netherite
-    * Pigling Brutes treat players wearing gilded netherite armor like piglins treat players wearing gold
+  * Pigling Brutes treat players wearing gilded netherite armor like piglins treat players wearing gold
 * Added the Wex, vex-like wither mobs that swarm catacombs
 * Added the Piglin Prisoner, which spawns as a hostage in catacomb ribs and will pick up any gold-tiered gear the player drops to them
 * Added the Piglin Hunter, which spawns in piglin manors
@@ -40,9 +40,6 @@ Finally, Piglin hunters stay in piglin manors in the crimson forests, where they
 ### Recipes
 * Gilded Netherite is craftable in a smithing table (netherite armor + gold armor)
 
-### Loot
-* [None]
-
 ### World
 * Bastions now generate only in Basalt Deltas
 * Nether Fortresses now generate only in Nether Wastes
@@ -50,9 +47,3 @@ Finally, Piglin hunters stay in piglin manors in the crimson forests, where they
 * Piglin Manors now generate in Crimson Forests
 * Citadels now generate in Warped Forests
 * Bastions generate with cobbled blackstone instead of blackstone
-
-### GUI
-* [None]
-
-## Todo
-* [None]
