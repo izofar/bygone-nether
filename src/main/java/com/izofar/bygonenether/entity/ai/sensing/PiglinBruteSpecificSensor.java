@@ -1,14 +1,9 @@
 package com.izofar.bygonenether.entity.ai.sensing;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
-
-import com.izofar.bygonenether.entity.ai.PiglinBruteAi;
+import com.izofar.bygonenether.entity.ai.ModPiglinBruteAi;
 import com.izofar.bygonenether.init.ModMemoryModuleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
@@ -22,6 +17,10 @@ import net.minecraft.world.entity.monster.WitherSkeleton;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.player.Player;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 public class PiglinBruteSpecificSensor extends Sensor<LivingEntity> {
 	
 	@Override
@@ -30,7 +29,6 @@ public class PiglinBruteSpecificSensor extends Sensor<LivingEntity> {
 				MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
 				MemoryModuleType.NEAREST_VISIBLE_NEMESIS, 
 				MemoryModuleType.NEARBY_ADULT_PIGLINS,
-				MemoryModuleType.UNIVERSAL_ANGER,
 				ModMemoryModuleTypes.NEAREST_TARGETABLE_PLAYER_NOT_WEARING_GILD.get()
 			);
 	}
@@ -45,7 +43,7 @@ public class PiglinBruteSpecificSensor extends Sensor<LivingEntity> {
 		Optional<Player> optional5 = Optional.empty();
 
 		for(LivingEntity livingentity : nearestvisiblelivingentities.findAll((p_186157_) -> true) )
-			if (livingentity instanceof Player player && optional5.isEmpty() && !PiglinBruteAi.isWearingGild(player) && entity.canAttack(livingentity))
+			if (livingentity instanceof Player player && optional5.isEmpty() && !ModPiglinBruteAi.isWearingGild(player) && entity.canAttack(livingentity))
 				optional5 = Optional.of(player);
 		
 		for (LivingEntity livingentity : brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of()))

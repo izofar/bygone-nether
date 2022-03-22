@@ -44,6 +44,7 @@ public class BygoneNetherMod
             ModStructureUtils.addBasaltRestrictions();
             ModFeatureUtils.replaceBlackstoneBlobs();
             ModFeatureUtils.replaceBlackstoneInBastion();
+            ModEntityTypes.modifyPiglinMemoryAndSensors();
         });
     }
 }

@@ -18,7 +18,7 @@ public abstract class ModItems {
 	public static final DeferredRegister<Item> MODDED_ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, BygoneNetherMod.MODID);
 	public static final DeferredRegister<Item> VANILLA_ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, "minecraft");
 
-	public static final RegistryObject<Item> PIGLIN_BRUTE_SPAWN_EGG = VANILLA_ITEMS.register("piglin_brute_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityTypes.PIGLIN_BRUTE, 5843472, 16380836, (new Item.Properties()).tab(CreativeModeTab.TAB_MISC)));
+	//public static final RegistryObject<Item> PIGLIN_BRUTE_SPAWN_EGG = VANILLA_ITEMS.register("piglin_brute_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityTypes.PIGLIN_BRUTE, 5843472, 16380836, (new Item.Properties()).tab(CreativeModeTab.TAB_MISC)));
 	public static final RegistryObject<Item> PIGLIN_PRISONER_SPAWN_EGG = MODDED_ITEMS.register("piglin_prisoner_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityTypes.PIGLIN_PRISONER, 0xc79e88, 16380836, (new Item.Properties()).tab(CreativeModeTab.TAB_MISC)));
 	public static final RegistryObject<Item> PIGLIN_HUNTER_SPAWN_EGG = MODDED_ITEMS.register("piglin_hunter_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityTypes.PIGLIN_HUNTER, 0xba6645, 16380836, (new Item.Properties()).tab(CreativeModeTab.TAB_MISC)));
 	public static final RegistryObject<Item> WEX_SPAWN_EGG = MODDED_ITEMS.register("wex_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityTypes.WEX, 0x7198c8, 0x2b4667, (new Item.Properties()).tab(CreativeModeTab.TAB_MISC)));
