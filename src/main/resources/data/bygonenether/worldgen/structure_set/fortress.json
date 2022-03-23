@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "bygonenether:fortress",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 27,
+    "separation": 18,
+    "salt": 1206458988
+  }
+}

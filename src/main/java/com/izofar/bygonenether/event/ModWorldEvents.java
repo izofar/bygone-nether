@@ -1,43 +1,13 @@
 package com.izofar.bygonenether.event;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableMultimap;
-import com.izofar.bygonenether.BygoneNetherMod;
-import com.izofar.bygonenether.init.ModConfiguredStructures;
-import com.izofar.bygonenether.init.ModFeatures;
 import com.izofar.bygonenether.init.ModStructures;
 import com.izofar.bygonenether.world.structure.CatacombStructure;
 import com.izofar.bygonenether.world.structure.CitadelStructure;
 import com.izofar.bygonenether.world.structure.NetherFortressStructure;
 import com.izofar.bygonenether.world.structure.PiglinManorStructure;
-import net.minecraft.core.Registry;
-import net.minecraft.data.BuiltinRegistries;
-import net.minecraft.data.worldgen.StructureFeatures;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biome.BiomeCategory;
-import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.world.level.levelgen.FlatLevelSource;
-import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.StructureSettings;
-import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.StructureSpawnListGatherEvent;
-import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModList;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 public abstract class ModWorldEvents {
 	
@@ -52,13 +22,24 @@ public abstract class ModWorldEvents {
 		else if (event.getStructure() == ModStructures.PIGLIN_MANOR.get())
 			event.addEntitySpawns(MobCategory.MONSTER, PiglinManorStructure.MANOR_ENEMIES);
 	}
-
+/*
 	@SubscribeEvent
 	public static void setupPlacedFeatures(final BiomeLoadingEvent event){
-		if(event.getName().toString().equals("minecraft:soul_sand_valley"))
+		if(event.getCategory() != BiomeCategory.NETHER) return;
+
+		if(event.getName().equals(Biomes.SOUL_SAND_VALLEY.location()))
 			event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, ModFeatures.SOUL_STONE_BLOBS.get());
-	}
-	
+
+		if(event.getName().equals(Biomes.SOUL_SAND_VALLEY.location()))
+			event.getGeneration().getFeatures(GenerationStep.Decoration.SURFACE_STRUCTURES).add(Holder.direct(ModConfiguredFeatures.CATACOMB_PLACED));
+		if(event.getName().equals(Biomes.CRIMSON_FOREST.location()))
+			event.getGeneration().getFeatures(GenerationStep.Decoration.SURFACE_STRUCTURES).add(Holder.direct(ModConfiguredFeatures.PIGLIN_MANOR_PLACED));
+		if(event.getName().equals(Biomes.WARPED_FOREST.location()))
+			event.getGeneration().getFeatures(GenerationStep.Decoration.SURFACE_STRUCTURES).add(Holder.direct(ModConfiguredFeatures.CITADEL_PLACED));
+		if(event.getName().equals(Biomes.BASALT_DELTAS.location()))
+			event.getGeneration().getFeatures(GenerationStep.Decoration.SURFACE_STRUCTURES).add(Holder.direct(ModConfiguredFeatures.BASTION_PLACED));
+	}*/
+	/*
 	@SubscribeEvent
 	public static void addDimensionSpacing(final WorldEvent.Load event) {
 		if (event.getWorld()instanceof ServerLevel serverLevel) {
@@ -162,6 +143,6 @@ public abstract class ModWorldEvents {
 			if (biomeEntry.getKey().equals(biome))
 				return biomeEntry.getValue();
 		return null;
-	}
+	}*/
 
 }

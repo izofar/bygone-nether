@@ -1,11 +1,9 @@
 package com.izofar.bygonenether.world.structure.util;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.izofar.bygonenether.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.NoiseColumn;
@@ -13,20 +11,13 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
-import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.StructureSettings;
 import net.minecraft.world.level.levelgen.feature.BasaltColumnsFeature;
 import net.minecraft.world.level.levelgen.feature.DeltaFeature;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
 import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier;
 import net.minecraftforge.fml.ModList;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 import java.util.function.Predicate;
 
@@ -149,7 +140,7 @@ public abstract class ModStructureUtils {
 			   );
 
 	}
-
+/*
 	public static boolean isNearStructure(ChunkGenerator chunk, long seed, ChunkPos inChunkPos, StructureFeature<? extends FeatureConfiguration> feature) {
 		StructureFeatureConfiguration structurefeatureconfiguration = chunk.getSettings().getConfig(feature);
 		if (structurefeatureconfiguration != null) {
@@ -164,7 +155,7 @@ public abstract class ModStructureUtils {
 		}
 		return false;
 	}
-
+*/
 	public static int getFirstLandYFromPos(LevelReader worldView, BlockPos pos) {
 		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		mutable.set(pos);
@@ -198,7 +189,7 @@ public abstract class ModStructureUtils {
 		}
 		return maxterrainheight - minterrainheight <= max_terrain_height;
 	}
-
+/*
 	public static <F extends StructureFeature<?>> void setupMapSpacingAndLand(F structure, StructureFeatureConfiguration config, boolean transformLand) {
 		StructureFeature.STRUCTURES_REGISTRY.put(structure.getRegistryName().toString(), structure);
 
@@ -217,7 +208,7 @@ public abstract class ModStructureUtils {
 				structureMap.put(structure, config);
 		});
 	}
-
+*/
 	public static int getScaledNetherHeight(int vanillaHeight){
 		return (int) (vanillaHeight / 128.0F * (ModList.get().isLoaded("amplifiednether") ? 256.0F : 128.0F));
 	}

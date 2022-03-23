@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "bygonenether:piglin_manor",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 22,
+    "separation": 16,
+    "salt": 292421824
+  }
+}

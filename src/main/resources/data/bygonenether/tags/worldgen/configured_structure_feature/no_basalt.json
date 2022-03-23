@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "bygonenether:piglin_manor",
+    "bygonenether:fortress",
+    "bygonenether:citadel",
+    "bygonenether:catacomb"
+
+  ]
+}

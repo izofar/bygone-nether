@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "bygonenether:catacomb",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 27,
+    "separation": 18,
+    "salt": 1163018812
+  }
+}

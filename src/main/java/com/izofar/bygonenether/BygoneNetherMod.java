@@ -37,14 +37,12 @@ public class BygoneNetherMod
     private void setup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             ModProcessors.registerProcessors();
-            ModStructures.setupStructures();
-            ModConfiguredStructures.registerConfiguredStructures();
-            ModConfiguredFeatures.registerConfiguredFeatures();
             ModFeatures.registerPlacedFeatures();
             ModStructureUtils.addBasaltRestrictions();
             ModFeatureUtils.replaceBlackstoneBlobs();
             ModFeatureUtils.replaceBlackstoneInBastion();
             ModEntityTypes.modifyPiglinMemoryAndSensors();
+            ModTags.initTags();
         });
     }
 }

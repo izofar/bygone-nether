@@ -8,7 +8,9 @@
 		"NoDeltasInStructuresMixin",
 		"ModifyDamageInSmithingRecipes",
 		"ModifyPiglinBruteAi",
-		"ModifyPiglinAi"
+		"ModifyPiglinAi",
+		"StructureFeatureAccessor",
+		"WorldGenRegionAccessor"
 	],
 	"client": [
 	],
