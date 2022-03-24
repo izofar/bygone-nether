@@ -38,13 +38,10 @@ public class NetherFortressStructure extends StructureFeature<JigsawConfiguratio
 	@Override
 	public GenerationStep.Decoration step() { return GenerationStep.Decoration.SURFACE_STRUCTURES; }
 	
-	private static Optional<PieceGenerator<JigsawConfiguration>> checkLocation(Context<JigsawConfiguration> context) {
+	private static boolean checkLocation(Context<JigsawConfiguration> context) {
 		BlockPos blockpos  = context.chunkPos().getMiddleBlockPosition(0);
 		NoiseColumn blockReader = context.chunkGenerator().getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor());
-		if (!(checkChunk(context) && ModStructureUtils.isLavaLake(blockReader)))
-			return Optional.empty();
-		else
-			return NetherFortressStructure.createPiecesGenerator(context);
+		return checkChunk(context) && ModStructureUtils.isLavaLake(blockReader);
 	}
 
 	private static boolean checkChunk(PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
@@ -54,7 +51,7 @@ public class NetherFortressStructure extends StructureFeature<JigsawConfiguratio
 	}
 	
 	public static Optional<PieceGenerator<JigsawConfiguration>> createPiecesGenerator( PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
-		if(!checkLocation(context).isEmpty()) return Optional.empty();
+		if(!checkLocation(context)) return Optional.empty();
 
 		BlockPos blockpos = ModStructureUtils.getElevation(context, 45, ModStructureUtils.getScaledNetherHeight(54));
 		//JigsawConfiguration newConfig = new JigsawConfiguration(() -> context.registryAccess().ownedRegistryOrThrow(Registry.TEMPLATE_POOL_REGISTRY).get(new ResourceLocation(BygoneNetherMod.MODID, "fortress/start_pool")), 7);

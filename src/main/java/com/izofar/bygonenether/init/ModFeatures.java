@@ -16,6 +16,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.ReplaceSphereCo
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -31,11 +32,13 @@ public abstract class ModFeatures {
 	public static final RegistryObject<Feature<NoneFeatureConfiguration>> MOB_FEATURE_WARPED_ENDERMAN = MODDED_FEATURES.register("mob_feature_warped_enderman", () -> new MobFeature<>(ModEntityTypes.WARPED_ENDERMAN.get()));
 
 	public static Holder<ConfiguredFeature<ReplaceSphereConfiguration, ?>> SOUL_STONE_BLOBS_CONFIGURED;
+	public static Holder<PlacedFeature> SOUL_STONE_BLOBS_PLACED;
 
 	public static void register(IEventBus eventBus) { MODDED_FEATURES.register(eventBus); }
 
 	public static void registerPlacedFeatures() {
 		SOUL_STONE_BLOBS_CONFIGURED = FeatureUtils.register("soul_stone_blobs", Feature.REPLACE_BLOBS, new ReplaceSphereConfiguration(Blocks.NETHERRACK.defaultBlockState(), ModBlocks.SOUL_STONE.get().defaultBlockState(), UniformInt.of(3, 7)));
-		PlacementUtils.register("soul_stone_blobs", SOUL_STONE_BLOBS_CONFIGURED, CountPlacement.of(25), InSquarePlacement.spread(), PlacementUtils.FULL_RANGE, BiomeFilter.biome());
+		SOUL_STONE_BLOBS_PLACED = PlacementUtils.register("soul_stone_blobs", SOUL_STONE_BLOBS_CONFIGURED, CountPlacement.of(25), InSquarePlacement.spread(), PlacementUtils.FULL_RANGE, BiomeFilter.biome());
+
 	}
 }

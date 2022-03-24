@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:village",
+  "type": "bygonenether:catacomb",
   "config": {
     "start_pool": "bygonenether:catacomb/start_pool",
     "size": 3,

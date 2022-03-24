@@ -4,6 +4,7 @@ import com.izofar.bygonenether.init.*;
 import com.izofar.bygonenether.world.feature.ModFeatureUtils;
 import com.izofar.bygonenether.world.structure.util.ModStructureUtils;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -45,4 +46,9 @@ public class BygoneNetherMod
             ModTags.initTags();
         });
     }
+
+    private void onServerStart(ServerAboutToStartEvent event){
+
+    }
+
 }

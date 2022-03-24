@@ -42,16 +42,13 @@ public class PiglinManorStructure extends StructureFeature<JigsawConfiguration> 
         return GenerationStep.Decoration.SURFACE_STRUCTURES;
     }
 
-    private static @NotNull Optional<PieceGenerator<JigsawConfiguration>> checkLocation(Context<JigsawConfiguration> context) {
+    private static @NotNull boolean checkLocation(Context<JigsawConfiguration> context) {
         BlockPos blockpos = context.chunkPos().getMiddleBlockPosition(0);
         NoiseColumn blockReader = context.chunkGenerator().getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor());
-        if (!checkChunk(context)
-                || !ModStructureUtils.isRelativelyFlat(context, CHUNK_SEARCH_RADIUS, MAX_TERRAIN_RANGE)
-                || ModStructureUtils.isLavaLake(blockReader)
-                || !ModStructureUtils.verticalSpace(blockReader, 34, 72, 24))
-            return Optional.empty();
-        else
-            return PiglinManorStructure.createPiecesGenerator(context);
+        return checkChunk(context)
+                //&& ModStructureUtils.isRelativelyFlat(context, CHUNK_SEARCH_RADIUS, MAX_TERRAIN_RANGE)
+                && !ModStructureUtils.isLavaLake(blockReader)
+                && ModStructureUtils.verticalSpace(blockReader, 34, 72, 24);
     }
 
     private static boolean checkChunk(PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
@@ -59,7 +56,7 @@ public class PiglinManorStructure extends StructureFeature<JigsawConfiguration> 
     }
 
     public static Optional<PieceGenerator<JigsawConfiguration>> createPiecesGenerator(PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
-        if(!checkLocation(context).isEmpty()) return Optional.empty();
+        if(!checkLocation(context)) return Optional.empty();
 
         BlockPos blockpos = ModStructureUtils.getElevation(context, 34, ModStructureUtils.getScaledNetherHeight(72));
         //JigsawConfiguration newConfig = new JigsawConfiguration(() -> context.registryAccess().ownedRegistryOrThrow(Registry.TEMPLATE_POOL_REGISTRY).get(new ResourceLocation(BygoneNetherMod.MODID, "piglin_manor/start_pool")), 1);

@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:village",
+  "type": "bygonenether:fortress",
   "config": {
     "start_pool": "bygonenether:fortress/start_pool",
     "size": 7,
@@ -9,7 +9,7 @@
     "do_not_remove_out_of_bounds_pieces": true,
     "valid_biome_radius_check": 4
   },
-  "biomes": "#minecraft:nether",
+  "biomes": "#bygonenether:has_structure/fortress",
   "adapt_noise": false,
   "spawn_overrides": {
     "monster": {

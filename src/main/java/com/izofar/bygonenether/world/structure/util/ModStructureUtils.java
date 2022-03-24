@@ -140,22 +140,7 @@ public abstract class ModStructureUtils {
 			   );
 
 	}
-/*
-	public static boolean isNearStructure(ChunkGenerator chunk, long seed, ChunkPos inChunkPos, StructureFeature<? extends FeatureConfiguration> feature) {
-		StructureFeatureConfiguration structurefeatureconfiguration = chunk.getSettings().getConfig(feature);
-		if (structurefeatureconfiguration != null) {
-			int i = inChunkPos.x;
-			int j = inChunkPos.z;
 
-			for (int k = i - 10; k <= i + 10; ++k) 
-				for (int l = j - 10; l <= j + 10; ++l) {
-					ChunkPos chunkpos = feature.getPotentialFeatureChunk(structurefeatureconfiguration, seed, k, l);
-					if (k == chunkpos.x && l == chunkpos.z) return true;
-				}
-		}
-		return false;
-	}
-*/
 	public static int getFirstLandYFromPos(LevelReader worldView, BlockPos pos) {
 		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		mutable.set(pos);
@@ -189,26 +174,7 @@ public abstract class ModStructureUtils {
 		}
 		return maxterrainheight - minterrainheight <= max_terrain_height;
 	}
-/*
-	public static <F extends StructureFeature<?>> void setupMapSpacingAndLand(F structure, StructureFeatureConfiguration config, boolean transformLand) {
-		StructureFeature.STRUCTURES_REGISTRY.put(structure.getRegistryName().toString(), structure);
 
-		if(transformLand)
-			StructureFeature.NOISE_AFFECTING_FEATURES = ImmutableList.<StructureFeature<?>>builder().addAll(StructureFeature.NOISE_AFFECTING_FEATURES).add(structure).build();
-
-		StructureSettings.DEFAULTS = ImmutableMap.<StructureFeature<?>, StructureFeatureConfiguration>builder().putAll(StructureSettings.DEFAULTS).put(structure, config).build();
-
-		BuiltinRegistries.NOISE_GENERATOR_SETTINGS.entrySet().forEach(settings -> {
-			Map<StructureFeature<?>, StructureFeatureConfiguration> structureMap = settings.getValue().structureSettings().structureConfig();
-			if(structureMap instanceof ImmutableMap){
-				Map<StructureFeature<?>, StructureFeatureConfiguration> tempMap = new HashMap<>(structureMap);
-				tempMap.put(structure, config);
-				settings.getValue().structureSettings().structureConfig = tempMap;
-			} else
-				structureMap.put(structure, config);
-		});
-	}
-*/
 	public static int getScaledNetherHeight(int vanillaHeight){
 		return (int) (vanillaHeight / 128.0F * (ModList.get().isLoaded("amplifiednether") ? 256.0F : 128.0F));
 	}
