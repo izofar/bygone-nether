@@ -1,5 +1,9 @@
 package com.izofar.bygonenether.entity;
 
+import com.google.common.collect.ImmutableMap;
+import com.izofar.bygonenether.init.ModSounds;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -13,11 +17,21 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
+import java.util.Map;
 import java.util.Random;
 
 public class WarpedEnderMan extends EnderMan{
 
 	private final WarpedEnderManVariant variant;
+
+	private static final Map<SoundEvent, SoundEvent> SOUND_MAP = ImmutableMap.of(
+			SoundEvents.ENDERMAN_AMBIENT, ModSounds.WARPED_ENDERMAN_AMBIENT.get(),
+			SoundEvents.ENDERMAN_DEATH, ModSounds.WARPED_ENDERMAN_DEATH.get(),
+			SoundEvents.ENDERMAN_HURT, ModSounds.WARPED_ENDERMAN_HURT.get(),
+			SoundEvents.ENDERMAN_SCREAM, ModSounds.WARPED_ENDERMAN_SCREAM.get(),
+			SoundEvents.ENDERMAN_STARE, ModSounds.WARPED_ENDERMAN_STARE.get(),
+			SoundEvents.ENDERMAN_TELEPORT, ModSounds.WARPED_ENDERMAN_TELEPORT.get()
+	);
 
 	public WarpedEnderMan(EntityType<? extends EnderMan> entityType, Level world) {
 		super(entityType, world);
@@ -47,13 +61,16 @@ public class WarpedEnderMan extends EnderMan{
 			.add(Attributes.FOLLOW_RANGE, 64.0D);
 	}
 
+	@Override
+	public void playSound(SoundEvent event, float f1, float f2){ super.playSound(SOUND_MAP.getOrDefault(event, event), f1, f2); }
+
 	private static WarpedEnderManVariant randomVarient(Random random){
 		final WarpedEnderManVariant[] values = WarpedEnderManVariant.values();
 		return values[random.nextInt(values.length)];
 	}
 
 	public enum WarpedEnderManVariant {
-		FRESH, SHORT_VINE, LONG_VINE, DETERIORATED;
+		FRESH, SHORT_VINE, LONG_VINE
 	}
 
 }

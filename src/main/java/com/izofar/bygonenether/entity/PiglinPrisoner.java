@@ -41,15 +41,15 @@ import java.util.function.Predicate;
 public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob, InventoryCarrier {
 
 	private static final EntityDataAccessor<Boolean> DATA_IS_CHARGING_CROSSBOW = SynchedEntityData.defineId(Piglin.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> DATA_IS_DANCING = SynchedEntityData.defineId(Piglin.class, EntityDataSerializers.BOOLEAN);
 
-	protected static final ImmutableList<SensorType<? extends Sensor<? super PiglinPrisoner>>> SENSOR_TYPES =
-			ImmutableList.of(
-					SensorType.NEAREST_LIVING_ENTITIES, 
-					SensorType.NEAREST_PLAYERS, 
-					SensorType.NEAREST_ITEMS, 
-					SensorType.HURT_BY, 
-					ModSensorTypes.PIGLIN_PRISONER_SPECIFIC_SENSOR.get()
-				);
+	protected static final ImmutableList<SensorType<? extends Sensor<? super PiglinPrisoner>>> SENSOR_TYPES = ImmutableList.of(
+				SensorType.NEAREST_LIVING_ENTITIES,
+				SensorType.NEAREST_PLAYERS,
+				SensorType.NEAREST_ITEMS,
+				SensorType.HURT_BY,
+				ModSensorTypes.PIGLIN_PRISONER_SPECIFIC_SENSOR.get()
+			);
 	protected static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
 				MemoryModuleType.LOOK_TARGET, 
 				MemoryModuleType.DOORS_TO_CLOSE, 
@@ -66,7 +66,9 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 				MemoryModuleType.ATTACK_COOLING_DOWN, 
 				MemoryModuleType.INTERACTION_TARGET, 
 				MemoryModuleType.PATH,
-				MemoryModuleType.ANGRY_AT, 
+				MemoryModuleType.ANGRY_AT,
+				MemoryModuleType.CELEBRATE_LOCATION,
+				MemoryModuleType.DANCING,
 				MemoryModuleType.NEAREST_VISIBLE_NEMESIS
 			);
 
@@ -77,6 +79,12 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 	public PiglinPrisoner(EntityType<? extends AbstractPiglin> entitytype, Level world) {
 		super(entitytype, world);
 		this.xpReward = 5;
+	}
+
+	protected void defineSynchedData() {
+		super.defineSynchedData();
+		this.entityData.define(DATA_IS_CHARGING_CROSSBOW, false);
+		this.entityData.define(DATA_IS_DANCING, false);
 	}
 
 	public static AttributeSupplier.Builder createAttributes() { 
@@ -137,7 +145,25 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 	protected boolean canHunt() { return false; }
 	
 	@Override
-	public PiglinArmPose getArmPose() { return this.isAggressive() && this.isHoldingMeleeWeapon() ? PiglinArmPose.ATTACKING_WITH_MELEE_WEAPON : PiglinArmPose.DEFAULT; }
+	public PiglinArmPose getArmPose() {
+		if(this.isDancing()){
+			return PiglinArmPose.DANCING;
+		} else if(this.isAggressive() && this.isHoldingMeleeWeapon()) {
+			return PiglinArmPose.ATTACKING_WITH_MELEE_WEAPON;
+		} else if(isChargingCrossbow()){
+			return PiglinArmPose.CROSSBOW_CHARGE;
+		} else{
+			return PiglinArmPose.DEFAULT;
+		}
+	}
+
+	public boolean isDancing() {
+		return this.entityData.get(DATA_IS_DANCING);
+	}
+
+	public void setDancing(boolean p_34790_) {
+		this.entityData.set(DATA_IS_DANCING, p_34790_);
+	}
 
 	@Override
 	protected void playConvertedSound() { this.playSound(SoundEvents.PIGLIN_CONVERTED_TO_ZOMBIFIED); }

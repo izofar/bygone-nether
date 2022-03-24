@@ -16,18 +16,24 @@
  import net.minecraft.world.entity.ai.behavior.*;
  import net.minecraft.world.entity.ai.memory.MemoryModuleType;
  import net.minecraft.world.entity.ai.sensing.Sensor;
+ import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
+ import net.minecraft.world.entity.monster.piglin.PiglinAi;
+ import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.entity.schedule.Activity;
 
+ import java.util.List;
  import java.util.Optional;
 
-public class PiglinPrisonerAi {
+ public class PiglinPrisonerAi {
 
 	private static final UniformInt AVOID_ZOMBIFIED_DURATION = TimeUtil.rangeOfSeconds(5, 7);
+	 private static final int CELEBRATION_TIME = 200;
 
 	public static Brain<?> makeBrain(PiglinPrisoner piglin, Brain<PiglinPrisoner> brain) {
 		initCoreActivity(brain);
 		initIdleActivity(brain);
 		initFightActivity(piglin, brain);
+		initCelebrateActivity(brain);
 		brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
 		brain.setDefaultActivity(Activity.IDLE);
 		brain.useDefaultActivity();
@@ -57,8 +63,7 @@ public class PiglinPrisonerAi {
 					)
 				);
 	}
-	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+
 	private static void initFightActivity(PiglinPrisoner piglin, Brain<PiglinPrisoner> brain) {
 	      brain.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 10, 
 	    		  ImmutableList.<net.minecraft.world.entity.ai.behavior.Behavior<? super PiglinPrisoner>>of(
@@ -71,6 +76,23 @@ public class PiglinPrisonerAi {
     				  ), 
 	    		  MemoryModuleType.ATTACK_TARGET);
 	   }
+
+	 private static void initCelebrateActivity(Brain<PiglinPrisoner> brain) {
+		 brain.addActivityAndRemoveMemoryWhenStopped(
+				 Activity.CELEBRATE,
+				 10,
+				 ImmutableList.of(
+					 avoidRepellent(),
+					 new StartAttacking<PiglinPrisoner>(AbstractPiglin::isAdult, PiglinPrisonerAi::findNearestValidAttackTarget),
+					 new RunIf<PiglinPrisoner>((piglin) -> !piglin.isDancing(), new GoToCelebrateLocation<>(2, 1.0F)),
+					 new RunIf<PiglinPrisoner>(PiglinPrisoner::isDancing, new GoToCelebrateLocation<>(4, 0.6F)),
+					 new RunOne<>(ImmutableList.of(
+							 Pair.of(new SetEntityLookTarget(EntityType.PIGLIN, 8.0F), 1),
+							 Pair.of(new RandomStroll(0.6F, 2, 1), 1),
+							 Pair.of(new DoNothing(10, 20), 1)))
+				 	),
+				 MemoryModuleType.CELEBRATE_LOCATION);
+	 }
 	
 	private static RunOne<PiglinPrisoner> createIdleLookBehaviors() {
 		return new RunOne<>(
@@ -100,6 +122,12 @@ public class PiglinPrisonerAi {
 		Activity activity1 = brain.getActiveNonCoreActivity().orElse(null);
 		if (activity != activity1) getSoundForCurrentActivity(piglin).ifPresent(piglin::playSound);
 		piglin.setAggressive(brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET));
+
+		if (!brain.hasMemoryValue(MemoryModuleType.CELEBRATE_LOCATION)) {
+			brain.eraseMemory(MemoryModuleType.DANCING);
+		}
+
+		piglin.setDancing(brain.hasMemoryValue(MemoryModuleType.DANCING));
 	}
 
 	private static boolean isNearestValidAttackTarget(PiglinPrisoner piglin, LivingEntity target) { return findNearestValidAttackTarget(piglin).filter((potentialTarget) -> potentialTarget == target).isPresent(); }
@@ -156,5 +184,15 @@ public class PiglinPrisonerAi {
 	}
 	
 	private static boolean isNearRepellent(PiglinPrisoner piglin) { return piglin.getBrain().hasMemoryValue(MemoryModuleType.NEAREST_REPELLENT); }
-	
+
+	public static void exciteNearbyPiglins(Player player, boolean requireVisibility) {
+		List<PiglinPrisoner> list = player.level.getEntitiesOfClass(PiglinPrisoner.class, player.getBoundingBox().inflate(16.0D));
+		list.stream().filter(PiglinAi::isIdle).filter((piglin) -> !requireVisibility || BehaviorUtils.canSee(piglin, player)).forEach((piglin) -> startDancing(piglin));
+	}
+
+	private static void startDancing(PiglinPrisoner piglin){
+		piglin.getBrain().setMemoryWithExpiry(MemoryModuleType.DANCING, true, CELEBRATION_TIME);
+		piglin.getBrain().setMemoryWithExpiry(MemoryModuleType.CELEBRATE_LOCATION, piglin.blockPosition(), CELEBRATION_TIME);
+	}
+
 }

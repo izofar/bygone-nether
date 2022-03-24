@@ -55,7 +55,6 @@ public class CitadelStructure extends StructureFeature<JigsawConfiguration> {
 	
 	public static Optional<PieceGenerator<JigsawConfiguration>> createPiecesGenerator( PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
 		BlockPos blockpos = ModStructureUtils.getElevation(context, 48, ModStructureUtils.getScaledNetherHeight(70));
-		BygoneNetherMod.LOGGER.info("/////////////////////////" + context.heightAccessor().getHeight() + "////////////////////////////////////////");
 		JigsawConfiguration newConfig = new JigsawConfiguration(() -> context.registryAccess().ownedRegistryOrThrow(Registry.TEMPLATE_POOL_REGISTRY).get(new ResourceLocation(BygoneNetherMod.MODID, "citadel/start_pool")), 1);
 		return JigsawPlacement.addPieces(ModStructureUtils.duplicateContext(context, newConfig), PoolElementStructurePiece::new, blockpos, false, false);
 	}

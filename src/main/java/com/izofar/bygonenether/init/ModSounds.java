@@ -12,7 +12,23 @@ public class ModSounds {
 
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, BygoneNetherMod.MODID);
 
-    public static RegistryObject<SoundEvent> WITHER_WALTZ = SOUND_EVENTS.register("wither_waltz", () -> new SoundEvent(new ResourceLocation(BygoneNetherMod.MODID, "wither_waltz")));
+    public static RegistryObject<SoundEvent> WITHER_WALTZ = register("wither_waltz");
+
+    public static RegistryObject<SoundEvent> WEX_CHARGE = register("entity.wex.charge");
+    public static RegistryObject<SoundEvent> WEX_DEATH = register("entity.wex.death");
+    public static RegistryObject<SoundEvent> WEX_HURT = register("entity.wex.hurt");
+    public static RegistryObject<SoundEvent> WEX_AMBIENT = register("entity.wex.ambient");
+    
+    public static RegistryObject<SoundEvent> WARPED_ENDERMAN_DEATH = register("entity.warped_enderman.death");
+    public static RegistryObject<SoundEvent> WARPED_ENDERMAN_HURT = register("entity.warped_enderman.hurt");
+    public static RegistryObject<SoundEvent> WARPED_ENDERMAN_AMBIENT = register("entity.warped_enderman.ambient");
+    public static RegistryObject<SoundEvent> WARPED_ENDERMAN_TELEPORT = register("entity.warped_enderman.teleport");
+    public static RegistryObject<SoundEvent> WARPED_ENDERMAN_SCREAM = register("entity.warped_enderman.scream");
+    public static RegistryObject<SoundEvent> WARPED_ENDERMAN_STARE = register("entity.warped_enderman.stare");
+
+    private static RegistryObject<SoundEvent> register(String name){
+        return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(BygoneNetherMod.MODID, name)));
+    }
 
     public static void register(IEventBus eventBus) { SOUND_EVENTS.register(eventBus); }
 }

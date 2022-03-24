@@ -37,5 +37,16 @@
 	"entity.bygonenether.piglin_prisoner": "Piglin Prisoner",
 	"entity.bygonenether.piglin_hunter": "Piglin Hunter",
 	"entity.bygonenether.wex": "Wex",
-	"entity.bygonenether.warped_enderman": "Warped Enderman"
+	"entity.bygonenether.warped_enderman": "Warped Enderman",
+
+	"sounds.bygonenether.warped_enderman.ambient": "Warped Enderman Ambient",
+	"sounds.bygonenether.warped_enderman.death": "Warped Enderman Death",
+	"sounds.bygonenether.warped_enderman.hurt": "Warped Enderman Hurt",
+	"sounds.bygonenether.warped_enderman.scream": "Warped Enderman Scream",
+	"sounds.bygonenether.warped_enderman.stare": "Warped Enderman Stare",
+	"sounds.bygonenether.warped_enderman.teleport": "Warped Enderman Teleport",
+	"sounds.bygonenether.wex.ambient": "Wex Ambient",
+	"sounds.bygonenether.wex.death": "Wex Death",
+	"sounds.bygonenether.wex.hurt": "Wex Hurt",
+	"sounds.bygonenether.wxe.charge": "Wex Charge"
 }

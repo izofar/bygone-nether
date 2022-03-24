@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "bygonenether:warped_nether_bricks"
+  },
+  "result": "bygonenether:chiseled_warped_nether_bricks",
+  "count": 1
+}

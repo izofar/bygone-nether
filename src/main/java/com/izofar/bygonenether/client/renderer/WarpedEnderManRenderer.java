@@ -25,9 +25,8 @@ public class WarpedEnderManRenderer extends MobRenderer<WarpedEnderMan, WarpedEn
 	private static final Map<WarpedEnderMan.WarpedEnderManVariant, ResourceLocation> WARPED_ENDERMAN_LOCATION_MAP = ImmutableMap.of(
 			WarpedEnderMan.WarpedEnderManVariant.FRESH, new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/warped_enderman/warped_enderman_fresh.png"),
 			WarpedEnderMan.WarpedEnderManVariant.SHORT_VINE, new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/warped_enderman/warped_enderman_short_vine.png"),
-			WarpedEnderMan.WarpedEnderManVariant.LONG_VINE, new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/warped_enderman/warped_enderman_long_vine.png"),
-			WarpedEnderMan.WarpedEnderManVariant.DETERIORATED, new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/warped_enderman/warped_enderman_long_vine.png")
-	);
+			WarpedEnderMan.WarpedEnderManVariant.LONG_VINE, new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/warped_enderman/warped_enderman_long_vine.png")
+		);
 
 	private final Random random = new Random();
 
@@ -46,12 +45,7 @@ public class WarpedEnderManRenderer extends MobRenderer<WarpedEnderMan, WarpedEn
 	}
 
 	public Vec3 getRenderOffset(WarpedEnderMan enderman, float offset) {
-		if (enderman.isCreepy()) {
-			double d0 = 0.02D;
-			return new Vec3(this.random.nextGaussian() * 0.02D, 0.0D, this.random.nextGaussian() * 0.02D);
-		} else {
-			return super.getRenderOffset(enderman, offset);
-		}
+		return enderman.isCreepy() ? new Vec3(this.random.nextGaussian() * 0.02D, 0.0D, this.random.nextGaussian() * 0.02D) : super.getRenderOffset(enderman, offset);
 	}
 
 	@Override
