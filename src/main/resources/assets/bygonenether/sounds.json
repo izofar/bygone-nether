@@ -1,0 +1,10 @@
+{
+  "wither_waltz": {
+    "sounds": [
+      {
+        "name": "bygonenether:wither_waltz",
+        "stream": true
+      }
+    ]
+  }
+}

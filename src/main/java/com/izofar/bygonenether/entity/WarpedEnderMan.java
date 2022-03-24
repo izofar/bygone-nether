@@ -3,11 +3,7 @@ package com.izofar.bygonenether.entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
@@ -17,9 +13,18 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
+import java.util.Random;
+
 public class WarpedEnderMan extends EnderMan{
 
-	public WarpedEnderMan(EntityType<? extends EnderMan> entityType, Level world) { super(entityType, world); }
+	private final WarpedEnderManVariant variant;
+
+	public WarpedEnderMan(EntityType<? extends EnderMan> entityType, Level world) {
+		super(entityType, world);
+		this.variant = randomVarient(world.getRandom());
+	}
+
+	public WarpedEnderManVariant getVariant(){ return this.variant; }
 
 	@Override
 	protected void registerGoals() {
@@ -41,4 +46,14 @@ public class WarpedEnderMan extends EnderMan{
 			.add(Attributes.ATTACK_DAMAGE, 8.5D)
 			.add(Attributes.FOLLOW_RANGE, 64.0D);
 	}
+
+	private static WarpedEnderManVariant randomVarient(Random random){
+		final WarpedEnderManVariant[] values = WarpedEnderManVariant.values();
+		return values[random.nextInt(values.length)];
+	}
+
+	public enum WarpedEnderManVariant {
+		FRESH, SHORT_VINE, LONG_VINE, DETERIORATED;
+	}
+
 }
