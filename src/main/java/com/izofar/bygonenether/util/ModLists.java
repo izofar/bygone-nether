@@ -21,4 +21,5 @@ public abstract class ModLists {
 			WeightedEntry.of(ModEntityTypes.PIGLIN_HUNTER.get(), 1),
 			WeightedEntry.of(EntityType.PIGLIN, 3)
 		);
+	public static final List<Structure<?>> SPAWNER_STRUCTURES = ImmutableList.of(ModStructures.NETHER_FORTRESS.get(), ModStructures.CATACOMB.get());
 }
