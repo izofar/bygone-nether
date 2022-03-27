@@ -19,20 +19,4 @@ public abstract class ModBlockEvents {
 				&& ((TieredItem) item).getTier() == ItemTier.NETHERITE))
 			event.setCanceled(true);
 	}
-/*
-	@SubscribeEvent
-	public static void repairBrokenSpawnerBlocks(BlockEvent e){
-		if (blockstate.is(Blocks.SPAWNER)) {
-			TileEntity tileentity = world.getBlockEntity(blockpos);
-			if (tileentity instanceof MobSpawnerTileEntity) {
-				AbstractSpawner abstractspawner = ((MobSpawnerTileEntity)tileentity).getSpawner();
-				EntityType<?> entitytype1 = this.getType(itemstack.getTag());
-				abstractspawner.setEntityId(entitytype1);
-				tileentity.setChanged();
-				world.sendBlockUpdated(blockpos, blockstate, blockstate, 3);
-				itemstack.shrink(1);
-				return ActionResultType.CONSUME;
-			}
-		}
-	}*/
 }

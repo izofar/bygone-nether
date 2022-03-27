@@ -21,14 +21,14 @@ import java.util.Optional;
 
 public class ModPiglinBruteAi {
 
-	public static ImmutableList<SensorType<? extends Sensor<? super PiglinBruteEntity>>> SENSOR_TYPES = ImmutableList.of(
+	public static final ImmutableList<SensorType<? extends Sensor<? super PiglinBruteEntity>>> SENSOR_TYPES = ImmutableList.of(
 			SensorType.NEAREST_LIVING_ENTITIES,
 			SensorType.NEAREST_PLAYERS,
 			SensorType.NEAREST_ITEMS,
 			SensorType.HURT_BY,
 			ModSensorTypes.PIGLIN_BRUTE_SPECIFIC_SENSOR.get()
 		);
-	public static ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
+	public static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
 			MemoryModuleType.LOOK_TARGET,
 			MemoryModuleType.DOORS_TO_CLOSE,
 			MemoryModuleType.LIVING_ENTITIES,
@@ -68,10 +68,10 @@ public class ModPiglinBruteAi {
 
 	public static boolean isWearingGild(LivingEntity entity) {
 		for (ItemStack itemstack : entity.getArmorSlots())
-			if (makesPiglinBrutesNeutral(itemstack, entity))
+			if (makesPiglinBrutesNeutral(itemstack))
 				return true;
 		return false;
 	}
 
-	private static boolean makesPiglinBrutesNeutral(ItemStack stack, LivingEntity wearer) { return stack.getItem() instanceof ArmorItem && ((ArmorItem) stack.getItem()).getMaterial() instanceof ModArmorMaterial; }
+	private static boolean makesPiglinBrutesNeutral(ItemStack stack) { return stack.getItem() instanceof ArmorItem && ((ArmorItem) stack.getItem()).getMaterial() instanceof ModArmorMaterial; }
 }

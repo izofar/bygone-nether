@@ -27,9 +27,6 @@ import java.util.List;
 
 public class PiglinManorStructure extends Structure<NoFeatureConfig> {
 
-    private final static int CHUNK_SEARCH_RADIUS = 3;
-    private final static int MAX_TERRAIN_RANGE = 10;
-
     private static final String PIGLIN_MANOR_START_POOL = "piglin_manor/start_pool";
 
     public static final List<MobSpawnInfo.Spawners> MANOR_ENEMIES = ImmutableList.of(

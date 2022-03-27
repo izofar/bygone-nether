@@ -215,9 +215,7 @@ public class PiglinPrisonerEntity extends AbstractPiglinEntity implements ICross
 		}
 	}
 
-	public boolean isDancing() {
-		return false;
-	}
+	public boolean isDancing() { return false; }
 
 	public void performRangedAttack(LivingEntity pTarget, float pVelocity) {
 		this.performCrossbowAttack(this, 1.6F);
@@ -233,12 +231,6 @@ public class PiglinPrisonerEntity extends AbstractPiglinEntity implements ICross
 
 	public boolean wantsToPickUp(ItemStack pStack) {
 		return net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) && this.canPickUpLoot() && WANTS_TO_PICK_UP.test(pStack.getItem());
-	}
-
-	protected boolean canReplaceCurrentItem(ItemStack pCandidate) {
-		EquipmentSlotType equipmentslottype = MobEntity.getEquipmentSlotForItem(pCandidate);
-		ItemStack itemstack = this.getItemBySlot(equipmentslottype);
-		return this.canReplaceCurrentItem(pCandidate, itemstack);
 	}
 
 	protected boolean canReplaceCurrentItem(ItemStack pCandidate, ItemStack pExisting) {

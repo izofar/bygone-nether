@@ -63,7 +63,6 @@ public class PiglinHunterModel extends ModPlayerModel<PiglinHunterEntity> {
         this.leftArm.copyFrom(this.leftArmDefault);
         this.rightArm.copyFrom(this.rightArmDefault);
         super.setupAnim(pEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
-        float f = ((float)Math.PI / 6F);
         float f1 = pAgeInTicks * 0.1F + pLimbSwing * 0.5F;
         float f2 = 0.08F + pLimbSwingAmount * 0.4F;
         this.earRight.zRot = (-(float)Math.PI / 6F) - MathHelper.cos(f1 * 1.2F) * f2;

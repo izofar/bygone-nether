@@ -5,7 +5,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
@@ -16,7 +15,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.List;
-import java.util.Random;
 
 @OnlyIn(Dist.CLIENT)
 public class ModPlayerModel<T extends LivingEntity> extends BipedModel<T> {
@@ -64,17 +62,6 @@ public class ModPlayerModel<T extends LivingEntity> extends BipedModel<T> {
 
     protected Iterable<ModelRenderer> bodyParts() {
         return Iterables.concat(super.bodyParts(), ImmutableList.of(this.leftPants, this.rightPants, this.leftSleeve, this.rightSleeve, this.jacket));
-    }
-
-    public void renderEars(MatrixStack pMatrixStack, IVertexBuilder pBuffer, int pPackedLight, int pPackedOverlay) {
-        this.ear.copyFrom(this.head);
-        this.ear.x = 0.0F;
-        this.ear.y = 0.0F;
-        this.ear.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay);
-    }
-
-    public void renderCloak(MatrixStack pMatrixStack, IVertexBuilder pBuffer, int pPackedLight, int pPackedOverlay) {
-        this.cloak.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay);
     }
 
     /**
@@ -127,10 +114,6 @@ public class ModPlayerModel<T extends LivingEntity> extends BipedModel<T> {
             modelrenderer.translateAndRotate(pMatrixStack);
         }
 
-    }
-
-    public ModelRenderer getRandomModelPart(Random pRandom) {
-        return this.cubes.get(pRandom.nextInt(this.cubes.size()));
     }
 
     public void accept(ModelRenderer p_accept_1_) {
