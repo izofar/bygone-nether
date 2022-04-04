@@ -1,0 +1,37 @@
+{
+  "parent": "bygonenether:catacomb",
+  "display": {
+    "icon": {
+      "item": "bygonenether:wither_waltz_music_disc"
+    },
+    "title": {
+      "translate": "Here I Waltz"
+    },
+    "description": {
+      "translate": "Acquire the Wither Waltz Music Disc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "music_disc": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "bygonenether:wither_waltz_music_disc"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "music_disc"
+    ]
+  ]
+}

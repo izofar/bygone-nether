@@ -1,5 +1,5 @@
 {
-  "parent": "bygonenether:root",
+  "parent": "bygonenether:explore_structures",
   "display": {
     "icon": {
       "item": "minecraft:red_nether_bricks"

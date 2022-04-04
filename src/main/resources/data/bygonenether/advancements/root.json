@@ -16,8 +16,16 @@
     "background": "bygonenether:textures/block/soul_stone.png"
   },
   "criteria": {
-    "always": {
-      "trigger": "minecraft:tick"
+    "entered_nether": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "minecraft:the_nether"
+      }
     }
-  }
+  },
+  "requirements": [
+    [
+      "entered_nether"
+    ]
+  ]
 }

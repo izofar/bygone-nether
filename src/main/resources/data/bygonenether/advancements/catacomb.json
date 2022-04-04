@@ -1,5 +1,5 @@
 {
-  "parent": "bygonenether:root",
+  "parent": "bygonenether:explore_structures",
   "display": {
     "icon": {
       "item": "bygonenether:withered_debris"

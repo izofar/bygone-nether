@@ -17,6 +17,8 @@
  import net.minecraft.util.valueproviders.UniformInt;
  import net.minecraft.world.InteractionHand;
  import net.minecraft.world.InteractionResult;
+ import net.minecraft.world.effect.MobEffectInstance;
+ import net.minecraft.world.effect.MobEffects;
  import net.minecraft.world.entity.EntityType;
  import net.minecraft.world.entity.LivingEntity;
  import net.minecraft.world.entity.Mob;
@@ -24,6 +26,7 @@
  import net.minecraft.world.entity.ai.behavior.*;
  import net.minecraft.world.entity.ai.memory.MemoryModuleType;
  import net.minecraft.world.entity.ai.sensing.Sensor;
+ import net.minecraft.world.entity.ai.util.LandRandomPos;
  import net.minecraft.world.entity.item.ItemEntity;
  import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
  import net.minecraft.world.entity.monster.piglin.Piglin;
@@ -33,7 +36,9 @@
  import net.minecraft.world.entity.schedule.Activity;
  import net.minecraft.world.item.ItemStack;
  import net.minecraft.world.item.Items;
+ import net.minecraft.world.phys.Vec3;
 
+ import java.util.Collections;
  import java.util.List;
  import java.util.Optional;
 
@@ -63,7 +68,6 @@
 						avoidZombified(),
 						new ModStopHoldingItemIfNoLongerAdmiring<>(),
 						new ModStartAdmiringItemIfSeen<>(120),
-						//new StartCelebratingIfTargetDead(300, PiglinPrisonerAi::wantsToDance),
 						new StopBeingAngryIfTargetDead<>()));
 
 	}
@@ -221,11 +225,11 @@
 		 if (piglin.isAdult()) {
 			 boolean flag = itemstack.isPiglinCurrency();
 			 if (shouldThrowItems && flag) {
-				 //throwItems(piglin, getBarterResponseItems(piglin));
+				 putInInventory(piglin, itemstack);
 			 } else if (!flag) {
 				 boolean flag1 = piglin.equipItemIfPossible(itemstack);
 				 if (!flag1) {
-					 putInInventory(piglin, itemstack);
+					 throwItems(piglin, Collections.singletonList(itemstack));
 				 }
 			 }
 		 } else {
@@ -235,11 +239,41 @@
 				 if (isLovedItem(itemstack1)) {
 					 putInInventory(piglin, itemstack1);
 				 } else {
-					 //throwItems(piglin, Collections.singletonList(itemstack1));
+					 throwItems(piglin, Collections.singletonList(itemstack1));
 				 }
 				 piglin.holdInMainHand(itemstack);
 			 }
 		 }
+	 }
+
+	 private static void throwItems(PiglinPrisoner p_34861_, List<ItemStack> p_34862_) {
+		 Optional<Player> optional = p_34861_.getBrain().getMemory(MemoryModuleType.NEAREST_VISIBLE_PLAYER);
+		 if (optional.isPresent())
+			 throwItemsTowardPlayer(p_34861_, optional.get(), p_34862_);
+		 else
+			 throwItemsTowardRandomPos(p_34861_, p_34862_);
+	 }
+
+	 private static void throwItemsTowardRandomPos(PiglinPrisoner piglin, List<ItemStack> stackList) {
+		 throwItemsTowardPos(piglin, stackList, getRandomNearbyPos(piglin));
+	 }
+
+	 private static void throwItemsTowardPlayer(PiglinPrisoner piglin, Player player, List<ItemStack> stackList) {
+		 throwItemsTowardPos(piglin, stackList, player.position());
+	 }
+
+	 private static void throwItemsTowardPos(PiglinPrisoner piglin, List<ItemStack> stackList, Vec3 vec) {
+		 if (!stackList.isEmpty()) {
+			 piglin.swing(InteractionHand.OFF_HAND);
+
+			 for(ItemStack itemstack : stackList)
+				 BehaviorUtils.throwItem(piglin, itemstack, vec.add(0.0D, 1.0D, 0.0D));
+		 }
+	 }
+
+	 private static Vec3 getRandomNearbyPos(PiglinPrisoner piglin) {
+		 Vec3 vec3 = LandRandomPos.getPos(piglin, 4, 2);
+		 return vec3 == null ? piglin.position() : vec3;
 	 }
 
 	 public static void cancelAdmiring(PiglinPrisoner piglin) {
@@ -254,7 +288,7 @@
 			 return false;
 		 else if (isAdmiringDisabled(piglin) && piglin.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET))
 			 return false;
-		 else if (stack.isPiglinCurrency())
+		 else if (stack.isPiglinCurrency() || isLovedItem(stack))
 			 return isNotHoldingLovedItemInOffHand(piglin);
 		 else {
 			 boolean flag = piglin.canAddToInventory(stack);
@@ -308,7 +342,7 @@
 	 }
 
 	 public static boolean canAdmire(PiglinPrisoner piglin, ItemStack stack) {
-		 return !isAdmiringDisabled(piglin) && !isAdmiringItem(piglin) && piglin.isAdult() && stack.isPiglinCurrency();
+		 return !isAdmiringDisabled(piglin) && !isAdmiringItem(piglin) && piglin.isAdult() && stack.isPiglinCurrency() || isLovedItem(stack);
 	 }
 
 	 public static void wasHurtBy(PiglinPrisoner piglin, LivingEntity attacker) {
@@ -391,7 +425,10 @@
 		 piglin.getBrain().setMemoryWithExpiry(MemoryModuleType.ADMIRING_ITEM, true, 120L);
 	 }
 
-	 private static void putInInventory(PiglinPrisoner piglin, ItemStack stack) { piglin.addToInventory(stack); }
+	 private static void putInInventory(PiglinPrisoner piglin, ItemStack stack) {
+		piglin.addToInventory(stack);
+		giveGoldBuff(piglin);
+	}
 
 	 private static boolean hasCrossbow(LivingEntity entity) { return entity.isHolding(is -> is.getItem() instanceof net.minecraft.world.item.CrossbowItem); }
 
@@ -444,6 +481,11 @@
 
 	 private static boolean hasEatenRecently(PiglinPrisoner piglin) {
 		 return piglin.getBrain().hasMemoryValue(MemoryModuleType.ATE_RECENTLY);
+	 }
+
+	 private static void giveGoldBuff(PiglinPrisoner piglin){
+		 piglin.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 60 * 180, 3, false, true));
+		 piglin.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 60 * 120, 1, false, false));
 	 }
 
 }
