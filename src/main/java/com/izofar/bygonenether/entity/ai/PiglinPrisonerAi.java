@@ -360,7 +360,7 @@
 		 piglin.getNavigation().stop();
 	 }
 
-	 protected static void setAngerTarget(AbstractPiglin piglin, LivingEntity target) {
+	 public static void setAngerTarget(AbstractPiglin piglin, LivingEntity target) {
 		 if (Sensor.isEntityAttackableIgnoringLineOfSight(piglin, target)) {
 			 piglin.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
 			 piglin.getBrain().setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, target.getUUID(), 600L);

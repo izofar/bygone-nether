@@ -15,7 +15,8 @@ import net.minecraft.world.level.levelgen.feature.configurations.ReplaceSphereCo
 public abstract class ModConfiguredFeatures {
 
 	public static final ConfiguredFeature<?, ?> CONFIGURED_MOB_FEATURE_PIGLIN_PRISONER = ModFeatures.MOB_FEATURE_PIGLIN_PRISONER.get().configured(NoneFeatureConfiguration.INSTANCE);
-	public static final ConfiguredFeature<?, ?> CONFIGURED_MOB_FEATURE_PIGLIN_MANOR = ModFeatures.MOB_FEATURE_PIGLIN_MANOR.get().configured(NoneFeatureConfiguration.INSTANCE);
+	public static final ConfiguredFeature<?, ?> CONFIGURED_MOB_FEATURE_PIGLIN_MANOR_INSIDE = ModFeatures.MOB_FEATURE_PIGLIN_MANOR_INSIDE.get().configured(NoneFeatureConfiguration.INSTANCE);
+	public static final ConfiguredFeature<?, ?> CONFIGURED_MOB_FEATURE_PIGLIN_MANOR_OUTSIDE = ModFeatures.MOB_FEATURE_PIGLIN_MANOR_OUTSIDE.get().configured(NoneFeatureConfiguration.INSTANCE);
 	public static final ConfiguredFeature<?, ?> CONFIGURED_MOB_FEATURE_STRIDER = ModFeatures.MOB_FEATURE_STRIDER.get().configured(NoneFeatureConfiguration.INSTANCE);
 	public static final ConfiguredFeature<?, ?> CONFIGURED_MOB_FEATURE_WITHER_SKELETON = ModFeatures.MOB_FEATURE_WITHER_SKELETON.get().configured(NoneFeatureConfiguration.INSTANCE);
 	public static final ConfiguredFeature<?, ?> CONFIGURED_MOB_FEATURE_WARPED_ENDERMAN = ModFeatures.MOB_FEATURE_WARPED_ENDERMAN.get().configured(NoneFeatureConfiguration.INSTANCE);
@@ -26,10 +27,12 @@ public abstract class ModConfiguredFeatures {
 		Registry<ConfiguredFeature<?, ?>> registry = BuiltinRegistries.CONFIGURED_FEATURE;
 		
 		Registry.register(registry, new ResourceLocation(BygoneNetherMod.MODID, "mob_feature_piglin_prisoner"), CONFIGURED_MOB_FEATURE_PIGLIN_PRISONER);
-		Registry.register(registry, new ResourceLocation(BygoneNetherMod.MODID, "mob_feature_piglin_manor"), CONFIGURED_MOB_FEATURE_PIGLIN_MANOR);
+		Registry.register(registry, new ResourceLocation(BygoneNetherMod.MODID, "mob_feature_piglin_manor_inside"), CONFIGURED_MOB_FEATURE_PIGLIN_MANOR_INSIDE);
+		Registry.register(registry, new ResourceLocation(BygoneNetherMod.MODID, "mob_feature_piglin_manor_outside"), CONFIGURED_MOB_FEATURE_PIGLIN_MANOR_OUTSIDE);
+
 		Registry.register(registry, new ResourceLocation(BygoneNetherMod.MODID, "mob_feature_strider"), CONFIGURED_MOB_FEATURE_STRIDER);
 		Registry.register(registry, new ResourceLocation(BygoneNetherMod.MODID, "mob_feature_wither_skeleton"), CONFIGURED_MOB_FEATURE_WITHER_SKELETON);
-		Registry.register(registry, new ResourceLocation(BygoneNetherMod.MODID, "mob_feature_wwarped_enderman"), CONFIGURED_MOB_FEATURE_WARPED_ENDERMAN);
+		Registry.register(registry, new ResourceLocation(BygoneNetherMod.MODID, "mob_feature_warped_enderman"), CONFIGURED_MOB_FEATURE_WARPED_ENDERMAN);
 
 		Registry.register(registry, new ResourceLocation(BygoneNetherMod.MODID, "soul_stone_blobs"), SOUL_STONE_BLOBS);
 	}

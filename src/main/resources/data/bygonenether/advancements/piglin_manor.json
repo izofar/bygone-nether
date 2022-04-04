@@ -1,0 +1,31 @@
+{
+  "parent": "bygonenether:root",
+  "display": {
+    "icon": {
+      "item": "minecraft:crimson_planks"
+    },
+    "title": {
+      "translate": "Mind your Manors"
+    },
+    "description": {
+      "translate": "Locate a Piglin Manor"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "in_piglin_manor": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "feature": "bygonenether:piglin_manor"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "in_piglin_manor"
+    ]
+  ]
+}

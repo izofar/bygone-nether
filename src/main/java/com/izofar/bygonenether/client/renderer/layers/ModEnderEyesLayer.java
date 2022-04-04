@@ -16,7 +16,5 @@ public class ModEnderEyesLayer<T extends EnderMan, M extends EndermanModel<T>> e
 
     public ModEnderEyesLayer(RenderLayerParent<T, M> layer) { super(layer); }
 
-    public RenderType renderType() {
-        return ENDERMAN_EYES;
-    }
+    public RenderType renderType() { return ENDERMAN_EYES; }
 }

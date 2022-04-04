@@ -1,0 +1,31 @@
+{
+  "parent": "bygonenether:root",
+  "display": {
+    "icon": {
+      "item": "bygonenether:chiseled_warped_nether_bricks"
+    },
+    "title": {
+      "translate": "The Citadel in the Midgame"
+    },
+    "description": {
+      "translate": "Locate a Citadel"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "in_citadel": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "feature": "bygonenether:citadel"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "in_citadel"
+    ]
+  ]
+}

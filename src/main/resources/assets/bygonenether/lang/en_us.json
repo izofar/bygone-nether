@@ -19,6 +19,7 @@
 	"item.bygonenether.piglin_hunter_spawn_egg": "Piglin Hunter Spawn Egg",
 	"item.bygonenether.wex_spawn_egg": "Wex Spawn Egg",
 	"item.bygonenether.warped_enderman_spawn_egg": "Warped Enderman Spawn Egg",
+	"item.bygonenether.wither_skeleton_horse_spawn_egg": "Wither Skeleton Horse Spawn Egg",
 
 	"item.bygonenether.wither_waltz_music_disc": "Music Disc",
 	"item.bygonenether.wither_waltz_music_disc.desc": "izofar - Wither Waltz",
@@ -38,6 +39,7 @@
 	"entity.bygonenether.piglin_hunter": "Piglin Hunter",
 	"entity.bygonenether.wex": "Wex",
 	"entity.bygonenether.warped_enderman": "Warped Enderman",
+	"entity.bygonenether.wither_skeleton_horse": "Wither Skeleton Horse",
 
 	"sounds.bygonenether.warped_enderman.ambient": "Warped Enderman Ambient",
 	"sounds.bygonenether.warped_enderman.death": "Warped Enderman Death",
@@ -48,5 +50,5 @@
 	"sounds.bygonenether.wex.ambient": "Wex Ambient",
 	"sounds.bygonenether.wex.death": "Wex Death",
 	"sounds.bygonenether.wex.hurt": "Wex Hurt",
-	"sounds.bygonenether.wxe.charge": "Wex Charge"
+	"sounds.bygonenether.wex.charge": "Wex Charge"
 }

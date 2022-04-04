@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "item": "bygonenether:chiseled_withered_blackstone"
+    },
+    "title": {
+      "translate": "Bygone Nether"
+    },
+    "description": {
+      "translate": "Explore the Nether for New Structures!"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": true,
+    "background": "bygonenether:textures/block/soul_stone.png"
+  },
+  "criteria": {
+    "always": {
+      "trigger": "minecraft:tick"
+    }
+  }
+}

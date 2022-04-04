@@ -183,6 +183,11 @@
         },
         {
           "type": "minecraft:item",
+          "weight": 6,
+          "name": "bygonenether:wither_waltz_music_disc"
+        },
+        {
+          "type": "minecraft:item",
           "weight": 5,
           "name": "minecraft:saddle"
         },

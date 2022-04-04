@@ -1,0 +1,61 @@
+{
+  "parent": "bygonenether:root",
+  "display": {
+    "icon": {
+      "item": "bygonenether:wither_waltz_music_disc"
+    },
+    "title": {
+      "translate": "Hotter Tourist Destinations"
+    },
+    "description": {
+      "translate": "Locate all Bygone Nether Structures"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "rewards": {
+    "experience": 500
+  },
+  "criteria": {
+    "in_catacomb": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "feature": "bygonenether:catacomb"
+      }
+    },
+    "in_citadel": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "feature": "bygonenether:citadel"
+      }
+    },
+    "in_fortress": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "feature": "bygonenether:fortress"
+      }
+    },
+    "in_piglin_manor": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "feature": "bygonenether:piglin_manor"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "in_catacomb"
+    ],
+    [
+      "in_citadel"
+    ],
+    [
+      "in_fortress"
+    ],
+    [
+      "in_piglin_manor"
+    ]
+  ]
+}

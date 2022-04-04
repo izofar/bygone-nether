@@ -36,6 +36,7 @@ public class WarpedEnderManRenderer extends MobRenderer<WarpedEnderMan, WarpedEn
 		this.addLayer(new ModCarriedBlockLayer<>(this));
 	}
 
+	@Override
 	public void render(WarpedEnderMan enderman, float p_114340_, float p_114341_, PoseStack p_114342_, MultiBufferSource p_114343_, int p_114344_) {
 		BlockState blockstate = enderman.getCarriedBlock();
 		WarpedEndermanModel endermanmodel = this.getModel();
@@ -44,6 +45,7 @@ public class WarpedEnderManRenderer extends MobRenderer<WarpedEnderMan, WarpedEn
 		super.render(enderman, p_114340_, p_114341_, p_114342_, p_114343_, p_114344_);
 	}
 
+	@Override
 	public Vec3 getRenderOffset(WarpedEnderMan enderman, float offset) {
 		return enderman.isCreepy() ? new Vec3(this.random.nextGaussian() * 0.02D, 0.0D, this.random.nextGaussian() * 0.02D) : super.getRenderOffset(enderman, offset);
 	}
