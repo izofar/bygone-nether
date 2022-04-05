@@ -36,13 +36,12 @@ public class CatacombStructure extends StructureFeature<JigsawConfiguration> {
 	private static boolean checkLocation(Context<JigsawConfiguration> context) {
 		BlockPos blockpos  = context.chunkPos().getMiddleBlockPosition(0);
 		NoiseColumn blockReader = context.chunkGenerator().getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor());
-		return !(ModStructureUtils.isBuried(blockReader, 48, 72) || ModStructureUtils.isLavaLake(blockReader));
+		return !(ModStructureUtils.isBuried(blockReader, 48, ModStructureUtils.getScaledNetherHeight(72)) || ModStructureUtils.isLavaLake(blockReader));
 	}
 	
 	public static Optional<PieceGenerator<JigsawConfiguration>> createPiecesGenerator(PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
 		if(!checkLocation(context)) return Optional.empty();
 		BlockPos blockpos = ModStructureUtils.getElevation(context, 56, ModStructureUtils.getScaledNetherHeight(84));
-		//JigsawConfiguration newConfig = new JigsawConfiguration(() -> context.registryAccess().ownedRegistryOrThrow(Registry.TEMPLATE_POOL_REGISTRY).get(new ResourceLocation(BygoneNetherMod.MODID, "catacomb/start_pool")), 3);
 		return JigsawPlacement.addPieces(context, PoolElementStructurePiece::new, blockpos, true, false);
 	}
 	

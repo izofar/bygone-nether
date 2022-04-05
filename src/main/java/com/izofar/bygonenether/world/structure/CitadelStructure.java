@@ -39,7 +39,7 @@ public class CitadelStructure extends StructureFeature<JigsawConfiguration> {
 	private static boolean checkLocation(Context<JigsawConfiguration> context) {
 		BlockPos blockpos  = context.chunkPos().getMiddleBlockPosition(0);
 		NoiseColumn blockReader = context.chunkGenerator().getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor());
-		return checkChunk(context) && !ModStructureUtils.isLavaLake(blockReader) && ModStructureUtils.verticalSpace(blockReader, 34, 72, 12);
+		return checkChunk(context) && !ModStructureUtils.isLavaLake(blockReader) && ModStructureUtils.verticalSpace(blockReader, 34, ModStructureUtils.getScaledNetherHeight(72), 12);
 	}
 
 	private static boolean checkChunk(PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
@@ -52,7 +52,6 @@ public class CitadelStructure extends StructureFeature<JigsawConfiguration> {
 		if(!checkLocation(context)) return Optional.empty();
 
 		BlockPos blockpos = ModStructureUtils.getElevation(context, 48, ModStructureUtils.getScaledNetherHeight(70));
-		//JigsawConfiguration newConfig = new JigsawConfiguration(() -> context.registryAccess().ownedRegistryOrThrow(Registry.TEMPLATE_POOL_REGISTRY).get(new ResourceLocation(BygoneNetherMod.MODID, "citadel/start_pool")), 1);
 		return JigsawPlacement.addPieces(context, PoolElementStructurePiece::new, blockpos, false, false);
 	}
 }

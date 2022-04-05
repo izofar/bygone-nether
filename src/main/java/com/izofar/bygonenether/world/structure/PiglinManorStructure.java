@@ -25,9 +25,6 @@ import java.util.Optional;
 
 public class PiglinManorStructure extends StructureFeature<JigsawConfiguration> {
 
-    private final static int CHUNK_SEARCH_RADIUS = 3;
-    private final static int MAX_TERRAIN_RANGE = 10;
-
     public static final List<SpawnerData> MANOR_ENEMIES = List.of(
             new MobSpawnSettings.SpawnerData(EntityType.PIGLIN, 2, 1, 1),
             new MobSpawnSettings.SpawnerData(ModEntityTypes.PIGLIN_HUNTER.get(), 1, 1, 1)
@@ -46,9 +43,8 @@ public class PiglinManorStructure extends StructureFeature<JigsawConfiguration> 
         BlockPos blockpos = context.chunkPos().getMiddleBlockPosition(0);
         NoiseColumn blockReader = context.chunkGenerator().getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor());
         return checkChunk(context)
-                //&& ModStructureUtils.isRelativelyFlat(context, CHUNK_SEARCH_RADIUS, MAX_TERRAIN_RANGE)
                 && !ModStructureUtils.isLavaLake(blockReader)
-                && ModStructureUtils.verticalSpace(blockReader, 34, 72, 24);
+                && ModStructureUtils.verticalSpace(blockReader, 34, ModStructureUtils.getScaledNetherHeight(72), 24);
     }
 
     private static boolean checkChunk(PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
@@ -59,7 +55,6 @@ public class PiglinManorStructure extends StructureFeature<JigsawConfiguration> 
         if(!checkLocation(context)) return Optional.empty();
 
         BlockPos blockpos = ModStructureUtils.getElevation(context, 34, ModStructureUtils.getScaledNetherHeight(72));
-        //JigsawConfiguration newConfig = new JigsawConfiguration(() -> context.registryAccess().ownedRegistryOrThrow(Registry.TEMPLATE_POOL_REGISTRY).get(new ResourceLocation(BygoneNetherMod.MODID, "piglin_manor/start_pool")), 1);
         return JigsawPlacement.addPieces(context, PoolElementStructurePiece::new, blockpos, false, false);
     }
 }

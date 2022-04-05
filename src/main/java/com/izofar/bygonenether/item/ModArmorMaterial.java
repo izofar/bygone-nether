@@ -40,8 +40,6 @@ public enum ModArmorMaterial implements ArmorMaterial {
 	}
 
 	public int getDurabilityForSlot(EquipmentSlot slot) { return HEALTH_PER_SLOT[slot.getIndex()] * this.durabilityMultiplier; }
-	
-	public int getDurabilityMultiplier() { return this.durabilityMultiplier; }
 
 	public int getDefenseForSlot(EquipmentSlot slot) { return this.slotProtections[slot.getIndex()]; }
 

@@ -20,10 +20,10 @@ public class ModPiglinBruteAi {
 
 	public static boolean isWearingGild(LivingEntity entity) {
 		for (ItemStack itemstack : entity.getArmorSlots())
-			if (makesPiglinBrutesNeutral(itemstack, entity))
+			if (makesPiglinBrutesNeutral(itemstack))
 				return true;
 		return false;
 	}
 
-	private static boolean makesPiglinBrutesNeutral(ItemStack stack, LivingEntity wearer) { return stack.getItem() instanceof ArmorItem && ((ArmorItem) stack.getItem()).getMaterial() instanceof ModArmorMaterial; }
+	private static boolean makesPiglinBrutesNeutral(ItemStack stack) { return stack.getItem() instanceof ArmorItem && ((ArmorItem) stack.getItem()).getMaterial() instanceof ModArmorMaterial; }
 }

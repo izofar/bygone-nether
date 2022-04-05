@@ -9,7 +9,6 @@
 		"ModifyDamageInSmithingRecipes",
 		"ModifyPiglinBruteAi",
 		"ModifyPiglinAi",
-		"StructureFeatureAccessor",
 		"WorldGenRegionAccessor"
 	],
 	"client": [

@@ -119,8 +119,6 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 	@Override
 	public void setChargingCrossbow(boolean bool) { this.entityData.set(DATA_IS_CHARGING_CROSSBOW, bool); }
 
-	public boolean isChargingCrossbow() { return this.entityData.get(DATA_IS_CHARGING_CROSSBOW); }
-
 	@Override
 	public void shootCrossbowProjectile(LivingEntity piglin, ItemStack itemstack, Projectile projectile, float vel) { this.shootCrossbowProjectile(this, piglin, projectile, vel, 1.6F); }
 

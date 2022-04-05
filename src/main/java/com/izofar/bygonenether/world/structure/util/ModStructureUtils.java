@@ -4,14 +4,12 @@ import com.google.common.collect.ImmutableList;
 import com.izofar.bygonenether.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.NoiseColumn;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.BasaltColumnsFeature;
 import net.minecraft.world.level.levelgen.feature.DeltaFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
@@ -68,20 +66,6 @@ public abstract class ModStructureUtils {
 		return blockpos;
 	}
 
-	public static PieceGeneratorSupplier.Context<JigsawConfiguration> duplicateContext(
-			PieceGeneratorSupplier.Context<JigsawConfiguration> context, JigsawConfiguration config) {
-		return new PieceGeneratorSupplier.Context<>(
-				context.chunkGenerator(), 
-				context.biomeSource(), 
-				context.seed(),
-				context.chunkPos(), 
-				config, 
-				context.heightAccessor(), 
-				context.validBiome(), 
-				context.structureManager(),
-				context.registryAccess());
-	}
-	
 	public static void addBasaltRestrictions() {
 		   BasaltColumnsFeature.CANNOT_PLACE_ON = ImmutableList.of(
 				   // Default
@@ -157,22 +141,6 @@ public abstract class ModStructureUtils {
 
 	private static boolean isReplaceableByStructures(BlockState blockState) {
 		return blockState.isAir() || blockState.getMaterial().isLiquid() || blockState.getMaterial().isReplaceable();
-	}
-
-	public static boolean isRelativelyFlat(PieceGeneratorSupplier.Context<JigsawConfiguration> context, int chunk_search_radius, int max_terrain_height){
-		ChunkPos chunkpos = context.chunkPos();
-		int maxterrainheight = Integer.MIN_VALUE;
-		int minterrainheight = Integer.MAX_VALUE;
-		for(int chunkX = chunkpos.x - chunk_search_radius; chunkX <= chunkpos.x + chunk_search_radius; chunkX ++) {
-			for(int chunkZ = chunkpos.z - chunk_search_radius; chunkZ <= chunkpos.z + chunk_search_radius; chunkZ ++) {
-				BlockPos blockpos = new BlockPos((chunkX << 4) + 7, 0, (chunkZ << 4) + 7);
-				int height = context.chunkGenerator().getBaseHeight(blockpos.getX(), blockpos.getZ(), Heightmap.Types.WORLD_SURFACE_WG, context.heightAccessor());
-				maxterrainheight = Math.max(maxterrainheight, height);
-				minterrainheight = Math.min(minterrainheight, height);
-				if (!context.chunkGenerator().getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor()).getBlock(height).getFluidState().isEmpty()) return false;
-			}
-		}
-		return maxterrainheight - minterrainheight <= max_terrain_height;
 	}
 
 	public static int getScaledNetherHeight(int vanillaHeight){

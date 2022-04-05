@@ -54,7 +54,6 @@ public class NetherFortressStructure extends StructureFeature<JigsawConfiguratio
 		if(!checkLocation(context)) return Optional.empty();
 
 		BlockPos blockpos = ModStructureUtils.getElevation(context, 45, ModStructureUtils.getScaledNetherHeight(54));
-		//JigsawConfiguration newConfig = new JigsawConfiguration(() -> context.registryAccess().ownedRegistryOrThrow(Registry.TEMPLATE_POOL_REGISTRY).get(new ResourceLocation(BygoneNetherMod.MODID, "fortress/start_pool")), 7);
 		return JigsawPlacement.addPieces(context, PoolElementStructurePiece::new, blockpos, false, false);
 
 	}
