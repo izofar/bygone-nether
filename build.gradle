@@ -14,7 +14,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 
-version = '1.0.0-1.18.2'
+version = '1.1.0-1.18.2'
 group = 'com.izofar.bygonenether'
 archivesBaseName = 'bygonenether'
 
@@ -60,7 +60,7 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 repositories { }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.2-40.0.22'
+    minecraft 'net.minecraftforge:forge:1.18.2-40.0.25'
     annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 }
 

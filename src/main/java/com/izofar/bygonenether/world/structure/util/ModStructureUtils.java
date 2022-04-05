@@ -66,65 +66,6 @@ public abstract class ModStructureUtils {
 		return blockpos;
 	}
 
-	public static void addBasaltRestrictions() {
-		   BasaltColumnsFeature.CANNOT_PLACE_ON = ImmutableList.of(
-				   // Default
-				   Blocks.LAVA, 
-				   Blocks.BEDROCK, 
-				   Blocks.MAGMA_BLOCK, 
-				   Blocks.SOUL_SAND, 
-				   Blocks.NETHER_BRICKS, 
-				   Blocks.NETHER_BRICK_FENCE, 
-				   Blocks.NETHER_BRICK_STAIRS, 
-				   Blocks.NETHER_WART, 
-				   Blocks.CHEST, 
-				   Blocks.SPAWNER,
-				   // New Fortresses:
-				   Blocks.NETHER_BRICK_SLAB,
-				   Blocks.CRACKED_NETHER_BRICKS,
-				   Blocks.CHISELED_NETHER_BRICKS,
-				   Blocks.RED_NETHER_BRICKS,
-				   Blocks.RED_NETHER_BRICK_STAIRS,
-				   Blocks.RED_NETHER_BRICK_SLAB,
-				   Blocks.CRIMSON_TRAPDOOR,
-				   // Wither Forts:
-				   ModBlocks.COBBLED_BLACKSTONE.get(),
-				   ModBlocks.WITHERED_BLACKSTONE.get(),
-				   ModBlocks.CHISELED_WITHERED_BLACKSTONE.get(),
-				   ModBlocks.CRACKED_WITHERED_BLACKSTONE.get(),
-				   ModBlocks.WITHERED_DEBRIS.get(),
-				   Blocks.IRON_BARS,
-				   Blocks.COAL_BLOCK
-			   );
-		   DeltaFeature.CANNOT_REPLACE = ImmutableList.of(
-				   // Default
-				   Blocks.BEDROCK, 
-				   Blocks.NETHER_BRICKS, 
-				   Blocks.NETHER_BRICK_FENCE, 
-				   Blocks.NETHER_BRICK_STAIRS,
-				   Blocks.NETHER_WART, 
-				   Blocks.CHEST, 
-				   Blocks.SPAWNER,
-				   // New Fortresses:
-				   Blocks.NETHER_BRICK_SLAB,
-				   Blocks.CRACKED_NETHER_BRICKS,
-				   Blocks.CHISELED_NETHER_BRICKS,
-				   Blocks.RED_NETHER_BRICKS,
-				   Blocks.RED_NETHER_BRICK_STAIRS,
-				   Blocks.RED_NETHER_BRICK_SLAB,
-				   Blocks.CRIMSON_TRAPDOOR,
-				   // Wither Forts:
-				   ModBlocks.COBBLED_BLACKSTONE.get(),
-				   ModBlocks.WITHERED_BLACKSTONE.get(),
-				   ModBlocks.CHISELED_WITHERED_BLACKSTONE.get(),
-				   ModBlocks.CRACKED_WITHERED_BLACKSTONE.get(),
-				   ModBlocks.WITHERED_DEBRIS.get(),
-				   Blocks.IRON_BARS,
-				   Blocks.COAL_BLOCK
-			   );
-
-	}
-
 	public static int getFirstLandYFromPos(LevelReader worldView, BlockPos pos) {
 		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		mutable.set(pos);
@@ -145,6 +86,65 @@ public abstract class ModStructureUtils {
 
 	public static int getScaledNetherHeight(int vanillaHeight){
 		return (int) (vanillaHeight / 128.0F * (ModList.get().isLoaded("amplifiednether") ? 256.0F : 128.0F));
+	}
+
+	public static void addBasaltRestrictions() {
+		BasaltColumnsFeature.CANNOT_PLACE_ON = ImmutableList.of(
+				// Default
+				Blocks.LAVA,
+				Blocks.BEDROCK,
+				Blocks.MAGMA_BLOCK,
+				Blocks.SOUL_SAND,
+				Blocks.NETHER_BRICKS,
+				Blocks.NETHER_BRICK_FENCE,
+				Blocks.NETHER_BRICK_STAIRS,
+				Blocks.NETHER_WART,
+				Blocks.CHEST,
+				Blocks.SPAWNER,
+				// New Fortresses:
+				Blocks.NETHER_BRICK_SLAB,
+				Blocks.CRACKED_NETHER_BRICKS,
+				Blocks.CHISELED_NETHER_BRICKS,
+				Blocks.RED_NETHER_BRICKS,
+				Blocks.RED_NETHER_BRICK_STAIRS,
+				Blocks.RED_NETHER_BRICK_SLAB,
+				Blocks.CRIMSON_TRAPDOOR,
+				// Wither Forts:
+				ModBlocks.COBBLED_BLACKSTONE.get(),
+				ModBlocks.WITHERED_BLACKSTONE.get(),
+				ModBlocks.CHISELED_WITHERED_BLACKSTONE.get(),
+				ModBlocks.CRACKED_WITHERED_BLACKSTONE.get(),
+				ModBlocks.WITHERED_DEBRIS.get(),
+				Blocks.IRON_BARS,
+				Blocks.COAL_BLOCK
+		);
+		DeltaFeature.CANNOT_REPLACE = ImmutableList.of(
+				// Default
+				Blocks.BEDROCK,
+				Blocks.NETHER_BRICKS,
+				Blocks.NETHER_BRICK_FENCE,
+				Blocks.NETHER_BRICK_STAIRS,
+				Blocks.NETHER_WART,
+				Blocks.CHEST,
+				Blocks.SPAWNER,
+				// New Fortresses:
+				Blocks.NETHER_BRICK_SLAB,
+				Blocks.CRACKED_NETHER_BRICKS,
+				Blocks.CHISELED_NETHER_BRICKS,
+				Blocks.RED_NETHER_BRICKS,
+				Blocks.RED_NETHER_BRICK_STAIRS,
+				Blocks.RED_NETHER_BRICK_SLAB,
+				Blocks.CRIMSON_TRAPDOOR,
+				// Wither Forts:
+				ModBlocks.COBBLED_BLACKSTONE.get(),
+				ModBlocks.WITHERED_BLACKSTONE.get(),
+				ModBlocks.CHISELED_WITHERED_BLACKSTONE.get(),
+				ModBlocks.CRACKED_WITHERED_BLACKSTONE.get(),
+				ModBlocks.WITHERED_DEBRIS.get(),
+				Blocks.IRON_BARS,
+				Blocks.COAL_BLOCK
+		);
+
 	}
 	
 }

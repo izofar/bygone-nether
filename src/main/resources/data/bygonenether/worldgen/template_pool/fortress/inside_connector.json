@@ -3,7 +3,7 @@
   "fallback": "bygonenether:fortress/inside_connector",
   "elements": [
     {
-      "weight": 6,
+      "weight": 5,
       "element": {
         "location": "bygonenether:fortress/straight_inside",
         "processors": "bygonenether:fortress/fortress",
@@ -12,7 +12,7 @@
       }
     },
     {
-      "weight": 7,
+      "weight": 6,
       "element": {
         "location": "bygonenether:fortress/4_way_inside",
         "processors": "bygonenether:fortress/fortress",
@@ -21,7 +21,7 @@
       }
     },
     {
-      "weight": 10,
+      "weight": 8,
       "element": {
         "location": "bygonenether:fortress/turn_inside",
         "processors": "bygonenether:fortress/fortress",
@@ -33,6 +33,15 @@
       "weight": 5,
       "element": {
         "location": "bygonenether:fortress/turn_inside_chest",
+        "processors": "bygonenether:fortress/fortress",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 4,
+      "element": {
+        "location": "bygonenether:fortress/tribridge/tower",
         "processors": "bygonenether:fortress/fortress",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"

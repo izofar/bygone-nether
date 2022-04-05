@@ -2,10 +2,7 @@ package com.izofar.bygonenether.init;
 
 import com.google.common.collect.ImmutableList;
 import com.izofar.bygonenether.BygoneNetherMod;
-import com.izofar.bygonenether.entity.PiglinHunter;
-import com.izofar.bygonenether.entity.PiglinPrisoner;
-import com.izofar.bygonenether.entity.WarpedEnderMan;
-import com.izofar.bygonenether.entity.WexEntity;
+import com.izofar.bygonenether.entity.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -26,6 +23,8 @@ public abstract class ModEntityTypes {
 	
 	public static final RegistryObject<EntityType<PiglinPrisoner>> PIGLIN_PRISONER = MOD_ENTITY_TYPES.register("piglin_prisoner", () -> EntityType.Builder.of(PiglinPrisoner::new, MobCategory.MONSTER).sized(0.6F, 1.95F).clientTrackingRange(8).build(new ResourceLocation(BygoneNetherMod.MODID, "piglin_prisoner").toString()));
 	public static final RegistryObject<EntityType<PiglinHunter>> PIGLIN_HUNTER = MOD_ENTITY_TYPES.register("piglin_hunter", () -> EntityType.Builder.of(PiglinHunter::new, MobCategory.MONSTER).sized(0.6F, 1.95F).clientTrackingRange(8).build(new ResourceLocation(BygoneNetherMod.MODID, "piglin_hunter").toString()));
+
+	public static final RegistryObject<EntityType<WitherSkeletonHorse>> WITHER_SKELETON_HORSE = MOD_ENTITY_TYPES.register("wither_skeleton_horse", () -> EntityType.Builder.of(WitherSkeletonHorse::new, MobCategory.CREATURE).fireImmune().sized(1.3964844F, 1.6F).clientTrackingRange(10).build(new ResourceLocation(BygoneNetherMod.MODID, "wither_skeleton_horse").toString()));
 
 	public static void register(IEventBus eventBus) { MOD_ENTITY_TYPES.register(eventBus); }
 

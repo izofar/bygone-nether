@@ -1,0 +1,31 @@
+{
+  "parent": "bygonenether:explore_structures",
+  "display": {
+    "icon": {
+      "item": "bygonenether:withered_debris"
+    },
+    "title": {
+      "translate": "Wither Or Not..."
+    },
+    "description": {
+      "translate": "Locate a Catacomb"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "in_catacomb": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "feature": "bygonenether:catacomb"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "in_catacomb"
+    ]
+  ]
+}

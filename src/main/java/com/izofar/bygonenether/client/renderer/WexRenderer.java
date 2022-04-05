@@ -15,8 +15,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class WexRenderer extends HumanoidMobRenderer<WexEntity, WexModel> {
 
-	private static final ResourceLocation WEX_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/wex.png");
-	private static final ResourceLocation WEX_CHARGING_LOCATION = WEX_LOCATION; //new ResourceLocation("textures/entity/illager/vex_charging.png");
+	private static final ResourceLocation WEX_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/wex/wex.png");
+	private static final ResourceLocation WEX_CHARGING_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/wex/wex_charging.png");
 
 	public WexRenderer(Context context) { super(context, new WexModel(context.bakeLayer(ModelLayers.VEX)), 0.3F); }
 
@@ -24,7 +24,7 @@ public class WexRenderer extends HumanoidMobRenderer<WexEntity, WexModel> {
 	protected int getBlockLightLevel(WexEntity wex, BlockPos blockPos) { return 15; }
 
 	@Override
-	public ResourceLocation getTextureLocation(WexEntity wex) { return wex.isCharging() ? WEX_LOCATION : WEX_CHARGING_LOCATION; }
+	public ResourceLocation getTextureLocation(WexEntity wex) { return wex.isCharging() ? WEX_CHARGING_LOCATION : WEX_LOCATION; }
 
 	@Override
 	protected void scale(WexEntity wex, PoseStack stack, float f) { stack.scale(0.4F, 0.4F, 0.4F); }

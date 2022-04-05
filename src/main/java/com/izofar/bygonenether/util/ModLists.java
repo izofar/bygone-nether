@@ -3,7 +3,7 @@ package com.izofar.bygonenether.util;
 import com.google.common.collect.ImmutableList;
 import com.izofar.bygonenether.init.ModBlocks;
 import com.izofar.bygonenether.init.ModEntityTypes;
-import com.izofar.bygonenether.util.random.MobWeightedEntry;
+import com.izofar.bygonenether.util.random.ModWeightedEntry;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
@@ -20,8 +20,8 @@ public abstract class ModLists {
 			ModBlocks.WITHERED_DEBRIS.get()
 		);
 
-    public static final WeightedRandomList<MobWeightedEntry<EntityType<? extends AbstractPiglin>>> PIGLIN_MANOR_MOBS = WeightedRandomList.create(
-			new MobWeightedEntry<>(ModEntityTypes.PIGLIN_HUNTER.get(), 1),
-			new MobWeightedEntry<>(EntityType.PIGLIN, 3)
+    public static final WeightedRandomList<ModWeightedEntry<EntityType<? extends AbstractPiglin>>> PIGLIN_MANOR_MOBS = WeightedRandomList.create(
+			new ModWeightedEntry<>(ModEntityTypes.PIGLIN_HUNTER.get(), 1),
+			new ModWeightedEntry<>(EntityType.PIGLIN, 3)
 		);
 }

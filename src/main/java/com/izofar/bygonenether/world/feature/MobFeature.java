@@ -1,6 +1,6 @@
 package com.izofar.bygonenether.world.feature;
 
-import com.izofar.bygonenether.util.random.MobWeightedEntry;
+import com.izofar.bygonenether.util.random.ModWeightedEntry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.entity.EntityType;
@@ -14,16 +14,16 @@ import java.util.function.Supplier;
 
 public class MobFeature<T extends Mob> extends Feature<NoneFeatureConfiguration> {
 
-	private final Supplier<WeightedRandomList<MobWeightedEntry<EntityType<? extends T>>>> entityTypes;
+	private final Supplier<WeightedRandomList<ModWeightedEntry<EntityType<? extends T>>>> entityTypes;
 
-	public MobFeature(Supplier<WeightedRandomList<MobWeightedEntry<EntityType<? extends T>>>> entityTypes) {
+	public MobFeature(Supplier<WeightedRandomList<ModWeightedEntry<EntityType<? extends T>>>> entityTypes) {
 		super(NoneFeatureConfiguration.CODEC);
 		this.entityTypes = entityTypes;
 	}
 	
 	public MobFeature(EntityType<? extends T> entityType) {
 		super(NoneFeatureConfiguration.CODEC);
-		this.entityTypes = () -> WeightedRandomList.create(new MobWeightedEntry<EntityType<? extends T>>(entityType, 1));
+		this.entityTypes = () -> WeightedRandomList.create(new ModWeightedEntry<EntityType<? extends T>>(entityType, 1));
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class MobFeature<T extends Mob> extends Feature<NoneFeatureConfiguration>
 		if (entity == null)
 			return false;
 		entity.moveTo((double) position.getX() + 0.5D, position.getY(), (double) position.getZ() + 0.5D, 0.0F, 0.0F);
-		entity.finalizeSpawn(context.level(), context.level().getCurrentDifficultyAt(position), MobSpawnType.STRUCTURE, null, null);
+		entity.finalizeSpawn(context.level(), context.level().getCurrentDifficultyAt(position), MobSpawnType.SPAWNER, null, null);
 		entity.setPersistenceRequired();
 		context.level().addFreshEntity(entity);
 		return true;

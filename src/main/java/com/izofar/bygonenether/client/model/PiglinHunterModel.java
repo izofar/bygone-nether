@@ -33,6 +33,16 @@ public class PiglinHunterModel extends PiglinModel<PiglinHunter> {
     }
 
     @Override
+    public void setupAnim(PiglinHunter piglin, float p_103367_, float p_103368_, float p_103369_, float p_103370_, float p_103371_){
+        super.setupAnim(piglin, p_103367_, p_103368_, p_103369_, p_103370_, p_103371_);
+        if(piglin.isPassenger()){
+            this.hoglin_skull.y = 10.5F;
+        }else{
+            this.hoglin_skull.y = 15.5F;
+        }
+    }
+
+    @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         super.renderToBuffer(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
         hoglin_skull.render(poseStack, buffer, packedLight, packedOverlay);
