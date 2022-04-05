@@ -1,9 +1,6 @@
 package com.izofar.bygonenether;
 
-import com.izofar.bygonenether.client.renderer.PiglinPrisonerRenderer;
-import com.izofar.bygonenether.client.renderer.PiglinHunterRenderer;
-import com.izofar.bygonenether.client.renderer.WarpedEnderManRenderer;
-import com.izofar.bygonenether.client.renderer.WexRenderer;
+import com.izofar.bygonenether.client.renderer.*;
 import com.izofar.bygonenether.init.*;
 import com.izofar.bygonenether.world.feature.ModFeatureUtils;
 import com.izofar.bygonenether.world.structure.util.ModStructureUtils;
@@ -34,6 +31,7 @@ public class BygoneNetherMod
         ModSensorTypes.register(eventBus);
         ModMemoryModuleTypes.register(eventBus);
         ModFeatures.register(eventBus);
+        ModSounds.register(eventBus);
 
         eventBus.addListener(this::setup);
         eventBus.addListener(this::doClientStuff);
@@ -58,5 +56,6 @@ public class BygoneNetherMod
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.PIGLIN_HUNTER.get(), PiglinHunterRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WEX.get(), WexRenderer:: new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WARPED_ENDERMAN.get(), WarpedEnderManRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WITHER_SKELETON_HORSE.get(), WitherSkeletonHorseRenderer::new);
     }
 }

@@ -46,11 +46,11 @@ public abstract class ModWorldEvents {
 				event.getGeneration().getStructures().removeIf((supplier) -> supplier.get().config instanceof VillageConfig && ((VillageConfig) supplier.get().config).startPool().get().getName().equals(StructureFeatures.BASTION_REMNANT.config.startPool().get().getName()));
 
 			if(ModList.get().isLoaded("biomesoplenty")){
-				if (event.getName().equals("biomesoplenty:crystalline_chasm")
-						|| event.getName().equals("biomesoplenty:undergrowth")
-						|| event.getName().equals("biomesoplenty:visceral_heap"))
+				if (event.getName().toString().equals("biomesoplenty:crystalline_chasm")
+						|| event.getName().toString().equals("biomesoplenty:undergrowth")
+						|| event.getName().toString().equals("biomesoplenty:visceral_heap"))
 					event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_NETHER_FORTRESS);
-				else if(event.getName().equals("biomesoplenty:withered_abyss"))
+				else if(event.getName().toString().equals("biomesoplenty:withered_abyss"))
 					event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_CATACOMB);
 			}
 

@@ -35,7 +35,7 @@ public class MobFeature<T extends MobEntity> extends Feature<NoFeatureConfig> {
 		if (entity == null)
 			return false;
 		entity.absMoveTo((double) position.getX() + 0.5D, position.getY(), (double) position.getZ() + 0.5D, 0.0F, 0.0F);
-		entity.finalizeSpawn(world, world.getCurrentDifficultyAt(position), SpawnReason.STRUCTURE, null, null);
+		entity.finalizeSpawn(world, world.getCurrentDifficultyAt(position), SpawnReason.SPAWNER, null, null);
 		entity.setPersistenceRequired();
 		world.addFreshEntity(entity);
 		return true;

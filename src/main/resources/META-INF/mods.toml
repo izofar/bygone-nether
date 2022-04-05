@@ -5,7 +5,7 @@ license="MIT"
 
 [[mods]] #mandatory
 modId="bygonenether" #mandatory
-version="1.0.3" #mandatory
+version="1.1.0" #mandatory
 displayName="Bygone Nether" #mandatory
 logoFile="bygonenether.png" #optional
 #credits="" #optional
@@ -19,3 +19,8 @@ description="Remnants of the nether dimension's ancient history"
     versionRange="[1.16.5,1.17.0)"
     ordering="NONE"
     side="BOTH"
+
+[[dependencies.bygonenether]]
+    modId="forge"
+    mandatory=true
+    versionRange="[36.2.17,)"

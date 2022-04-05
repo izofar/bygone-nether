@@ -19,11 +19,11 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class ModPlayerModel<T extends LivingEntity> extends BipedModel<T> {
     private List<ModelRenderer> cubes = Lists.newArrayList();
-    public ModelRenderer leftSleeve;
-    public ModelRenderer rightSleeve;
-    public ModelRenderer leftPants;
-    public ModelRenderer rightPants;
-    public ModelRenderer jacket;
+    public final ModelRenderer leftSleeve;
+    public final ModelRenderer rightSleeve;
+    public final ModelRenderer leftPants;
+    public final ModelRenderer rightPants;
+    public final ModelRenderer jacket;
     private final ModelRenderer cloak;
     private final ModelRenderer ear;
     private final boolean slim;

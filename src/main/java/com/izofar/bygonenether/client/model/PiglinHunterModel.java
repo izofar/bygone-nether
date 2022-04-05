@@ -19,10 +19,10 @@ public class PiglinHunterModel extends ModPlayerModel<PiglinHunterEntity> {
     public final ModelRenderer hoglinSkull;
     public final ModelRenderer earRight;
     public final ModelRenderer earLeft;
-    public ModelRenderer bodyDefault;
+    public final ModelRenderer bodyDefault;
     private final ModelRenderer headDefault;
-    public ModelRenderer leftArmDefault;
-    public ModelRenderer rightArmDefault;
+    public final ModelRenderer leftArmDefault;
+    public final ModelRenderer rightArmDefault;
 
     public PiglinHunterModel(float scale, int texWidth, int texHeight) {
         super(scale, texWidth, texHeight);
@@ -95,6 +95,12 @@ public class PiglinHunterModel extends ModPlayerModel<PiglinHunterEntity> {
                 this.leftArm.yRot = 0.5F;
                 this.leftArm.xRot = -0.9F;
             }
+        }
+
+        if(pEntity.isPassenger()){
+            this.hoglinSkull.y = 10.5F;
+        }else{
+            this.hoglinSkull.y = 15.5F;
         }
 
         this.leftPants.copyFrom(this.leftLeg);

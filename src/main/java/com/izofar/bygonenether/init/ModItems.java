@@ -4,9 +4,7 @@ import com.izofar.bygonenether.BygoneNetherMod;
 import com.izofar.bygonenether.item.ModArmorItem;
 import com.izofar.bygonenether.item.ModArmorMaterial;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
@@ -21,6 +19,7 @@ public abstract class ModItems {
 	public static final RegistryObject<Item> PIGLIN_HUNTER_SPAWN_EGG = MODDED_ITEMS.register("piglin_hunter_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityTypes.PIGLIN_HUNTER, 0xba6645, 16380836, (new Item.Properties()).tab(ItemGroup.TAB_MISC)));
 	public static final RegistryObject<Item> WEX_SPAWN_EGG = MODDED_ITEMS.register("wex_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityTypes.WEX, 0x7198c8, 0x2b4667, (new Item.Properties()).tab(ItemGroup.TAB_MISC)));
 	public static final RegistryObject<Item> WARPED_ENDERMAN_SPAWN_EGG = MODDED_ITEMS.register("warped_enderman_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityTypes.WARPED_ENDERMAN, 0x0e8281, 0x0, (new Item.Properties()).tab(ItemGroup.TAB_MISC)));
+	public static final RegistryObject<Item> WITHER_SKELETON_HORSE_SPAWN_EGG = MODDED_ITEMS.register("wither_skeleton_horse_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityTypes.WITHER_SKELETON_HORSE, 0x242424, 0x4d4747, (new Item.Properties()).tab(ItemGroup.TAB_MISC)));
 
 	public static final RegistryObject<Item> GILDED_NETHERITE_HELMET = MODDED_ITEMS.register("gilded_netherite_helmet", () -> new ModArmorItem(ModArmorMaterial.GILDED_NETHERITE, EquipmentSlotType.HEAD, (new Item.Properties()).tab(ItemGroup.TAB_COMBAT).fireResistant()));
 	public static final RegistryObject<Item> GILDED_NETHERITE_CHESTPLATE = MODDED_ITEMS.register("gilded_netherite_chestplate", () -> new ModArmorItem(ModArmorMaterial.GILDED_NETHERITE, EquipmentSlotType.CHEST, (new Item.Properties()).tab(ItemGroup.TAB_COMBAT).fireResistant()));
@@ -38,7 +37,9 @@ public abstract class ModItems {
 	public static final RegistryObject<Item> CHISELED_WARPED_NETHER_BRICKS = MODDED_ITEMS.register("chiseled_warped_nether_bricks", () -> new BlockItem(ModBlocks.CHISELED_WARPED_NETHER_BRICKS.get(), new Item.Properties().tab(ItemGroup.TAB_BUILDING_BLOCKS)));
 	public static final RegistryObject<Item> WARPED_NETHER_BRICK_STAIRS = MODDED_ITEMS.register("warped_nether_brick_stairs", () -> new BlockItem(ModBlocks.WARPED_NETHER_BRICK_STAIRS.get(), new Item.Properties().tab(ItemGroup.TAB_BUILDING_BLOCKS)));
 	public static final RegistryObject<Item> WARPED_NETHER_BRICK_SLAB = MODDED_ITEMS.register("warped_nether_brick_slab", () -> new BlockItem(ModBlocks.WARPED_NETHER_BRICK_SLAB.get(), new Item.Properties().tab(ItemGroup.TAB_BUILDING_BLOCKS)));
-	
+
+	public static final RegistryObject<Item> WITHER_WALTZ_MUSIC_DISC = MODDED_ITEMS.register("wither_waltz_music_disc", () -> new MusicDiscItem(4, ModSounds.WITHER_WALTZ, new Item.Properties().tab(ItemGroup.TAB_MISC).stacksTo(1).rarity(Rarity.RARE)));
+
 	public static void register(IEventBus eventBus) { MODDED_ITEMS.register(eventBus); }
 
 }
