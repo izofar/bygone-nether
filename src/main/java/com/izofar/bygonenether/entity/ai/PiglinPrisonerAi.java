@@ -342,7 +342,7 @@ public class PiglinPrisonerAi {
 	}
 
 	public static boolean canAdmire(PiglinPrisoner piglin, ItemStack stack) {
-		return !isAdmiringDisabled(piglin) && !isAdmiringItem(piglin) && piglin.isAdult() && stack.isPiglinCurrency() || isLovedItem(stack);
+		return !isAdmiringDisabled(piglin) && !isAdmiringItem(piglin) && piglin.isAdult() && (stack.isPiglinCurrency() || isLovedItem(stack));
 	}
 
 	public static void wasHurtBy(PiglinPrisoner piglin, LivingEntity attacker) {
