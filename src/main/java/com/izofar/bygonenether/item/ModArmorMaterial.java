@@ -16,7 +16,7 @@ import java.util.function.Supplier;
 @SuppressWarnings("deprecation")
 public enum ModArmorMaterial implements ArmorMaterial {
 	
-	GILDED_NETHERITE(BygoneNetherMod.MODID + ":gilded_netherite", 8/*37 /*8*/, new int[]{3, 6, 8, 3}, 20, SoundEvents.ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F, () -> Ingredient.of(Items.NETHERITE_INGOT));
+	GILDED_NETHERITE(BygoneNetherMod.MODID + ":gilded_netherite", 8, new int[]{3, 6, 8, 3}, 20, SoundEvents.ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F, () -> Ingredient.of(Items.NETHERITE_INGOT));
 
 	private static final int[] HEALTH_PER_SLOT = new int[] { 13, 15, 16, 11 };
 	private final String name;
@@ -40,8 +40,6 @@ public enum ModArmorMaterial implements ArmorMaterial {
 	}
 
 	public int getDurabilityForSlot(EquipmentSlot slot) { return HEALTH_PER_SLOT[slot.getIndex()] * this.durabilityMultiplier; }
-	
-	public int getDurabilityMultiplier() { return this.durabilityMultiplier; }
 
 	public int getDefenseForSlot(EquipmentSlot slot) { return this.slotProtections[slot.getIndex()]; }
 

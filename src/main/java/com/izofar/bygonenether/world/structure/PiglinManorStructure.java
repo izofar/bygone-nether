@@ -50,7 +50,7 @@ public class PiglinManorStructure extends StructureFeature<JigsawConfiguration> 
         if (!checkChunk(context)
                 || !ModStructureUtils.isRelativelyFlat(context, CHUNK_SEARCH_RADIUS, MAX_TERRAIN_RANGE)
                 || ModStructureUtils.isLavaLake(blockReader)
-                || !ModStructureUtils.verticalSpace(blockReader, 34, 72, 24))
+                || !ModStructureUtils.hasVerticalSpace(blockReader, 34, ModStructureUtils.getScaledNetherHeight(72), 12))
             return Optional.empty();
         else
             return PiglinManorStructure.createPiecesGenerator(context);

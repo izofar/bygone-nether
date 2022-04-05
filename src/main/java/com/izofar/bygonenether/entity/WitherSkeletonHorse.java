@@ -17,7 +17,14 @@ public class WitherSkeletonHorse extends SkeletonHorse {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return createBaseHorseAttributes().add(Attributes.MAX_HEALTH, 20.0D).add(Attributes.MOVEMENT_SPEED, 0.4D);
+        return createBaseHorseAttributes().add(Attributes.MAX_HEALTH, 35.0D).add(Attributes.MOVEMENT_SPEED, 0.35D);
+    }
+
+    @Override
+    protected void randomizeAttributes() {
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(35.0D);
+        this.getAttribute(Attributes.JUMP_STRENGTH).setBaseValue(1.0D);
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.35D);
     }
 
     @Override

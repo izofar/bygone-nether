@@ -43,6 +43,7 @@ public class BygoneNetherMod
             ModConfiguredFeatures.registerConfiguredFeatures();
             ModFeatures.registerPlacedFeatures();
             ModStructureUtils.addBasaltRestrictions();
+            ModStructureUtils.adjustBastionFeatureConfiguration();
             ModFeatureUtils.replaceBlackstoneBlobs();
             ModFeatureUtils.replaceBlackstoneInBastion();
             ModEntityTypes.modifyPiglinMemoryAndSensors();

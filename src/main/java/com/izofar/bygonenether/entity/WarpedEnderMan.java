@@ -169,7 +169,7 @@ public class WarpedEnderMan extends EnderMan{
 	private static WarpedEnderManVariant randomVariant(Random random){ return VARIANTS[random.nextInt(VARIANTS.length)]; }
 
 	public enum WarpedEnderManVariant {
-		FRESH, SHORT_VINE, LONG_VINE;
+		FRESH, SHORT_VINE, LONG_VINE
 	}
 
 }

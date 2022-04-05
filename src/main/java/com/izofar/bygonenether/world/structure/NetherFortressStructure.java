@@ -44,7 +44,9 @@ public class NetherFortressStructure extends StructureFeature<JigsawConfiguratio
 	private static Optional<PieceGenerator<JigsawConfiguration>> checkLocation(Context<JigsawConfiguration> context) {
 		BlockPos blockpos  = context.chunkPos().getMiddleBlockPosition(0);
 		NoiseColumn blockReader = context.chunkGenerator().getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor());
-		if (!(checkChunk(context) && ModStructureUtils.isLavaLake(blockReader)))
+		if (!checkChunk(context)
+				|| !ModStructureUtils.isLavaLake(blockReader)
+				|| ModStructureUtils.isNearStructure(context.chunkGenerator(), context.seed(), context.chunkPos(), StructureFeature.BASTION_REMNANT, 4))
 			return Optional.empty();
 		else
 			return NetherFortressStructure.createPiecesGenerator(context);

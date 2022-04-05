@@ -52,7 +52,7 @@ public abstract class ModStructureUtils {
 		return !found;
 	}
 	
-	public static boolean verticalSpace(NoiseColumn blockReader, int min, int max, int height) {
+	public static boolean hasVerticalSpace(NoiseColumn blockReader, int min, int max, int height) {
 		int height_tracked = 0;
 		for(int i = max; i >= min && height_tracked < height; i --) {
 			if(isAir.test(blockReader.getBlock(i).getBlock())) height_tracked ++;
@@ -77,87 +77,14 @@ public abstract class ModStructureUtils {
 		return blockpos;
 	}
 
-	public static PieceGeneratorSupplier.Context<JigsawConfiguration> duplicateContext(
-			PieceGeneratorSupplier.Context<JigsawConfiguration> context, JigsawConfiguration config) {
-		return new PieceGeneratorSupplier.Context<>(
-				context.chunkGenerator(), 
-				context.biomeSource(), 
-				context.seed(),
-				context.chunkPos(), 
-				config, 
-				context.heightAccessor(), 
-				context.validBiome(), 
-				context.structureManager(),
-				context.registryAccess());
-	}
-	
-	public static void addBasaltRestrictions() {
-		   BasaltColumnsFeature.CANNOT_PLACE_ON = ImmutableList.of(
-				   // Default
-				   Blocks.LAVA, 
-				   Blocks.BEDROCK, 
-				   Blocks.MAGMA_BLOCK, 
-				   Blocks.SOUL_SAND, 
-				   Blocks.NETHER_BRICKS, 
-				   Blocks.NETHER_BRICK_FENCE, 
-				   Blocks.NETHER_BRICK_STAIRS, 
-				   Blocks.NETHER_WART, 
-				   Blocks.CHEST, 
-				   Blocks.SPAWNER,
-				   // New Fortresses:
-				   Blocks.NETHER_BRICK_SLAB,
-				   Blocks.CRACKED_NETHER_BRICKS,
-				   Blocks.CHISELED_NETHER_BRICKS,
-				   Blocks.RED_NETHER_BRICKS,
-				   Blocks.RED_NETHER_BRICK_STAIRS,
-				   Blocks.RED_NETHER_BRICK_SLAB,
-				   Blocks.CRIMSON_TRAPDOOR,
-				   // Wither Forts:
-				   ModBlocks.COBBLED_BLACKSTONE.get(),
-				   ModBlocks.WITHERED_BLACKSTONE.get(),
-				   ModBlocks.CHISELED_WITHERED_BLACKSTONE.get(),
-				   ModBlocks.CRACKED_WITHERED_BLACKSTONE.get(),
-				   ModBlocks.WITHERED_DEBRIS.get(),
-				   Blocks.IRON_BARS,
-				   Blocks.COAL_BLOCK
-			   );
-		   DeltaFeature.CANNOT_REPLACE = ImmutableList.of(
-				   // Default
-				   Blocks.BEDROCK, 
-				   Blocks.NETHER_BRICKS, 
-				   Blocks.NETHER_BRICK_FENCE, 
-				   Blocks.NETHER_BRICK_STAIRS,
-				   Blocks.NETHER_WART, 
-				   Blocks.CHEST, 
-				   Blocks.SPAWNER,
-				   // New Fortresses:
-				   Blocks.NETHER_BRICK_SLAB,
-				   Blocks.CRACKED_NETHER_BRICKS,
-				   Blocks.CHISELED_NETHER_BRICKS,
-				   Blocks.RED_NETHER_BRICKS,
-				   Blocks.RED_NETHER_BRICK_STAIRS,
-				   Blocks.RED_NETHER_BRICK_SLAB,
-				   Blocks.CRIMSON_TRAPDOOR,
-				   // Wither Forts:
-				   ModBlocks.COBBLED_BLACKSTONE.get(),
-				   ModBlocks.WITHERED_BLACKSTONE.get(),
-				   ModBlocks.CHISELED_WITHERED_BLACKSTONE.get(),
-				   ModBlocks.CRACKED_WITHERED_BLACKSTONE.get(),
-				   ModBlocks.WITHERED_DEBRIS.get(),
-				   Blocks.IRON_BARS,
-				   Blocks.COAL_BLOCK
-			   );
-
-	}
-
-	public static boolean isNearStructure(ChunkGenerator chunk, long seed, ChunkPos inChunkPos, StructureFeature<? extends FeatureConfiguration> feature) {
+	public static boolean isNearStructure(ChunkGenerator chunk, long seed, ChunkPos inChunkPos, StructureFeature<? extends FeatureConfiguration> feature, int radius) {
 		StructureFeatureConfiguration structurefeatureconfiguration = chunk.getSettings().getConfig(feature);
 		if (structurefeatureconfiguration != null) {
 			int i = inChunkPos.x;
 			int j = inChunkPos.z;
 
-			for (int k = i - 10; k <= i + 10; ++k) 
-				for (int l = j - 10; l <= j + 10; ++l) {
+			for (int k = i - radius; k <= i + radius; ++k)
+				for (int l = j - radius; l <= j + radius; ++l) {
 					ChunkPos chunkpos = feature.getPotentialFeatureChunk(structurefeatureconfiguration, seed, k, l);
 					if (k == chunkpos.x && l == chunkpos.z) return true;
 				}
@@ -220,6 +147,84 @@ public abstract class ModStructureUtils {
 
 	public static int getScaledNetherHeight(int vanillaHeight){
 		return (int) (vanillaHeight / 128.0F * (ModList.get().isLoaded("amplifiednether") ? 256.0F : 128.0F));
+	}
+
+	public static PieceGeneratorSupplier.Context<JigsawConfiguration> duplicateContext(
+			PieceGeneratorSupplier.Context<JigsawConfiguration> context, JigsawConfiguration config) {
+		return new PieceGeneratorSupplier.Context<>(
+				context.chunkGenerator(),
+				context.biomeSource(),
+				context.seed(),
+				context.chunkPos(),
+				config,
+				context.heightAccessor(),
+				context.validBiome(),
+				context.structureManager(),
+				context.registryAccess());
+	}
+
+	public static void adjustBastionFeatureConfiguration(){
+		StructureFeatureConfiguration settings = StructureSettings.DEFAULTS.get(StructureFeature.BASTION_REMNANT);
+		settings.separation = 4;
+		settings.spacing = 12;
+	}
+
+	public static void addBasaltRestrictions() {
+		BasaltColumnsFeature.CANNOT_PLACE_ON = ImmutableList.of(
+				// Default
+				Blocks.LAVA,
+				Blocks.BEDROCK,
+				Blocks.MAGMA_BLOCK,
+				Blocks.SOUL_SAND,
+				Blocks.NETHER_BRICKS,
+				Blocks.NETHER_BRICK_FENCE,
+				Blocks.NETHER_BRICK_STAIRS,
+				Blocks.NETHER_WART,
+				Blocks.CHEST,
+				Blocks.SPAWNER,
+				// New Fortresses:
+				Blocks.NETHER_BRICK_SLAB,
+				Blocks.CRACKED_NETHER_BRICKS,
+				Blocks.CHISELED_NETHER_BRICKS,
+				Blocks.RED_NETHER_BRICKS,
+				Blocks.RED_NETHER_BRICK_STAIRS,
+				Blocks.RED_NETHER_BRICK_SLAB,
+				Blocks.CRIMSON_TRAPDOOR,
+				// Wither Forts:
+				ModBlocks.COBBLED_BLACKSTONE.get(),
+				ModBlocks.WITHERED_BLACKSTONE.get(),
+				ModBlocks.CHISELED_WITHERED_BLACKSTONE.get(),
+				ModBlocks.CRACKED_WITHERED_BLACKSTONE.get(),
+				ModBlocks.WITHERED_DEBRIS.get(),
+				Blocks.IRON_BARS,
+				Blocks.COAL_BLOCK
+		);
+		DeltaFeature.CANNOT_REPLACE = ImmutableList.of(
+				// Default
+				Blocks.BEDROCK,
+				Blocks.NETHER_BRICKS,
+				Blocks.NETHER_BRICK_FENCE,
+				Blocks.NETHER_BRICK_STAIRS,
+				Blocks.NETHER_WART,
+				Blocks.CHEST,
+				Blocks.SPAWNER,
+				// New Fortresses:
+				Blocks.NETHER_BRICK_SLAB,
+				Blocks.CRACKED_NETHER_BRICKS,
+				Blocks.CHISELED_NETHER_BRICKS,
+				Blocks.RED_NETHER_BRICKS,
+				Blocks.RED_NETHER_BRICK_STAIRS,
+				Blocks.RED_NETHER_BRICK_SLAB,
+				Blocks.CRIMSON_TRAPDOOR,
+				// Wither Forts:
+				ModBlocks.COBBLED_BLACKSTONE.get(),
+				ModBlocks.WITHERED_BLACKSTONE.get(),
+				ModBlocks.CHISELED_WITHERED_BLACKSTONE.get(),
+				ModBlocks.CRACKED_WITHERED_BLACKSTONE.get(),
+				ModBlocks.WITHERED_DEBRIS.get(),
+				Blocks.IRON_BARS,
+				Blocks.COAL_BLOCK
+		);
 	}
 	
 }

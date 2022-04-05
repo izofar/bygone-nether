@@ -59,9 +59,7 @@ public class PiglinPrisonerSpecificSensor extends Sensor<LivingEntity>{
 		NearestVisibleLivingEntities nearestvisiblelivingentities = brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES).orElse(NearestVisibleLivingEntities.empty());
 
 		for(LivingEntity livingentity : nearestvisiblelivingentities.findAll((entity) -> true)) {
-			if (livingentity instanceof Hoglin) {
-
-			} else if (livingentity instanceof PiglinBrute) {
+			if (livingentity instanceof PiglinBrute) {
 				PiglinBrute piglinbrute = (PiglinBrute)livingentity;
 				list.add(piglinbrute);
 			} else if (livingentity instanceof Piglin) {
@@ -71,9 +69,7 @@ public class PiglinPrisonerSpecificSensor extends Sensor<LivingEntity>{
 				} else if (piglin.isAdult()) {
 					list.add(piglin);
 				}
-			} else if (livingentity instanceof Player) {
-
-			} else if (!optional.isEmpty() || !(livingentity instanceof WitherSkeleton) && !(livingentity instanceof WitherBoss)) {
+			} else if (optional.isPresent() || !(livingentity instanceof WitherSkeleton) && !(livingentity instanceof WitherBoss)) {
 				if (optional4.isEmpty() && PiglinAi.isZombified(livingentity.getType())) {
 					optional4 = Optional.of(livingentity);
 				}

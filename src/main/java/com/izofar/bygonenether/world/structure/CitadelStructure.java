@@ -41,7 +41,9 @@ public class CitadelStructure extends StructureFeature<JigsawConfiguration> {
 	private static Optional<PieceGenerator<JigsawConfiguration>> checkLocation(Context<JigsawConfiguration> context) {
 		BlockPos blockpos  = context.chunkPos().getMiddleBlockPosition(0);
 		NoiseColumn blockReader = context.chunkGenerator().getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor());
-		if (!checkChunk(context) || ModStructureUtils.isLavaLake(blockReader) || !ModStructureUtils.verticalSpace(blockReader, 34, 72, 12))
+		if (!checkChunk(context)
+				|| ModStructureUtils.isLavaLake(blockReader)
+				|| !ModStructureUtils.hasVerticalSpace(blockReader, 34, 72, 12))
 			return Optional.empty();
 		else 
 			return CitadelStructure.createPiecesGenerator(context);

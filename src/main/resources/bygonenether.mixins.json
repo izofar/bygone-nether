@@ -8,7 +8,8 @@
 		"NoDeltasInStructuresMixin",
 		"ModifyDamageInSmithingRecipes",
 		"ModifyPiglinBruteAi",
-		"ModifyPiglinAi"
+		"ModifyPiglinAi",
+		"LocateBygoneStructureInstead"
 	],
 	"client": [
 	],

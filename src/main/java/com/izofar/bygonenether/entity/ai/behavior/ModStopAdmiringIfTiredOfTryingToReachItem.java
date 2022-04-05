@@ -27,7 +27,7 @@ public class ModStopAdmiringIfTiredOfTryingToReachItem<E extends PiglinPrisoner>
     protected void start(ServerLevel p_35243_, E p_35244_, long p_35245_) {
         Brain<PiglinPrisoner> brain = p_35244_.getBrain();
         Optional<Integer> optional = brain.getMemory(MemoryModuleType.TIME_TRYING_TO_REACH_ADMIRE_ITEM);
-        if (!optional.isPresent()) {
+        if (optional.isEmpty()) {
             brain.setMemory(MemoryModuleType.TIME_TRYING_TO_REACH_ADMIRE_ITEM, 0);
         } else {
             int i = optional.get();

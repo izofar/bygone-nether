@@ -38,7 +38,8 @@ public class CatacombStructure extends StructureFeature<JigsawConfiguration> {
 	private static Optional<PieceGenerator<JigsawConfiguration>> checkLocation(Context<JigsawConfiguration> context) {
 		BlockPos blockpos  = context.chunkPos().getMiddleBlockPosition(0);
 		NoiseColumn blockReader = context.chunkGenerator().getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor());
-		if (ModStructureUtils.isBuried(blockReader, 48, 72) || ModStructureUtils.isLavaLake(blockReader))
+		if (ModStructureUtils.isBuried(blockReader, 48, 72)
+				|| ModStructureUtils.isLavaLake(blockReader))
 			return Optional.empty();
 		else
 			return createPiecesGenerator(context);

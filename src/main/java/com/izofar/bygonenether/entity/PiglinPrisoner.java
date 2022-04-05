@@ -111,8 +111,8 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 		this.inventory.removeAllItems().forEach(this::spawnAtLocation);
 	}
 
-	public ItemStack addToInventory(ItemStack stack) {
-		return this.inventory.addItem(stack);
+	public void addToInventory(ItemStack stack) {
+		this.inventory.addItem(stack);
 	}
 
 	public boolean canAddToInventory(ItemStack stack) {

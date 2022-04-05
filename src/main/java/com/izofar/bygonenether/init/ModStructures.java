@@ -22,10 +22,10 @@ public abstract class ModStructures {
 
 
 	public static void setupStructures() {
-		ModStructureUtils.setupMapSpacingAndLand(NETHER_FORTRESS.get(), new StructureFeatureConfiguration(27, 18, 1206458988), false);
-		ModStructureUtils.setupMapSpacingAndLand(CATACOMB.get(), new StructureFeatureConfiguration(27, 18, 1163018812), false);
-		ModStructureUtils.setupMapSpacingAndLand(CITADEL.get(), new StructureFeatureConfiguration(22, 16, 1621815507), true);
-		ModStructureUtils.setupMapSpacingAndLand(PIGLIN_MANOR.get(), new StructureFeatureConfiguration(22, 16, 292421824), true);
+		ModStructureUtils.setupMapSpacingAndLand(NETHER_FORTRESS.get(), new StructureFeatureConfiguration(27, 4, 1206458988), false);
+		ModStructureUtils.setupMapSpacingAndLand(CATACOMB.get(), new StructureFeatureConfiguration(12, 4, 1163018812), false);
+		ModStructureUtils.setupMapSpacingAndLand(CITADEL.get(), new StructureFeatureConfiguration(12, 4, 1621815507), true);
+		ModStructureUtils.setupMapSpacingAndLand(PIGLIN_MANOR.get(), new StructureFeatureConfiguration(12, 4, 292421824), true);
 	}
 	
 	public static void register(IEventBus eventBus) { MODDED_STRUCTURES.register(eventBus); }

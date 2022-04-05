@@ -28,7 +28,6 @@ public class ModCarriedBlockLayer<T extends EnderMan, M extends EndermanModel<T>
             p_116639_.mulPose(Vector3f.XP.rotationDegrees(20.0F));
             p_116639_.mulPose(Vector3f.YP.rotationDegrees(45.0F));
             p_116639_.translate(0.25D, 0.1875D, 0.25D);
-            float f = 0.5F;
             p_116639_.scale(-0.5F, -0.5F, 0.5F);
             p_116639_.mulPose(Vector3f.YP.rotationDegrees(90.0F));
             Minecraft.getInstance().getBlockRenderer().renderSingleBlock(blockstate, p_116639_, p_116640_, p_116641_, OverlayTexture.NO_OVERLAY);

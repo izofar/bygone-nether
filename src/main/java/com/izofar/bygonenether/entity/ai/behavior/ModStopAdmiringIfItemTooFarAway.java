@@ -23,11 +23,7 @@ public class ModStopAdmiringIfItemTooFarAway<E extends PiglinPrisoner> extends B
             return false;
         } else {
             Optional<ItemEntity> optional = p_35222_.getBrain().getMemory(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
-            if (!optional.isPresent()) {
-                return true;
-            } else {
-                return !optional.get().closerThan(p_35222_, (double)this.maxDistanceToItem);
-            }
+            return optional.map(itemEntity -> !itemEntity.closerThan(p_35222_, this.maxDistanceToItem)).orElse(true);
         }
     }
 
