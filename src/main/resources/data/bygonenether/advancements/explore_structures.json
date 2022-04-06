@@ -5,10 +5,10 @@
       "item": "bygonenether:gilded_netherite_boots"
     },
     "title": {
-      "translate": "Hotter Tourist Destinations"
+      "translate": "advancements.explore_structures.title"
     },
     "description": {
-      "translate": "Locate all Bygone Nether Structures"
+      "translate": "advancements.explore_structures.description"
     },
     "frame": "challenge",
     "show_toast": true,

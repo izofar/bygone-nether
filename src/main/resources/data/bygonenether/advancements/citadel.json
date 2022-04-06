@@ -5,10 +5,10 @@
       "item": "bygonenether:chiseled_warped_nether_bricks"
     },
     "title": {
-      "translate": "The Citadel in the Midgame"
+      "translate": "advancements.citadel.title"
     },
     "description": {
-      "translate": "Locate a Citadel"
+      "translate": "advancements.citadel.description"
     },
     "frame": "task",
     "show_toast": true,
