@@ -5,10 +5,10 @@
       "item": "minecraft:crimson_planks"
     },
     "title": {
-      "translate": "Mind your Manors"
+      "translate": "advancements.piglin_manor.title"
     },
     "description": {
-      "translate": "Locate a Piglin Manor"
+      "translate": "advancements.piglin_manor.description"
     },
     "frame": "task",
     "show_toast": true,

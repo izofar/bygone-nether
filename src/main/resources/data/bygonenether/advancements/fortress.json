@@ -5,10 +5,10 @@
       "item": "minecraft:red_nether_bricks"
     },
     "title": {
-      "translate": "A More Terrible Fortress"
+      "translate": "advancements.fortress.title"
     },
     "description": {
-      "translate": "Locate a Nether Fortress"
+      "translate": "advancements.fortress.description"
     },
     "frame": "task",
     "show_toast": true,

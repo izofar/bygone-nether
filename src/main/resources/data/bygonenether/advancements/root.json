@@ -4,10 +4,10 @@
       "item": "bygonenether:chiseled_withered_blackstone"
     },
     "title": {
-      "translate": "Bygone Nether"
+      "translate": "advancements.root.title"
     },
     "description": {
-      "translate": "Explore the Nether for New Structures!"
+      "translate": "advancements.root.description"
     },
     "frame": "task",
     "show_toast": false,

@@ -5,10 +5,10 @@
       "item": "bygonenether:withered_debris"
     },
     "title": {
-      "translate": "Wither Or Not..."
+      "translate": "advancements.catacomb.title"
     },
     "description": {
-      "translate": "Locate a Catacomb"
+      "translate": "advancements.catacomb.description"
     },
     "frame": "task",
     "show_toast": true,

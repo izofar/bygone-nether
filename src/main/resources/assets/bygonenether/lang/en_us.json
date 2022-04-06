@@ -50,5 +50,24 @@
 	"sounds.bygonenether.wex.ambient": "Wex Ambient",
 	"sounds.bygonenether.wex.death": "Wex Death",
 	"sounds.bygonenether.wex.hurt": "Wex Hurt",
-	"sounds.bygonenether.wex.charge": "Wex Charge"
+	"sounds.bygonenether.wex.charge": "Wex Charge",
+
+	"advancements.acquire_wither_waltz.title": "Here I Waltz",
+	"advancements.acquire_wither_waltz.description": "Acquire the Wither Waltz Music Disc",
+	"advancements.catacomb.title": "Wither Or Not...",
+	"advancements.catacomb.description": "Locate a Catacomb",
+	"advancements.citadel.title": "The Citadel in the Midgame",
+	"advancements.citadel.description": "Locate a Citadel",
+	"advancements.explore_structures.title": "Hotter Tourist Destinations",
+	"advancements.explore_structures.description": "Locate all Bygone Nether Structures",
+	"advancements.fortress.title": "A More Terrible Fortress",
+	"advancements.fortress.description": "Locate a Nether Fortress",
+	"advancements.piglin_manor.title": "Mind your Manors",
+	"advancements.piglin_manor.description": "Locate a Piglin Manor",
+	"advancements.ride_wither_skeleton_horse.title": "Dark Horse",
+	"advancements.ride_wither_skeleton_horse.description": "Ride a Wither Skeleton Horse",
+	"advancements.root.title": "Bygone Nether",
+	"advancements.root.description": "Explore the Nether for New Structures!",
+	"advancements.summon_enderman.title": "A Little Off the Top",
+	"advancements.summon_enderman.description": "Trim the Warp off of an Enderman"
 }

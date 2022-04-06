@@ -5,10 +5,10 @@
       "item": "bygonenether:wither_waltz_music_disc"
     },
     "title": {
-      "translate": "Here I Waltz"
+      "translate": "advancements.acquire_wither_waltz.title"
     },
     "description": {
-      "translate": "Acquire the Wither Waltz Music Disc"
+      "translate": ""
     },
     "frame": "task",
     "show_toast": true,
