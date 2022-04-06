@@ -7,13 +7,16 @@ import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.monster.piglin.AbstractPiglinEntity;
 import net.minecraft.entity.passive.horse.SkeletonHorseEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 public class WitherSkeletonHorseEntity extends SkeletonHorseEntity {
-    public WitherSkeletonHorseEntity(EntityType<? extends SkeletonHorseEntity> entityType, World level){
-        super(entityType, level);
-    }
+
+
+    public WitherSkeletonHorseEntity(EntityType<? extends SkeletonHorseEntity> entityType, World level){ super(entityType, level); }
 
     public static AttributeModifierMap.MutableAttribute createAttributes() {
         return createBaseHorseAttributes().add(Attributes.MAX_HEALTH, 35.0D).add(Attributes.MOVEMENT_SPEED, 0.35D);
@@ -27,6 +30,12 @@ public class WitherSkeletonHorseEntity extends SkeletonHorseEntity {
     }
 
     @Override
+    public ActionResultType mobInteract(PlayerEntity player, Hand hand){
+        if(!isTamed()) this.tameWithName(player);
+        return super.mobInteract(player, hand);
+    }
+
+    @Override
     public boolean hurt(DamageSource source, float amount){
         this.getPassengers().forEach((passenger) -> {
             if(passenger instanceof AbstractPiglinEntity && source.getEntity() instanceof LivingEntity)
@@ -34,7 +43,4 @@ public class WitherSkeletonHorseEntity extends SkeletonHorseEntity {
         });
         return super.hurt(source, amount);
     }
-
-    @Override
-    public boolean isTamed() { return true; }
 }

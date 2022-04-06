@@ -12,7 +12,6 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.EndermanEntity;
 import net.minecraft.entity.monster.EndermiteEntity;
 import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -31,7 +30,7 @@ public class WarpedEndermanEntity extends EndermanEntity {
 
 	private static final int SHEAR_COOLDOWN = 20;
 	private static final WarpedEnderManVariant[] VARIANTS = WarpedEnderManVariant.values();
-	private static final DataParameter<Integer> VARIANT_ID = EntityDataManager.defineId(SheepEntity.class, DataSerializers.INT);
+	private static final DataParameter<Integer> VARIANT_ID = EntityDataManager.defineId(WarpedEndermanEntity.class, DataSerializers.INT);
 
 	private WarpedEnderManVariant variant;
 	private int shearCooldownCounter = 0;

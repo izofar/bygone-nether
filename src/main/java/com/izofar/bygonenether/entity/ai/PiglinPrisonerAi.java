@@ -3,6 +3,10 @@ package com.izofar.bygonenether.entity.ai;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.izofar.bygonenether.entity.PiglinPrisonerEntity;
+import com.izofar.bygonenether.entity.ai.behvaior.ModAdmireItemTask;
+import com.izofar.bygonenether.entity.ai.behvaior.ModForgetAdmiredItemTask;
+import com.izofar.bygonenether.entity.ai.behvaior.ModStartAdmiringItemTask;
+import com.izofar.bygonenether.entity.ai.behvaior.ModStopReachingItemTask;
 import com.izofar.bygonenether.init.ModEntityTypes;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.entity.EntityType;
@@ -15,18 +19,24 @@ import net.minecraft.entity.ai.brain.memory.MemoryModuleType;
 import net.minecraft.entity.ai.brain.schedule.Activity;
 import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.monster.piglin.*;
+import net.minecraft.entity.monster.piglin.AbstractPiglinEntity;
+import net.minecraft.entity.monster.piglin.PiglinTasks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 public class PiglinPrisonerAi {
 
@@ -54,8 +64,8 @@ public class PiglinPrisonerAi {
                         new WalkToTargetTask(),
                         new InteractWithDoorTask(),
                         avoidZombified(),
-                        new StartAdmiringItemTask(),
-                        new AdmireItemTask(120),
+                        new ModStartAdmiringItemTask(),
+                        new ModAdmireItemTask(120),
                         new GetAngryTask()
                 )
         );
@@ -108,8 +118,8 @@ public class PiglinPrisonerAi {
         brain.addActivityAndRemoveMemoryWhenStopped(Activity.ADMIRE_ITEM, 10,
                 ImmutableList.<Task<? super PiglinPrisonerEntity>>of(
                         new PickupWantedItemTask<>(PiglinPrisonerAi::isNotHoldingLovedItemInOffHand, 1.0F, true, 9),
-                        new ForgetAdmiredItemTask(9),
-                        new StopReachingItemTask(200, 200)
+                        new ModForgetAdmiredItemTask(9),
+                        new ModStopReachingItemTask(200, 200)
                 ),
                 MemoryModuleType.ADMIRING_ITEM);
     }
@@ -222,7 +232,7 @@ public class PiglinPrisonerAi {
         return itemstack1;
     }
 
-    protected static void stopHoldingOffHandItem(PiglinPrisonerEntity pPiglin, boolean pShouldBarter) {
+    public static void stopHoldingOffHandItem(PiglinPrisonerEntity pPiglin, boolean pShouldBarter) {
         ItemStack itemstack = pPiglin.getItemInHand(Hand.OFF_HAND);
         pPiglin.setItemInHand(Hand.OFF_HAND, ItemStack.EMPTY);
         if (pPiglin.isAdult()) {
@@ -257,8 +267,8 @@ public class PiglinPrisonerAi {
     }
 
     private static void putInInventory(PiglinPrisonerEntity pPiglin, ItemStack pStack) {
-        ItemStack itemstack = pPiglin.addToInventory(pStack);
-        throwItemsTowardRandomPos(pPiglin, Collections.singletonList(itemstack));
+        pPiglin.addToInventory(pStack);
+        giveGoldBuff(pPiglin);
     }
 
     private static void throwItems(PiglinPrisonerEntity pPilgin, List<ItemStack> pStacks) {
@@ -522,6 +532,11 @@ public class PiglinPrisonerAi {
 
     public static boolean isZombified(EntityType pEntityType) {
         return pEntityType == EntityType.ZOMBIFIED_PIGLIN || pEntityType == EntityType.ZOGLIN;
+    }
+
+    private static void giveGoldBuff(PiglinPrisonerEntity piglin){
+        piglin.addEffect(new EffectInstance(Effects.ABSORPTION, 60 * 180, 3, false, true));
+        piglin.addEffect(new EffectInstance(Effects.REGENERATION, 60 * 120, 1, false, false));
     }
 
 }

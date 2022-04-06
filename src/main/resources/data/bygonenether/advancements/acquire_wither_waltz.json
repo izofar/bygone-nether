@@ -21,9 +21,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "bygonenether:wither_waltz_music_disc"
-            ]
+            "item": "bygonenether:wither_waltz_music_disc"
           }
         ]
       }

@@ -19,7 +19,9 @@
     "in_fortress": {
       "trigger": "minecraft:location",
       "conditions": {
-        "feature": "bygonenether:fortress"
+        "location": {
+          "feature": "bygonenether:fortress"
+        }
       }
     }
   },

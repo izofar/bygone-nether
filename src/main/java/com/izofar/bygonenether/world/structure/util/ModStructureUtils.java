@@ -16,6 +16,7 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.BasaltColumnFeature;
 import net.minecraft.world.gen.feature.structure.BasaltDeltasStructure;
 import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraft.world.gen.feature.structure.StructureFeatures;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraftforge.fml.ModList;
@@ -124,6 +125,12 @@ public abstract class ModStructureUtils {
 
 	public static int getScaledNetherHeight(int vanillaHeight){
 		return (int) (vanillaHeight / 128.0F * (ModList.get().isLoaded("amplifiednether") ? 256.0F : 128.0F));
+	}
+
+	public static void adjustBastionFeatureConfiguration(){
+		StructureSeparationSettings settings = DimensionStructuresSettings.DEFAULTS.get(StructureFeatures.BASTION_REMNANT);
+		settings.separation = 4;
+		settings.spacing = 12;
 	}
 
 	public static void addBasaltRestrictions() {

@@ -17,10 +17,9 @@ public class WarpedEndermanModel extends EndermanModel<WarpedEndermanEntity> {
         stemBody.texOffs(42, 0).addBox(-10.0F, -54.0F, -0.5F, 6.0F, 15.0F, 1.0F, 0.0F, false);
 
         ModelRenderer stemArm = new ModelRenderer(this);
-        stemArm.setPos(5.0F, 37.0F, 0.0F);
+        stemArm.setPos(-5.0F, 37.0F, 0.0F);
         leftArm.addChild(stemArm);
         stemArm.texOffs(35, 0).addBox(6.0F, -38.0F, -0.5F, 6.0F, 15.0F, 1.0F, 0.0F, false);
-
     }
 
     @Override

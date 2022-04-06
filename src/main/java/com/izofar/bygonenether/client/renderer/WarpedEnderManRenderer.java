@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableMap;
 import com.izofar.bygonenether.BygoneNetherMod;
 import com.izofar.bygonenether.client.model.WarpedEndermanModel;
 import com.izofar.bygonenether.client.renderer.layers.ModEndermanEyesLayer;
-import com.izofar.bygonenether.client.renderer.layers.ModHeldBlockLayer;
 import com.izofar.bygonenether.entity.WarpedEndermanEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.BlockState;
@@ -33,7 +32,7 @@ public class WarpedEnderManRenderer extends MobRenderer<WarpedEndermanEntity, Wa
 	public WarpedEnderManRenderer(EntityRendererManager manager) {
 		super(manager, new WarpedEndermanModel(0.0F), 0.5F);
 		this.addLayer(new ModEndermanEyesLayer(this));
-		this.addLayer(new ModHeldBlockLayer(this));
+		//this.addLayer(new ModHeldBlockLayer(this));
 	}
 
 	@Override
@@ -47,11 +46,9 @@ public class WarpedEnderManRenderer extends MobRenderer<WarpedEndermanEntity, Wa
 
 	@Override
 	public Vector3d getRenderOffset(WarpedEndermanEntity pEntity, float pPartialTicks) {
-		if (pEntity.isCreepy()) {
+		if (pEntity.isCreepy())
 			return new Vector3d(this.random.nextGaussian() * 0.02D, 0.0D, this.random.nextGaussian() * 0.02D);
-		} else {
-			return super.getRenderOffset(pEntity, pPartialTicks);
-		}
+		else return super.getRenderOffset(pEntity, pPartialTicks);
 	}
 
 	@Override

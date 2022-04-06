@@ -26,9 +26,9 @@ public abstract class ModStructures {
 
 	public static void setupStructures() {
 		ModStructureUtils.setupMapSpacingAndLand(NETHER_FORTRESS.get(), new StructureSeparationSettings(27, 18, 1206458988), false);
-		ModStructureUtils.setupMapSpacingAndLand(CATACOMB.get(), new StructureSeparationSettings(27, 18, 1163018812), false);
-		ModStructureUtils.setupMapSpacingAndLand(CITADEL.get(), new StructureSeparationSettings(22, 16, 1621815507), true);
-		ModStructureUtils.setupMapSpacingAndLand(PIGLIN_MANOR.get(), new StructureSeparationSettings(22, 16, 292421824), true);
+		ModStructureUtils.setupMapSpacingAndLand(CATACOMB.get(), new StructureSeparationSettings(12, 4, 1163018812), false);
+		ModStructureUtils.setupMapSpacingAndLand(CITADEL.get(), new StructureSeparationSettings(12, 4, 1621815507), true);
+		ModStructureUtils.setupMapSpacingAndLand(PIGLIN_MANOR.get(), new StructureSeparationSettings(12, 4, 292421824), true);
 	}
 	
 	public static void register(IEventBus eventBus) { MODDED_STRUCTURES.register(eventBus); }

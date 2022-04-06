@@ -19,7 +19,9 @@
     "in_citadel": {
       "trigger": "minecraft:location",
       "conditions": {
-        "feature": "bygonenether:citadel"
+        "location": {
+          "feature": "bygonenether:citadel"
+        }
       }
     }
   },

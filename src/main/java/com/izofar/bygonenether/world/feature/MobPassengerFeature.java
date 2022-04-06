@@ -17,7 +17,7 @@ import java.util.function.Supplier;
 
 public class MobPassengerFeature<P extends MobEntity, V extends MobEntity> extends Feature<NoFeatureConfig> {
 
-    private final Supplier<WeightedRandomList<WeightedEntry<Pair<EntityType<? extends P>, EntityType<? extends V>>>>> entityTypes;
+    private final Supplier<WeightedRandomList<Pair<EntityType<? extends P>, EntityType<? extends V>>>> entityTypes;
 
     public MobPassengerFeature(EntityType<? extends P> passenger, EntityType<? extends V> vehicle) {
         super(NoFeatureConfig.CODEC);
@@ -26,7 +26,7 @@ public class MobPassengerFeature<P extends MobEntity, V extends MobEntity> exten
 
     @Override
     public boolean place(ISeedReader world, ChunkGenerator chunkGenerator, Random random, BlockPos position, NoFeatureConfig config) {
-        Pair<EntityType<? extends P>, EntityType<? extends V>> pair = this.entityTypes.get().getRandom(world.getRandom()).data;
+        Pair<EntityType<? extends P>, EntityType<? extends V>> pair = this.entityTypes.get().getRandom(world.getRandom());
 
         P passenger = this.createPassenger(world, position, pair);
         V vehicle = this.createVehicle(world, position, pair);

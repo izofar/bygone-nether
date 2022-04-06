@@ -32,12 +32,8 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-
-import javax.annotation.Nullable;
 
 public class PiglinPrisonerEntity extends AbstractPiglinEntity implements ICrossbowUser {
 
@@ -109,9 +105,7 @@ public class PiglinPrisonerEntity extends AbstractPiglinEntity implements ICross
 		this.inventory.removeAllItems().forEach(this::spawnAtLocation);
 	}
 
-	public ItemStack addToInventory(ItemStack pStack) {
-		return this.inventory.addItem(pStack);
-	}
+	public void addToInventory(ItemStack pStack) { this.inventory.addItem(pStack); }
 
 	public boolean canAddToInventory(ItemStack pStack) {
 		return this.inventory.canAddItem(pStack);
@@ -129,41 +123,12 @@ public class PiglinPrisonerEntity extends AbstractPiglinEntity implements ICross
 				.add(Attributes.ATTACK_DAMAGE, 6.0D); 
 		}
 
-	@Nullable
-	public ILivingEntityData finalizeSpawn(IServerWorld pLevel, DifficultyInstance pDifficulty, SpawnReason pReason, @Nullable ILivingEntityData pSpawnData, @Nullable CompoundNBT pDataTag) {
-		if (pReason != SpawnReason.STRUCTURE) {
-			if (pLevel.getRandom().nextFloat() < 0.2F) {
-				this.setBaby(true);
-			} else if (this.isAdult()) {
-				this.setItemSlot(EquipmentSlotType.MAINHAND, this.createSpawnWeapon());
-			}
-		}
-
-		this.populateDefaultEquipmentSlots(pDifficulty);
-		this.populateDefaultEquipmentEnchantments(pDifficulty);
-		return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
-	}
-
 	protected boolean shouldDespawnInPeaceful() { return false; }
 
 	public boolean removeWhenFarAway(double pDistanceToClosestPlayer) {
 		return !this.isPersistenceRequired();
 	}
 
-	protected void populateDefaultEquipmentSlots(DifficultyInstance pDifficulty) {
-		if (this.isAdult()) {
-			this.maybeWearArmor(EquipmentSlotType.HEAD, new ItemStack(Items.GOLDEN_HELMET));
-			this.maybeWearArmor(EquipmentSlotType.CHEST, new ItemStack(Items.GOLDEN_CHESTPLATE));
-			this.maybeWearArmor(EquipmentSlotType.LEGS, new ItemStack(Items.GOLDEN_LEGGINGS));
-			this.maybeWearArmor(EquipmentSlotType.FEET, new ItemStack(Items.GOLDEN_BOOTS));
-		}
-	}
-
-	private void maybeWearArmor(EquipmentSlotType pSlot, ItemStack pStack) {
-		if (this.level.random.nextFloat() < 0.1F) {
-			this.setItemSlot(pSlot, pStack);
-		}
-	}
 
 	protected Brain.BrainCodec<PiglinPrisonerEntity> brainProvider() {
 		return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
@@ -218,10 +183,6 @@ public class PiglinPrisonerEntity extends AbstractPiglinEntity implements ICross
 		PiglinPrisonerAi.cancelAdmiring(this);
 		this.inventory.removeAllItems().forEach(this::spawnAtLocation);
 		super.finishConversion(pServerLevel);
-	}
-
-	private ItemStack createSpawnWeapon() {
-		return (double)this.random.nextFloat() < 0.5D ? new ItemStack(Items.CROSSBOW) : new ItemStack(Items.GOLDEN_SWORD);
 	}
 
 	private boolean isChargingCrossbow() {
