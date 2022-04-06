@@ -40,6 +40,7 @@ public class BygoneNetherMod
     }
 
     private void setup(final FMLCommonSetupEvent event) {
+        ModCriteriaTriggers.registerTriggers();
         event.enqueueWork(() -> {
             ModProcessors.registerProcessors();
             ModStructures.setupStructures();

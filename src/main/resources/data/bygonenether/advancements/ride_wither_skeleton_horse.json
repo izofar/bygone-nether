@@ -17,18 +17,8 @@
   },
   "criteria": {
     "ride_a_wither_skeleton_horse": {
-      "trigger": "minecraft:tame_animal",
-      "conditions": {
-        "player": [
-          {
-            "condition": "minecraft:entity_properties",
-            "predicate": {
-                "type": "bygonenether:wither_skeleton_horse"
-            },
-            "entity": "this"
-          }
-        ]
-      }
+      "trigger": "bygonenether:started_riding",
+      "conditions": { }
     }
   },
   "requirements": [
