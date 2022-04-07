@@ -67,7 +67,7 @@ public class PiglinPrisonerSpecificSensor extends Sensor<LivingEntity>{
 				} else if (piglin.isAdult()) {
 					list.add(piglin);
 				}
-			} else if (!optional.isEmpty() || !(livingentity instanceof WitherSkeleton) && !(livingentity instanceof WitherBoss)) {
+			} else if (optional.isPresent() || !(livingentity instanceof WitherSkeleton) && !(livingentity instanceof WitherBoss)) {
 				if (optional4.isEmpty() && PiglinAi.isZombified(livingentity.getType())) {
 					optional4 = Optional.of(livingentity);
 				}
@@ -91,6 +91,7 @@ public class PiglinPrisonerSpecificSensor extends Sensor<LivingEntity>{
 		brain.setMemory(MemoryModuleType.NEARBY_ADULT_PIGLINS, list1);
 		brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_ADULT_PIGLINS, list);
 		brain.setMemory(MemoryModuleType.VISIBLE_ADULT_PIGLIN_COUNT, list.size());
+
 	}
 
 	private static Optional<BlockPos> findNearestRepellent(ServerLevel p_26735_, LivingEntity p_26736_) { return BlockPos.findClosestMatch(p_26736_.blockPosition(), 8, 4, (p_186160_) -> isValidRepellent(p_26735_, p_186160_)); }

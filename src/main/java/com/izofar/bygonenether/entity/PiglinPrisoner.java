@@ -42,10 +42,15 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.ForgeEventFactory;
 
+import javax.annotation.Nullable;
+import java.util.Optional;
+import java.util.UUID;
+
 public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob, InventoryCarrier {
 
 	private static final EntityDataAccessor<Boolean> DATA_IS_CHARGING_CROSSBOW = SynchedEntityData.defineId(Piglin.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> DATA_IS_DANCING = SynchedEntityData.defineId(Piglin.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Optional<UUID>> DATA_OWNERUUID_ID = SynchedEntityData.defineId(Piglin.class, EntityDataSerializers.OPTIONAL_UUID);
 
 	protected static final ImmutableList<SensorType<? extends Sensor<? super PiglinPrisoner>>> SENSOR_TYPES = ImmutableList.of(
 			SensorType.NEAREST_LIVING_ENTITIES,
@@ -61,7 +66,6 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 			MemoryModuleType.NEAREST_LIVING_ENTITIES,
 			MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
 			MemoryModuleType.NEAREST_VISIBLE_PLAYER,
-			MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER,
 			MemoryModuleType.NEAREST_VISIBLE_ADULT_PIGLINS,
 			MemoryModuleType.NEARBY_ADULT_PIGLINS,
 			MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM,
@@ -86,7 +90,9 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 			MemoryModuleType.VISIBLE_ADULT_PIGLIN_COUNT,
 			MemoryModuleType.NEAREST_PLAYER_HOLDING_WANTED_ITEM,
 			MemoryModuleType.ATE_RECENTLY,
-			MemoryModuleType.NEAREST_REPELLENT
+			MemoryModuleType.NEAREST_REPELLENT,
+			MemoryModuleType.TEMPTING_PLAYER,
+			MemoryModuleType.IS_TEMPTED
 	);
 
 	private final SimpleContainer inventory = new SimpleContainer(8);
@@ -99,11 +105,20 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 	public void addAdditionalSaveData(CompoundTag tag) {
 		super.addAdditionalSaveData(tag);
 		tag.put("Inventory", this.inventory.createTag());
+		if(this.getTempterUUID() != null){
+			tag.putUUID("Tempter", this.getTempterUUID());
+		}
 	}
 
-	public void readAdditionalSaveData(CompoundTag p_34725_) {
-		super.readAdditionalSaveData(p_34725_);
-		this.inventory.fromTag(p_34725_.getList("Inventory", 10));
+	public void readAdditionalSaveData(CompoundTag tag) {
+		super.readAdditionalSaveData(tag);
+		this.inventory.fromTag(tag.getList("Inventory", 10));
+		UUID uuid;
+		if(tag.hasUUID("Tempter")){
+			uuid = tag.getUUID("Tempter");
+			this.setTempterUUID(uuid);
+			PiglinPrisonerAi.reloadAllegiance(this, this.getTempter());
+		}
 	}
 
 	protected void dropCustomDeathLoot(DamageSource source, int rand, boolean doDrop) {
@@ -124,6 +139,7 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 		super.defineSynchedData();
 		this.entityData.define(DATA_IS_CHARGING_CROSSBOW, false);
 		this.entityData.define(DATA_IS_DANCING, false);
+		this.entityData.define(DATA_OWNERUUID_ID, Optional.empty());
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -301,5 +317,20 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 
 	@Override
 	protected void playConvertedSound() { this.playSound(SoundEvents.PIGLIN_CONVERTED_TO_ZOMBIFIED); }
+
+	@Nullable
+	public Player getTempter() {
+		try {
+			UUID uuid = this.getTempterUUID();
+			return uuid == null ? null : this.level.getPlayerByUUID(uuid);
+		} catch (IllegalArgumentException illegalargumentexception) {
+			return null;
+		}
+	}
+
+	@Nullable
+	public UUID getTempterUUID() { return this.entityData.get(DATA_OWNERUUID_ID).orElse(null); }
+
+	public void setTempterUUID(@Nullable UUID uuid) { this.entityData.set(DATA_OWNERUUID_ID, Optional.ofNullable(uuid)); }
 
 }
