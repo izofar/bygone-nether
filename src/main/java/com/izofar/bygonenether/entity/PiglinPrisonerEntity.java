@@ -2,6 +2,7 @@ package com.izofar.bygonenether.entity;
 
 import com.google.common.collect.ImmutableList;
 import com.izofar.bygonenether.entity.ai.PiglinPrisonerAi;
+import com.izofar.bygonenether.init.ModMemoryModuleTypes;
 import com.izofar.bygonenether.init.ModSensorTypes;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.block.BlockState;
@@ -17,7 +18,6 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.monster.piglin.AbstractPiglinEntity;
 import net.minecraft.entity.monster.piglin.PiglinAction;
-import net.minecraft.entity.monster.piglin.PiglinEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -35,27 +35,32 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nullable;
+import java.util.Optional;
+import java.util.UUID;
+
 public class PiglinPrisonerEntity extends AbstractPiglinEntity implements ICrossbowUser {
 
 	private static final DataParameter<Boolean> DATA_IS_CHARGING_CROSSBOW = EntityDataManager.defineId(PiglinPrisonerEntity.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> DATA_IS_DANCING = EntityDataManager.defineId(PiglinEntity.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> DATA_IS_DANCING = EntityDataManager.defineId(PiglinPrisonerEntity.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Optional<UUID>> DATA_OWNERUUID_ID  = EntityDataManager.defineId(PiglinPrisonerEntity.class, DataSerializers.OPTIONAL_UUID);
+
 	private final Inventory inventory = new Inventory(8);
 
-	protected static final ImmutableList<SensorType<? extends Sensor<? super PiglinPrisonerEntity>>> SENSOR_TYPES =
-			ImmutableList.of(
-					SensorType.NEAREST_LIVING_ENTITIES, 
-					SensorType.NEAREST_PLAYERS, 
-					SensorType.NEAREST_ITEMS, 
-					SensorType.HURT_BY, 
-					ModSensorTypes.PIGLIN_PRISONER_SPECIFIC_SENSOR.get()
-				);
+	protected static final ImmutableList<SensorType<? extends Sensor<? super PiglinPrisonerEntity>>> SENSOR_TYPES = ImmutableList.of(
+			SensorType.NEAREST_LIVING_ENTITIES,
+			SensorType.NEAREST_PLAYERS,
+			SensorType.NEAREST_ITEMS,
+			SensorType.HURT_BY,
+			ModSensorTypes.PIGLIN_PRISONER_SPECIFIC_SENSOR.get()
+		);
+
 	protected static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
 			MemoryModuleType.LOOK_TARGET,
 			MemoryModuleType.DOORS_TO_CLOSE,
 			MemoryModuleType.LIVING_ENTITIES,
 			MemoryModuleType.VISIBLE_LIVING_ENTITIES,
 			MemoryModuleType.NEAREST_VISIBLE_PLAYER,
-			MemoryModuleType.NEAREST_VISIBLE_TARGETABLE_PLAYER,
 			MemoryModuleType.NEAREST_VISIBLE_ADULT_PIGLINS,
 			MemoryModuleType.NEARBY_ADULT_PIGLINS,
 			MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM,
@@ -79,11 +84,10 @@ public class PiglinPrisonerEntity extends AbstractPiglinEntity implements ICross
 			MemoryModuleType.NEAREST_VISIBLE_ZOMBIFIED,
 			MemoryModuleType.VISIBLE_ADULT_PIGLIN_COUNT,
 			MemoryModuleType.NEAREST_PLAYER_HOLDING_WANTED_ITEM,
-			MemoryModuleType.ATE_RECENTLY,
-			MemoryModuleType.NEAREST_REPELLENT
+			MemoryModuleType.NEAREST_REPELLENT,
+			ModMemoryModuleTypes.TEMPTING_PLAYER.get(),
+			ModMemoryModuleTypes.IS_TEMPTED.get()
 		);
-
-
 
 	public PiglinPrisonerEntity(EntityType<? extends AbstractPiglinEntity> entitytype, World world) {
 		super(entitytype, world);
@@ -93,11 +97,19 @@ public class PiglinPrisonerEntity extends AbstractPiglinEntity implements ICross
 	public void addAdditionalSaveData(CompoundNBT tag) {
 		super.addAdditionalSaveData(tag);
 		tag.put("Inventory", this.inventory.createTag());
+		if(this.getTempterUUID() != null){
+			tag.putUUID("Tempter", this.getTempterUUID());
+		}
 	}
 
 	public void readAdditionalSaveData(CompoundNBT tag) {
 		super.readAdditionalSaveData(tag);
 		this.inventory.fromTag(tag.getList("Inventory", 10));
+		if(tag.hasUUID("Tempter")){
+			UUID uuid = tag.getUUID("Tempter");
+			this.setTempterUUID(uuid);
+			PiglinPrisonerAi.reloadAllegiance(this, this.getTempter());
+		}
 	}
 
 	protected void dropCustomDeathLoot(DamageSource source, int looting, boolean recentlyHit) {
@@ -114,6 +126,8 @@ public class PiglinPrisonerEntity extends AbstractPiglinEntity implements ICross
 	protected void defineSynchedData() {
 		super.defineSynchedData();
 		this.entityData.define(DATA_IS_CHARGING_CROSSBOW, false);
+		this.entityData.define(DATA_IS_DANCING, false);
+		this.entityData.define(DATA_OWNERUUID_ID, Optional.empty());
 	}
 
 	public static AttributeModifierMap.MutableAttribute createAttributes() {
@@ -305,5 +319,20 @@ public class PiglinPrisonerEntity extends AbstractPiglinEntity implements ICross
 	protected void playConvertedSound() {
 		this.playSound(SoundEvents.PIGLIN_CONVERTED_TO_ZOMBIFIED);
 	}
+
+	@Nullable
+	public PlayerEntity getTempter() {
+		try {
+			UUID uuid = this.getTempterUUID();
+			return uuid == null ? null : this.level.getPlayerByUUID(uuid);
+		} catch (IllegalArgumentException illegalargumentexception) {
+			return null;
+		}
+	}
+
+	@Nullable
+	public UUID getTempterUUID() { return this.entityData.get(DATA_OWNERUUID_ID).orElse(null); }
+
+	public void setTempterUUID(@Nullable UUID uuid) { this.entityData.set(DATA_OWNERUUID_ID, Optional.ofNullable(uuid)); }
 
 }

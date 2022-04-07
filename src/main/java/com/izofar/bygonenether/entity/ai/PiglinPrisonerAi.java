@@ -3,12 +3,11 @@ package com.izofar.bygonenether.entity.ai;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.izofar.bygonenether.entity.PiglinPrisonerEntity;
-import com.izofar.bygonenether.entity.ai.behvaior.ModAdmireItemTask;
-import com.izofar.bygonenether.entity.ai.behvaior.ModForgetAdmiredItemTask;
-import com.izofar.bygonenether.entity.ai.behvaior.ModStartAdmiringItemTask;
-import com.izofar.bygonenether.entity.ai.behvaior.ModStopReachingItemTask;
+import com.izofar.bygonenether.entity.ai.behvaior.*;
 import com.izofar.bygonenether.init.ModEntityTypes;
+import com.izofar.bygonenether.init.ModMemoryModuleTypes;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
@@ -36,13 +35,25 @@ import net.minecraft.util.math.vector.Vector3d;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+import java.util.function.Predicate;
 
 public class PiglinPrisonerAi {
 
     private static final RangedInteger AVOID_ZOMBIFIED_DURATION = TickRangeConverter.rangeOfSeconds(5, 7);
-    private static final Set<Item> FOOD_ITEMS = ImmutableSet.of(Items.PORKCHOP, Items.COOKED_PORKCHOP);
     private static final int CELEBRATION_TIME = 200;
+
+    private static final Predicate<CreatureEntity> isDistracted = (mob) -> {
+        if(mob instanceof PiglinPrisonerEntity) {
+            PiglinPrisonerEntity piglin = (PiglinPrisonerEntity) mob;
+            Brain<PiglinPrisonerEntity> brain = piglin.getBrain();
+            return brain.hasMemoryValue(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM)
+                    || brain.hasMemoryValue(MemoryModuleType.NEAREST_VISIBLE_NEMESIS)
+                    || brain.hasMemoryValue(MemoryModuleType.AVOID_TARGET)
+                    || brain.getMemory(MemoryModuleType.DANCING).orElse(false)
+                    || !brain.getMemory(ModMemoryModuleTypes.IS_TEMPTED.get()).orElse(false);
+        }
+        else return false;
+    };
 
     public static Brain<?> makeBrain(PiglinPrisonerEntity piglin, Brain<PiglinPrisonerEntity> brain) {
         initCoreActivity(brain);
@@ -60,13 +71,14 @@ public class PiglinPrisonerAi {
     private static void initCoreActivity(Brain<PiglinPrisonerEntity> brain) {
         brain.addActivity(Activity.CORE, 0,
                 ImmutableList.<Task<? super PiglinPrisonerEntity>>of(
+                        new ModFollowLeaderTask<>(isDistracted),
                         new LookTask(45, 90),
                         new WalkToTargetTask(),
                         new InteractWithDoorTask(),
                         avoidZombified(),
-                        new ModStartAdmiringItemTask(),
-                        new ModAdmireItemTask(120),
-                        new GetAngryTask()
+                        new ModStartAdmiringItemTask<>(),
+                        new ModAdmireItemTask<>(120),
+                        new GetAngryTask<>()
                 )
         );
     }
@@ -91,7 +103,7 @@ public class PiglinPrisonerAi {
                         new SupplementedTask<>(PiglinPrisonerAi::hasCrossbow, new AttackStrafingTask<>(5, 0.75F)),
                         new MoveToTargetTask(1.0F),
                         new AttackTargetTask(20),
-                        new ShootTargetTask(),
+                        new ShootTargetTask<>(),
                         new PredicateTask<>(PiglinPrisonerAi::isNearZombified, MemoryModuleType.ATTACK_TARGET)
                 ),
                 MemoryModuleType.ATTACK_TARGET);
@@ -105,7 +117,7 @@ public class PiglinPrisonerAi {
                         new ForgetAttackTargetTask<>(AbstractPiglinEntity::isAdult, PiglinPrisonerAi::findNearestValidAttackTarget),
                         new SupplementedTask<>((mob) -> !mob.isDancing(), new HuntCelebrationTask<>(2, 1.0F)),
                         new SupplementedTask<>(PiglinPrisonerEntity::isDancing, new HuntCelebrationTask<>(4, 0.6F)),
-                        new FirstShuffledTask(ImmutableList.of(
+                        new FirstShuffledTask<>(ImmutableList.of(
                                 Pair.of(new LookAtEntityTask(EntityType.PIGLIN, 8.0F), 1),
                                 Pair.of(new WalkRandomlyTask(0.6F, 2, 1), 1),
                                 Pair.of(new DummyTask(10, 20), 1))
@@ -118,8 +130,8 @@ public class PiglinPrisonerAi {
         brain.addActivityAndRemoveMemoryWhenStopped(Activity.ADMIRE_ITEM, 10,
                 ImmutableList.<Task<? super PiglinPrisonerEntity>>of(
                         new PickupWantedItemTask<>(PiglinPrisonerAi::isNotHoldingLovedItemInOffHand, 1.0F, true, 9),
-                        new ModForgetAdmiredItemTask(9),
-                        new ModStopReachingItemTask(200, 200)
+                        new ModForgetAdmiredItemTask<>(9),
+                        new ModStopReachingItemTask<>(200, 200)
                 ),
                 MemoryModuleType.ADMIRING_ITEM);
     }
@@ -209,8 +221,6 @@ public class PiglinPrisonerAi {
             pPiglin.getBrain().eraseMemory(MemoryModuleType.TIME_TRYING_TO_REACH_ADMIRE_ITEM);
             holdInOffhand(pPiglin, itemstack);
             admireGoldItem(pPiglin);
-        } else if (isFood(item) && !hasEatenRecently(pPiglin)) {
-            eat(pPiglin);
         } else if (!pPiglin.equipItemIfPossible(itemstack)) {
             putInInventory(pPiglin, itemstack);
         }
@@ -269,6 +279,7 @@ public class PiglinPrisonerAi {
     private static void putInInventory(PiglinPrisonerEntity pPiglin, ItemStack pStack) {
         pPiglin.addToInventory(pStack);
         giveGoldBuff(pPiglin);
+        pledgeAllegiance(pPiglin);
     }
 
     private static void throwItems(PiglinPrisonerEntity pPilgin, List<ItemStack> pStacks) {
@@ -359,6 +370,8 @@ public class PiglinPrisonerAi {
         if (canAdmire(pPiglin, itemstack)) {
             ItemStack itemstack1 = itemstack.split(1);
             holdInOffhand(pPiglin, itemstack1);
+            if(!pPlayer.equals(pPiglin.getTempter()))
+                newTemptingPlayer(pPiglin, pPlayer);
             admireGoldItem(pPiglin);
             stopWalking(pPiglin);
             return ActionResultType.CONSUME;
@@ -473,17 +486,9 @@ public class PiglinPrisonerAi {
         }
     }
 
-    private static void eat(PiglinPrisonerEntity pPiglin) {
-        pPiglin.getBrain().setMemoryWithExpiry(MemoryModuleType.ATE_RECENTLY, true, 200L);
-    }
-
     private static Vector3d getRandomNearbyPos(PiglinPrisonerEntity pPiglin) {
         Vector3d vector3d = RandomPositionGenerator.getLandPos(pPiglin, 4, 2);
         return vector3d == null ? pPiglin.position() : vector3d;
-    }
-
-    private static boolean hasEatenRecently(PiglinPrisonerEntity pPiglin) {
-        return pPiglin.getBrain().hasMemoryValue(MemoryModuleType.ATE_RECENTLY);
     }
 
     private static boolean hasCrossbow(LivingEntity entity) {
@@ -496,10 +501,6 @@ public class PiglinPrisonerAi {
 
     private static boolean isAdmiringItem(PiglinPrisonerEntity pPiglin) {
         return pPiglin.getBrain().hasMemoryValue(MemoryModuleType.ADMIRING_ITEM);
-    }
-
-    private static boolean isFood(Item pItem) {
-        return FOOD_ITEMS.contains(pItem);
     }
 
     private static boolean isAttackAllowed(LivingEntity pTarget) {
@@ -530,13 +531,29 @@ public class PiglinPrisonerAi {
         return piglin.getOffhandItem().isEmpty() || !isLovedItem(piglin.getOffhandItem().getItem());
     }
 
-    public static boolean isZombified(EntityType pEntityType) {
+    public static boolean isZombified(EntityType<?> pEntityType) {
         return pEntityType == EntityType.ZOMBIFIED_PIGLIN || pEntityType == EntityType.ZOGLIN;
     }
 
     private static void giveGoldBuff(PiglinPrisonerEntity piglin){
         piglin.addEffect(new EffectInstance(Effects.ABSORPTION, 60 * 180, 3, false, true));
         piglin.addEffect(new EffectInstance(Effects.REGENERATION, 60 * 120, 1, false, false));
+    }
+
+    private static void newTemptingPlayer(PiglinPrisonerEntity piglin, PlayerEntity player){
+        piglin.getBrain().setMemory(ModMemoryModuleTypes.TEMPTING_PLAYER.get(), player);
+        piglin.getBrain().setMemory(ModMemoryModuleTypes.IS_TEMPTED.get(), false);
+        piglin.setTempterUUID(player.getUUID());
+    }
+
+    protected static void pledgeAllegiance(PiglinPrisonerEntity piglin){
+        if(piglin.getBrain().hasMemoryValue(ModMemoryModuleTypes.TEMPTING_PLAYER.get()))
+            piglin.getBrain().setMemory(ModMemoryModuleTypes.IS_TEMPTED.get(), true);
+    }
+
+    public static void reloadAllegiance(PiglinPrisonerEntity piglin, PlayerEntity player){
+        piglin.getBrain().setMemory(ModMemoryModuleTypes.TEMPTING_PLAYER.get(), player);
+        piglin.getBrain().setMemory(ModMemoryModuleTypes.IS_TEMPTED.get(), true);
     }
 
 }

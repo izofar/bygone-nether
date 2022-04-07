@@ -23,6 +23,6 @@ public class ModAdmireItemTask<E extends PiglinPrisonerEntity> extends Task<E> {
     }
 
     protected void start(ServerWorld pLevel, E pEntity, long pGameTime) {
-        pEntity.getBrain().setMemoryWithExpiry(MemoryModuleType.ADMIRING_ITEM, true, (long)this.admireDuration);
+        pEntity.getBrain().setMemoryWithExpiry(MemoryModuleType.ADMIRING_ITEM, true, this.admireDuration);
     }
 }

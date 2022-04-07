@@ -23,11 +23,7 @@ public class ModForgetAdmiredItemTask<E extends PiglinPrisonerEntity> extends Ta
             return false;
         } else {
             Optional<ItemEntity> optional = pOwner.getBrain().getMemory(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
-            if (!optional.isPresent()) {
-                return true;
-            } else {
-                return !optional.get().closerThan(pOwner, (double)this.maxDistanceToItem);
-            }
+            return optional.map(itemEntity -> !itemEntity.closerThan(pOwner, this.maxDistanceToItem)).orElse(true);
         }
     }
 

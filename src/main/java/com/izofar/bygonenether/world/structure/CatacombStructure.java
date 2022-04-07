@@ -48,7 +48,7 @@ public class CatacombStructure extends Structure<NoFeatureConfig> {
 	@Override
 	protected boolean isFeatureChunk(ChunkGenerator chunkGenerator, BiomeProvider biomeSource, long seed, SharedSeedRandom chunkRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, NoFeatureConfig featureConfig){
 		int x = chunkX * 16, z = chunkZ * 16;
-		return !ModStructureUtils.isBuried(chunkGenerator, x, z, 48, ModStructureUtils.getScaledNetherHeight(72)) && !ModStructureUtils.isLavaLake(chunkGenerator, x, z);
+		return !ModStructureUtils.isBuried(chunkGenerator, x, z, 48, 72) && !ModStructureUtils.isLavaLake(chunkGenerator, x, z);
 	}
 
 	public static class Start extends StructureStart<NoFeatureConfig> {
@@ -60,7 +60,7 @@ public class CatacombStructure extends Structure<NoFeatureConfig> {
 		@Override
 		public void generatePieces(DynamicRegistries dynamicRegistryManager, ChunkGenerator chunkGenerator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, NoFeatureConfig config){
 			int x = chunkX * 16, z = chunkZ * 16;
-			BlockPos centerPos = ModStructureUtils.getElevation(chunkGenerator, x, z, 56, ModStructureUtils.getScaledNetherHeight(84));
+			BlockPos centerPos = ModStructureUtils.getElevation(chunkGenerator, x, z, 56, 84);
 
 
 			JigsawManager.addPieces(

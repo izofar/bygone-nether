@@ -52,7 +52,7 @@ public class PiglinManorStructure extends Structure<NoFeatureConfig> {
     @Override
     protected boolean isFeatureChunk(ChunkGenerator chunkGenerator, BiomeProvider biomeSource, long seed, SharedSeedRandom chunkRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, NoFeatureConfig featureConfig){
         int x = chunkX * 16, z = chunkZ * 16;
-        return /*ModStructureUtils.isRelativelyFlat(chunkGenerator, x, z, CHUNK_SEARCH_RADIUS, MAX_TERRAIN_RANGE) &&*/ !ModStructureUtils.isLavaLake(chunkGenerator, x, z) && ModStructureUtils.verticalSpace(chunkGenerator, x, z, 34, ModStructureUtils.getScaledNetherHeight(72), 24);
+        return /*ModStructureUtils.isRelativelyFlat(chunkGenerator, x, z, CHUNK_SEARCH_RADIUS, MAX_TERRAIN_RANGE) &&*/ !ModStructureUtils.isLavaLake(chunkGenerator, x, z) && ModStructureUtils.verticalSpace(chunkGenerator, x, z, 34, 72, 24);
     }
 
     public static class Start extends StructureStart<NoFeatureConfig> {
@@ -64,7 +64,7 @@ public class PiglinManorStructure extends Structure<NoFeatureConfig> {
         @Override
         public void generatePieces(DynamicRegistries dynamicRegistryManager, ChunkGenerator chunkGenerator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, NoFeatureConfig config){
             int x = chunkX * 16, z = chunkZ * 16;
-            BlockPos centerPos = ModStructureUtils.getElevation(chunkGenerator, x, z, 34, ModStructureUtils.getScaledNetherHeight(72));
+            BlockPos centerPos = ModStructureUtils.getElevation(chunkGenerator, x, z, 34, 72);
 
 
             JigsawManager.addPieces(

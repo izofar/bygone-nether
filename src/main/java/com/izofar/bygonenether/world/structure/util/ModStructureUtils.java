@@ -19,7 +19,6 @@ import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructureFeatures;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
-import net.minecraftforge.fml.ModList;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -121,10 +120,6 @@ public abstract class ModStructureUtils {
 				settings.getValue().structureSettings().structureConfig = tempMap;
 			} else structureMap.put(structure, structureSeparationSettings);
 		});
-	}
-
-	public static int getScaledNetherHeight(int vanillaHeight){
-		return (int) (vanillaHeight / 128.0F * (ModList.get().isLoaded("amplifiednether") ? 256.0F : 128.0F));
 	}
 
 	public static void adjustBastionFeatureConfiguration(){

@@ -60,7 +60,7 @@ public class NetherFortressStructure extends Structure<NoFeatureConfig> {
 
 		@Override
 		public void generatePieces(DynamicRegistries dynamicRegistryManager, ChunkGenerator chunkGenerator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, NoFeatureConfig config){
-			BlockPos centerPos = ModStructureUtils.getElevation(chunkGenerator, chunkX * 16, chunkZ * 16, 45, ModStructureUtils.getScaledNetherHeight(54));
+			BlockPos centerPos = ModStructureUtils.getElevation(chunkGenerator, chunkX * 16, chunkZ * 16, 45, 54);
 			JigsawManager.addPieces(
 					dynamicRegistryManager,
 					new VillageConfig(() -> dynamicRegistryManager.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY)
