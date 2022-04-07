@@ -85,7 +85,7 @@ public abstract class ModStructureUtils {
 	}
 
 	public static int getScaledNetherHeight(int vanillaHeight){
-		return (int) (vanillaHeight / 128.0F * (ModList.get().isLoaded("amplifiednether") ? 256.0F : 128.0F));
+		return (int) (vanillaHeight / 128.0F * (ModList.get().isLoaded("starmute") ? 256.0F : 128.0F));
 	}
 
 	public static void addBasaltRestrictions() {
