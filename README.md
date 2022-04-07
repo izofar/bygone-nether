@@ -1,7 +1,7 @@
 # Bygone Nether
 > To advance the ancient history of the nether dimension.
 
-Herein lies my changelog and motivation for developing a mod for Minecraft 1.18.1 aiming to advance the lore behind the nether dimension, as well as provide additional challenges and compelling gameplay in the survival game mode.
+Herein lies my changelog and motivation for developing a mod for Minecraft aiming to advance the lore behind the nether dimension, as well as provide additional challenges and compelling gameplay in the survival game mode.
 
 ## Motivation
 
