@@ -345,7 +345,7 @@ public class PiglinPrisonerAi {
 		if (canAdmire(piglin, itemstack)) {
 			ItemStack itemstack1 = itemstack.split(1);
 			holdInOffhand(piglin, itemstack1);
-			if(!piglin.getTempter().equals(player)) 
+			if(!player.equals(piglin.getTempter())) 
 				newTemptingPlayer(piglin, player);
 			admireGoldItem(piglin);
 			stopWalking(piglin);
