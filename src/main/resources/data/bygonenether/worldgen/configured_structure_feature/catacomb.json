@@ -6,7 +6,7 @@
     "max_y": 84,
     "min_y": 56
   },
-  "biomes": "minecraft:soul_sand_valley",
+  "biomes": "#bygonenether:has_structure/catacomb",
   "adapt_noise": false,
   "spawn_overrides": {
     "monster": {

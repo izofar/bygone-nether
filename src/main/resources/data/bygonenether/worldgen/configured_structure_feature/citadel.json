@@ -6,7 +6,7 @@
     "max_y": 70,
     "min_y": 48
   },
-  "biomes": "minecraft:warped_forest",
+  "biomes": "#bygonenether:has_structure/citadel",
   "adapt_noise": true,
   "spawn_overrides": {
     "monster": {

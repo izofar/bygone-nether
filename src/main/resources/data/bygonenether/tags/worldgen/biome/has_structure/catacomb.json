@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:soul_sand_valley",
+    "incendium:weeping_valley",
+    "incendium:withered_forest"
+  ]
+}

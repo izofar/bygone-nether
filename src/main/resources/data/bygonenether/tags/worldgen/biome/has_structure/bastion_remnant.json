@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:basalt_deltas",
+    "incendium:ash_barrens",
+    "incendium:volcanic_deltas",
+    "incendium:withered_forest"
+  ]
+}
