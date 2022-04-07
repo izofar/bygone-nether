@@ -49,9 +49,56 @@ public abstract class ModWorldEvents {
 				if (event.getName().toString().equals("biomesoplenty:crystalline_chasm")
 						|| event.getName().toString().equals("biomesoplenty:undergrowth")
 						|| event.getName().toString().equals("biomesoplenty:visceral_heap"))
-					event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_NETHER_FORTRESS);
+					;// Nether Fortress Only
 				else if(event.getName().toString().equals("biomesoplenty:withered_abyss"))
 					event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_CATACOMB);
+			}
+
+			if(ModList.get().isLoaded("cinderscapes")){
+				if (event.getName().toString().equals("cinderscapes:quartz_canyon")
+						|| event.getName().toString().equals("cinderscapes:luminous_grove"))
+					;// Nether Fortress Only
+				else if(event.getName().toString().equals("cinderscapes:ashy_shoals")
+						|| event.getName().toString().equals("cinderscapes:blackstone_shales")) {
+					event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_CATACOMB);
+					event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> ModConfiguredFeatures.SOUL_STONE_BLOBS);
+				}
+			}
+
+			if(ModList.get().isLoaded("betternether")){
+				if (event.getName().toString().equals("betternether:bone_reef")
+					|| event.getName().toString().equals("betternether:nether_jungle")
+					|| event.getName().toString().equals("betternether:old_warped_woods")
+					|| event.getName().toString().equals("betternether:upside_down_forest"))
+					event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_CITADEL);
+				else if (event.getName().toString().equals("betternether:crimson_glowing_woods")
+						|| event.getName().toString().equals("betternether:crimson_pinewood"))
+					event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_PIGLIN_MANOR);
+				else if (event.getName().toString().equals("betternether:flooded_deltas"))
+					event.getGeneration().getStructures().add(() -> StructureFeatures.BASTION_REMNANT);
+				else if(event.getName().toString().equals("betternether:soul_plain")) {
+					event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_CATACOMB);
+					event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> ModConfiguredFeatures.SOUL_STONE_BLOBS);
+				} else if(event.getName().toString().equals("betternether:nether_grasslands")
+						|| event.getName().toString().equals("betternether:poor_nether_grasslands")
+						|| event.getName().toString().equals("betternether:wart_forest")
+						|| event.getName().toString().equals("betternether:wart_forest_edge"))
+					event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> ModConfiguredFeatures.SOUL_STONE_BLOBS);
+				else if(event.getName().toString().equals("betternether:gravel_desert")
+						|| event.getName().toString().equals("betternether:magma_land")
+						|| event.getName().toString().equals("betternether:nether_mushroom_forest")
+						|| event.getName().toString().equals("betternether:nether_mushroom_forest_edge")
+						|| event.getName().toString().equals("betternether:nether_swampland")
+						|| event.getName().toString().equals("betternether:nether_swampland_terraces")
+						|| event.getName().toString().equals("betternether:old_fungiwoods")
+						|| event.getName().toString().equals("betternether:old_swampland")
+						|| event.getName().toString().equals("betternether:sulfuric_bone_reef"))
+					;// Nether Fortress Only
+			}
+
+			if(ModList.get().isLoaded("infernalexp")){
+				if (event.getName().toString().equals("infernalexp:glowstone_canyon"))
+					;// Nether Fortress Only
 			}
 
 		}
