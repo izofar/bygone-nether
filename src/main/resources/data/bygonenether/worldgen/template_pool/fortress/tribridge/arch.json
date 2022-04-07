@@ -1,6 +1,6 @@
 {
   "name": "bygonenether:fortress/tribridge/arch",
-  "fallback": "bygonenether:fortress/terminator",
+  "fallback": "bygonenether:fortress/tribridge/arch",
   "elements": [
     {
       "weight": 1,
