@@ -2,8 +2,17 @@
   "replace": false,
   "values": [
     "minecraft:soul_sand_valley",
-    "biomesoplenty:withered_abyss",
-    "incendium:weeping_valley",
-    "incendium:withered_forest"
+    {
+      "id": "biomesoplenty:withered_abyss",
+      "required": false
+    },
+    {
+      "id": "incendium:weeping_valley",
+      "required": false
+    },
+    {
+      "id": "incendium:withered_forest",
+      "required": false
+    }
   ]
 }

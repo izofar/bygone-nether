@@ -2,6 +2,9 @@
   "replace": false,
   "values": [
     "minecraft:warped_forest",
-    "incendium:inverted_forest"
+    {
+      "id": "incendium:inverted_forest",
+      "required": false
+    }
   ]
 }
