@@ -9,8 +9,7 @@
 		"ModifyDamageInSmithingRecipes",
 		"ModifyPiglinBruteAi",
 		"ModifyPiglinAi",
-		"ModifyPiglinBruteBrain",
-		"RepairOlderStructureSpawners"
+		"ModifyPiglinBruteBrain"
 	],
 	"client": [
 	],
