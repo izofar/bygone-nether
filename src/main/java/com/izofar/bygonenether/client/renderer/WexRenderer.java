@@ -15,7 +15,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WexRenderer extends BipedRenderer<WexEntity, WexModel> {
 
 	private static final ResourceLocation WEX_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/wex/wex.png");
-	private static final ResourceLocation WEX_CHARGING_LOCATION = new ResourceLocation("textures/entity/wex/wex_charging.png");
+	private static final ResourceLocation WEX_CHARGING_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/wex/wex_charging.png");
 
 	public WexRenderer(EntityRendererManager entityRendererManager) { super(entityRendererManager, new WexModel(), 0.3F); }
 
