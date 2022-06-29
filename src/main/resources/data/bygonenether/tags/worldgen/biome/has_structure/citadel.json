@@ -5,6 +5,10 @@
     {
       "id": "incendium:inverted_forest",
       "required": false
+    },
+    {
+      "id": "byg:glowstone_gardens",
+      "required": false
     }
   ]
 }

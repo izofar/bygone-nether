@@ -13,6 +13,10 @@
     {
       "id": "incendium:withered_forest",
       "required": false
+    },
+    {
+      "id": "byg:wailing_garth",
+      "required": false
     }
   ]
 }
