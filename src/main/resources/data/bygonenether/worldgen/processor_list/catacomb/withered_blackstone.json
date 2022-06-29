@@ -196,6 +196,32 @@
 					"location_predicate": {
 						"predicate_type": "minecraft:always_true"
 					}
+				},
+				{
+					"output_state": {
+						"Name": "minecraft:soul_sand"
+					},
+					"input_predicate": {
+						"block": "bygonenether:soul_stone",
+						"probability": 0.3,
+						"predicate_type": "minecraft:random_block_match"
+					},
+					"location_predicate": {
+						"predicate_type": "minecraft:always_true"
+					}
+				},
+				{
+					"output_state": {
+						"Name": "minecraft:soul_soil"
+					},
+					"input_predicate": {
+						"block": "bygonenether:soul_stone",
+						"probability": 0.4,
+						"predicate_type": "minecraft:random_block_match"
+					},
+					"location_predicate": {
+						"predicate_type": "minecraft:always_true"
+					}
 				}
 			],
 			"processor_type": "minecraft:rule"

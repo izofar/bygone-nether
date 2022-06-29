@@ -1,18 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:basalt_deltas",
-    {
-      "id": "incendium:ash_barrens",
-      "required": false
-    },
-    {
-      "id": "incendium:volcanic_deltas",
-      "required": false
-    },
-    {
-      "id": "incendium:withered_forest",
-      "required": false
-    }
+    "#bygonenether:collections/nether"
   ]
 }

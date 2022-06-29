@@ -12,7 +12,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class PiglinPrisonerRenderer extends PiglinRenderer {
 	
-	private static final ResourceLocation PIGLIN_PRISONER_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/piglin_prisoner.png");
+	private static final ResourceLocation PIGLIN_PRISONER_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/piglin/piglin_prisoner.png");
 
 	public PiglinPrisonerRenderer(EntityRendererProvider.Context context) {
 		super(context, ModelLayers.PIGLIN, ModelLayers.PIGLIN_INNER_ARMOR, ModelLayers.PIGLIN_OUTER_ARMOR, false);

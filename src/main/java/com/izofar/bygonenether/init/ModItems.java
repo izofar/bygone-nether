@@ -3,6 +3,7 @@ package com.izofar.bygonenether.init;
 import com.izofar.bygonenether.BygoneNetherMod;
 import com.izofar.bygonenether.item.ModArmorItem;
 import com.izofar.bygonenether.item.ModArmorMaterial;
+import com.izofar.bygonenether.item.WarpedEnderpearlItem;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
@@ -27,8 +28,15 @@ public abstract class ModItems {
 	public static final RegistryObject<Item> GILDED_NETHERITE_BOOTS = MODDED_ITEMS.register("gilded_netherite_boots", () -> new ModArmorItem(ModArmorMaterial.GILDED_NETHERITE, EquipmentSlot.FEET, (new Item.Properties()).tab(CreativeModeTab.TAB_COMBAT).fireResistant()));
 
 	public static final RegistryObject<Item> COBBLED_BLACKSTONE = MODDED_ITEMS.register("cobbled_blackstone", () -> new BlockItem(ModBlocks.COBBLED_BLACKSTONE.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
+
 	public static final RegistryObject<Item> WITHERED_BLACKSTONE = MODDED_ITEMS.register("withered_blackstone", () -> new BlockItem(ModBlocks.WITHERED_BLACKSTONE.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
+	public static final RegistryObject<Item> WITHERED_BLACKSTONE_STAIRS = MODDED_ITEMS.register("withered_blackstone_stairs", () -> new BlockItem(ModBlocks.WITHERED_BLACKSTONE_STAIRS.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
+	public static final RegistryObject<Item> WITHERED_BLACKSTONE_SLAB = MODDED_ITEMS.register("withered_blackstone_slab", () -> new BlockItem(ModBlocks.WITHERED_BLACKSTONE_SLAB.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
+
 	public static final RegistryObject<Item> CRACKED_WITHERED_BLACKSTONE = MODDED_ITEMS.register("cracked_withered_blackstone", () -> new BlockItem(ModBlocks.CRACKED_WITHERED_BLACKSTONE.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
+	public static final RegistryObject<Item> CRACKED_WITHERED_BLACKSTONE_STAIRS = MODDED_ITEMS.register("cracked_withered_blackstone_stairs", () -> new BlockItem(ModBlocks.CRACKED_WITHERED_BLACKSTONE_STAIRS.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
+	public static final RegistryObject<Item> CRACKED_WITHERED_BLACKSTONE_SLAB = MODDED_ITEMS.register("cracked_withered_blackstone_slab", () -> new BlockItem(ModBlocks.CRACKED_WITHERED_BLACKSTONE_SLAB.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
+
 	public static final RegistryObject<Item> CHISELED_WITHERED_BLACKSTONE = MODDED_ITEMS.register("chiseled_withered_blackstone", () -> new BlockItem(ModBlocks.CHISELED_WITHERED_BLACKSTONE.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
 	public static final RegistryObject<Item> WITHERED_DEBRIS = MODDED_ITEMS.register("withered_debris", () -> new BlockItem(ModBlocks.WITHERED_DEBRIS.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
 	public static final RegistryObject<Item> SOUL_STONE = MODDED_ITEMS.register("soul_stone", () -> new BlockItem(ModBlocks.SOUL_STONE.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
@@ -39,6 +47,8 @@ public abstract class ModItems {
 	public static final RegistryObject<Item> WARPED_NETHER_BRICK_SLAB = MODDED_ITEMS.register("warped_nether_brick_slab", () -> new BlockItem(ModBlocks.WARPED_NETHER_BRICK_SLAB.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
 
 	public static final RegistryObject<Item> WITHER_WALTZ_MUSIC_DISC = MODDED_ITEMS.register("wither_waltz_music_disc", () -> new RecordItem(4, ModSounds.WITHER_WALTZ, new Item.Properties().tab(CreativeModeTab.TAB_MISC).stacksTo(1).rarity(Rarity.RARE)));
+	public static final RegistryObject<Item> WARPED_ENDER_PEARL = MODDED_ITEMS.register("warped_ender_pearl", () -> new WarpedEnderpearlItem((new Item.Properties()).stacksTo(16).tab(CreativeModeTab.TAB_MISC).rarity(Rarity.RARE)));
+
 
 	public static void register(IEventBus eventBus) { MODDED_ITEMS.register(eventBus); }
 

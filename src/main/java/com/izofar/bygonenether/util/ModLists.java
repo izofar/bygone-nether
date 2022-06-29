@@ -15,8 +15,12 @@ public abstract class ModLists {
 
 	public static final List<Block> WITHERED_BLOCKS = ImmutableList.of(
 			ModBlocks.WITHERED_BLACKSTONE.get(),
+			ModBlocks.WITHERED_BLACKSTONE_STAIRS.get(),
+			ModBlocks.WITHERED_BLACKSTONE_SLAB.get(),
 			ModBlocks.CHISELED_WITHERED_BLACKSTONE.get(),
 			ModBlocks.CRACKED_WITHERED_BLACKSTONE.get(),
+			ModBlocks.CRACKED_WITHERED_BLACKSTONE_STAIRS.get(),
+			ModBlocks.CRACKED_WITHERED_BLACKSTONE_SLAB.get(),
 			ModBlocks.WITHERED_DEBRIS.get()
 		);
 

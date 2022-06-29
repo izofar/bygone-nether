@@ -9,7 +9,7 @@ import net.minecraft.world.entity.animal.horse.AbstractHorse;
 
 public class WitherSkeletonHorseRenderer extends UndeadHorseRenderer {
 
-    private static final ResourceLocation WITHER_SKELETON_HORSE_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/wither_skeleton_horse.png");
+    private static final ResourceLocation WITHER_SKELETON_HORSE_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/wither/wither_skeleton_horse.png");
 
     public WitherSkeletonHorseRenderer(EntityRendererProvider.Context context) { super(context, ModelLayers.SKELETON_HORSE); }
 
