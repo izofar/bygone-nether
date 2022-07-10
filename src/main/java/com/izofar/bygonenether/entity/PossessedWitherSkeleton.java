@@ -22,7 +22,7 @@ public class PossessedWitherSkeleton extends WitherSkeleton {
     @Override
     public void die(DamageSource source){
         if(this.getLevel() instanceof ServerLevel serverLevel) {
-            WexEntity wex = ModEntityTypes.WEX.get().create(serverLevel);
+            Wex wex = ModEntityTypes.WEX.get().create(serverLevel);
             wex.moveTo(this.blockPosition().above(), this.yBodyRot, this.xRotO);
             wex.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.CONVERSION, null, null);
             wex.setPersistenceRequired();

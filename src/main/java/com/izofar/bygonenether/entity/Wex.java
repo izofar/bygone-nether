@@ -14,7 +14,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.Map;
 
-public class WexEntity extends Vex {
+public class Wex extends Vex {
 
 	private static final Map<SoundEvent, SoundEvent> SOUND_MAP = ImmutableMap.of(
 			SoundEvents.VEX_AMBIENT, ModSounds.WEX_AMBIENT.get(),
@@ -23,7 +23,7 @@ public class WexEntity extends Vex {
 			SoundEvents.VEX_CHARGE, ModSounds.WEX_CHARGE.get()
 	);
 
-	public WexEntity(EntityType<? extends Vex> entityType, Level level) { super(entityType, level); }
+	public Wex(EntityType<? extends Vex> entityType, Level level) { super(entityType, level); }
 
 	@Override
 	protected void populateDefaultEquipmentSlots(DifficultyInstance difficultyInstance) { }

@@ -1,11 +1,11 @@
 {
-  "name": "bygonenether:catacomb/spine",
+  "name": "bygonenether:catacomb/tail",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
-        "location": "bygonenether:catacomb/spine",
+        "location": "bygonenether:catacomb/tail",
         "processors": "bygonenether:catacomb/withered_blackstone",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"

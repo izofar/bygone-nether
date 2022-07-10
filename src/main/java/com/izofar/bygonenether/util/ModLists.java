@@ -21,6 +21,9 @@ public abstract class ModLists {
 			ModBlocks.CRACKED_WITHERED_BLACKSTONE.get(),
 			ModBlocks.CRACKED_WITHERED_BLACKSTONE_STAIRS.get(),
 			ModBlocks.CRACKED_WITHERED_BLACKSTONE_SLAB.get(),
+			ModBlocks.WITHERED_BASALT.get(),
+			ModBlocks.WITHERED_COAL_BLOCK.get(),
+			ModBlocks.WITHERED_QUARTZ_BLOCK.get(),
 			ModBlocks.WITHERED_DEBRIS.get()
 		);
 

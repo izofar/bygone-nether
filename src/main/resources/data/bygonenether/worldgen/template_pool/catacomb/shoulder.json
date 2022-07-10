@@ -1,11 +1,11 @@
 {
-  "name": "bygonenether:catacomb/small_skull_left",
+  "name": "bygonenether:catacomb/shoulder",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
-        "location": "bygonenether:catacomb/small_skull_left",
+        "location": "bygonenether:catacomb/shoulder",
         "processors": "bygonenether:catacomb/withered_blackstone",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"

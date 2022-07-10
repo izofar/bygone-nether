@@ -2,7 +2,7 @@ package com.izofar.bygonenether.client.model;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
-import com.izofar.bygonenether.entity.WexEntity;
+import com.izofar.bygonenether.entity.Wex;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
@@ -11,7 +11,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class WexModel extends HumanoidModel<WexEntity> {
+public class WexModel extends HumanoidModel<Wex> {
    private final ModelPart leftWing;
    private final ModelPart rightWing;
 
@@ -27,7 +27,7 @@ public class WexModel extends HumanoidModel<WexEntity> {
       return Iterables.concat(super.bodyParts(), ImmutableList.of(this.rightWing, this.leftWing));
    }
 
-   public void setupAnim(WexEntity wex, float f0, float f1, float f2, float f3, float f4) {
+   public void setupAnim(Wex wex, float f0, float f1, float f2, float f3, float f4) {
       super.setupAnim(wex, f0, f1, f2, f3, f4);
       if (wex.isCharging()) {
          if (wex.getMainHandItem().isEmpty()) {

@@ -1,12 +1,12 @@
 {
-  "name": "bygonenether:catacomb/arm",
+  "name": "bygonenether:catacomb/left_head",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
-        "location": "bygonenether:catacomb/arm",
-        "processors": "bygonenether:catacomb/withered_blackstone",
+        "location": "bygonenether:catacomb/left_small_skull",
+        "processors": "bygonenether:catacomb/catacomb_skull",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"
       }

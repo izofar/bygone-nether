@@ -1,12 +1,12 @@
 {
-  "name": "bygonenether:catacomb/small_skull_right",
+  "name": "bygonenether:catacomb/right_head",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
-        "location": "bygonenether:catacomb/small_skull_right",
-        "processors": "bygonenether:catacomb/withered_blackstone",
+        "location": "bygonenether:catacomb/right_small_skull",
+        "processors": "bygonenether:catacomb/catacomb_skull",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"
       }

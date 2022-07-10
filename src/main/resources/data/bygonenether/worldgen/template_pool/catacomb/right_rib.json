@@ -3,27 +3,9 @@
   "fallback": "minecraft:empty",
   "elements": [
     {
-      "weight": 2,
-      "element": {
-        "location": "bygonenether:catacomb/right_rib_treasure",
-        "processors": "bygonenether:catacomb/withered_blackstone",
-        "projection": "rigid",
-        "element_type": "minecraft:legacy_single_pool_element"
-      }
-    },
-    {
       "weight": 1,
       "element": {
-        "location": "bygonenether:catacomb/right_rib_prison",
-        "processors": "bygonenether:catacomb/withered_blackstone",
-        "projection": "rigid",
-        "element_type": "minecraft:legacy_single_pool_element"
-      }
-    },
-    {
-      "weight": 1,
-      "element": {
-        "location": "bygonenether:catacomb/right_rib_portal",
+        "location": "bygonenether:catacomb/right_rib_straight",
         "processors": "bygonenether:catacomb/withered_blackstone",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"

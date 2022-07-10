@@ -1,0 +1,113 @@
+{
+	"processors": [
+		{
+			"rules": [
+				{
+					"output_state": {
+						"Name": "minecraft:polished_blackstone_bricks"
+					},
+					"input_predicate": {
+						"block": "minecraft:blackstone",
+						"probability": 0.4,
+						"predicate_type": "minecraft:random_block_match"
+					},
+					"location_predicate": {
+						"predicate_type": "minecraft:always_true"
+					}
+				},
+				{
+					"output_state": {
+						"Name": "minecraft:cracked_polished_blackstone_bricks"
+					},
+					"input_predicate": {
+						"block": "minecraft:blackstone",
+						"probability": 0.4,
+						"predicate_type": "minecraft:random_block_match"
+					},
+					"location_predicate": {
+						"predicate_type": "minecraft:always_true"
+					}
+				},
+				{
+					"output_state": {
+						"Name": "minecraft:polished_blackstone"
+					},
+					"input_predicate": {
+						"block": "minecraft:blackstone",
+						"probability": 0.3,
+						"predicate_type": "minecraft:random_block_match"
+					},
+					"location_predicate": {
+						"predicate_type": "minecraft:always_true"
+					}
+				},
+				{
+					"output_state": {
+						"Name": "bygonenether:cracked_withered_blackstone"
+					},
+					"input_predicate": {
+						"block": "bygonenether:withered_blackstone",
+						"probability": 0.4,
+						"predicate_type": "minecraft:random_block_match"
+					},
+					"location_predicate": {
+						"predicate_type": "minecraft:always_true"
+					}
+				},
+				{
+					"output_state": {
+						"Name": "bygonenether:chiseled_withered_blackstone"
+					},
+					"input_predicate": {
+						"block": "bygonenether:withered_blackstone",
+						"probability": 0.2,
+						"predicate_type": "minecraft:random_block_match"
+					},
+					"location_predicate": {
+						"predicate_type": "minecraft:always_true"
+					}
+				},
+				{
+					"output_state": {
+						"Name": "minecraft:smooth_quartz"
+					},
+					"input_predicate": {
+						"block": "bygonenether:withered_quartz_block",
+						"probability": 0.4,
+						"predicate_type": "minecraft:random_block_match"
+					},
+					"location_predicate": {
+						"predicate_type": "minecraft:always_true"
+					}
+				},
+				{
+					"output_state": {
+						"Name": "minecraft:coal_block"
+					},
+					"input_predicate": {
+						"block": "bygonenether:withered_coal_block",
+						"probability": 0.4,
+						"predicate_type": "minecraft:random_block_match"
+					},
+					"location_predicate": {
+						"predicate_type": "minecraft:always_true"
+					}
+				},
+				{
+					"output_state": {
+						"Name": "minecraft:lava"
+					},
+					"input_predicate": {
+						"block": "minecraft:dirt",
+						"probability": 1.0,
+						"predicate_type": "minecraft:random_block_match"
+					},
+					"location_predicate": {
+						"predicate_type": "minecraft:always_true"
+					}
+				}
+			],
+			"processor_type": "minecraft:rule"
+		}
+	]
+}
