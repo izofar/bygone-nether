@@ -13,12 +13,12 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.WitherSkeleton;
 import net.minecraft.world.level.Level;
 
-public class WitherKnight extends WitherSkeleton {
+public class WitherSkeletonKnight extends WitherSkeleton {
 
-    private static final EntityDataAccessor<Boolean> DATA_IS_DISARMORED = SynchedEntityData.defineId(WitherKnight.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> DATA_IS_DISARMORED = SynchedEntityData.defineId(WitherSkeletonKnight.class, EntityDataSerializers.BOOLEAN);
     private static final float BREAK_HEALTH = 20.0f;
 
-    public WitherKnight(EntityType<? extends WitherSkeleton> entityType, Level level) {
+    public WitherSkeletonKnight(EntityType<? extends WitherSkeleton> entityType, Level level) {
         super(entityType, level);
     }
 

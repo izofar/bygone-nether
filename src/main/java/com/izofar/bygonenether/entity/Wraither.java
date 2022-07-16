@@ -11,9 +11,9 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.WitherSkeleton;
 import net.minecraft.world.level.Level;
 
-public class PossessedWitherSkeleton extends WitherSkeleton {
+public class Wraither extends WitherSkeleton {
 
-    public PossessedWitherSkeleton(EntityType<? extends WitherSkeleton> entityType, Level level) { super(entityType, level); }
+    public Wraither(EntityType<? extends WitherSkeleton> entityType, Level level) { super(entityType, level); }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, 0.35D).add(Attributes.MAX_HEALTH, 10.0D);

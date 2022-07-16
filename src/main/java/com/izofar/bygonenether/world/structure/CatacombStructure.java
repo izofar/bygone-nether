@@ -1,6 +1,5 @@
 package com.izofar.bygonenether.world.structure;
 
-import com.izofar.bygonenether.init.ModEntityTypes;
 import com.izofar.bygonenether.world.structure.util.ModStructureUtils;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
@@ -24,7 +23,6 @@ import java.util.Optional;
 public class CatacombStructure extends StructureFeature<JigsawConfiguration> {
 
 	public static final List<SpawnerData> FORTRESS_ENEMIES = List.of(
-			new MobSpawnSettings.SpawnerData(ModEntityTypes.WEX.get(), 1, 1, 1),
 			new MobSpawnSettings.SpawnerData(EntityType.MAGMA_CUBE, 2, 1, 1)
 		);
 	

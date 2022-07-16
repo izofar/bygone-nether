@@ -32,6 +32,7 @@ public abstract class ModFeatures {
 	public static final RegistryObject<Feature<NoneFeatureConfiguration>> MOB_FEATURE_PIGLIN_MANOR_OUTSIDE = MODDED_FEATURES.register("mob_feature_piglin_manor_outside", () -> new MobPassengerFeature<>(ModEntityTypes.PIGLIN_HUNTER.get(), ModEntityTypes.WITHER_SKELETON_HORSE.get()));
 	public static final RegistryObject<Feature<NoneFeatureConfiguration>> MOB_FEATURE_STRIDER = MODDED_FEATURES.register("mob_feature_strider", () -> new MobFeature<>(EntityType.STRIDER));
 	public static final RegistryObject<Feature<NoneFeatureConfiguration>> MOB_FEATURE_WITHER_SKELETON = MODDED_FEATURES.register("mob_feature_wither_skeleton", () -> new MobFeature<>(EntityType.WITHER_SKELETON));
+	public static final RegistryObject<Feature<NoneFeatureConfiguration>> MOB_FEATURE_CATACOMB = MODDED_FEATURES.register("mob_feature_catacomb", () -> new MobFeature<>(() -> ModLists.CATACOMB_MOBS));
 	public static final RegistryObject<Feature<NoneFeatureConfiguration>> MOB_FEATURE_WARPED_ENDERMAN = MODDED_FEATURES.register("mob_feature_warped_enderman", () -> new MobFeature<>(ModEntityTypes.WARPED_ENDERMAN.get()));
 
 	public static Holder<ConfiguredFeature<ReplaceSphereConfiguration, ?>> SOUL_STONE_BLOBS_CONFIGURED;

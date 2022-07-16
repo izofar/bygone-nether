@@ -1,6 +1,6 @@
 package com.izofar.bygonenether.client.model;
 
-import com.izofar.bygonenether.entity.WitherBrute;
+import com.izofar.bygonenether.entity.Corpor;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.AnimationUtils;
 import net.minecraft.client.model.HumanoidModel;
@@ -13,9 +13,9 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-public class WitherBruteModel extends HumanoidModel<WitherBrute> {
+public class CorporModel extends HumanoidModel<Corpor> {
 
-    public WitherBruteModel(ModelPart root) { super(root); }
+    public CorporModel(ModelPart root) { super(root); }
 
     public static LayerDefinition createBodyLayer(){
         MeshDefinition meshdefinition = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
@@ -28,25 +28,25 @@ public class WitherBruteModel extends HumanoidModel<WitherBrute> {
         return LayerDefinition.create(meshdefinition, 64, 32);
     }
 
-    public void prepareMobModel(WitherBrute witherBrute, float pitch, float yaw, float roll) {
+    public void prepareMobModel(Corpor corpor, float pitch, float yaw, float roll) {
         this.rightArmPose = HumanoidModel.ArmPose.EMPTY;
         this.leftArmPose = HumanoidModel.ArmPose.EMPTY;
-        ItemStack itemstack = witherBrute.getItemInHand(InteractionHand.MAIN_HAND);
-        if (itemstack.is(Items.BOW) && witherBrute.isAggressive()) {
-            if (witherBrute.getMainArm() == HumanoidArm.RIGHT) {
+        ItemStack itemstack = corpor.getItemInHand(InteractionHand.MAIN_HAND);
+        if (itemstack.is(Items.BOW) && corpor.isAggressive()) {
+            if (corpor.getMainArm() == HumanoidArm.RIGHT) {
                 this.rightArmPose = HumanoidModel.ArmPose.BOW_AND_ARROW;
             } else {
                 this.leftArmPose = HumanoidModel.ArmPose.BOW_AND_ARROW;
             }
         }
 
-        super.prepareMobModel(witherBrute, pitch, yaw, roll);
+        super.prepareMobModel(corpor, pitch, yaw, roll);
     }
 
-    public void setupAnim(WitherBrute witherBrute, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setupAnim(witherBrute, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-        ItemStack itemstack = witherBrute.getMainHandItem();
-        if (witherBrute.isAggressive() && (itemstack.isEmpty() || !itemstack.is(Items.BOW))) {
+    public void setupAnim(Corpor corpor, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        super.setupAnim(corpor, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        ItemStack itemstack = corpor.getMainHandItem();
+        if (corpor.isAggressive() && (itemstack.isEmpty() || !itemstack.is(Items.BOW))) {
             float f = Mth.sin(this.attackTime * (float)Math.PI);
             float f1 = Mth.sin((1.0F - (1.0F - this.attackTime) * (1.0F - this.attackTime)) * (float)Math.PI);
             this.rightArm.zRot = 0.0F;

@@ -29,9 +29,9 @@ public abstract class RegistryEvents {
 		event.put(ModEntityTypes.PIGLIN_HUNTER.get(), PiglinBrute.createAttributes().build());
 		event.put(ModEntityTypes.WEX.get(), Wex.createAttributes().build());
 		event.put(ModEntityTypes.WARPED_ENDERMAN.get(), WarpedEnderMan.createAttributes().build());
-		event.put(ModEntityTypes.POSSESSED_WITHER_SKELETON.get(), PossessedWitherSkeleton.createAttributes().build());
-		event.put(ModEntityTypes.WITHER_KNIGHT.get(), WitherKnight.createAttributes().build());
-		event.put(ModEntityTypes.WITHER_BRUTE.get(), WitherBrute.createAttributes().build());
+		event.put(ModEntityTypes.WRAITHER.get(), Wraither.createAttributes().build());
+		event.put(ModEntityTypes.WITHER_SKELETON_KNIGHT.get(), WitherSkeletonKnight.createAttributes().build());
+		event.put(ModEntityTypes.CORPOR.get(), Corpor.createAttributes().build());
 		event.put(ModEntityTypes.WITHER_SKELETON_HORSE.get(), WitherSkeletonHorse.createAttributes().build());
 	}
 
@@ -41,9 +41,9 @@ public abstract class RegistryEvents {
 		event.registerEntityRenderer(ModEntityTypes.PIGLIN_HUNTER.get(), PiglinHunterRenderer::new);
 		event.registerEntityRenderer(ModEntityTypes.WEX.get(), WexRenderer:: new);
 		event.registerEntityRenderer(ModEntityTypes.WARPED_ENDERMAN.get(), WarpedEnderManRenderer::new);
-		event.registerEntityRenderer(ModEntityTypes.POSSESSED_WITHER_SKELETON.get(), PossessedWitherSkeletonRenderer::new);
-		event.registerEntityRenderer(ModEntityTypes.WITHER_KNIGHT.get(), WitherKnightRenderer::new);
-		event.registerEntityRenderer(ModEntityTypes.WITHER_BRUTE.get(), WitherBruteRenderer::new);
+		event.registerEntityRenderer(ModEntityTypes.WRAITHER.get(), WraitherRenderer::new);
+		event.registerEntityRenderer(ModEntityTypes.WITHER_SKELETON_KNIGHT.get(), WitherSkeletonKnightRenderer::new);
+		event.registerEntityRenderer(ModEntityTypes.CORPOR.get(), CorporRenderer::new);
 		event.registerEntityRenderer(ModEntityTypes.WITHER_SKELETON_HORSE.get(), WitherSkeletonHorseRenderer::new);
 		event.registerEntityRenderer(ModEntityTypes.WARPED_ENDER_PEARL.get(), ThrownItemRenderer::new);
 	}

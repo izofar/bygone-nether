@@ -1,0 +1,14 @@
+{
+  "name": "bygonenether:catacomb/catacomb_mobs",
+  "fallback": "bygonenether:catacomb/catacomb_mobs",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "feature": "bygonenether:mob_feature_catacomb",
+        "projection": "rigid",
+        "element_type": "minecraft:feature_pool_element"
+      }
+    }
+  ]
+}
