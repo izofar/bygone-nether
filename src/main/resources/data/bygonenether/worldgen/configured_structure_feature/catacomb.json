@@ -13,14 +13,8 @@
       "bounding_box": "piece",
       "spawns": [
         {
-          "type": "bygonenether:wex",
-          "weight": 1,
-          "minCount": 1,
-          "maxCount": 1
-        },
-        {
           "type": "minecraft:magma_cube",
-          "weight": 2,
+          "weight": 1,
           "minCount": 1,
           "maxCount": 1
         }

@@ -23,7 +23,7 @@ import java.util.Optional;
 public class CatacombStructure extends StructureFeature<JigsawConfiguration> {
 
 	public static final List<SpawnerData> FORTRESS_ENEMIES = List.of(
-			new MobSpawnSettings.SpawnerData(EntityType.MAGMA_CUBE, 2, 1, 1)
+			new MobSpawnSettings.SpawnerData(EntityType.MAGMA_CUBE, 1, 1, 1)
 		);
 	
 	public CatacombStructure(Codec<JigsawConfiguration> codec) { super(codec, CatacombStructure::createPiecesGenerator, PostPlacementProcessor.NONE); }
