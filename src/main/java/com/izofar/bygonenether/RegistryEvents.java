@@ -4,7 +4,6 @@ import com.izofar.bygonenether.client.renderer.*;
 import com.izofar.bygonenether.entity.*;
 import com.izofar.bygonenether.event.ModBlockEvents;
 import com.izofar.bygonenether.event.ModEntityEvents;
-import com.izofar.bygonenether.event.ModWorldEvents;
 import com.izofar.bygonenether.init.ModEntityTypes;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.world.entity.monster.piglin.PiglinBrute;
@@ -20,7 +19,6 @@ public abstract class RegistryEvents {
 	static {
 		MinecraftForge.EVENT_BUS.register(ModBlockEvents.class);
 		MinecraftForge.EVENT_BUS.register(ModEntityEvents.class);
-		MinecraftForge.EVENT_BUS.register(ModWorldEvents.class);
 	}
 
 	@SubscribeEvent

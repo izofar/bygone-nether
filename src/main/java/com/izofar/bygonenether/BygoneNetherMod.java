@@ -29,6 +29,7 @@ public class BygoneNetherMod
         ModMemoryModuleTypes.register(eventBus);
         ModFeatures.register(eventBus);
         ModSounds.register(eventBus);
+        ModProcessors.register(eventBus);
 
         eventBus.addListener(this::setup);
 
@@ -37,8 +38,6 @@ public class BygoneNetherMod
 
     private void setup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            ModProcessors.registerProcessors();
-            ModFeatures.registerPlacedFeatures();
             ModStructureUtils.addBasaltRestrictions();
             ModFeatureUtils.replaceBlackstoneInBastion();
             ModEntityTypes.modifyPiglinMemoryAndSensors();

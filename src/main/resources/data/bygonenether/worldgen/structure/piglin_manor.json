@@ -1,13 +1,21 @@
 {
   "type": "bygonenether:piglin_manor",
-  "config": {
-    "start_pool": "bygonenether:piglin_manor/start_pool",
-    "size": 1,
-    "max_y": 72,
-    "min_y": 34
+  "start_pool": "bygonenether:piglin_manor/start_pool",
+  "size": 1,
+  "max_distance_from_center": 128,
+  "start_height": {
+    "type": "minecraft:uniform",
+    "max_inclusive": {
+      "absolute": 72
+    },
+    "min_inclusive": {
+      "absolute": 34
+    }
   },
   "biomes": "#bygonenether:has_structure/piglin_manor",
-  "adapt_noise": true,
+  "step": "surface_structures",
+  "terrain_adaptation": "beard_thin",
+  "use_expansion_hack": true,
   "spawn_overrides": {
     "monster": {
       "bounding_box": "piece",

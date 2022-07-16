@@ -1,0 +1,30 @@
+{
+  "type": "bygonenether:catacomb",
+  "start_pool": "bygonenether:catacomb/start_pool",
+  "size": 3,
+  "max_distance_from_center": 128,
+  "biomes": "#bygonenether:has_structure/catacomb",
+  "step": "underground_decoration",
+  "start_height": {
+    "type": "minecraft:uniform",
+    "max_inclusive": {
+      "absolute": 84
+    },
+    "min_inclusive": {
+      "absolute": 56
+    }
+  },
+  "spawn_overrides": {
+    "monster": {
+      "bounding_box": "piece",
+      "spawns": [
+        {
+          "type": "minecraft:magma_cube",
+          "weight": 1,
+          "minCount": 1,
+          "maxCount": 1
+        }
+      ]
+    }
+  }
+}

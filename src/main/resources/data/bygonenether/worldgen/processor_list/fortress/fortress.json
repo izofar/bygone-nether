@@ -32,7 +32,34 @@
       "processor_type": "minecraft:rule"
     },
     {
-      "processor_type": "bygonenether:data_block_processor"
+      "processor_type": "bygonenether:data_block_processor",
+      "direction": "DOWN",
+      "processor_list": "bygonenether:fortress/fortress",
+      "trigger_and_replacements": [
+        {
+          "trigger" : {
+            "Name": "minecraft:red_stained_glass"
+          },
+          "replacement" : {
+            "Name": "minecraft:red_nether_bricks"
+          }
+        }
+      ]
+    },
+    {
+      "processor_type": "bygonenether:data_block_processor",
+      "direction": "DOWN",
+      "processor_list": "bygonenether:fortress/fortress",
+      "trigger_and_replacements": [
+        {
+          "trigger" : {
+            "Name": "minecraft:black_stained_glass"
+          },
+          "replacement" : {
+            "Name": "minecraft:nether_bricks"
+          }
+        }
+      ]
     }
   ]
 }

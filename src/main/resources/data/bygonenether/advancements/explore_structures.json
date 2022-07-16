@@ -22,13 +22,17 @@
     "in_catacomb": {
       "trigger": "minecraft:location",
       "conditions": {
-        "feature": "bygonenether:catacomb"
+        "location": {
+          "feature": "bygonenether:catacomb"
+        }
       }
     },
     "in_citadel": {
       "trigger": "minecraft:location",
       "conditions": {
-        "feature": "bygonenether:citadel"
+        "location": {
+          "feature": "bygonenether:citadel"
+        }
       }
     },
     "in_fortress": {
@@ -42,7 +46,9 @@
     "in_piglin_manor": {
       "trigger": "minecraft:location",
       "conditions": {
-        "feature": "bygonenether:piglin_manor"
+        "location": {
+          "feature": "bygonenether:piglin_manor"
+        }
       }
     },
     "in_bastion_remnant": {

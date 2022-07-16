@@ -19,7 +19,9 @@
     "in_piglin_manor": {
       "trigger": "minecraft:location",
       "conditions": {
-        "feature": "bygonenether:piglin_manor"
+        "location": {
+          "feature": "bygonenether:piglin_manor"
+        }
       }
     }
   },

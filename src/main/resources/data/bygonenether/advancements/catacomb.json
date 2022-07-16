@@ -19,7 +19,9 @@
     "in_catacomb": {
       "trigger": "minecraft:location",
       "conditions": {
-        "feature": "bygonenether:catacomb"
+        "location": {
+          "feature": "bygonenether:catacomb"
+        }
       }
     }
   },

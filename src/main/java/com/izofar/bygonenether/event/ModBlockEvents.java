@@ -7,16 +7,16 @@ import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public abstract class ModBlockEvents {
 
 	@SubscribeEvent
 	public static void enforceNetheriteToBreakWitheredStone(PlayerInteractEvent.LeftClickBlock event) {
-		if(!event.getPlayer().isCreative()
-				&& ModLists.WITHERED_BLOCKS.contains(event.getWorld().getBlockState(event.getPos()).getBlock())
-				&& !(event.getPlayer().getItemBySlot(EquipmentSlot.MAINHAND).getItem() instanceof TieredItem tieredItem
+		if(!event.getEntity().isCreative()
+				&& ModLists.WITHERED_BLOCKS.contains(event.getLevel().getBlockState(event.getPos()).getBlock())
+				&& !(event.getEntity().getItemBySlot(EquipmentSlot.MAINHAND).getItem() instanceof TieredItem tieredItem
 				&& tieredItem.getTier() == Tiers.NETHERITE))
 			event.setCanceled(true);
 	}

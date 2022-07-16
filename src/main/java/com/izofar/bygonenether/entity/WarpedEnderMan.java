@@ -11,6 +11,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
@@ -32,7 +33,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Map;
-import java.util.Random;
 
 public class WarpedEnderMan extends EnderMan{
 
@@ -164,7 +164,7 @@ public class WarpedEnderMan extends EnderMan{
 		}
 	}
 
-	private static WarpedEnderManVariant randomVariant(Random random){ return VARIANTS[random.nextInt(VARIANTS.length)]; }
+	private static WarpedEnderManVariant randomVariant(RandomSource random){ return VARIANTS[random.nextInt(VARIANTS.length)]; }
 
 	public enum WarpedEnderManVariant {
 		FRESH, SHORT_VINE, LONG_VINE

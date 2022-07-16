@@ -1,11 +1,11 @@
 
 modLoader="javafml" #mandatory
-loaderVersion="[38,)" #mandatory
+loaderVersion="[41,)" #mandatory
 license="MIT"
 
 [[mods]] #mandatory
 modId="bygonenether" #mandatory
-version="1.1.2" #mandatory
+version="1.2" #mandatory
 displayName="Bygone Nether" #mandatory
 logoFile="bygonenether.png" #optional
 #credits="" #optional
@@ -16,9 +16,9 @@ description="Remnants of the nether dimension's ancient history"
 [[dependencies.bygonenether]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.18.2,1.19)"
+    versionRange="[1.19,1.20)"
 
 [[dependencies.bygonenether]]
     modId="forge"
     mandatory=true
-    versionRange="[40.0.25,)"
+    versionRange="[41.0.21,)"

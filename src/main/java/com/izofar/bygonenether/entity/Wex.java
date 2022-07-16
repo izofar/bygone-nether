@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.izofar.bygonenether.init.ModSounds;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -26,7 +27,7 @@ public class Wex extends Vex {
 	public Wex(EntityType<? extends Vex> entityType, Level level) { super(entityType, level); }
 
 	@Override
-	protected void populateDefaultEquipmentSlots(DifficultyInstance difficultyInstance) { }
+	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficultyInstance) { }
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMonsterAttributes()

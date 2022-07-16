@@ -12,8 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.levelgen.feature.BasaltColumnsFeature;
 import net.minecraft.world.level.levelgen.feature.DeltaFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
-import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier;
+import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraftforge.fml.ModList;
 
 import java.util.Random;
@@ -50,9 +49,9 @@ public abstract class ModStructureUtils {
 		return height_tracked == height;
 	}
 	
-	public static BlockPos getElevation(PieceGeneratorSupplier.Context<JigsawConfiguration> context, int min, int max) {
+	public static BlockPos getElevation(Structure.GenerationContext context, int min, int max) {
 		BlockPos blockpos = context.chunkPos().getMiddleBlockPosition(0);
-		NoiseColumn blockReader = context.chunkGenerator().getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor());
+		NoiseColumn blockReader = context.chunkGenerator().getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor(), context.randomState());
 
 		boolean found = false;
 		for (int i = min; i < max; i++) {

@@ -12,7 +12,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.Container;
+import net.minecraft.util.VisibleForDebug;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleContainer;
@@ -48,9 +48,9 @@ import java.util.UUID;
 
 public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob, InventoryCarrier {
 
-	private static final EntityDataAccessor<Boolean> DATA_IS_CHARGING_CROSSBOW = SynchedEntityData.defineId(Piglin.class, EntityDataSerializers.BOOLEAN);
-	private static final EntityDataAccessor<Boolean> DATA_IS_DANCING = SynchedEntityData.defineId(Piglin.class, EntityDataSerializers.BOOLEAN);
-	private static final EntityDataAccessor<Optional<UUID>> DATA_OWNERUUID_ID = SynchedEntityData.defineId(Piglin.class, EntityDataSerializers.OPTIONAL_UUID);
+	private static final EntityDataAccessor<Boolean> DATA_IS_CHARGING_CROSSBOW = SynchedEntityData.defineId(PiglinPrisoner.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> DATA_IS_DANCING = SynchedEntityData.defineId(PiglinPrisoner.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Optional<UUID>> DATA_OWNERUUID_ID = SynchedEntityData.defineId(PiglinPrisoner.class, EntityDataSerializers.OPTIONAL_UUID);
 
 	protected static final ImmutableList<SensorType<? extends Sensor<? super PiglinPrisoner>>> SENSOR_TYPES = ImmutableList.of(
 			SensorType.NEAREST_LIVING_ENTITIES,
@@ -198,7 +198,7 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 	}
 
 	@Override
-	protected int getExperienceReward(Player p_34763_) { return this.xpReward; }
+	public int getExperienceReward() { return this.xpReward; }
 
 	@Override
 	protected void finishConversion(ServerLevel p_34756_) {
@@ -224,8 +224,9 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 	@Override
 	public boolean canFireProjectileWeapon(ProjectileWeaponItem item) { return item == Items.CROSSBOW; }
 
+	@VisibleForDebug
 	@Override
-	public Container getInventory() { return this.inventory; }
+	public SimpleContainer getInventory() { return this.inventory; }
 
 	@Override
 	protected boolean canHunt() { return false; }

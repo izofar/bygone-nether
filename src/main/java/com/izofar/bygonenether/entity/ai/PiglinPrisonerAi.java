@@ -114,8 +114,8 @@ public class PiglinPrisonerAi {
 						avoidRepellent(),
 						new SetEntityLookTarget(PiglinPrisonerAi::isPlayerHoldingLovedItem, 14.0F),
 						new StartAttacking<>(AbstractPiglin::isAdult, PiglinPrisonerAi::findNearestValidAttackTarget),
-						new RunIf<>((piglinPrisoner) -> !piglinPrisoner.isDancing(), new GoToCelebrateLocation<>(2, 1.0F)),
-						new RunIf<>(PiglinPrisoner::isDancing, new GoToCelebrateLocation<>(4, 0.6F)),
+						new RunIf<>(PiglinPrisoner::isDancing, new GoToTargetLocation<>(MemoryModuleType.CELEBRATE_LOCATION, 2, 1.0F)),
+						new RunIf<>(PiglinPrisoner::isDancing, new GoToTargetLocation<>(MemoryModuleType.CELEBRATE_LOCATION, 4, 0.6F)),
 						new RunOne<>(ImmutableList.of(
 								Pair.of(new SetEntityLookTarget(ModEntityTypes.PIGLIN_PRISONER.get(), 8.0F), 1),
 								Pair.of(new RandomStroll(0.6F, 2, 1), 1),
