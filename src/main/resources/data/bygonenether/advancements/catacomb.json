@@ -19,9 +19,17 @@
     "in_catacomb": {
       "trigger": "minecraft:location",
       "conditions": {
-        "location": {
-          "feature": "bygonenether:catacomb"
-        }
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "bygonenether:catacomb"
+              }
+            }
+          }
+        ]
       }
     }
   },

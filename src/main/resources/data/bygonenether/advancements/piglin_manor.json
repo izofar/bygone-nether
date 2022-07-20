@@ -19,9 +19,17 @@
     "in_piglin_manor": {
       "trigger": "minecraft:location",
       "conditions": {
-        "location": {
-          "feature": "bygonenether:piglin_manor"
-        }
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "bygonenether:piglin_manor"
+              }
+            }
+          }
+        ]
       }
     }
   },

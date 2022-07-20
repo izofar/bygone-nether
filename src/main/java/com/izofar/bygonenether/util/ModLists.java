@@ -11,6 +11,7 @@ import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.level.block.Block;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 public abstract class ModLists {
 
@@ -28,15 +29,15 @@ public abstract class ModLists {
 			ModBlocks.WITHERED_DEBRIS.get()
 		);
 
-    public static final WeightedRandomList<ModWeightedEntry<EntityType<? extends AbstractPiglin>>> PIGLIN_MANOR_MOBS = WeightedRandomList.create(
-			new ModWeightedEntry<>(ModEntityTypes.PIGLIN_HUNTER.get(), 1),
-			new ModWeightedEntry<>(EntityType.PIGLIN, 3)
+    public static final WeightedRandomList<ModWeightedEntry<Supplier<EntityType<? extends AbstractPiglin>>>> PIGLIN_MANOR_MOBS = WeightedRandomList.create(
+			new ModWeightedEntry<>(ModEntityTypes.PIGLIN_HUNTER::get, 1),
+			new ModWeightedEntry<>(() -> EntityType.PIGLIN, 3)
 		);
 
-	public static final WeightedRandomList<ModWeightedEntry<EntityType<? extends WitherSkeleton>>> CATACOMB_MOBS = WeightedRandomList.create(
-			new ModWeightedEntry<>(ModEntityTypes.CORPOR.get(), 1),
-			new ModWeightedEntry<>(ModEntityTypes.WITHER_SKELETON_KNIGHT.get(), 2),
-			new ModWeightedEntry<>(ModEntityTypes.WRAITHER.get(), 3),
-			new ModWeightedEntry<>(EntityType.WITHER_SKELETON, 1)
+	public static final WeightedRandomList<ModWeightedEntry<Supplier<EntityType<? extends WitherSkeleton>>>> CATACOMB_MOBS = WeightedRandomList.create(
+			new ModWeightedEntry<>(ModEntityTypes.CORPOR::get, 1),
+			new ModWeightedEntry<>(ModEntityTypes.WITHER_SKELETON_KNIGHT::get, 2),
+			new ModWeightedEntry<>(ModEntityTypes.WRAITHER::get, 3),
+			new ModWeightedEntry<>(() -> EntityType.WITHER_SKELETON, 1)
 	);
 }

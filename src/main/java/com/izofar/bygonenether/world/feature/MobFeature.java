@@ -14,22 +14,22 @@ import java.util.function.Supplier;
 
 public class MobFeature<T extends Mob> extends Feature<NoneFeatureConfiguration> {
 
-	private final Supplier<WeightedRandomList<ModWeightedEntry<EntityType<? extends T>>>> entityTypes;
+	private final WeightedRandomList<ModWeightedEntry<Supplier<EntityType<? extends T>>>> entityTypes;
 
-	public MobFeature(Supplier<WeightedRandomList<ModWeightedEntry<EntityType<? extends T>>>> entityTypes) {
+	public MobFeature(WeightedRandomList<ModWeightedEntry<Supplier<EntityType<? extends T>>>> entityTypes) {
 		super(NoneFeatureConfiguration.CODEC);
 		this.entityTypes = entityTypes;
 	}
 	
-	public MobFeature(EntityType<? extends T> entityType) {
+	public MobFeature(Supplier<EntityType<? extends T>> entityType) {
 		super(NoneFeatureConfiguration.CODEC);
-		this.entityTypes = () -> WeightedRandomList.create(new ModWeightedEntry<EntityType<? extends T>>(entityType, 1));
+		this.entityTypes = WeightedRandomList.create(new ModWeightedEntry<>(entityType, 1));
 	}
 
 	@Override
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
 		BlockPos position = context.origin().below();
-		Mob entity = this.entityTypes.get().getRandom(context.random()).get().getData().create(context.level().getLevel());
+		Mob entity = this.entityTypes.getRandom(context.random()).get().getData().get().create(context.level().getLevel());
 		if (entity == null)
 			return false;
 		entity.moveTo((double) position.getX() + 0.5D, position.getY(), (double) position.getZ() + 0.5D, 0.0F, 0.0F);

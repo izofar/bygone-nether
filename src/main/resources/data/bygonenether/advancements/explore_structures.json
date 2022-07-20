@@ -22,41 +22,81 @@
     "in_catacomb": {
       "trigger": "minecraft:location",
       "conditions": {
-        "location": {
-          "feature": "bygonenether:catacomb"
-        }
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "bygonenether:catacomb"
+              }
+            }
+          }
+        ]
       }
     },
     "in_citadel": {
       "trigger": "minecraft:location",
       "conditions": {
-        "location": {
-          "feature": "bygonenether:citadel"
-        }
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "bygonenether:citadel"
+              }
+            }
+          }
+        ]
       }
     },
     "in_fortress": {
       "trigger": "minecraft:location",
       "conditions": {
-        "location": {
-          "feature": "minecraft:fortress"
-        }
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "minecraft:fortress"
+              }
+            }
+          }
+        ]
       }
     },
     "in_piglin_manor": {
       "trigger": "minecraft:location",
       "conditions": {
-        "location": {
-          "feature": "bygonenether:piglin_manor"
-        }
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "bygonenether:piglin_manor"
+              }
+            }
+          }
+        ]
       }
     },
     "in_bastion_remnant": {
       "trigger": "minecraft:location",
       "conditions": {
-        "location": {
-          "feature": "minecraft:bastion_remnant"
-        }
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "minecraft:bastion_remnant"
+              }
+            }
+          }
+        ]
       }
     }
   },

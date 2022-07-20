@@ -1,7 +1,6 @@
 package com.izofar.bygonenether;
 
 import com.izofar.bygonenether.init.*;
-import com.izofar.bygonenether.world.feature.ModFeatureUtils;
 import com.izofar.bygonenether.world.structure.util.ModStructureUtils;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -39,7 +38,6 @@ public class BygoneNetherMod
     private void setup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             ModStructureUtils.addBasaltRestrictions();
-            ModFeatureUtils.replaceBlackstoneInBastion();
             ModEntityTypes.modifyPiglinMemoryAndSensors();
             ModTags.initTags();
         });

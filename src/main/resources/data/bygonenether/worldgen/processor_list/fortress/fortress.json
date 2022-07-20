@@ -38,7 +38,7 @@
       "trigger_and_replacements": [
         {
           "trigger" : {
-            "Name": "minecraft:red_stained_glass"
+            "Name": "minecraft:red_wool"
           },
           "replacement" : {
             "Name": "minecraft:red_nether_bricks"
@@ -53,7 +53,7 @@
       "trigger_and_replacements": [
         {
           "trigger" : {
-            "Name": "minecraft:black_stained_glass"
+            "Name": "minecraft:black_wool"
           },
           "replacement" : {
             "Name": "minecraft:nether_bricks"
