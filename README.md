@@ -20,8 +20,8 @@ Finally, Piglin hunters stay in piglin manors in the crimson forests, where they
 ## Changelog
 
 ### Blocks
-* Withered Blackstone + variants and Withered Debris added, which naturally generate in catacombs, and can only be broken by netherite-tiered items
-* Soul Stone added, which generates in soul sand valleys and is the new base block for summoning the wither.
+* Added Withered Blackstone (and variants), Withered Debris, Withered Basalt, Withered Coal, and Withered Quartz, which naturally generate in catacombs, and can only be broken by netherite-tiered items
+* Added Soul Stone, which generates in soul sand valleys and is an additional base block for summoning the wither.
 * Blackstone split into stone and cobbled variants, like overworld stone
 
 ### Items
@@ -29,6 +29,7 @@ Finally, Piglin hunters stay in piglin manors in the crimson forests, where they
   * Craft it by placing netherite armor and golden armor in the smithing table
   * The gild will wear off at the speed of gold, yielding the original netherite armor with the durability at the time of crafting. It will then need to be reapplied
 * Added the Wither Waltz music disc, which can be found in catacombs
+* Added the Warped Ender Pearl, which does not damage the player, and grants its user potions effects dependent on the circumstances of its collision
 
 ### Mobs
 * Unprovoked, neither piglins nor piglin brutes will attack players equipped with Gilded Netherite
@@ -38,18 +39,20 @@ Finally, Piglin hunters stay in piglin manors in the crimson forests, where they
 * Added the Piglin Hunter, which spawns in piglin manors, sometimes on wither skeleton horses
 * Added the Warped Enderman, a hostile enderman variant that spawns in citadels, whose vines can be sheared
 * Added the Wither Skeleton horse, a fire-immune skeleton horse that can be found outside piglin_manors
+* Added the Corpor, a brutish wither skeleton, that is slow yet deals significant damage. Spawns in catacombs
+* Added the Wither Skeleton Knight, an armored wither skeleton, whose armor can be broken before defeat. Spawns in catacombs
+* Added the Wraither, a speedy and posessed wither skeleton, whose inhabiting wex will escape upon near death. Spawns in catacombs
 
 ### Recipes
 * Gilded Netherite is craftable in a smithing table (netherite armor + gold armor)
 * Recipes concerning blackstone and its cobbled variant now mirror overworld stone and cobblestone
 
 ### World
-* Bastions now generate only in Basalt Deltas
-* Nether Fortresses now generate only in Nether Wastes
+* Bastions now also generate in Basalt Deltas
+* Nether Fortresses now only generate over lava lakes
 * Catacombs now generate in Soul Sand Valleys
 * Piglin Manors now generate in Crimson Forests
 * Citadels now generate in Warped Forests
-* Bastions generate with cobbled blackstone instead of blackstone
 
 ### GUI
 * Added Advancements to be achieved by exploring Bygone Nether's features

@@ -15,16 +15,16 @@ import java.util.function.Supplier;
 
 public class MobPassengerFeature<P extends Mob, V extends Mob> extends Feature<NoneFeatureConfiguration> {
 
-    private final Supplier<WeightedRandomList<ModWeightedEntry<Pair<EntityType<? extends P>, EntityType<? extends V>>>>> entityTypes;
+    private final WeightedRandomList<ModWeightedEntry<Pair<Supplier<EntityType<? extends P>>, Supplier<EntityType<? extends V>>>>> entityTypes;
 
-    public MobPassengerFeature(EntityType<? extends P> passenger, EntityType<? extends V> vehicle) {
+    public MobPassengerFeature(Supplier<EntityType<? extends P>> passenger, Supplier<EntityType<? extends V>> vehicle) {
         super(NoneFeatureConfiguration.CODEC);
-        this.entityTypes = () -> WeightedRandomList.create(new ModWeightedEntry<>(Pair.of(passenger, vehicle), 1));
+        this.entityTypes = WeightedRandomList.create(new ModWeightedEntry<>(Pair.of(passenger, vehicle), 1));
     }
 
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-        Pair<EntityType<? extends P>, EntityType<? extends V>> pair = this.entityTypes.get().getRandom(context.random()).get().getData();
+        Pair<Supplier<EntityType<? extends P>>, Supplier<EntityType<? extends V>>> pair = this.entityTypes.getRandom(context.random()).get().getData();
 
         P passenger = this.createPassenger(context, pair);
         V vehicle = this.createVehicle(context, pair);
@@ -34,18 +34,18 @@ public class MobPassengerFeature<P extends Mob, V extends Mob> extends Feature<N
         return true;
     }
 
-    private V createVehicle(FeaturePlaceContext<NoneFeatureConfiguration> context, Pair<EntityType<? extends P>, EntityType<? extends V>> pair) {
+    private V createVehicle(FeaturePlaceContext<NoneFeatureConfiguration> context, Pair<Supplier<EntityType<? extends P>>, Supplier<EntityType<? extends V>>> pair) {
         BlockPos position = context.origin().below();
-        V vehicle = pair.getSecond().create(context.level().getLevel());
+        V vehicle = pair.getSecond().get().create(context.level().getLevel());
         vehicle.finalizeSpawn(context.level(), context.level().getCurrentDifficultyAt(position), MobSpawnType.SPAWNER, null, null);
         vehicle.setPos(position.getX(), position.getY(), position.getZ());
         vehicle.setPersistenceRequired();
         return vehicle;
     }
 
-    private P createPassenger(FeaturePlaceContext<NoneFeatureConfiguration> context, Pair<EntityType<? extends P>, EntityType<? extends V>> pair) {
+    private P createPassenger(FeaturePlaceContext<NoneFeatureConfiguration> context, Pair<Supplier<EntityType<? extends P>>, Supplier<EntityType<? extends V>>> pair) {
         BlockPos position = context.origin().below();
-        P passenger = pair.getFirst().create(context.level().getLevel());
+        P passenger = pair.getFirst().get().create(context.level().getLevel());
         passenger.finalizeSpawn(context.level(), context.level().getCurrentDifficultyAt(position), MobSpawnType.SPAWNER, null, null);
         passenger.setPos(position.getX(), position.getY(), position.getZ());
         passenger.setPersistenceRequired();

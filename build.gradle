@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
+        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7+'
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
@@ -14,16 +14,16 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 
-version = '1.2-1.18.2'
-group = 'com.izofar.bygonenether'
-archivesBaseName = 'bygonenether'
+version = "${mod_version}-${minecraft_version}"
+group = mod_base_package
+archivesBaseName = mod_id
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
 
-    mappings channel: 'official', version: '1.18.2'
+    mappings channel: mappings_channel, version: mappings_version
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
@@ -31,26 +31,25 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-
-            mods { bygonenether { source sourceSets.main } }
+            mods { "${mod_id}" { source sourceSets.main } }
         }
 
         server {
             workingDirectory project.file('run')
-            arg "-mixin.config=" + 'bygonenether' + ".mixins.json"
+            arg "-mixin.config=" + mod_id + ".mixins.json"
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
 
-            mods { bygonenether { source sourceSets.main } }
+            mods { "${mod_id}" { source sourceSets.main } }
         }
 
         data {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            args '--mod', 'bygonenether', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
-            mods { bygonenether { source sourceSets.main } }
+            mods { "${mod_id}" { source sourceSets.main } }
         }
     }
 }
@@ -60,8 +59,35 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 repositories { }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.2-40.0.25'
-    annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
+}
+
+def resourceTargets = ['META-INF/mods.toml', 'pack.mcmeta', "${mod_id}.mixins.json".toString()]
+def intoTargets = ["$rootDir/out/production/resources/", "$rootDir/out/production/${project.name}.main/", "$rootDir/bin/main/"]
+def replaceProperties = [mod_id: mod_id, mod_name: mod_name, mod_version: mod_version,
+                         mod_authors: mod_authors, mod_description: mod_description, banner_image: banner_image,
+                         minecraft_version_range: minecraft_version_range, forge_version_range: forge_version_range,
+                         loader_version_range: loader_version_range]
+processResources {
+    inputs.properties replaceProperties
+    replaceProperties.put 'project', project
+
+    filesMatching(resourceTargets) {
+        expand replaceProperties
+    }
+
+    intoTargets.each { target ->
+        if (file(target).exists()) {
+            copy {
+                from(sourceSets.main.resources) {
+                    include resourceTargets
+                    expand replaceProperties
+                }
+                into target
+            }
+        }
+    }
 }
 
 jar.finalizedBy('reobfJar')
@@ -80,6 +106,6 @@ publishing {
 }
 
 mixin {
-    add sourceSets.main, "bygonenether.refmap.json"
-    config "bygonenether.mixins.json"
+    add sourceSets.main, "${mod_id}.refmap.json"
+    config "${mod_id}.mixins.json"
 }

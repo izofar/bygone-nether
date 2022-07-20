@@ -20,6 +20,5 @@ build
 # other
 eclipse
 run
-
-# Files from Forge MDK
+/mcmodsrepo/
 forge*changelog.txt

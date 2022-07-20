@@ -1,24 +1,27 @@
 
-modLoader="javafml" #mandatory
-loaderVersion="[38,)" #mandatory
+modLoader="javafml"
+loaderVersion="${loader_version_range}"
 license="MIT"
 
-[[mods]] #mandatory
-modId="bygonenether" #mandatory
-version="1.2" #mandatory
-displayName="Bygone Nether" #mandatory
-logoFile="bygonenether.png" #optional
-#credits="" #optional
-authors="Izofar" #optional
+[[mods]]
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
+logoFile="${banner_image}"
+authors="${mod_authors}"
 
-description="Remnants of the nether dimension's ancient history"
+description='''${mod_description}'''
 
 [[dependencies.bygonenether]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.18.2,1.19)"
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
 
 [[dependencies.bygonenether]]
     modId="forge"
     mandatory=true
-    versionRange="[40.0.25,)"
+    versionRange="${forge_version_range}"
+    ordering="NONE"
+    side="BOTH"
