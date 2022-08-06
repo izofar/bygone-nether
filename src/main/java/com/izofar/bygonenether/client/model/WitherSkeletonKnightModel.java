@@ -28,6 +28,12 @@ public class WitherSkeletonKnightModel extends BipedModel<WitherSkeletonKnight> 
     public WitherSkeletonKnightModel() {
         super(RenderType::entityCutoutNoCull, 0.0F, 0.0F, 64, 64);
         this.body = new ModelRenderer(this, 16, 16);
+
+        this.rightArm = new ModelRenderer(this, 40, 16);
+        this.leftArm = new ModelRenderer(this, 40, 16);
+        this.rightLeg = new ModelRenderer(this, 0, 16);
+        this.leftLeg = new ModelRenderer(this, 0, 16);
+
         this.bodywear = new ModelRenderer(this);
         this.leftArmwear = new ModelRenderer(this);
         this.rightArmwear = new ModelRenderer(this);
@@ -49,11 +55,17 @@ public class WitherSkeletonKnightModel extends BipedModel<WitherSkeletonKnight> 
         this.leftLeg.texOffs(0, 16).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 12.0F, 2.0F, true);
 
         this.hat.texOffs(32, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, 0.5F);
+        this.body.addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F);
         this.bodywear.texOffs(16, 32).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, 0.2F);
         this.leftArmwear.texOffs(40, 32).addBox(3.0F, -4.0F, -1.5F, 4.0F, 12.0F, 4.0F, 0.4F);
         this.rightArmwear.texOffs(40, 32).addBox(-9.0F, -4.0F, -1.5F, 4.0F, 12.0F, 4.0F, 0.4F);
         this.leftLegwear.texOffs(0, 32).addBox(0.0F, -12.0F, -2.1F, 4.0F, 12.0F, 4.0F, 0.1F);
         this.rightLegwear.texOffs(0, 32).addBox(-4.0F, -12.0F, -2.1F, 4.0F, 12.0F, 4.0F, 0.1F);
+
+        this.leftArm.mirror = true;
+        this.leftLeg.mirror = true;
+        this.leftArmwear.mirror = true;
+        this.leftLegwear.mirror = true;
 
         this.rightArm.setPos(-5.0F, 2.0F, 0.0F);
         this.leftArm.setPos(5.0F, 2.0F, 0.0F);
@@ -61,12 +73,18 @@ public class WitherSkeletonKnightModel extends BipedModel<WitherSkeletonKnight> 
         this.leftLeg.setPos(2.0F, 12.0F, 0.0F);
 
         this.hat.setPos(0.0F, 0.0F, 0.0F);
-        this.body.setPos(-5.0F, 2.0F, 0.0F);
+        this.body.setPos(0.0F, 0.0F, 0.0F);
         this.bodywear.setPos(0.0F, 0.0F, 0.0F);
         this.leftArmwear.setPos(-3.0F, 2.0F, 0.0F);
         this.rightArmwear.setPos(5.0F, 2.0F, 0.0F);
         this.leftLegwear.setPos(-2.0F, 12.0F, 0.1F);
         this.rightLegwear.setPos(2.0F, 12.0F, 0.1F);
+
+        this.body.addChild(this.bodywear);
+        this.leftArm.addChild(this.leftArmwear);
+        this.rightArm.addChild(this.rightArmwear);
+        this.leftLeg.addChild(this.leftLegwear);
+        this.rightLeg.addChild(this.rightLegwear);
 
     }
 

@@ -16,6 +16,7 @@ public class CorporModel extends BipedModel<Corpor> {
     public CorporModel() { 
         super(0.0F);
 
+        this.head = new ModelRenderer(this);
         this.rightArm = new ModelRenderer(this);
         this.leftArm = new ModelRenderer(this);
         this.rightLeg = new ModelRenderer(this);
