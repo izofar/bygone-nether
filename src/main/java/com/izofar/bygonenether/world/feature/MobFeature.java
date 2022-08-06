@@ -16,22 +16,22 @@ import java.util.function.Supplier;
 
 public class MobFeature<T extends MobEntity> extends Feature<NoFeatureConfig> {
 
-	private final Supplier<WeightedRandomList<EntityType<? extends T>>> entityTypes;
+	private final WeightedRandomList<Supplier<EntityType<? extends T>>> entityTypes;
 
-	public MobFeature(Supplier<WeightedRandomList<EntityType<? extends T>>> entityTypes) {
+	public MobFeature(WeightedRandomList<Supplier<EntityType<? extends T>>> entityTypes) {
 		super(NoFeatureConfig.CODEC);
 		this.entityTypes = entityTypes;
 	}
 	
-	public MobFeature(EntityType<? extends T> entityType) {
+	public MobFeature(Supplier<EntityType<? extends T>> entityType) {
 		super(NoFeatureConfig.CODEC);
-		this.entityTypes = () -> WeightedRandomList.create(WeightedEntry.of(entityType, 1));
+		this.entityTypes = WeightedRandomList.create(WeightedEntry.of(entityType, 1));
 	}
 
 	@Override
 	public boolean place(ISeedReader world, ChunkGenerator chunkGenerator, Random random, BlockPos position, NoFeatureConfig config) {
 		position = position.below();
-		MobEntity entity = this.entityTypes.get().getRandom(world.getRandom()).create(world.getLevel());
+		MobEntity entity = this.entityTypes.getRandom(world.getRandom()).get().create(world.getLevel());
 		if (entity == null)
 			return false;
 		entity.absMoveTo((double) position.getX() + 0.5D, position.getY(), (double) position.getZ() + 0.5D, 0.0F, 0.0F);

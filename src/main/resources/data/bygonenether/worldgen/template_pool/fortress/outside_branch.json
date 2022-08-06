@@ -48,9 +48,18 @@
       }
     },
     {
-      "weight": 18,
+      "weight": 16,
       "element": {
         "location": "bygonenether:fortress/straight_outside",
+        "processors": "bygonenether:fortress/fortress",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "bygonenether:fortress/straight_outside_cage",
         "processors": "bygonenether:fortress/fortress",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"

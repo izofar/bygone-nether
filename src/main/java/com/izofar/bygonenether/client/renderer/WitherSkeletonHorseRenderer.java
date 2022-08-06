@@ -8,7 +8,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class WitherSkeletonHorseRenderer extends UndeadHorseRenderer {
 
-    private static final ResourceLocation WITHER_SKELETON_HORSE_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/wither_skeleton_horse.png");
+    private static final ResourceLocation WITHER_SKELETON_HORSE_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/wither/wither_skeleton_horse.png");
 
     public WitherSkeletonHorseRenderer(EntityRendererManager entityRendererManager) { super(entityRendererManager); }
 

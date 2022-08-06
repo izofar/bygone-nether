@@ -17,19 +17,19 @@ import java.util.function.Supplier;
 
 public class MobPassengerFeature<P extends MobEntity, V extends MobEntity> extends Feature<NoFeatureConfig> {
 
-    private final Supplier<WeightedRandomList<Pair<EntityType<? extends P>, EntityType<? extends V>>>> entityTypes;
+    private final WeightedRandomList<Pair<Supplier<EntityType<? extends P>>, Supplier<EntityType<? extends V>>>> entityTypes;
 
-    public MobPassengerFeature(EntityType<? extends P> passenger, EntityType<? extends V> vehicle) {
+    public MobPassengerFeature(Supplier<EntityType<? extends P>> passenger, Supplier<EntityType<? extends V>> vehicle) {
         super(NoFeatureConfig.CODEC);
-        this.entityTypes = () -> WeightedRandomList.create(WeightedEntry.of(Pair.of(passenger, vehicle), 1));
+        this.entityTypes = WeightedRandomList.create(WeightedEntry.of(Pair.of(passenger, vehicle), 1));
     }
 
     @Override
     public boolean place(ISeedReader world, ChunkGenerator chunkGenerator, Random random, BlockPos position, NoFeatureConfig config) {
-        Pair<EntityType<? extends P>, EntityType<? extends V>> pair = this.entityTypes.get().getRandom(world.getRandom());
+        Pair<Supplier<EntityType<? extends P>>, Supplier<EntityType<? extends V>>> pair = this.entityTypes.getRandom(world.getRandom());
 
-        P passenger = this.createPassenger(world, position, pair);
-        V vehicle = this.createVehicle(world, position, pair);
+        P passenger = this.createPassenger(world, position, pair.getFirst().get());
+        V vehicle = this.createVehicle(world, position, pair.getSecond().get());
 
         passenger.startRiding(vehicle);
         world.addFreshEntityWithPassengers(vehicle);
@@ -37,16 +37,16 @@ public class MobPassengerFeature<P extends MobEntity, V extends MobEntity> exten
         return true;
     }
 
-    private V createVehicle(ISeedReader world, BlockPos position, Pair<EntityType<? extends P>, EntityType<? extends V>> pair) {
-        V vehicle = pair.getSecond().create(world.getLevel());
+    private V createVehicle(ISeedReader world, BlockPos position, EntityType<? extends V> vehicleType) {
+        V vehicle = vehicleType.create(world.getLevel());
         vehicle.finalizeSpawn(world, world.getCurrentDifficultyAt(position), SpawnReason.SPAWNER, null, null);
         vehicle.setPos(position.getX(), position.getY(), position.getZ());
         vehicle.setPersistenceRequired();
         return vehicle;
     }
 
-    private P createPassenger(ISeedReader world, BlockPos position, Pair<EntityType<? extends P>, EntityType<? extends V>> pair) {
-        P passenger = pair.getFirst().create(world.getLevel());
+    private P createPassenger(ISeedReader world, BlockPos position, EntityType<? extends P> passengerType) {
+        P passenger = passengerType.create(world.getLevel());
         passenger.finalizeSpawn(world, world.getCurrentDifficultyAt(position), SpawnReason.SPAWNER, null, null);
         passenger.setPos(position.getX(), position.getY(), position.getZ());
         passenger.setPersistenceRequired();

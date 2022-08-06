@@ -1,9 +1,6 @@
 package com.izofar.bygonenether;
 
-import com.izofar.bygonenether.entity.PiglinPrisonerEntity;
-import com.izofar.bygonenether.entity.WarpedEndermanEntity;
-import com.izofar.bygonenether.entity.WexEntity;
-import com.izofar.bygonenether.entity.WitherSkeletonHorseEntity;
+import com.izofar.bygonenether.entity.*;
 import com.izofar.bygonenether.event.ModBlockEvents;
 import com.izofar.bygonenether.event.ModEntityEvents;
 import com.izofar.bygonenether.event.ModWorldEvents;
@@ -29,6 +26,9 @@ public abstract class RegistryEvents {
 		event.put(ModEntityTypes.PIGLIN_HUNTER.get(), PiglinBruteEntity.createAttributes().build());
 		event.put(ModEntityTypes.WEX.get(), WexEntity.createAttributes().build());
 		event.put(ModEntityTypes.WARPED_ENDERMAN.get(), WarpedEndermanEntity.createAttributes().build());
+		event.put(ModEntityTypes.CORPOR.get(), Corpor.createAttributes().build());
+		event.put(ModEntityTypes.WITHER_SKELETON_KNIGHT.get(), WitherSkeletonKnight.createAttributes().build());
+		event.put(ModEntityTypes.WRAITHER.get(), Wraither.createAttributes().build());
 		event.put(ModEntityTypes.WITHER_SKELETON_HORSE.get(), WitherSkeletonHorseEntity.createAttributes().build());
 	}
 }

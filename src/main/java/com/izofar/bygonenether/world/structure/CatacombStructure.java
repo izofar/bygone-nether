@@ -28,7 +28,6 @@ import java.util.List;
 public class CatacombStructure extends Structure<NoFeatureConfig> {
 
 	public static final List<MobSpawnInfo.Spawners> CATACOMB_ENEMIES = ImmutableList.of(
-			new MobSpawnInfo.Spawners(ModEntityTypes.WEX.get(), 1, 1, 1),
 			new MobSpawnInfo.Spawners(EntityType.MAGMA_CUBE, 2, 1, 1)
 	);
 

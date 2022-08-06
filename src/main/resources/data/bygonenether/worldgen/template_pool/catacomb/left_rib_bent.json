@@ -1,0 +1,42 @@
+{
+  "name": "bygonenether:catacomb/left_rib",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 3,
+      "element": {
+        "location": "bygonenether:catacomb/left_rib/bent_treasure",
+        "processors": "bygonenether:catacomb/withered_blackstone",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "location": "bygonenether:catacomb/left_rib/bent_spawner",
+        "processors": "bygonenether:catacomb/withered_blackstone",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "bygonenether:catacomb/left_rib/bent_prison",
+        "processors": "bygonenether:catacomb/withered_blackstone",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "bygonenether:catacomb/left_rib/bent_wither",
+        "processors": "bygonenether:catacomb/withered_blackstone",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    }
+  ]
+}

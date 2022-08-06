@@ -1,9 +1,14 @@
 package com.izofar.bygonenether;
 
 import com.izofar.bygonenether.client.renderer.*;
+import com.izofar.bygonenether.entity.ThrownWarpedEnderpearl;
+import com.izofar.bygonenether.entity.WitherSkeletonKnight;
 import com.izofar.bygonenether.init.*;
 import com.izofar.bygonenether.world.feature.ModFeatureUtils;
 import com.izofar.bygonenether.world.structure.util.ModStructureUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -46,7 +51,6 @@ public class BygoneNetherMod
             ModStructures.setupStructures();
             ModConfiguredStructures.registerConfiguredStructures();
             ModConfiguredFeatures.registerConfiguredFeatures();
-            ModStructureUtils.adjustBastionFeatureConfiguration();
             ModStructureUtils.addBasaltRestrictions();
             ModFeatureUtils.replaceBlackstoneBlobs();
             ModFeatureUtils.replaceBlackstoneInBastion();
@@ -59,5 +63,9 @@ public class BygoneNetherMod
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WEX.get(), WexRenderer:: new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WARPED_ENDERMAN.get(), WarpedEnderManRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WITHER_SKELETON_HORSE.get(), WitherSkeletonHorseRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.CORPOR.get(), CorporRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WITHER_SKELETON_KNIGHT.get(), WitherSkeletonKnightRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WRAITHER.get(), WraitherRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WARPED_ENDER_PEARL.get(), WarpedEnderpearlRenderer::new);
     }
 }

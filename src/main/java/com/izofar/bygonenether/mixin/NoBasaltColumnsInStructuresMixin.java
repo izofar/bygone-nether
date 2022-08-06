@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Optional;
+import java.util.function.Supplier;
 
 @Mixin(BasaltColumnFeature.class)
 public class NoBasaltColumnsInStructuresMixin {
@@ -25,8 +26,8 @@ public class NoBasaltColumnsInStructuresMixin {
 		)
     private static void bygonenether_noBasaltColumnsInStructures(IWorld world, int seaLevel, BlockPos.Mutable mutable, CallbackInfoReturnable<Boolean> cir) {
         SectionPos sectionPos = SectionPos.of(mutable);
-        for (Structure<?> structure : ModLists.DELTALESS_STRUCTURES) {
-            Optional<? extends StructureStart<?>> structureStart = ((ISeedReader)world).startsForFeature(sectionPos, structure).findAny();
+        for (Supplier<Structure<?>> structure : ModLists.DELTALESS_STRUCTURES) {
+            Optional<? extends StructureStart<?>> structureStart = ((ISeedReader)world).startsForFeature(sectionPos, structure.get()).findAny();
             if (structureStart.isPresent() && structureStart.get().getPieces().stream().anyMatch(box -> box.getBoundingBox().isInside(mutable)))
             {
                 cir.setReturnValue(false);

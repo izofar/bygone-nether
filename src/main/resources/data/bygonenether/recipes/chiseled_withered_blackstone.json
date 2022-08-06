@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "bygonenether:withered_blackstone_slab"
+    }
+  },
+  "result": {
+    "item": "bygonenether:chiseled_withered_blackstone"
+  }
+}

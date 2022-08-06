@@ -5,7 +5,7 @@
     {
       "weight": 1,
       "element": {
-        "location": "bygonenether:catacomb/spine_column",
+        "location": "bygonenether:catacomb/spine",
         "processors": "bygonenether:catacomb/withered_blackstone",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"

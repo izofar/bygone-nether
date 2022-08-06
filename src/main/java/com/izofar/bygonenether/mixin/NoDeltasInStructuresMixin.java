@@ -16,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Optional;
 import java.util.Random;
+import java.util.function.Supplier;
 
 @Mixin(BasaltDeltasStructure.class)
 public class NoDeltasInStructuresMixin {
@@ -27,8 +28,8 @@ public class NoDeltasInStructuresMixin {
 		)
     private void bygonenether_noDeltasInStructures(ISeedReader serverWorldAccess, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, BasaltDeltasFeature config, CallbackInfoReturnable<Boolean> cir) {
         SectionPos sectionPos = SectionPos.of(blockPos);
-        for (Structure<?> structure : ModLists.DELTALESS_STRUCTURES) {
-            Optional<? extends StructureStart<?>> structureStart = serverWorldAccess.startsForFeature(sectionPos, structure).findAny();
+        for (Supplier<Structure<?>> structure : ModLists.DELTALESS_STRUCTURES) {
+            Optional<? extends StructureStart<?>> structureStart = serverWorldAccess.startsForFeature(sectionPos, structure.get()).findAny();
             if (structureStart.isPresent() && structureStart.get().getPieces().stream().anyMatch(box -> box.getBoundingBox().isInside(blockPos)))
             {
                 cir.setReturnValue(false);

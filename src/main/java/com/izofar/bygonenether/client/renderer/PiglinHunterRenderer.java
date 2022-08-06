@@ -15,7 +15,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class PiglinHunterRenderer extends BipedRenderer<PiglinHunterEntity, PiglinHunterModel> {
 
-    private static final ResourceLocation PIGLIN_HUNTER_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/piglin_hunter.png");
+    private static final ResourceLocation PIGLIN_HUNTER_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/piglin/piglin_hunter.png");
 
     public PiglinHunterRenderer(EntityRendererManager entityRendererManager) {
         super(entityRendererManager, createModel(false), 0.5F, 1.0019531F, 1.0F, 1.0019531F);

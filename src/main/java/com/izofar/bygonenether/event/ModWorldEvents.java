@@ -3,6 +3,7 @@ package com.izofar.bygonenether.event;
 import com.izofar.bygonenether.init.ModConfiguredFeatures;
 import com.izofar.bygonenether.init.ModConfiguredStructures;
 import com.izofar.bygonenether.init.ModStructures;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
@@ -31,78 +32,89 @@ public abstract class ModWorldEvents {
 		if(event.getCategory() == Biome.Category.NETHER){
 			event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_NETHER_FORTRESS);
 			event.getGeneration().getStructures().removeIf((supplier) -> supplier.get().feature == StructureFeatures.NETHER_BRIDGE.feature);
-			if(event.getName().equals(Biomes.SOUL_SAND_VALLEY.location())) {
+			if(isBiome(event, Biomes.SOUL_SAND_VALLEY.location())) {
 				event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_CATACOMB);
 				event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> ModConfiguredFeatures.SOUL_STONE_BLOBS);
 			}
-			else if(event.getName().equals(Biomes.CRIMSON_FOREST.location()))
+			else if(isBiome(event, Biomes.CRIMSON_FOREST.location()))
 				event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_PIGLIN_MANOR);
-			else if(event.getName().equals(Biomes.WARPED_FOREST.location()))
+			else if(isBiome(event, Biomes.WARPED_FOREST.location()))
 				event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_CITADEL);
 
-			if(event.getName().equals(Biomes.BASALT_DELTAS.location()))
+			if(isBiome(event, Biomes.BASALT_DELTAS.location()))
 				event.getGeneration().getStructures().add(() -> StructureFeatures.BASTION_REMNANT);
-			else
-				event.getGeneration().getStructures().removeIf((supplier) -> supplier.get().config instanceof VillageConfig && ((VillageConfig) supplier.get().config).startPool().get().getName().equals(StructureFeatures.BASTION_REMNANT.config.startPool().get().getName()));
 
-			if(ModList.get().isLoaded("biomesoplenty")){
-				if (event.getName().toString().equals("biomesoplenty:crystalline_chasm")
-						|| event.getName().toString().equals("biomesoplenty:undergrowth")
-						|| event.getName().toString().equals("biomesoplenty:visceral_heap"))
+			if(isLoaded("biomesoplenty")){
+				if (isBiome(event, "biomesoplenty:crystalline_chasm")
+						|| isBiome(event, "biomesoplenty:undergrowth")
+						|| isBiome(event, "biomesoplenty:visceral_heap"))
 					;// Nether Fortress Only
-				else if(event.getName().toString().equals("biomesoplenty:withered_abyss"))
+				else if(isBiome(event, "biomesoplenty:withered_abyss"))
 					event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_CATACOMB);
 			}
 
-			if(ModList.get().isLoaded("cinderscapes")){
-				if (event.getName().toString().equals("cinderscapes:quartz_canyon")
-						|| event.getName().toString().equals("cinderscapes:luminous_grove"))
+			if(isLoaded("cinderscapes")){
+				if (isBiome(event, "cinderscapes:quartz_canyon")
+						|| isBiome(event, "cinderscapes:luminous_grove"))
 					;// Nether Fortress Only
-				else if(event.getName().toString().equals("cinderscapes:ashy_shoals")
-						|| event.getName().toString().equals("cinderscapes:blackstone_shales")) {
+				else if(isBiome(event, "cinderscapes:ashy_shoals")
+						|| isBiome(event, "cinderscapes:blackstone_shales")) {
 					event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_CATACOMB);
 					event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> ModConfiguredFeatures.SOUL_STONE_BLOBS);
 				}
 			}
 
-			if(ModList.get().isLoaded("betternether")){
-				if (event.getName().toString().equals("betternether:bone_reef")
-					|| event.getName().toString().equals("betternether:nether_jungle")
-					|| event.getName().toString().equals("betternether:old_warped_woods")
-					|| event.getName().toString().equals("betternether:upside_down_forest"))
+			if(isLoaded("betternether")){
+				if (isBiome(event, "betternether:bone_reef")
+					|| isBiome(event, "betternether:nether_jungle")
+					|| isBiome(event, "betternether:old_warped_woods")
+					|| isBiome(event, "betternether:upside_down_forest"))
 					event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_CITADEL);
-				else if (event.getName().toString().equals("betternether:crimson_glowing_woods")
-						|| event.getName().toString().equals("betternether:crimson_pinewood"))
+				else if (isBiome(event, "betternether:crimson_glowing_woods")
+						|| isBiome(event, "betternether:crimson_pinewood"))
 					event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_PIGLIN_MANOR);
-				else if (event.getName().toString().equals("betternether:flooded_deltas"))
+				else if (isBiome(event, "betternether:flooded_deltas"))
 					event.getGeneration().getStructures().add(() -> StructureFeatures.BASTION_REMNANT);
-				else if(event.getName().toString().equals("betternether:soul_plain")) {
+				else if(isBiome(event, "betternether:soul_plain")) {
 					event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_CATACOMB);
 					event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> ModConfiguredFeatures.SOUL_STONE_BLOBS);
-				} else if(event.getName().toString().equals("betternether:nether_grasslands")
-						|| event.getName().toString().equals("betternether:poor_nether_grasslands")
-						|| event.getName().toString().equals("betternether:wart_forest")
-						|| event.getName().toString().equals("betternether:wart_forest_edge"))
+				} else if(isBiome(event, "betternether:nether_grasslands")
+						|| isBiome(event, "betternether:poor_nether_grasslands")
+						|| isBiome(event, "betternether:wart_forest")
+						|| isBiome(event, "betternether:wart_forest_edge"))
 					event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> ModConfiguredFeatures.SOUL_STONE_BLOBS);
-				else if(event.getName().toString().equals("betternether:gravel_desert")
-						|| event.getName().toString().equals("betternether:magma_land")
-						|| event.getName().toString().equals("betternether:nether_mushroom_forest")
-						|| event.getName().toString().equals("betternether:nether_mushroom_forest_edge")
-						|| event.getName().toString().equals("betternether:nether_swampland")
-						|| event.getName().toString().equals("betternether:nether_swampland_terraces")
-						|| event.getName().toString().equals("betternether:old_fungiwoods")
-						|| event.getName().toString().equals("betternether:old_swampland")
-						|| event.getName().toString().equals("betternether:sulfuric_bone_reef"))
+				else if(isBiome(event, "betternether:gravel_desert")
+						|| isBiome(event, "betternether:magma_land")
+						|| isBiome(event, "betternether:nether_mushroom_forest")
+						|| isBiome(event, "betternether:nether_mushroom_forest_edge")
+						|| isBiome(event, "betternether:nether_swampland")
+						|| isBiome(event, "betternether:nether_swampland_terraces")
+						|| isBiome(event, "betternether:old_fungiwoods")
+						|| isBiome(event, "betternether:old_swampland")
+						|| isBiome(event, "betternether:sulfuric_bone_reef"))
 					;// Nether Fortress Only
 			}
 
-			if(ModList.get().isLoaded("infernalexp")){
-				if (event.getName().toString().equals("infernalexp:glowstone_canyon"))
+			if(isLoaded("infernalexp")){
+				if (isBiome(event, "infernalexp:glowstone_canyon"))
 					;// Nether Fortress Only
+			}
+
+			if(isLoaded("byg")){
+				if (isBiome(event, "byg:waiting_garth"))
+					event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_CATACOMB);
+				else if(isBiome(event, "byg:crimson_gardens"))
+					event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_PIGLIN_MANOR);
+				else if(isBiome(event, "byg:glowstone_gardens"))
+					event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_CITADEL);
 			}
 
 		}
 	}
+
+	private static boolean isLoaded(String modid){ return ModList.get().isLoaded(modid); }
+	private static boolean isBiome(final BiomeLoadingEvent event, String key){ return event.getName().toString().equals(key); }
+	private static boolean isBiome(final BiomeLoadingEvent event, ResourceLocation location){ return event.getName().equals(location); }
 
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public static void addDimensionSpacing(final WorldEvent.Load event) {

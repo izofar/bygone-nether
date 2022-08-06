@@ -15,8 +15,15 @@ public abstract class ModBlocks {
 
 	public static final RegistryObject<Block> COBBLED_BLACKSTONE = MODDED_BLOCKS.register("cobbled_blackstone", () -> new Block(AbstractBlock.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(2.0F, 6.0F)));
 	public static final RegistryObject<Block> WITHERED_BLACKSTONE = MODDED_BLOCKS.register("withered_blackstone", () -> new Block(AbstractBlock.Properties.of(Material.STONE, MaterialColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(2.5F, 1200.0F).sound(SoundType.NETHER_BRICKS)));
+	public static final RegistryObject<Block> WITHERED_BLACKSTONE_STAIRS = MODDED_BLOCKS.register("withered_blackstone_stairs", () -> new StairsBlock(() -> WITHERED_BLACKSTONE.get().defaultBlockState(), AbstractBlock.Properties.copy(WITHERED_BLACKSTONE.get())));
+	public static final RegistryObject<Block> WITHERED_BLACKSTONE_SLAB = MODDED_BLOCKS.register("withered_blackstone_slab",  () -> new SlabBlock(AbstractBlock.Properties.copy(WITHERED_BLACKSTONE.get())));
 	public static final RegistryObject<Block> CRACKED_WITHERED_BLACKSTONE = MODDED_BLOCKS.register("cracked_withered_blackstone", () -> new Block(AbstractBlock.Properties.of(Material.STONE, MaterialColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(2.5F, 1200.0F).sound(SoundType.NETHER_BRICKS)));
+	public static final RegistryObject<Block> CRACKED_WITHERED_BLACKSTONE_STAIRS = MODDED_BLOCKS.register("cracked_withered_blackstone_stairs", () -> new StairsBlock(() -> WITHERED_BLACKSTONE.get().defaultBlockState(), AbstractBlock.Properties.copy(WITHERED_BLACKSTONE.get())));
+	public static final RegistryObject<Block> CRACKED_WITHERED_BLACKSTONE_SLAB = MODDED_BLOCKS.register("cracked_withered_blackstone_slab",  () -> new SlabBlock(AbstractBlock.Properties.copy(WITHERED_BLACKSTONE.get())));
 	public static final RegistryObject<Block> CHISELED_WITHERED_BLACKSTONE = MODDED_BLOCKS.register("chiseled_withered_blackstone", () -> new Block(AbstractBlock.Properties.of(Material.STONE, MaterialColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(2.5F, 1200.0F).sound(SoundType.NETHER_BRICKS)));
+	public static final RegistryObject<Block> WITHERED_BASALT = MODDED_BLOCKS.register("withered_basalt", () -> new Block(AbstractBlock.Properties.copy(Blocks.BASALT)));
+	public static final RegistryObject<Block> WITHERED_COAL_BLOCK = MODDED_BLOCKS.register("withered_coal_block", () -> new Block(AbstractBlock.Properties.copy(Blocks.COAL_BLOCK)));
+	public static final RegistryObject<Block> WITHERED_QUARTZ_BLOCK = MODDED_BLOCKS.register("withered_quartz_block", () -> new Block(AbstractBlock.Properties.copy(Blocks.QUARTZ_BLOCK)));
 	public static final RegistryObject<Block> WITHERED_DEBRIS = MODDED_BLOCKS.register("withered_debris", () -> new Block(AbstractBlock.Properties.of(Material.METAL, MaterialColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(30.0F, 1200.0F).sound(SoundType.ANCIENT_DEBRIS)));
 	public static final RegistryObject<Block> SOUL_STONE = MODDED_BLOCKS.register("soul_stone", () -> new Block(AbstractBlock.Properties.of(Material.STONE, MaterialColor.COLOR_BROWN).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
 	

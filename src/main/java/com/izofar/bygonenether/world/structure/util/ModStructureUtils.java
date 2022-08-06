@@ -122,12 +122,6 @@ public abstract class ModStructureUtils {
 		});
 	}
 
-	public static void adjustBastionFeatureConfiguration(){
-		StructureSeparationSettings settings = DimensionStructuresSettings.DEFAULTS.get(StructureFeatures.BASTION_REMNANT);
-		settings.separation = 4;
-		settings.spacing = 12;
-	}
-
 	public static void addBasaltRestrictions() {
 		BasaltColumnFeature.CANNOT_PLACE_ON = ImmutableList.of(
 				// Default
