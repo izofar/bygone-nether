@@ -6,7 +6,7 @@ plugins {
     id 'org.spongepowered.mixin' version '0.7.+'
 }
 
-version = "${minecraft_version}-${mod_version}"
+version = "${mod_version}-${minecraft_version}"
 group = mod_base_package
 archivesBaseName = mod_id
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
