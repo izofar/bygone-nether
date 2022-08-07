@@ -5,12 +5,16 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.WitherSkeleton;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
 public class WitherSkeletonKnight extends WitherSkeleton {
@@ -54,6 +58,12 @@ public class WitherSkeletonKnight extends WitherSkeleton {
 
     private void setDisarmored(boolean disarmored){
         this.entityData.set(DATA_IS_DISARMORED, disarmored);
+    }
+
+    @Override
+    public void populateDefaultEquipmentSlots(DifficultyInstance difficulty){
+        super.populateDefaultEquipmentSlots(difficulty);
+        this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
     }
 
     @Override

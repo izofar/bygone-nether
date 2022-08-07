@@ -14,7 +14,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class WraitherRenderer extends MobRenderer<Wraither, SkeletonModel<Wraither>> {
 
-    private static final ResourceLocation WITHER_SKELETON_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/wither/wraither.png");
+    private static final ResourceLocation POSSESSED_SKELETON_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/wither/wraither.png");
+    private static final ResourceLocation WITHER_SKELETON_LOCATION = new ResourceLocation("textures/entity/skeleton/wither_skeleton.png");
 
     public WraitherRenderer(EntityRendererProvider.Context context) {
         super(context, new SkeletonModel<>(SkeletonModel.createBodyLayer().bakeRoot()), 0.5F);
@@ -23,7 +24,7 @@ public class WraitherRenderer extends MobRenderer<Wraither, SkeletonModel<Wraith
 
     @Override
     public ResourceLocation getTextureLocation(Wraither skeleton) {
-        return WITHER_SKELETON_LOCATION;
+        return skeleton.isPossessed() ? POSSESSED_SKELETON_LOCATION : WITHER_SKELETON_LOCATION;
     }
 
     @Override

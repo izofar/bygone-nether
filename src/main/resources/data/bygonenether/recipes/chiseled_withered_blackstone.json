@@ -6,10 +6,10 @@
   ],
   "key": {
     "#": {
-      "item": "minecraft:cobbled_deepslate_slab"
+      "item": "bygonenether:withered_blackstone_slab"
     }
   },
   "result": {
-    "item": "minecraft:chiseled_deepslate"
+    "item": "bygonenether:chiseled_withered_blackstone"
   }
 }
