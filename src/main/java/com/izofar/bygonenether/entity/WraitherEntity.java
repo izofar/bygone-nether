@@ -22,7 +22,7 @@ public class WraitherEntity extends WitherSkeletonEntity {
     public WraitherEntity(EntityType<? extends WitherSkeletonEntity> entityType, World level) { super(entityType, level); }
 
     public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MonsterEntity.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, 0.32D).add(Attributes.MAX_HEALTH, 20.0D);
+        return MonsterEntity.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, 0.32D).add(Attributes.MAX_HEALTH, 25.0D);
     }
 
     @Override
@@ -58,8 +58,6 @@ public class WraitherEntity extends WitherSkeletonEntity {
     private void dispossess(){
         this.setPossessed(false);
         this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.25D);
-        this.setHealth(10.0F);
-        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(4.0D);
         if(this.level instanceof ServerWorld) {
             ServerWorld serverWorld = (ServerWorld) this.level;
             WexEntity wex = ModEntityTypes.WEX.get().create(serverWorld);
