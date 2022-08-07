@@ -26,9 +26,9 @@ public abstract class RegistryEvents {
 		event.put(ModEntityTypes.PIGLIN_HUNTER.get(), PiglinBruteEntity.createAttributes().build());
 		event.put(ModEntityTypes.WEX.get(), WexEntity.createAttributes().build());
 		event.put(ModEntityTypes.WARPED_ENDERMAN.get(), WarpedEndermanEntity.createAttributes().build());
-		event.put(ModEntityTypes.CORPOR.get(), Corpor.createAttributes().build());
-		event.put(ModEntityTypes.WITHER_SKELETON_KNIGHT.get(), WitherSkeletonKnight.createAttributes().build());
-		event.put(ModEntityTypes.WRAITHER.get(), Wraither.createAttributes().build());
+		event.put(ModEntityTypes.CORPOR.get(), CorporEntity.createAttributes().build());
+		event.put(ModEntityTypes.WITHER_SKELETON_KNIGHT.get(), WitherSkeletonKnightEntity.createAttributes().build());
+		event.put(ModEntityTypes.WRAITHER.get(), WraitherEntity.createAttributes().build());
 		event.put(ModEntityTypes.WITHER_SKELETON_HORSE.get(), WitherSkeletonHorseEntity.createAttributes().build());
 	}
 }

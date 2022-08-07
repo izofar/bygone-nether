@@ -27,13 +27,13 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class ThrownWarpedEnderpearl extends ProjectileItemEntity {
+public class ThrownWarpedEnderpearlEntity extends ProjectileItemEntity {
 
-    public ThrownWarpedEnderpearl(EntityType<? extends ThrownWarpedEnderpearl> entityType, World level) {
+    public ThrownWarpedEnderpearlEntity(EntityType<? extends ThrownWarpedEnderpearlEntity> entityType, World level) {
         super(entityType, level);
     }
 
-    public ThrownWarpedEnderpearl(World level, LivingEntity entity) {
+    public ThrownWarpedEnderpearlEntity(World level, LivingEntity entity) {
         super(ModEntityTypes.WARPED_ENDER_PEARL.get(), entity, level);
     }
 

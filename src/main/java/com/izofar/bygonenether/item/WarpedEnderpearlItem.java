@@ -1,7 +1,6 @@
 package com.izofar.bygonenether.item;
 
-import com.izofar.bygonenether.entity.ThrownWarpedEnderpearl;
-import net.minecraft.client.audio.SoundSource;
+import com.izofar.bygonenether.entity.ThrownWarpedEnderpearlEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.EnderPearlItem;
 import net.minecraft.item.ItemStack;
@@ -24,7 +23,7 @@ public class WarpedEnderpearlItem extends EnderPearlItem {
         world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENDER_PEARL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
         player.getCooldowns().addCooldown(this, COOL_DOWN);
         if (!world.isClientSide) {
-            ThrownWarpedEnderpearl thrownenderpearl = new ThrownWarpedEnderpearl(world, player);
+            ThrownWarpedEnderpearlEntity thrownenderpearl = new ThrownWarpedEnderpearlEntity(world, player);
             thrownenderpearl.setItem(itemstack);
             thrownenderpearl.shootFromRotation(player, player.xRot, player.yRot, 0.0F, 1.5F, 1.0F);
             world.addFreshEntity(thrownenderpearl);

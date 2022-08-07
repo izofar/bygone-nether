@@ -26,8 +26,8 @@ public abstract class ModLists {
 		);
 	public static final WeightedRandomList<Supplier<EntityType<? extends WitherSkeletonEntity>>> CATACOMB_MOBS = WeightedRandomList.create(
 			WeightedEntry.of((Supplier<EntityType<? extends WitherSkeletonEntity>>) ModEntityTypes.CORPOR::get, 1),
-			WeightedEntry.of((Supplier<EntityType<? extends WitherSkeletonEntity>>) ModEntityTypes.WITHER_SKELETON_KNIGHT::get, 2),
-			WeightedEntry.of((Supplier<EntityType<? extends WitherSkeletonEntity>> )ModEntityTypes.WRAITHER::get, 3),
-			WeightedEntry.of((Supplier<EntityType<? extends WitherSkeletonEntity>>) () -> EntityType.WITHER_SKELETON, 1)
+			WeightedEntry.of((Supplier<EntityType<? extends WitherSkeletonEntity>>) ModEntityTypes.WITHER_SKELETON_KNIGHT::get, 1),
+			WeightedEntry.of((Supplier<EntityType<? extends WitherSkeletonEntity>> )ModEntityTypes.WRAITHER::get, 1),
+			WeightedEntry.of((Supplier<EntityType<? extends WitherSkeletonEntity>>) () -> EntityType.WITHER_SKELETON, 3)
 	);
 }

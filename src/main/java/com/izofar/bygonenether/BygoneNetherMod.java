@@ -1,14 +1,9 @@
 package com.izofar.bygonenether;
 
 import com.izofar.bygonenether.client.renderer.*;
-import com.izofar.bygonenether.entity.ThrownWarpedEnderpearl;
-import com.izofar.bygonenether.entity.WitherSkeletonKnight;
 import com.izofar.bygonenether.init.*;
 import com.izofar.bygonenether.world.feature.ModFeatureUtils;
 import com.izofar.bygonenether.world.structure.util.ModStructureUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;

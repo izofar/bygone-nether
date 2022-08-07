@@ -1,6 +1,6 @@
 package com.izofar.bygonenether.client.model;
 
-import com.izofar.bygonenether.entity.Corpor;
+import com.izofar.bygonenether.entity.CorporEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelHelper;
@@ -11,7 +11,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.HandSide;
 import net.minecraft.util.math.MathHelper;
 
-public class CorporModel extends BipedModel<Corpor> {
+public class CorporModel extends BipedModel<CorporEntity> {
     
     public CorporModel() { 
         super(0.0F);
@@ -35,24 +35,24 @@ public class CorporModel extends BipedModel<Corpor> {
         this.leftLeg.setPos(2.0F, 12.0F, 0.0F);
     }
 
-    public void prepareMobModel(Corpor corpor, float pitch, float yaw, float roll) {
+    public void prepareMobModel(CorporEntity corporEntity, float pitch, float yaw, float roll) {
         this.rightArmPose = BipedModel.ArmPose.EMPTY;
         this.leftArmPose = BipedModel.ArmPose.EMPTY;
-        ItemStack itemstack = corpor.getItemInHand(Hand.MAIN_HAND);
-        if (itemstack.getItem() == Items.BOW && corpor.isAggressive()) {
-            if (corpor.getMainArm() == HandSide.RIGHT) {
+        ItemStack itemstack = corporEntity.getItemInHand(Hand.MAIN_HAND);
+        if (itemstack.getItem() == Items.BOW && corporEntity.isAggressive()) {
+            if (corporEntity.getMainArm() == HandSide.RIGHT) {
                 this.rightArmPose = BipedModel.ArmPose.BOW_AND_ARROW;
             } else {
                 this.leftArmPose = BipedModel.ArmPose.BOW_AND_ARROW;
             }
         }
-        super.prepareMobModel(corpor, pitch, yaw, roll);
+        super.prepareMobModel(corporEntity, pitch, yaw, roll);
     }
 
-    public void setupAnim(Corpor corpor, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setupAnim(corpor, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-        ItemStack itemstack = corpor.getMainHandItem();
-        if (corpor.isAggressive() && (itemstack.isEmpty() || itemstack.getItem() != Items.BOW)) {
+    public void setupAnim(CorporEntity corporEntity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        super.setupAnim(corporEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        ItemStack itemstack = corporEntity.getMainHandItem();
+        if (corporEntity.isAggressive() && (itemstack.isEmpty() || itemstack.getItem() != Items.BOW)) {
             float f = MathHelper.sin(this.attackTime * (float)Math.PI);
             float f1 = MathHelper.sin((1.0F - (1.0F - this.attackTime) * (1.0F - this.attackTime)) * (float)Math.PI);
             this.rightArm.zRot = 0.0F;

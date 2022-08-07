@@ -3,6 +3,10 @@ package com.izofar.bygonenether.event;
 import com.izofar.bygonenether.init.ModConfiguredFeatures;
 import com.izofar.bygonenether.init.ModConfiguredStructures;
 import com.izofar.bygonenether.init.ModStructures;
+import net.minecraft.entity.monster.WitherSkeletonEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -16,6 +20,8 @@ import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -23,7 +29,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
 
 public abstract class ModWorldEvents {
 
@@ -118,7 +126,7 @@ public abstract class ModWorldEvents {
 
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public static void addDimensionSpacing(final WorldEvent.Load event) {
-		if (event.getWorld()instanceof ServerWorld) {
+		if (event.getWorld() instanceof ServerWorld) {
 			ServerWorld serverWorld = (ServerWorld) event.getWorld();
 			ChunkGenerator chunkGenerator = serverWorld.getChunkSource().getGenerator();
 

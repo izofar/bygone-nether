@@ -1,7 +1,7 @@
 package com.izofar.bygonenether.client.model;
 
 import com.google.common.collect.ImmutableList;
-import com.izofar.bygonenether.entity.WitherSkeletonKnight;
+import com.izofar.bygonenether.entity.WitherSkeletonKnightEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.BipedModel;
@@ -15,7 +15,7 @@ import net.minecraft.util.math.MathHelper;
 
 import java.util.List;
 
-public class WitherSkeletonKnightModel extends BipedModel<WitherSkeletonKnight> {
+public class WitherSkeletonKnightModel extends BipedModel<WitherSkeletonKnightEntity> {
 
     private final List<ModelRenderer> armor;
 
@@ -88,24 +88,24 @@ public class WitherSkeletonKnightModel extends BipedModel<WitherSkeletonKnight> 
 
     }
 
-    public void prepareMobModel(WitherSkeletonKnight witherSkeletonKnight, float pitch, float yaw, float roll) {
+    public void prepareMobModel(WitherSkeletonKnightEntity witherSkeletonKnightEntity, float pitch, float yaw, float roll) {
         this.rightArmPose = BipedModel.ArmPose.EMPTY;
         this.leftArmPose = BipedModel.ArmPose.EMPTY;
-        ItemStack itemstack = witherSkeletonKnight.getItemInHand(Hand.MAIN_HAND);
-        if (itemstack.getItem() == Items.BOW && witherSkeletonKnight.isAggressive()) {
-            if (witherSkeletonKnight.getMainArm() == HandSide.RIGHT) {
+        ItemStack itemstack = witherSkeletonKnightEntity.getItemInHand(Hand.MAIN_HAND);
+        if (itemstack.getItem() == Items.BOW && witherSkeletonKnightEntity.isAggressive()) {
+            if (witherSkeletonKnightEntity.getMainArm() == HandSide.RIGHT) {
                 this.rightArmPose = BipedModel.ArmPose.BOW_AND_ARROW;
             } else {
                 this.leftArmPose = BipedModel.ArmPose.BOW_AND_ARROW;
             }
         }
-        super.prepareMobModel(witherSkeletonKnight, pitch, yaw, roll);
+        super.prepareMobModel(witherSkeletonKnightEntity, pitch, yaw, roll);
     }
 
-    public void setupAnim(WitherSkeletonKnight witherSkeletonKnight, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setupAnim(witherSkeletonKnight, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-        ItemStack itemstack = witherSkeletonKnight.getMainHandItem();
-        if (witherSkeletonKnight.isAggressive() && (itemstack.isEmpty() || itemstack.getItem() != Items.BOW)) {
+    public void setupAnim(WitherSkeletonKnightEntity witherSkeletonKnightEntity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        super.setupAnim(witherSkeletonKnightEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        ItemStack itemstack = witherSkeletonKnightEntity.getMainHandItem();
+        if (witherSkeletonKnightEntity.isAggressive() && (itemstack.isEmpty() || itemstack.getItem() != Items.BOW)) {
             float f = MathHelper.sin(this.attackTime * (float)Math.PI);
             float f1 = MathHelper.sin((1.0F - (1.0F - this.attackTime) * (1.0F - this.attackTime)) * (float)Math.PI);
             this.rightArm.zRot = 0.0F;

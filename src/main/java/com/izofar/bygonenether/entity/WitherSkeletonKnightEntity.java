@@ -5,20 +5,24 @@ import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.monster.WitherSkeletonEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public class WitherSkeletonKnight extends WitherSkeletonEntity {
+public class WitherSkeletonKnightEntity extends WitherSkeletonEntity {
 
-    private static final DataParameter<Boolean> DATA_IS_DISARMORED = EntityDataManager.defineId(WitherSkeletonKnight.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> DATA_IS_DISARMORED = EntityDataManager.defineId(WitherSkeletonKnightEntity.class, DataSerializers.BOOLEAN);
     private static final float BREAK_HEALTH = 20.0f;
 
-    public WitherSkeletonKnight(EntityType<? extends WitherSkeletonEntity> entityType, World world) {
+    public WitherSkeletonKnightEntity(EntityType<? extends WitherSkeletonEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -46,6 +50,12 @@ public class WitherSkeletonKnight extends WitherSkeletonEntity {
     protected void defineSynchedData(){
         super.defineSynchedData();
         this.entityData.define(DATA_IS_DISARMORED, false);
+    }
+
+    @Override
+    protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {
+        super.populateDefaultEquipmentSlots(difficulty);
+        this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.SHIELD));
     }
 
     public boolean isDisarmored(){

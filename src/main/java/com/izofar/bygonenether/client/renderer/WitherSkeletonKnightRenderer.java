@@ -2,13 +2,13 @@ package com.izofar.bygonenether.client.renderer;
 
 import com.izofar.bygonenether.BygoneNetherMod;
 import com.izofar.bygonenether.client.model.WitherSkeletonKnightModel;
-import com.izofar.bygonenether.entity.WitherSkeletonKnight;
+import com.izofar.bygonenether.entity.WitherSkeletonKnightEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.entity.BipedRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;
 
-public class WitherSkeletonKnightRenderer extends BipedRenderer<WitherSkeletonKnight, WitherSkeletonKnightModel> {
+public class WitherSkeletonKnightRenderer extends BipedRenderer<WitherSkeletonKnightEntity, WitherSkeletonKnightModel> {
 
     private static final ResourceLocation ARMORED_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/wither/wither_skeleton_knight.png");
     private static final ResourceLocation DISARMORED_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/wither/wither_skeleton_knight_disarmored.png");
@@ -19,11 +19,11 @@ public class WitherSkeletonKnightRenderer extends BipedRenderer<WitherSkeletonKn
     }
 
     @Override
-    public ResourceLocation getTextureLocation(WitherSkeletonKnight witherSkeletonKnight) {
-        return witherSkeletonKnight.isDisarmored() ? DISARMORED_LOCATION : ARMORED_LOCATION;
+    public ResourceLocation getTextureLocation(WitherSkeletonKnightEntity witherSkeletonKnightEntity) {
+        return witherSkeletonKnightEntity.isDisarmored() ? DISARMORED_LOCATION : ARMORED_LOCATION;
     }
 
-    protected void scale(WitherSkeletonKnight witherSkeletonKnight, MatrixStack stack, float f) {
+    protected void scale(WitherSkeletonKnightEntity witherSkeletonKnightEntity, MatrixStack stack, float f) {
         stack.scale(1.2F, 1.2F, 1.2F);
     }
 }
