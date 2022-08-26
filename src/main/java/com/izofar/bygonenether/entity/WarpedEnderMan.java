@@ -55,7 +55,7 @@ public class WarpedEnderMan extends EnderMan{
 
 	public WarpedEnderMan(EntityType<? extends EnderMan> entityType, Level world) {
 		super(entityType, world);
-		this.setVariant(randomVariant(world.getRandom()));
+		this.setVariant(randomVariant(this.getRandom()));
 	}
 
 	@Override
