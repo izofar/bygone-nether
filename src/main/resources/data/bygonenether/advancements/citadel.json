@@ -5,10 +5,10 @@
       "item": "bygonenether:chiseled_warped_nether_bricks"
     },
     "title": {
-      "translate": "advancements.citadel.title"
+      "translate": "advancements.bygonenether.citadel.title"
     },
     "description": {
-      "translate": "advancements.citadel.description"
+      "translate": "advancements.bygonenether.citadel.description"
     },
     "frame": "task",
     "show_toast": true,

@@ -8,7 +8,7 @@
     ]
   },
   "entity.warped_enderman.ambient": {
-    "subtitle": "bygonenether.subtitle.entity.warped_enderman.ambient",
+    "subtitle": "subtitle.bygonenether.entity.warped_enderman.ambient",
     "sounds": [
       "bygonenether:entity/warped_enderman/idle1",
       "bygonenether:entity/warped_enderman/idle2",
@@ -18,13 +18,13 @@
     ]
   },
   "entity.warped_enderman.death": {
-    "subtitle": "bygonenether.subtitle.entity.warped_enderman.death",
+    "subtitle": "subtitle.bygonenether.entity.warped_enderman.death",
     "sounds": [
       "bygonenether:entity/warped_enderman/death"
     ]
   },
   "entity.warped_enderman.hurt": {
-    "subtitle": "bygonenether.subtitle.entity.warped_enderman.hurt",
+    "subtitle": "subtitle.bygonenether.entity.warped_enderman.hurt",
     "sounds": [
       "bygonenether:entity/warped_enderman/hit1",
       "bygonenether:entity/warped_enderman/hit2",
@@ -33,7 +33,7 @@
     ]
   },
   "entity.warped_enderman.scream": {
-    "subtitle": "bygonenether.subtitle.entity.warped_enderman.ambient",
+    "subtitle": "subtitle.bygonenether.entity.warped_enderman.ambient",
     "sounds": [
       "bygonenether:entity/warped_enderman/scream1",
       "bygonenether:entity/warped_enderman/scream2",
@@ -42,13 +42,13 @@
     ]
   },
   "entity.warped_enderman.stare": {
-    "subtitle": "bygonenether.subtitle.entity.warped_enderman.stare",
+    "subtitle": "subtitle.bygonenether.entity.warped_enderman.stare",
     "sounds": [
       "bygonenether:entity/warped_enderman/stare"
     ]
   },
   "entity.warped_enderman.teleport": {
-    "subtitle": "bygonenether.subtitle.entity.warped_enderman.teleport",
+    "subtitle": "subtitle.bygonenether.entity.warped_enderman.teleport",
     "sounds": [
       "bygonenether:entity/warped_enderman/portal",
       "bygonenether:entity/warped_enderman/portal2"
@@ -61,7 +61,7 @@
       "bygonenether:entity/wex/idle3",
       "bygonenether:entity/wex/idle4"
     ],
-    "subtitle": "bygonenether.subtitle.entity.wex.ambient"
+    "subtitle": "subtitle.bygonenether.entity.wex.ambient"
   },
   "entity.wex.charge": {
     "sounds": [
@@ -69,20 +69,20 @@
       "bygonenether:entity/wex/charge2",
       "bygonenether:entity/wex/charge3"
     ],
-    "subtitle": "bygonenether.subtitle.entity.wex.charge"
+    "subtitle": "subtitle.bygonenether.entity.wex.charge"
   },
   "entity.wex.death": {
     "sounds": [
       "bygonenether:entity/wex/death1",
       "bygonenether:entity/wex/death2"
     ],
-    "subtitle": "bygonenether.subtitle.entity.wex.death"
+    "subtitle": "subtitle.bygonenether.entity.wex.death"
   },
   "entity.wex.hurt": {
     "sounds": [
       "bygonenether:entity/wex/hurt1",
       "bygonenether:entity/wex/hurt2"
     ],
-    "subtitle": "bygonenether.subtitle.entity.wex.hurt"
+    "subtitle": "subtitle.bygonenether.entity.wex.hurt"
   }
 }

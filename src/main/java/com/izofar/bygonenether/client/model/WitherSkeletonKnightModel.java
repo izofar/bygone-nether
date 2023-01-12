@@ -63,7 +63,6 @@ public class WitherSkeletonKnightModel extends HumanoidModel<WitherSkeletonKnigh
                 this.leftArmPose = HumanoidModel.ArmPose.BOW_AND_ARROW;
             }
         }
-
         super.prepareMobModel(witherSkeletonKnight, pitch, yaw, roll);
     }
 
@@ -84,8 +83,27 @@ public class WitherSkeletonKnightModel extends HumanoidModel<WitherSkeletonKnigh
             AnimationUtils.bobArms(this.rightArm, this.leftArm, ageInTicks);
         }
 
+        if(witherSkeletonKnight.isAlive() && witherSkeletonKnight.isUsingShield()){
+            boolean flag = witherSkeletonKnight.getMainArm() == HumanoidArm.RIGHT;
+            if ((witherSkeletonKnight.getShieldHand() == InteractionHand.MAIN_HAND) == flag) {
+                this.poseRightArmShield();
+            } else if ((witherSkeletonKnight.getShieldHand() == InteractionHand.OFF_HAND) == flag){
+                this.poseLeftArmShield();
+            }
+        }
     }
 
+    private void poseRightArmShield(){
+        this.rightArm.xRot = this.rightArm.xRot * 0.5F - 0.9424779F;
+        this.rightArm.yRot = (-(float)Math.PI / 6F);
+    }
+
+    private void poseLeftArmShield(){
+        this.leftArm.xRot = this.leftArm.xRot * 0.5F - 0.9424779F;
+        this.leftArm.yRot = ((float)Math.PI / 6F);
+    }
+
+    @Override
     public void translateToHand(HumanoidArm arm, PoseStack pose) {
         float f = arm == HumanoidArm.RIGHT ? 1.0F : -1.0F;
         ModelPart modelpart = this.getArm(arm);
