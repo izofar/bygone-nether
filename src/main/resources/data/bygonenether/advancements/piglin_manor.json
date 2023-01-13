@@ -5,10 +5,10 @@
       "item": "minecraft:crimson_planks"
     },
     "title": {
-      "translate": "advancements.piglin_manor.title"
+      "translate": "advancements.bygonenether.piglin_manor.title"
     },
     "description": {
-      "translate": "advancements.piglin_manor.description"
+      "translate": "advancements.bygonenether.piglin_manor.description"
     },
     "frame": "task",
     "show_toast": true,

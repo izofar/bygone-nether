@@ -5,10 +5,10 @@
       "item": "minecraft:ender_pearl"
     },
     "title": {
-      "translate": "advancements.summon_enderman.title"
+      "translate": "advancements.bygonenether.summon_enderman.title"
     },
     "description": {
-      "translate": "advancements.summon_enderman.description"
+      "translate": "advancements.bygonenether.summon_enderman.description"
     },
     "frame": "task",
     "show_toast": true,
