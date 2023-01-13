@@ -4,10 +4,10 @@
       "item": "bygonenether:chiseled_withered_blackstone"
     },
     "title": {
-      "translate": "advancements.root.title"
+      "translate": "advancements.bygonenether.root.title"
     },
     "description": {
-      "translate": "advancements.root.description"
+      "translate": "advancements.bygonenether.root.description"
     },
     "frame": "task",
     "show_toast": false,
