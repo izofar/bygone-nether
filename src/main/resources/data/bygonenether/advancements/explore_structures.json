@@ -5,10 +5,10 @@
       "item": "bygonenether:gilded_netherite_boots"
     },
     "title": {
-      "translate": "advancements.explore_structures.title"
+      "translate": "advancements.bygonenether.explore_structures.title"
     },
     "description": {
-      "translate": "advancements.explore_structures.description"
+      "translate": "advancements.bygonenether.explore_structures.description"
     },
     "frame": "challenge",
     "show_toast": true,

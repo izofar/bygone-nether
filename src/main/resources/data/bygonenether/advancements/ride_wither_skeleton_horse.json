@@ -5,10 +5,10 @@
       "item": "minecraft:saddle"
     },
     "title": {
-      "translate": "advancements.ride_wither_skeleton_horse.title"
+      "translate": "advancements.bygonenether.ride_wither_skeleton_horse.title"
     },
     "description": {
-      "translate": "advancements.ride_wither_skeleton_horse.description"
+      "translate": "advancements.bygonenether.ride_wither_skeleton_horse.description"
     },
     "frame": "task",
     "show_toast": true,

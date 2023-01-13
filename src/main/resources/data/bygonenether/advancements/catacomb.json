@@ -5,10 +5,10 @@
       "item": "bygonenether:withered_debris"
     },
     "title": {
-      "translate": "advancements.catacomb.title"
+      "translate": "advancements.bygonenether.catacomb.title"
     },
     "description": {
-      "translate": "advancements.catacomb.description"
+      "translate": "advancements.bygonenether.catacomb.description"
     },
     "frame": "task",
     "show_toast": true,

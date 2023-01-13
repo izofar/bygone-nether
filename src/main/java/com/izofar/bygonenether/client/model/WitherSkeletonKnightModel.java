@@ -119,8 +119,27 @@ public class WitherSkeletonKnightModel extends BipedModel<WitherSkeletonKnightEn
             ModelHelper.bobArms(this.rightArm, this.leftArm, ageInTicks);
         }
 
+        if(witherSkeletonKnightEntity.isAlive() && witherSkeletonKnightEntity.isUsingShield()){
+            boolean flag = witherSkeletonKnightEntity.getMainArm() == HandSide.RIGHT;
+            if ((witherSkeletonKnightEntity.getShieldHand() == Hand.MAIN_HAND) == flag) {
+                this.poseRightArmShield();
+            } else if ((witherSkeletonKnightEntity.getShieldHand() == Hand.OFF_HAND) == flag){
+                this.poseLeftArmShield();
+            }
+        }
     }
 
+    private void poseRightArmShield(){
+        this.rightArm.xRot = this.rightArm.xRot * 0.5F - 0.9424779F;
+        this.rightArm.yRot = (-(float)Math.PI / 6F);
+    }
+
+    private void poseLeftArmShield(){
+        this.leftArm.xRot = this.leftArm.xRot * 0.5F - 0.9424779F;
+        this.leftArm.yRot = ((float)Math.PI / 6F);
+    }
+
+    @Override
     public void translateToHand(HandSide arm, MatrixStack pose) {
         float f = arm == HandSide.RIGHT ? 1.0F : -1.0F;
         ModelRenderer modelpart = this.getArm(arm);

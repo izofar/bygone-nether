@@ -5,10 +5,10 @@
       "item": "minecraft:red_nether_bricks"
     },
     "title": {
-      "translate": "advancements.fortress.title"
+      "translate": "advancements.bygonenether.fortress.title"
     },
     "description": {
-      "translate": "advancements.fortress.description"
+      "translate": "advancements.bygonenether.fortress.description"
     },
     "frame": "task",
     "show_toast": true,
