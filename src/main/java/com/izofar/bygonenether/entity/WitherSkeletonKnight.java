@@ -44,6 +44,7 @@ public class WitherSkeletonKnight extends WitherSkeleton implements IShieldedMob
         super(entityType, level);
     }
 
+    @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new ShieldGoal<>(this, Player.class));
         super.registerGoals();
