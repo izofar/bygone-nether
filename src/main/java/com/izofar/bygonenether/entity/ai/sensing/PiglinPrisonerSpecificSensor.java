@@ -66,7 +66,7 @@ public class PiglinPrisonerSpecificSensor extends Sensor<LivingEntity>{
 				} else if (piglin.isAdult()) {
 					list.add(piglin);
 				}
-			} else if (optional.isPresent() || !(livingentity instanceof WitherSkeleton) && !(livingentity instanceof WitherBoss)) {
+			} else if (optional.isPresent() || !(livingentity instanceof WitherSkeleton) && !(livingentity instanceof WitherBoss) && !(livingentity instanceof Hoglin hoglin && hoglin.isAdult())) {
 				if (optional4.isEmpty() && PiglinAi.isZombified(livingentity.getType())) {
 					optional4 = Optional.of(livingentity);
 				}
