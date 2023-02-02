@@ -5,7 +5,7 @@ import com.izofar.bygonenether.world.structure.CatacombStructure;
 import com.izofar.bygonenether.world.structure.CitadelStructure;
 import com.izofar.bygonenether.world.structure.NetherFortressStructure;
 import com.izofar.bygonenether.world.structure.PiglinManorStructure;
-import com.izofar.bygonenether.world.structure.util.ModStructureUtils;
+import com.izofar.bygonenether.util.ModStructureUtils;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;

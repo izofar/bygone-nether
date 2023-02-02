@@ -2,8 +2,7 @@ package com.izofar.bygonenether.world.structure;
 
 import com.google.common.collect.ImmutableList;
 import com.izofar.bygonenether.BygoneNetherMod;
-import com.izofar.bygonenether.init.ModEntityTypes;
-import com.izofar.bygonenether.world.structure.util.ModStructureUtils;
+import com.izofar.bygonenether.util.ModStructureUtils;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SharedSeedRandom;
