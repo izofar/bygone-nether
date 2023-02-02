@@ -26,11 +26,12 @@ import java.util.List;
 
 public class CatacombStructure extends Structure<NoFeatureConfig> {
 
+	private static final int STRUCTURE_SEARCH_RADIUS = 8;
+	private static final String CATACOMB_START_POOL = "catacomb/start_pool";
+
 	public static final List<MobSpawnInfo.Spawners> CATACOMB_ENEMIES = ImmutableList.of(
 			new MobSpawnInfo.Spawners(EntityType.MAGMA_CUBE, 2, 1, 1)
 	);
-
-	private static final String CATACOMB_START_POOL = "catacomb/start_pool";
 
 	public CatacombStructure() { super(NoFeatureConfig.CODEC); }
 
@@ -46,7 +47,10 @@ public class CatacombStructure extends Structure<NoFeatureConfig> {
 	@Override
 	protected boolean isFeatureChunk(ChunkGenerator chunkGenerator, BiomeProvider biomeSource, long seed, SharedSeedRandom chunkRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, NoFeatureConfig featureConfig){
 		int x = chunkX * 16, z = chunkZ * 16;
-		return !ModStructureUtils.isBuried(chunkGenerator, x, z, 48, 72) && !ModStructureUtils.isLavaLake(chunkGenerator, x, z);
+		return !ModStructureUtils.isBuried(chunkGenerator, x, z, 48, 72)
+				&& !ModStructureUtils.isLavaLake(chunkGenerator, x, z)
+				&& !ModStructureUtils.isNearStructure(chunkGenerator, seed, chunkRandom, chunkX, chunkZ, STRUCTURE_SEARCH_RADIUS, Structure.NETHER_BRIDGE)
+				&& !ModStructureUtils.isNearStructure(chunkGenerator, seed, chunkRandom, chunkX, chunkZ, STRUCTURE_SEARCH_RADIUS, Structure.BASTION_REMNANT);
 	}
 
 	public static class Start extends StructureStart<NoFeatureConfig> {

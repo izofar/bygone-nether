@@ -7,7 +7,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Direction;
+import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
@@ -27,7 +29,24 @@ import java.util.function.Predicate;
 public abstract class ModStructureUtils {
 
 	private static final Predicate<Block> isAir = (block) -> block == Blocks.AIR || block == Blocks.CAVE_AIR;
-	
+
+	public static boolean isNearStructure(ChunkGenerator chunkGenerator, long seed, SharedSeedRandom random, int chunkX, int chunkZ, int radius, Structure<?> ...structures) {
+		for(Structure<?> structure : structures) {
+			StructureSeparationSettings structureseparationsettings = chunkGenerator.getSettings().getConfig(structure);
+			if (structureseparationsettings != null) {
+				for (int i = chunkX - radius; i <= chunkX + radius; ++i) {
+					for (int j = chunkZ - radius; j <= chunkZ + radius; ++j) {
+						ChunkPos chunkpos = structure.getPotentialFeatureChunk(structureseparationsettings, seed, random, i, j);
+						if (i == chunkpos.x && j == chunkpos.z) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
+
 	public static boolean isLavaLake(ChunkGenerator chunkGenerator, int x, int z) {
 		IBlockReader columnOfBlocks = chunkGenerator.getBaseColumn(x, z);
 		BlockPos.Mutable currentPos = new BlockPos.Mutable(x, 31, z);

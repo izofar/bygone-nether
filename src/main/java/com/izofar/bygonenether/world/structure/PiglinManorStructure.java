@@ -27,6 +27,7 @@ import java.util.List;
 
 public class PiglinManorStructure extends Structure<NoFeatureConfig> {
 
+    private static final int STRUCTURE_SEARCH_RADIUS = 6;
     private static final String PIGLIN_MANOR_START_POOL = "piglin_manor/start_pool";
 
     public static final List<MobSpawnInfo.Spawners> MANOR_ENEMIES = ImmutableList.of(
@@ -52,7 +53,10 @@ public class PiglinManorStructure extends Structure<NoFeatureConfig> {
     @Override
     protected boolean isFeatureChunk(ChunkGenerator chunkGenerator, BiomeProvider biomeSource, long seed, SharedSeedRandom chunkRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, NoFeatureConfig featureConfig){
         int x = chunkX * 16, z = chunkZ * 16;
-        return !ModStructureUtils.isLavaLake(chunkGenerator, x, z) && ModStructureUtils.verticalSpace(chunkGenerator, x, z, 34, 72, 24);
+        return !ModStructureUtils.isLavaLake(chunkGenerator, x, z)
+                && ModStructureUtils.verticalSpace(chunkGenerator, x, z, 34, 72, 24)
+                && !ModStructureUtils.isNearStructure(chunkGenerator, seed, chunkRandom, chunkX, chunkZ, STRUCTURE_SEARCH_RADIUS, Structure.NETHER_BRIDGE)
+                && !ModStructureUtils.isNearStructure(chunkGenerator, seed, chunkRandom, chunkX, chunkZ, STRUCTURE_SEARCH_RADIUS, Structure.BASTION_REMNANT);
     }
 
     public static class Start extends StructureStart<NoFeatureConfig> {

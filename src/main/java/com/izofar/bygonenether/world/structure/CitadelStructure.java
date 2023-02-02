@@ -26,13 +26,14 @@ import net.minecraft.world.gen.feature.template.TemplateManager;
 import java.util.List;
 
 public class CitadelStructure extends Structure<NoFeatureConfig> {
-	
+
+	private static final int STRUCTURE_SEARCH_RADIUS = 4;
+	private static final String CITADEL_START_POOL = "citadel/start_pool";
+
 	public static final List<MobSpawnInfo.Spawners> CITADEL_ENEMIES = ImmutableList.of(
 			new MobSpawnInfo.Spawners(ModEntityTypes.WARPED_ENDERMAN.get(), 1, 1, 1),
 			new MobSpawnInfo.Spawners(EntityType.ENDERMAN, 1, 1, 1)
-		);
-
-	private static final String CITADEL_START_POOL = "citadel/start_pool";
+	);
 
 	public CitadelStructure() { super(NoFeatureConfig.CODEC); }
 
@@ -48,7 +49,10 @@ public class CitadelStructure extends Structure<NoFeatureConfig> {
 	@Override
 	protected boolean isFeatureChunk(ChunkGenerator chunkGenerator, BiomeProvider biomeSource, long seed, SharedSeedRandom chunkRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, NoFeatureConfig featureConfig){
 		int x = chunkX * 16, z = chunkZ * 16;
-		return !ModStructureUtils.isLavaLake(chunkGenerator, x, z) && ModStructureUtils.verticalSpace(chunkGenerator, x, z, 34, 72, 12);
+		return !ModStructureUtils.isLavaLake(chunkGenerator, x, z)
+				&& ModStructureUtils.verticalSpace(chunkGenerator, x, z, 34, 72, 12)
+				&& !ModStructureUtils.isNearStructure(chunkGenerator, seed, chunkRandom, chunkX, chunkZ, STRUCTURE_SEARCH_RADIUS, Structure.NETHER_BRIDGE)
+				&& !ModStructureUtils.isNearStructure(chunkGenerator, seed, chunkRandom, chunkX, chunkZ, STRUCTURE_SEARCH_RADIUS, Structure.BASTION_REMNANT);
 	}
 
 	public static class Start extends StructureStart<NoFeatureConfig> {
