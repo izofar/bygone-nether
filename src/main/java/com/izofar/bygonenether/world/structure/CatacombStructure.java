@@ -1,11 +1,12 @@
 package com.izofar.bygonenether.world.structure;
 
 import com.izofar.bygonenether.init.ModStructures;
-import com.izofar.bygonenether.world.structure.util.ModStructureUtils;
+import com.izofar.bygonenether.util.ModStructureUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.data.worldgen.StructureSets;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.NoiseColumn;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -18,6 +19,8 @@ import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import java.util.Optional;
 
 public class CatacombStructure extends Structure {
+
+	private static final int STRUCTURE_SEARCH_RADIUS = 10;
 
 	public static final Codec<CatacombStructure> CODEC = RecordCodecBuilder.<CatacombStructure>mapCodec(instance ->
 			instance.group(CatacombStructure.settingsCodec(instance),
@@ -55,7 +58,9 @@ public class CatacombStructure extends Structure {
 	private static boolean checkLocation(Structure.GenerationContext context) {
 		BlockPos blockpos  = context.chunkPos().getMiddleBlockPosition(0);
 		NoiseColumn blockReader = context.chunkGenerator().getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor(), context.randomState());
-		return !(ModStructureUtils.isBuried(blockReader, 48, ModStructureUtils.getScaledNetherHeight(72)) || ModStructureUtils.isLavaLake(blockReader));
+		return !ModStructureUtils.isBuried(blockReader, 48, ModStructureUtils.getScaledNetherHeight(72))
+				&& !ModStructureUtils.isLavaLake(blockReader)
+				&& !ModStructureUtils.isNearStructure(context, STRUCTURE_SEARCH_RADIUS, StructureSets.NETHER_COMPLEXES);
 	}
 	
 	public Optional<Structure.GenerationStub> findGenerationPoint(Structure.GenerationContext context) {

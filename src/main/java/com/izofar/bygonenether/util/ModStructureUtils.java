@@ -1,9 +1,11 @@
-package com.izofar.bygonenether.world.structure.util;
+package com.izofar.bygonenether.util;
 
 import com.google.common.collect.ImmutableList;
 import com.izofar.bygonenether.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.NoiseColumn;
 import net.minecraft.world.level.block.Block;
@@ -13,6 +15,7 @@ import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.levelgen.feature.BasaltColumnsFeature;
 import net.minecraft.world.level.levelgen.feature.DeltaFeature;
 import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraftforge.fml.ModList;
 
 import java.util.Random;
@@ -21,7 +24,15 @@ import java.util.function.Predicate;
 public abstract class ModStructureUtils {
 
 	private static final Predicate<Block> isAir = (block) -> block == Blocks.AIR || block == Blocks.CAVE_AIR;
-	
+
+	public static boolean isNearStructure(Structure.GenerationContext context, int radius, Holder<StructureSet> ...features) {
+		ChunkPos chunkPos = context.chunkPos();
+		boolean isNearStructure = false;
+		for (Holder<StructureSet> feature : features)
+			isNearStructure = isNearStructure || context.chunkGenerator().hasStructureChunkInRange(feature, context.randomState(), context.seed(), chunkPos.x, chunkPos.z, radius);
+		return isNearStructure;
+	}
+
 	public static boolean isLavaLake(NoiseColumn blockReader) {
 		boolean isLake = true;
 		if(blockReader.getBlock(31).getBlock() != Blocks.LAVA) isLake = false;
