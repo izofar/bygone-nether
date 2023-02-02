@@ -31,8 +31,6 @@ public class BygoneNetherMod
         ModProcessors.register(eventBus);
 
         eventBus.addListener(this::setup);
-
-        MinecraftForge.EVENT_BUS.register(this);
     }
 
     private void setup(final FMLCommonSetupEvent event) {
