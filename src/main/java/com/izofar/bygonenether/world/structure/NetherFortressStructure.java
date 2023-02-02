@@ -1,6 +1,6 @@
 package com.izofar.bygonenether.world.structure;
 
-import com.izofar.bygonenether.world.structure.util.ModStructureUtils;
+import com.izofar.bygonenether.util.ModStructureUtils;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.QuartPos;
@@ -24,14 +24,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class NetherFortressStructure extends StructureFeature<JigsawConfiguration> {
-
-	public static final List<SpawnerData> FORTRESS_ENEMIES = List.of(
-			new MobSpawnSettings.SpawnerData(EntityType.BLAZE, 10, 2, 3),
-			new MobSpawnSettings.SpawnerData(EntityType.ZOMBIFIED_PIGLIN, 5, 4, 4),
-			new MobSpawnSettings.SpawnerData(EntityType.WITHER_SKELETON, 8, 5, 5),
-			new MobSpawnSettings.SpawnerData(EntityType.SKELETON, 2, 5, 5),
-			new MobSpawnSettings.SpawnerData(EntityType.MAGMA_CUBE, 3, 4, 4)
-		);
 
 	public NetherFortressStructure(Codec<JigsawConfiguration> codec) { super(codec, NetherFortressStructure::createPiecesGenerator, PostPlacementProcessor.NONE); }
 

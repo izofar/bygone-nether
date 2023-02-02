@@ -1,8 +1,7 @@
 package com.izofar.bygonenether;
 
 import com.izofar.bygonenether.init.*;
-import com.izofar.bygonenether.world.structure.util.ModStructureUtils;
-import net.minecraftforge.common.MinecraftForge;
+import com.izofar.bygonenether.util.ModStructureUtils;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;

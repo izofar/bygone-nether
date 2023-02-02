@@ -1,7 +1,7 @@
 package com.izofar.bygonenether.world.structure;
 
 import com.izofar.bygonenether.init.ModEntityTypes;
-import com.izofar.bygonenether.world.structure.util.ModStructureUtils;
+import com.izofar.bygonenether.util.ModStructureUtils;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.QuartPos;
@@ -12,6 +12,7 @@ import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
+import net.minecraft.world.level.levelgen.structure.BuiltinStructureSets;
 import net.minecraft.world.level.levelgen.structure.PoolElementStructurePiece;
 import net.minecraft.world.level.levelgen.structure.PostPlacementProcessor;
 import net.minecraft.world.level.levelgen.structure.pieces.PieceGenerator;
@@ -25,10 +26,7 @@ import java.util.Optional;
 
 public class PiglinManorStructure extends StructureFeature<JigsawConfiguration> {
 
-    public static final List<SpawnerData> MANOR_ENEMIES = List.of(
-            new MobSpawnSettings.SpawnerData(EntityType.PIGLIN, 2, 1, 1),
-            new MobSpawnSettings.SpawnerData(ModEntityTypes.PIGLIN_HUNTER.get(), 1, 1, 1)
-    );
+    private static final int STRUCTURE_SEARCH_RADIUS = 6;
 
     public PiglinManorStructure(Codec<JigsawConfiguration> codec) {
         super(codec, PiglinManorStructure::createPiecesGenerator, PostPlacementProcessor.NONE);
@@ -44,7 +42,8 @@ public class PiglinManorStructure extends StructureFeature<JigsawConfiguration> 
         NoiseColumn blockReader = context.chunkGenerator().getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor());
         return checkChunk(context)
                 && !ModStructureUtils.isLavaLake(blockReader)
-                && ModStructureUtils.verticalSpace(blockReader, 34, ModStructureUtils.getScaledNetherHeight(72), 24);
+                && ModStructureUtils.verticalSpace(blockReader, 34, ModStructureUtils.getScaledNetherHeight(72), 24)
+                && !ModStructureUtils.isNearStructure(context.chunkGenerator(), context.seed(), context.chunkPos(), STRUCTURE_SEARCH_RADIUS, BuiltinStructureSets.NETHER_COMPLEXES);
     }
 
     private static boolean checkChunk(PieceGeneratorSupplier.Context<JigsawConfiguration> context) {

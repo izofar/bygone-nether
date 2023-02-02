@@ -14,18 +14,6 @@ import net.minecraftforge.event.world.StructureSpawnListGatherEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public abstract class ModWorldEvents {
-	
-	@SubscribeEvent
-	public static void setupStructureSpawns(final StructureSpawnListGatherEvent event) {
-		if (event.getStructure() == ModStructures.NETHER_FORTRESS.get())
-			event.addEntitySpawns(MobCategory.MONSTER, NetherFortressStructure.FORTRESS_ENEMIES);
-		else if (event.getStructure() == ModStructures.CATACOMB.get())
-			event.addEntitySpawns(MobCategory.MONSTER, CatacombStructure.FORTRESS_ENEMIES);
-		else if (event.getStructure() == ModStructures.CITADEL.get())
-			event.addEntitySpawns(MobCategory.MONSTER, CitadelStructure.CITADEL_ENEMIES);
-		else if (event.getStructure() == ModStructures.PIGLIN_MANOR.get())
-			event.addEntitySpawns(MobCategory.MONSTER, PiglinManorStructure.MANOR_ENEMIES);
-	}
 
 	@SubscribeEvent
 	public static void setupPlacedFeatures(final BiomeLoadingEvent event){
