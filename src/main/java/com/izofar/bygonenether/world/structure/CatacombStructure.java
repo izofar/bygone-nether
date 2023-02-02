@@ -20,7 +20,7 @@ import java.util.Optional;
 
 public class CatacombStructure extends Structure {
 
-	private static final int STRUCTURE_SEARCH_RADIUS = 10;
+	private static final int STRUCTURE_SEARCH_RADIUS = 8;
 
 	public static final Codec<CatacombStructure> CODEC = RecordCodecBuilder.<CatacombStructure>mapCodec(instance ->
 			instance.group(CatacombStructure.settingsCodec(instance),

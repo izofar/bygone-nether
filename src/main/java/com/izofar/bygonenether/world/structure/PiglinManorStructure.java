@@ -23,7 +23,7 @@ import java.util.Optional;
 
 public class PiglinManorStructure extends Structure {
 
-    private static final int STRUCTURE_SEARCH_RADIUS = 10;
+    private static final int STRUCTURE_SEARCH_RADIUS = 6;
 
     public static final Codec<PiglinManorStructure> CODEC = RecordCodecBuilder.<PiglinManorStructure>mapCodec(instance ->
             instance.group(PiglinManorStructure.settingsCodec(instance),

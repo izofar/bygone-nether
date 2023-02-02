@@ -24,7 +24,7 @@ import java.util.Optional;
 
 public class CitadelStructure extends Structure {
 
-	private static final int STRUCTURE_SEARCH_RADIUS = 10;
+	private static final int STRUCTURE_SEARCH_RADIUS = 4;
 
 	public static final Codec<CitadelStructure> CODEC = RecordCodecBuilder.<CitadelStructure>mapCodec(instance ->
 			instance.group(CitadelStructure.settingsCodec(instance),
