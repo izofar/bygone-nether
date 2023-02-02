@@ -17,7 +17,7 @@ public abstract class ModBlockEvents {
 		if(!event.getEntity().isCreative()
 				&& ModLists.WITHERED_BLOCKS.contains(event.getLevel().getBlockState(event.getPos()).getBlock())
 				&& !(event.getEntity().getItemBySlot(EquipmentSlot.MAINHAND).getItem() instanceof TieredItem tieredItem
-				&& tieredItem.getTier() == Tiers.NETHERITE))
+				&& tieredItem.getTier().getLevel() >= Tiers.NETHERITE.getLevel()))
 			event.setCanceled(true);
 	}
 
