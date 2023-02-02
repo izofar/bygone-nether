@@ -12,6 +12,7 @@ import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.memory.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.boss.WitherEntity;
+import net.minecraft.entity.monster.HoglinEntity;
 import net.minecraft.entity.monster.WitherSkeletonEntity;
 import net.minecraft.entity.monster.piglin.AbstractPiglinEntity;
 import net.minecraft.entity.monster.piglin.PiglinBruteEntity;
@@ -63,7 +64,7 @@ public class PiglinPrisonerSensor extends Sensor<LivingEntity> {
 				} else if (piglin.isAdult()) {
 					list.add(piglin);
 				}
-			} else if (optional.isPresent() || !(livingentity instanceof WitherSkeletonEntity) && !(livingentity instanceof WitherEntity)) {
+			} else if (optional.isPresent() || !(livingentity instanceof WitherSkeletonEntity) && !(livingentity instanceof WitherEntity) && !(livingentity instanceof HoglinEntity && ((HoglinEntity) livingentity).isAdult())) {
 				if (!optional4.isPresent() && PiglinTasks.isZombified(livingentity.getType())) {
 					optional4 = Optional.of(livingentity);
 				}
