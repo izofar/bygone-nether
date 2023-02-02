@@ -19,7 +19,7 @@ public abstract class ModBlockEvents {
 		if(!event.getPlayer().isCreative()
 				&& ModLists.WITHERED_BLOCKS.contains(event.getWorld().getBlockState(event.getPos()).getBlock())
 				&& !(item instanceof TieredItem
-				&& ((TieredItem) item).getTier() == ItemTier.NETHERITE))
+				&& ((TieredItem) item).getTier().getLevel() >= ItemTier.NETHERITE.getLevel()))
 			event.setCanceled(true);
 	}
 
