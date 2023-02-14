@@ -1,0 +1,41 @@
+{
+  "parent": "bygonenether:explore_structures",
+  "display": {
+    "icon": {
+      "item": "bygonenether:withered_debris"
+    },
+    "title": {
+      "translate": "advancements.bygonenether.catacomb.title"
+    },
+    "description": {
+      "translate": "advancements.bygonenether.catacomb.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "in_catacomb": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "bygonenether:catacomb"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "in_catacomb"
+    ]
+  ]
+}

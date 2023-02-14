@@ -1,0 +1,57 @@
+{
+  "name": "bygonenether:fortress/outside",
+  "fallback": "bygonenether:fortress/terminator",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:empty_pool_element"
+      }
+    },
+    {
+      "weight": 8,
+      "element": {
+        "location": "bygonenether:fortress/straight_outside",
+        "processors": "bygonenether:fortress/fortress",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "bygonenether:fortress/4_way_outside",
+        "processors": "bygonenether:fortress/fortress",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 4,
+      "element": {
+        "location": "bygonenether:fortress/4_way_outside_large",
+        "processors": "bygonenether:fortress/fortress",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "bygonenether:fortress/stairs_outside",
+        "processors": "bygonenether:fortress/fortress",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygonenether:fortress/spawner",
+        "processors": "bygonenether:fortress/fortress",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "bygonenether:withered_blackstone",
+    "bygonenether:chiseled_withered_blackstone",
+    "bygonenether:cracked_withered_blackstone",
+    "bygonenether:withered_debris"
+  ]
+}

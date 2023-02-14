@@ -1,0 +1,41 @@
+{
+  "parent": "bygonenether:explore_structures",
+  "display": {
+    "icon": {
+      "item": "bygonenether:chiseled_warped_nether_bricks"
+    },
+    "title": {
+      "translate": "advancements.bygonenether.citadel.title"
+    },
+    "description": {
+      "translate": "advancements.bygonenether.citadel.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "in_citadel": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "bygonenether:citadel"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "in_citadel"
+    ]
+  ]
+}

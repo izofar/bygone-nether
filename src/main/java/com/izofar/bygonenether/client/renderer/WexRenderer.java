@@ -1,0 +1,28 @@
+package com.izofar.bygonenether.client.renderer;
+
+import com.izofar.bygonenether.BygoneNetherMod;
+import com.izofar.bygonenether.client.model.WexModel;
+import com.izofar.bygonenether.entity.Wex;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.model.geom.ModelLayers;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+
+public class WexRenderer extends HumanoidMobRenderer<Wex, WexModel> {
+    private static final ResourceLocation WEX_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/wex/wex.png");
+    private static final ResourceLocation WEX_CHARGING_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/wex/wex_charging.png");
+
+    public WexRenderer(EntityRendererProvider.Context context) { super(context, new WexModel(context.bakeLayer(ModelLayers.VEX)), 0.3F); }
+
+    @Override
+    protected int getBlockLightLevel(Wex wex, BlockPos blockPos) { return 15; }
+
+    @Override
+    public ResourceLocation getTextureLocation(Wex wex) { return wex.isCharging() ? WEX_CHARGING_LOCATION : WEX_LOCATION; }
+
+    @Override
+    protected void scale(Wex wex, PoseStack stack, float f) { stack.scale(0.4F, 0.4F, 0.4F); }
+
+}

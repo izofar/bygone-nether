@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "bygonenether",
+  "version": "${version}",
+
+  "name": "Bygone Nether",
+  "description": "Adds new biome-specific structures and mobs to the nether dimension",
+  "authors": [
+    "Izofar",
+    "ZestyBlaze"
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": ""
+  },
+
+  "license": "MIT License",
+  "icon": "icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.izofar.bygonenether.BygoneNetherMod"
+    ],
+    "client": [
+      "com.izofar.bygonenether.client.BNClient"
+    ]
+  },
+  "mixins": [
+    "bygonenether.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.14.9",
+    "fabric-api": "*",
+    "minecraft": "~1.19",
+    "java": ">=17"
+  },
+  "accessWidener": "bygonenether.accessWidener"
+}

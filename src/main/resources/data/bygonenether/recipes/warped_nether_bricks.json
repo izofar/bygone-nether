@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "NW",
+    "WN"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:warped_roots"
+    },
+    "N": {
+      "item": "minecraft:nether_brick"
+    }
+  },
+  "result": {
+    "item": "bygonenether:warped_nether_bricks"
+  }
+}

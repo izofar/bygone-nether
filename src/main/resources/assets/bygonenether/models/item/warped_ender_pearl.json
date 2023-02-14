@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "bygonenether:item/warped_ender_pearl"
+  }
+}

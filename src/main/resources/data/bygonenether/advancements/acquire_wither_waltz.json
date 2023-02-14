@@ -1,0 +1,37 @@
+{
+  "parent": "bygonenether:catacomb",
+  "display": {
+    "icon": {
+      "item": "bygonenether:wither_waltz_music_disc"
+    },
+    "title": {
+      "translate": "advancements.bygonenether.acquire_wither_waltz.title"
+    },
+    "description": {
+      "translate": "advancements.bygonenether.acquire_wither_waltz.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "music_disc": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "bygonenether:wither_waltz_music_disc"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "music_disc"
+    ]
+  ]
+}

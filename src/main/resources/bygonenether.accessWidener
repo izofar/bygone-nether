@@ -1,0 +1,12 @@
+accessWidener v2 named
+accessible method net/minecraft/world/entity/monster/piglin/PiglinBruteAi setAngerTarget (Lnet/minecraft/world/entity/monster/piglin/PiglinBrute;Lnet/minecraft/world/entity/LivingEntity;)V
+accessible method net/minecraft/world/entity/monster/piglin/PiglinAi isIdle (Lnet/minecraft/world/entity/monster/piglin/AbstractPiglin;)Z
+accessible field net/minecraft/world/entity/monster/piglin/PiglinBrute SENSOR_TYPES Lcom/google/common/collect/ImmutableList;
+accessible field net/minecraft/world/entity/monster/piglin/PiglinBrute MEMORY_TYPES Lcom/google/common/collect/ImmutableList;
+mutable field net/minecraft/world/entity/monster/piglin/PiglinBrute SENSOR_TYPES Lcom/google/common/collect/ImmutableList;
+mutable field net/minecraft/world/entity/monster/piglin/PiglinBrute MEMORY_TYPES Lcom/google/common/collect/ImmutableList;
+accessible method net/minecraft/world/entity/monster/piglin/PiglinBruteAi getTargetIfWithinRange (Lnet/minecraft/world/entity/monster/piglin/AbstractPiglin;Lnet/minecraft/world/entity/ai/memory/MemoryModuleType;)Ljava/util/Optional;
+accessible field net/minecraft/world/level/levelgen/feature/BasaltColumnsFeature CANNOT_PLACE_ON Lcom/google/common/collect/ImmutableList;
+accessible field net/minecraft/world/level/levelgen/feature/DeltaFeature CANNOT_REPLACE Lcom/google/common/collect/ImmutableList;
+mutable field net/minecraft/world/level/levelgen/feature/BasaltColumnsFeature CANNOT_PLACE_ON Lcom/google/common/collect/ImmutableList;
+mutable field net/minecraft/world/level/levelgen/feature/DeltaFeature CANNOT_REPLACE Lcom/google/common/collect/ImmutableList;

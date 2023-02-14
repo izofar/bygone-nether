@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "bygonenether:cobbled_blackstone",
+    "bygonenether:withered_blackstone",
+    "bygonenether:withered_blackstone_stairs",
+    "bygonenether:withered_blackstone_slab",
+    "bygonenether:chiseled_withered_blackstone",
+    "bygonenether:cracked_withered_blackstone",
+    "bygonenether:cracked_withered_blackstone_stairs",
+    "bygonenether:cracked_withered_blackstone_slab",
+    "bygonenether:withered_debris",
+    "bygonenether:withered_basalt",
+    "bygonenether:withered_coal_block",
+    "bygonenether:withered_quartz_block",
+    "bygonenether:soul_stone",
+    "bygonenether:warped_nether_bricks",
+    "bygonenether:warped_nether_brick_stairs",
+    "bygonenether:warped_nether_brick_slab",
+    "bygonenether:chiseled_warped_nether_bricks"
+  ]
+}

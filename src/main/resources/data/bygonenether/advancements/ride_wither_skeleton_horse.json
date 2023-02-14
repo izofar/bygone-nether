@@ -1,0 +1,44 @@
+{
+  "parent": "bygonenether:piglin_manor",
+  "display": {
+    "icon": {
+      "item": "minecraft:saddle"
+    },
+    "title": {
+      "translate": "advancements.bygonenether.ride_wither_skeleton_horse.title"
+    },
+    "description": {
+      "translate": "advancements.bygonenether.ride_wither_skeleton_horse.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "ride_a_wither_skeleton_horse": {
+      "trigger": "minecraft:started_riding",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "predicate": {
+              "vehicle": {
+                "type": "bygonenether:wither_skeleton_horse",
+                "passenger": {
+                  "type": "minecraft:player"
+                }
+              }
+            },
+            "entity": "this"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "ride_a_wither_skeleton_horse"
+    ]
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "name": "bygonenether:fortress/inside",
+  "fallback": "bygonenether:fortress/terminator",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygonenether:fortress/terminator_1",
+        "processors": "bygonenether:fortress/fortress",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygonenether:fortress/terminator_2",
+        "processors": "bygonenether:fortress/fortress",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygonenether:fortress/terminator_3",
+        "processors": "bygonenether:fortress/fortress",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygonenether:fortress/terminator_4",
+        "processors": "bygonenether:fortress/fortress",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 18,
+      "element": {
+        "location": "bygonenether:fortress/straight_inside_long",
+        "processors": "bygonenether:fortress/fortress",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 4,
+      "element": {
+        "location": "bygonenether:fortress/stairs_inside_plants",
+        "processors": "bygonenether:fortress/fortress",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "location": "bygonenether:fortress/spawner1",
+        "processors": "bygonenether:fortress/fortress",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "location": "bygonenether:fortress/spawner2",
+        "processors": "bygonenether:fortress/fortress",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    }
+  ]
+}

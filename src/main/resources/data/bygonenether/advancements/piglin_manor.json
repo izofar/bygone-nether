@@ -1,0 +1,41 @@
+{
+  "parent": "bygonenether:explore_structures",
+  "display": {
+    "icon": {
+      "item": "minecraft:crimson_planks"
+    },
+    "title": {
+      "translate": "advancements.bygonenether.piglin_manor.title"
+    },
+    "description": {
+      "translate": "advancements.bygonenether.piglin_manor.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "in_piglin_manor": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "bygonenether:piglin_manor"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "in_piglin_manor"
+    ]
+  ]
+}

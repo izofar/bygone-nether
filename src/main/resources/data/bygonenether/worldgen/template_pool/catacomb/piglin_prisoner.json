@@ -1,0 +1,14 @@
+{
+  "name": "bygonenether:catacomb/piglin_prisoner",
+  "fallback": "bygonenether:catacomb/piglin_prisoner",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "feature": "bygonenether:mob_feature_piglin_prisoner",
+        "projection": "rigid",
+        "element_type": "minecraft:feature_pool_element"
+      }
+    }
+  ]
+}
