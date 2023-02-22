@@ -13,7 +13,10 @@ import net.minecraft.world.level.block.Blocks;
 public class ModBlockEvents {
     public static void enforceNetheriteToBreakWitheredStone() {
         AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> {
-            if(!player.isCreative() && ModLists.WITHERED_BLOCKS.contains(world.getBlockState(pos).getBlock()) && !(player.getItemBySlot(EquipmentSlot.MAINHAND).getItem() instanceof TieredItem tieredItem && tieredItem.getTier() == Tiers.NETHERITE)) {
+            if(!player.isCreative()
+                    && ModLists.WITHERED_BLOCKS.contains(world.getBlockState(pos).getBlock())
+                    && !(player.getItemBySlot(EquipmentSlot.MAINHAND).getItem() instanceof TieredItem tieredItem
+                    && tieredItem.getTier().getLevel() >= Tiers.NETHERITE.getLevel())) {
                 return InteractionResult.SUCCESS;
             }
             return InteractionResult.PASS;
