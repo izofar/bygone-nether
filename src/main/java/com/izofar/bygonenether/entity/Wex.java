@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableMap;
 import com.izofar.bygonenether.init.ModSounds;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -16,25 +15,26 @@ import net.minecraft.world.level.Level;
 import java.util.Map;
 
 public class Wex extends Vex {
-    private static final Map<SoundEvent, SoundEvent> SOUND_MAP = ImmutableMap.of(
-            SoundEvents.VEX_AMBIENT, ModSounds.WEX_AMBIENT,
-            SoundEvents.VEX_DEATH, ModSounds.WEX_DEATH,
-            SoundEvents.VEX_HURT, ModSounds.WEX_HURT,
-            SoundEvents.VEX_CHARGE, ModSounds.WEX_CHARGE
-    );
 
-    public Wex(EntityType<? extends Vex> entityType, Level level) { super(entityType, level); }
+	private static final Map<SoundEvent, SoundEvent> SOUND_MAP = ImmutableMap.of(
+			SoundEvents.VEX_AMBIENT, ModSounds.WEX_AMBIENT,
+			SoundEvents.VEX_DEATH, ModSounds.WEX_DEATH,
+			SoundEvents.VEX_HURT, ModSounds.WEX_HURT,
+			SoundEvents.VEX_CHARGE, ModSounds.WEX_CHARGE
+	);
 
-    @Override
-    protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficultyInstance) { }
+	public Wex(EntityType<? extends Vex> entityType, Level level) { super(entityType, level); }
 
-    public static AttributeSupplier.Builder createAttributes() {
-        return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 14.0D)
-                .add(Attributes.ATTACK_DAMAGE, 4.0D);
-    }
+	@Override
+	protected void populateDefaultEquipmentSlots(DifficultyInstance difficultyInstance) { }
 
-    @Override
-    public void playSound(SoundEvent event, float f1, float f2){ super.playSound(SOUND_MAP.getOrDefault(event, event), f1, f2); }
+	public static AttributeSupplier.Builder createAttributes() {
+		return Monster.createMonsterAttributes()
+				.add(Attributes.MAX_HEALTH, 14.0D)
+				.add(Attributes.ATTACK_DAMAGE, 4.0D);
+	}
+
+	@Override
+	public void playSound(SoundEvent event, float f1, float f2){ super.playSound(SOUND_MAP.getOrDefault(event, event), f1, f2); }
 
 }

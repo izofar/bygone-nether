@@ -12,6 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public class WarpedEnderpearlItem extends EnderpearlItem {
+
     private static final int COOL_DOWN = 10;
 
     public WarpedEnderpearlItem(Properties properties) { super(properties); }

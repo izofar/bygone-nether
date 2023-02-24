@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 public class CorporModel extends HumanoidModel<Corpor> {
+
     public CorporModel(ModelPart root) { super(root); }
 
     public static LayerDefinition createBodyLayer(){

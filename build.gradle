@@ -30,7 +30,7 @@ dependencies {
 	modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}") {
 		exclude group: "net.fabricmc.fabric-api"
 	}
-	modImplementation(include("io.github.fabricators_of_create.Porting-Lib:porting-lib:2.1.706+1.19.2"))
+	modImplementation(include("io.github.fabricators_of_create.Porting-Lib:porting-lib:${portinglib_version}"))
 }
 
 processResources {

@@ -4,7 +4,6 @@
   "package": "com.izofar.bygonenether.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "LivingEntityMixin",
     "ModifyDamageInSmithingRecipes",
     "ModifyPiglinAi",
     "ModifyPiglinBruteAi",

@@ -1,4 +1,4 @@
-package com.izofar.bygonenether.entity.ai.behaviour;
+package com.izofar.bygonenether.entity.ai.behavior;
 
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.Util;
@@ -16,6 +16,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 public class ModFollowLeader extends Behavior<PathfinderMob> {
+
     private static final int TOO_FAR_DIST = 28;
     private static final int TOO_CLOSE_DIST = 3;
     private static final int CLOSE_ENOUGH_DIST = 6;

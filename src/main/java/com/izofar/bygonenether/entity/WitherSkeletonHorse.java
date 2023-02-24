@@ -1,7 +1,6 @@
 package com.izofar.bygonenether.entity;
 
 import com.izofar.bygonenether.entity.ai.PiglinPrisonerAi;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -12,6 +11,7 @@ import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.level.Level;
 
 public class WitherSkeletonHorse extends SkeletonHorse {
+
     public WitherSkeletonHorse(EntityType<? extends SkeletonHorse> entityType, Level level){
         super(entityType, level);
     }
@@ -21,7 +21,7 @@ public class WitherSkeletonHorse extends SkeletonHorse {
     }
 
     @Override
-    protected void randomizeAttributes(RandomSource random) {
+    protected void randomizeAttributes() {
         this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(35.0D);
         this.getAttribute(Attributes.JUMP_STRENGTH).setBaseValue(1.0D);
         this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.35D);

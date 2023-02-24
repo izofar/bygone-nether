@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class CorporRenderer extends HumanoidMobRenderer<Corpor, CorporModel> {
+
     private static final ResourceLocation BRUTE_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/wither/corpor.png");
 
     public CorporRenderer(EntityRendererProvider.Context context) { super(context, new CorporModel(CorporModel.createBodyLayer().bakeRoot()), 0.5F); }

@@ -9,6 +9,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 
 public class WarpedEndermanModel extends EndermanModel<WarpedEnderMan> {
+
     private final ModelPart stemBody;
 
     public WarpedEndermanModel(ModelPart root) {

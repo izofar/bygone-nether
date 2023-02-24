@@ -12,6 +12,7 @@ import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class ModCarriedBlockLayer<T extends EnderMan, M extends EndermanModel<T>> extends RenderLayer<T, M> {
+
     public ModCarriedBlockLayer(RenderLayerParent<T, M> layer) { super(layer); }
 
     public void render(PoseStack p_116639_, MultiBufferSource p_116640_, int p_116641_, T p_116642_, float p_116643_, float p_116644_, float p_116645_, float p_116646_, float p_116647_, float p_116648_) {

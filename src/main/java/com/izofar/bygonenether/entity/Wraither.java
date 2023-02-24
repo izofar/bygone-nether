@@ -16,6 +16,7 @@ import net.minecraft.world.entity.monster.WitherSkeleton;
 import net.minecraft.world.level.Level;
 
 public class Wraither extends WitherSkeleton {
+
     private static final EntityDataAccessor<Boolean> DATA_IS_POSSESSED = SynchedEntityData.defineId(Wraither.class, EntityDataSerializers.BOOLEAN);
 
     public Wraither(EntityType<? extends WitherSkeleton> entityType, Level level) { super(entityType, level); }

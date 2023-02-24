@@ -1,4 +1,4 @@
-package com.izofar.bygonenether.entity.ai.behaviour;
+package com.izofar.bygonenether.entity.ai.behavior;
 
 import com.google.common.collect.ImmutableMap;
 import com.izofar.bygonenether.entity.PiglinPrisoner;

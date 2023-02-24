@@ -9,6 +9,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
 public class PiglinHunterModel extends PiglinModel<PiglinHunter> {
+
     private final ModelPart hoglin_skull;
 
     public PiglinHunterModel(ModelPart root) {

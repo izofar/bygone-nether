@@ -1,6 +1,5 @@
 package com.izofar.bygonenether.entity;
 
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -13,6 +12,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
 public class Corpor extends WitherSkeleton {
+
     public Corpor(EntityType<? extends WitherSkeleton> entityType, Level level) { super(entityType, level); }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -24,7 +24,7 @@ public class Corpor extends WitherSkeleton {
     }
 
     @Override
-    public void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty){
+    public void populateDefaultEquipmentSlots(DifficultyInstance difficulty){
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE));
     }
 

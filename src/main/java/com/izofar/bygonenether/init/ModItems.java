@@ -48,7 +48,7 @@ public class ModItems {
     public static final Item WARPED_NETHER_BRICK_STAIRS = new BlockItem(ModBlocks.WARPED_NETHER_BRICK_STAIRS, new FabricItemSettings().group(CreativeModeTab.TAB_BUILDING_BLOCKS));
     public static final Item WARPED_NETHER_BRICK_SLAB = new BlockItem(ModBlocks.WARPED_NETHER_BRICK_SLAB, new FabricItemSettings().group(CreativeModeTab.TAB_BUILDING_BLOCKS));
 
-    public static final Item WITHER_WALTZ_MUSIC_DISC = new RecordItem(4, ModSounds.WITHER_WALTZ, new FabricItemSettings().maxCount(1).group(CreativeModeTab.TAB_MISC), 5040);
+    public static final Item WITHER_WALTZ_MUSIC_DISC = new RecordItem(4, ModSounds.WITHER_WALTZ, new FabricItemSettings().maxCount(1).group(CreativeModeTab.TAB_MISC));
     public static final Item WARPED_ENDER_PEARL = new WarpedEnderpearlItem(new FabricItemSettings().maxCount(16).rarity(Rarity.RARE).group(CreativeModeTab.TAB_MISC));
 
     public static void registerItems() {

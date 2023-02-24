@@ -7,7 +7,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
@@ -27,7 +26,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.UUID;
 
-public class WitherSkeletonKnight extends WitherSkeleton implements IShieldedMob{
+public class WitherSkeletonKnight extends WitherSkeleton implements IShieldedMob {
 
     private static final EntityDataAccessor<Boolean> DATA_IS_SHIELDED = SynchedEntityData.defineId(WitherSkeletonKnight.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DATA_SHIELD_HAND = SynchedEntityData.defineId(WitherSkeletonKnight.class, EntityDataSerializers.BOOLEAN); // True for Main Hand, False for Offhand
@@ -43,6 +42,7 @@ public class WitherSkeletonKnight extends WitherSkeleton implements IShieldedMob
         super(entityType, level);
     }
 
+    @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new ShieldGoal<>(this, Player.class));
         super.registerGoals();
@@ -94,8 +94,8 @@ public class WitherSkeletonKnight extends WitherSkeleton implements IShieldedMob
     }
 
     @Override
-    public void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty){
-        super.populateDefaultEquipmentSlots(random, difficulty);
+    public void populateDefaultEquipmentSlots(DifficultyInstance difficulty){
+        super.populateDefaultEquipmentSlots(difficulty);
         this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
     }
 

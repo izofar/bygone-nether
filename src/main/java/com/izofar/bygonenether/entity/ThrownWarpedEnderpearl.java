@@ -21,9 +21,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 
 public class ThrownWarpedEnderpearl extends ThrowableItemProjectile {
+
     public ThrownWarpedEnderpearl(EntityType<? extends ThrownWarpedEnderpearl> entityType, Level level) {
         super(entityType, level);
     }
