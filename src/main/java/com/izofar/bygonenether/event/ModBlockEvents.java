@@ -16,7 +16,7 @@ public class ModBlockEvents {
             if(!player.isCreative()
                     && ModLists.WITHERED_BLOCKS.contains(world.getBlockState(pos).getBlock())
                     && !(player.getItemBySlot(EquipmentSlot.MAINHAND).getItem() instanceof TieredItem tieredItem
-                    && tieredItem.getTier() >= Tiers.NETHERITE)) {
+                    && tieredItem.getTier().getLevel() >= Tiers.NETHERITE.getLevel())) {
                 return InteractionResult.SUCCESS;
             }
             return InteractionResult.PASS;
