@@ -24,7 +24,7 @@ import java.util.function.Predicate;
 public abstract class ModStructureUtils {
     private static final Predicate<Block> isAir = (block) -> block == Blocks.AIR || block == Blocks.CAVE_AIR;
 
-    public static boolean isNearStructure(Structure.GenerationContext context, int radius, Holder<StructureSet> ...features) {
+    public static boolean isNearStructure(Structure.GenerationContext context, int radius, Holder<StructureSet>...features) {
         ChunkPos chunkPos = context.chunkPos();
         boolean isNearStructure = false;
         for (Holder<StructureSet> feature : features)

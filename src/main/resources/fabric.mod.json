@@ -6,12 +6,15 @@
   "name": "Bygone Nether",
   "description": "Adds new biome-specific structures and mobs to the nether dimension",
   "authors": [
-    "Izofar",
+    "Izofar"
+  ],
+  "contributors": [
     "ZestyBlaze"
   ],
   "contact": {
-    "homepage": "",
-    "sources": ""
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/bygone-nether",
+    "sources": "https://github.com/izofar/bygone-nether",
+    "issues": "https://github.com/izofar/bygone-nether/issues"
   },
 
   "license": "MIT License",
