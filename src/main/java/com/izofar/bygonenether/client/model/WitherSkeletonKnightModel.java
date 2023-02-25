@@ -94,12 +94,12 @@ public class WitherSkeletonKnightModel extends HumanoidModel<WitherSkeletonKnigh
     }
 
     private void poseRightArmShield(){
-        this.rightArm.xRot = this.rightArm.xRot * 0.5F - 0.9424779F;
+        this.rightArm.xRot = this.rightArm.xRot * 0.5F - 0.9424779F + ((float)Math.PI / 4F);
         this.rightArm.yRot = (-(float)Math.PI / 6F);
     }
 
     private void poseLeftArmShield(){
-        this.leftArm.xRot = this.leftArm.xRot * 0.5F - 0.9424779F;
+        this.leftArm.xRot = this.leftArm.xRot * 0.5F - 0.9424779F + ((float)Math.PI / 4F);
         this.leftArm.yRot = ((float)Math.PI / 6F);
     }
 

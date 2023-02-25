@@ -1,14 +1,20 @@
 package com.izofar.bygonenether.init;
 
 import com.izofar.bygonenether.BygoneNetherMod;
-import com.izofar.bygonenether.item.ModArmorItem;
 import com.izofar.bygonenether.item.ModArmorMaterial;
 import com.izofar.bygonenether.item.WarpedEnderpearlItem;
+import net.fabricmc.fabric.api.item.v1.CustomDamageHandler;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.core.Registry;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+
+import java.util.function.Consumer;
 
 public class ModItems {
     public static final Item PIGLIN_PRISONER_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.PIGLIN_PRISONER, 0xc79e88, 0xf9f3a4, new FabricItemSettings().group(CreativeModeTab.TAB_MISC));
@@ -20,10 +26,10 @@ public class ModItems {
     public static final Item WITHER_SKELETON_KNIGHT_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.WITHER_SKELETON_KNIGHT, 0x242424, 0x4e5252, new FabricItemSettings().group(CreativeModeTab.TAB_MISC));
     public static final Item WITHER_SKELETON_HORSE_EGG = new SpawnEggItem(ModEntityTypes.WITHER_SKELETON_HORSE, 0x242424, 0x4d4747, new FabricItemSettings().group(CreativeModeTab.TAB_MISC));
 
-    public static final Item GILDED_NETHERITE_HELMET = new ModArmorItem(ModArmorMaterial.GILDED_NETHERITE, EquipmentSlot.HEAD, new FabricItemSettings().group(CreativeModeTab.TAB_COMBAT).fireproof());
-    public static final Item GILDED_NETHERITE_CHESTPLATE = new ModArmorItem(ModArmorMaterial.GILDED_NETHERITE, EquipmentSlot.CHEST, new FabricItemSettings().group(CreativeModeTab.TAB_COMBAT).fireproof());
-    public static final Item GILDED_NETHERITE_LEGGINGS = new ModArmorItem(ModArmorMaterial.GILDED_NETHERITE, EquipmentSlot.LEGS, new FabricItemSettings().group(CreativeModeTab.TAB_COMBAT).fireproof());
-    public static final Item GILDED_NETHERITE_BOOTS = new ModArmorItem(ModArmorMaterial.GILDED_NETHERITE, EquipmentSlot.FEET, new FabricItemSettings().group(CreativeModeTab.TAB_COMBAT).fireproof());
+    public static final Item GILDED_NETHERITE_HELMET = new ArmorItem(ModArmorMaterial.GILDED_NETHERITE, EquipmentSlot.HEAD, new FabricItemSettings().group(CreativeModeTab.TAB_COMBAT).fireproof().customDamage(ModItems::damageCalc));
+    public static final Item GILDED_NETHERITE_CHESTPLATE = new ArmorItem(ModArmorMaterial.GILDED_NETHERITE, EquipmentSlot.CHEST, new FabricItemSettings().group(CreativeModeTab.TAB_COMBAT).fireproof().customDamage(ModItems::damageCalc));
+    public static final Item GILDED_NETHERITE_LEGGINGS = new ArmorItem(ModArmorMaterial.GILDED_NETHERITE, EquipmentSlot.LEGS, new FabricItemSettings().group(CreativeModeTab.TAB_COMBAT).fireproof().customDamage(ModItems::damageCalc));
+    public static final Item GILDED_NETHERITE_BOOTS = new ArmorItem(ModArmorMaterial.GILDED_NETHERITE, EquipmentSlot.FEET, new FabricItemSettings().group(CreativeModeTab.TAB_COMBAT).fireproof().customDamage(ModItems::damageCalc));
 
     public static final Item COBBLED_BLACKSTONE = new BlockItem(ModBlocks.COBBLED_BLACKSTONE, new FabricItemSettings().group(CreativeModeTab.TAB_BUILDING_BLOCKS));
 
@@ -83,5 +89,40 @@ public class ModItems {
         Registry.register(Registry.ITEM, new ResourceLocation(BygoneNetherMod.MODID, "warped_nether_brick_slab"), WARPED_NETHER_BRICK_SLAB);
         Registry.register(Registry.ITEM, new ResourceLocation(BygoneNetherMod.MODID, "wither_waltz_music_disc"), WITHER_WALTZ_MUSIC_DISC);
         Registry.register(Registry.ITEM, new ResourceLocation(BygoneNetherMod.MODID, "warped_ender_pearl"), WARPED_ENDER_PEARL);
+    }
+
+    private static int damageCalc(ItemStack stack, int amount, LivingEntity entity, Consumer<LivingEntity> breakCallback) {
+        if (!entity.level.isClientSide && entity instanceof ServerPlayer player && !player.getAbilities().instabuild) {
+            if (stack.hurt(amount, player.getRandom(), player)) {
+                breakCallback.accept(entity);
+                replaceArmor(stack, player);
+            }
+        }
+        return 0;
+    }
+
+    private static void replaceArmor(ItemStack stack, Player player) {
+        ListTag list = stack.getEnchantmentTags();
+        Item item;
+        int slot;
+        stack.shrink(1);
+        if (stack.getItem() == ModItems.GILDED_NETHERITE_HELMET) {
+            item = Items.NETHERITE_HELMET;
+            slot = 3;
+        } else if (stack.getItem() == ModItems.GILDED_NETHERITE_CHESTPLATE) {
+            item = Items.NETHERITE_CHESTPLATE;
+            slot = 2;
+        } else if (stack.getItem() == ModItems.GILDED_NETHERITE_LEGGINGS) {
+            item = Items.NETHERITE_LEGGINGS;
+            slot = 1;
+        } else if (stack.getItem() == ModItems.GILDED_NETHERITE_BOOTS) {
+            item = Items.NETHERITE_BOOTS;
+            slot = 0;
+        }else return;
+
+        ItemStack newStack = new ItemStack(item, 1);
+        newStack.addTagElement("Enchantments", list);
+        newStack.setDamageValue(stack.getTag().getInt("NetheriteDamage"));
+        player.getInventory().armor.set(slot, newStack);
     }
 }

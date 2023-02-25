@@ -1,7 +1,7 @@
 package com.izofar.bygonenether.world.structure;
 
 import com.izofar.bygonenether.init.ModStructures;
-import com.izofar.bygonenether.world.structure.util.ModStructureUtils;
+import com.izofar.bygonenether.util.ModStructureUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
