@@ -9,7 +9,5 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 public class ModTags {
     public static TagKey<Structure> NO_BASALT;
 
-    public static void initTags(){
-       NO_BASALT = TagKey.create(Registry.STRUCTURE_REGISTRY, new ResourceLocation(BygoneNetherMod.MODID, "no_basalt"));
-    }
+    public static void initTags() { NO_BASALT = TagKey.create(Registry.STRUCTURE_REGISTRY, new ResourceLocation(BygoneNetherMod.MODID, "no_basalt")); }
 }

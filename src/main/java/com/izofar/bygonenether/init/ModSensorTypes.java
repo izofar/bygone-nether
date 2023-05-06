@@ -15,6 +15,6 @@ public abstract class ModSensorTypes {
 	public static final RegistryObject<SensorType<PiglinBruteSpecificSensor>> PIGLIN_BRUTE_SPECIFIC_SENSOR = MODDED_SENSOR_TYPES.register("piglin_brute_specific_sensor", () -> new SensorType<>(PiglinBruteSpecificSensor::new));
 	public static final RegistryObject<SensorType<PiglinPrisonerSpecificSensor>> PIGLIN_PRISONER_SPECIFIC_SENSOR = MODDED_SENSOR_TYPES.register("piglin_prisoner_specific_sensor", () -> new SensorType<>(PiglinPrisonerSpecificSensor::new));
 
-	public static void register(IEventBus eventBus){ MODDED_SENSOR_TYPES.register(eventBus); }
+	public static void register(IEventBus eventBus) { MODDED_SENSOR_TYPES.register(eventBus); }
 	
 }

@@ -102,25 +102,28 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 		this.xpReward = 5;
 	}
 
+	@Override
 	public void addAdditionalSaveData(CompoundTag tag) {
 		super.addAdditionalSaveData(tag);
 		tag.put("Inventory", this.inventory.createTag());
-		if(this.getTempterUUID() != null){
+		if (this.getTempterUUID() != null) {
 			tag.putUUID("Tempter", this.getTempterUUID());
 		}
 	}
 
+	@Override
 	public void readAdditionalSaveData(CompoundTag tag) {
 		super.readAdditionalSaveData(tag);
 		this.inventory.fromTag(tag.getList("Inventory", 10));
 		UUID uuid;
-		if(tag.hasUUID("Tempter")){
+		if (tag.hasUUID("Tempter")) {
 			uuid = tag.getUUID("Tempter");
 			this.setTempterUUID(uuid);
 			PiglinPrisonerAi.reloadAllegiance(this, this.getTempter());
 		}
 	}
 
+	@Override
 	protected void dropCustomDeathLoot(DamageSource source, int rand, boolean doDrop) {
 		super.dropCustomDeathLoot(source, rand, doDrop);
 		this.inventory.removeAllItems().forEach(this::spawnAtLocation);
@@ -135,6 +138,7 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 	}
 
 
+	@Override
 	protected void defineSynchedData() {
 		super.defineSynchedData();
 		this.entityData.define(DATA_IS_CHARGING_CROSSBOW, false);
@@ -155,16 +159,24 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 	}
 
 	@Override
-	public boolean removeWhenFarAway(double p_34775_) { return !this.isPersistenceRequired(); }
+	public boolean removeWhenFarAway(double distanceToPlayer) {
+		return !this.isPersistenceRequired();
+	}
 
 	@Override
-	protected Brain.Provider<PiglinPrisoner> brainProvider() { return Brain.provider(MEMORY_TYPES, SENSOR_TYPES); }
+	protected Brain.Provider<PiglinPrisoner> brainProvider() {
+		return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
+	}
 
 	@Override
-	protected Brain<?> makeBrain(Dynamic<?> dynamic) { return PiglinPrisonerAi.makeBrain(this, this.brainProvider().makeBrain(dynamic)); }
+	protected Brain<?> makeBrain(Dynamic<?> dynamic) {
+		return PiglinPrisonerAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
+	}
 
 	@Override
-	public Brain<PiglinPrisoner> getBrain() { return  (Brain<PiglinPrisoner>) super.getBrain(); }
+	public Brain<PiglinPrisoner> getBrain() {
+		return  (Brain<PiglinPrisoner>) super.getBrain();
+	}
 
 	@Override
 	public InteractionResult mobInteract(Player player, InteractionHand hand) {
@@ -180,13 +192,19 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 	}
 
 	@Override
-	protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) { return this.isBaby() ? 0.93F : 1.74F; }
+	protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) {
+		return this.isBaby() ? 0.93F : 1.74F;
+	}
 
 	@Override
-	public double getPassengersRidingOffset() { return this.getBbHeight() * 0.92D; }
+	public double getPassengersRidingOffset() {
+		return this.getBbHeight() * 0.92D;
+	}
 
 	@Override
-	public boolean isBaby() { return false; }
+	public boolean isBaby() {
+		return false;
+	}
 
 	@Override
 	protected void customServerAiStep() {
@@ -198,76 +216,104 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 	}
 
 	@Override
-	public int getExperienceReward() { return this.xpReward; }
-
-	@Override
-	protected void finishConversion(ServerLevel p_34756_) {
-		PiglinPrisonerAi.cancelAdmiring(this);
-		this.inventory.removeAllItems().forEach(this::spawnAtLocation);
-		super.finishConversion(p_34756_);
+	public int getExperienceReward() {
+		return this.xpReward;
 	}
 
-	public boolean isChargingCrossbow() { return this.entityData.get(DATA_IS_CHARGING_CROSSBOW); }
+	@Override
+	protected void finishConversion(ServerLevel serverlevel) {
+		PiglinPrisonerAi.cancelAdmiring(this);
+		this.inventory.removeAllItems().forEach(this::spawnAtLocation);
+		super.finishConversion(serverlevel);
+	}
+
+	public boolean isChargingCrossbow() {
+		return this.entityData.get(DATA_IS_CHARGING_CROSSBOW);
+	}
 
 	@Override
-	public void setChargingCrossbow(boolean bool) { this.entityData.set(DATA_IS_CHARGING_CROSSBOW, bool); }
+	public void setChargingCrossbow(boolean bool) {
+		this.entityData.set(DATA_IS_CHARGING_CROSSBOW, bool);
+	}
 
 	@Override
-	public void onCrossbowAttackPerformed() { this.noActionTime = 0; }
+	public void onCrossbowAttackPerformed() {
+		this.noActionTime = 0;
+	}
 
 	@Override
-	public void performRangedAttack(LivingEntity entity, float vel) { this.performCrossbowAttack(this, 1.6F); }
+	public void performRangedAttack(LivingEntity entity, float vel) {
+		this.performCrossbowAttack(this, 1.6F);
+	}
 
 	@Override
-	public void shootCrossbowProjectile(LivingEntity piglin, ItemStack itemstack, Projectile projectile, float vel) { this.shootCrossbowProjectile(this, piglin, projectile, vel, 1.6F); }
+	public void shootCrossbowProjectile(LivingEntity piglin, ItemStack itemstack, Projectile projectile, float vel) {
+		this.shootCrossbowProjectile(this, piglin, projectile, vel, 1.6F);
+	}
 
 	@Override
-	public boolean canFireProjectileWeapon(ProjectileWeaponItem item) { return item == Items.CROSSBOW; }
+	public boolean canFireProjectileWeapon(ProjectileWeaponItem item) {
+		return item == Items.CROSSBOW;
+	}
 
 	@VisibleForDebug
 	@Override
-	public SimpleContainer getInventory() { return this.inventory; }
+	public SimpleContainer getInventory() {
+		return this.inventory;
+	}
 
 	@Override
-	protected boolean canHunt() { return false; }
+	protected boolean canHunt() {
+		return false;
+	}
 
 	@Override
 	public PiglinArmPose getArmPose() {
-		if (this.isDancing())
+		if (this.isDancing()) {
 			return PiglinArmPose.DANCING;
-		else if (PiglinPrisonerAi.isLovedItem(this.getOffhandItem()))
+		} else if (PiglinPrisonerAi.isLovedItem(this.getOffhandItem())) {
 			return PiglinArmPose.ADMIRING_ITEM;
-		else if (this.isAggressive() && this.isHoldingMeleeWeapon())
+		} else if (this.isAggressive() && this.isHoldingMeleeWeapon()) {
 			return PiglinArmPose.ATTACKING_WITH_MELEE_WEAPON;
-		else if (this.isChargingCrossbow())
+		} else if (this.isChargingCrossbow()) {
 			return PiglinArmPose.CROSSBOW_CHARGE;
-		else
+		} else {
 			return this.isAggressive() && this.isHolding(is -> is.getItem() instanceof CrossbowItem) ? PiglinArmPose.CROSSBOW_HOLD : PiglinArmPose.DEFAULT;
+		}
 	}
 
-	public boolean isDancing() { return this.entityData.get(DATA_IS_DANCING); }
+	public boolean isDancing() {
+		return this.entityData.get(DATA_IS_DANCING);
+	}
 
-	public void setDancing(boolean isDancing) { this.entityData.set(DATA_IS_DANCING, isDancing); }
+	public void setDancing(boolean isDancing) {
+		this.entityData.set(DATA_IS_DANCING, isDancing);
+	}
 
 	@Override
 	public boolean hurt(DamageSource source, float amount) {
 		boolean flag = super.hurt(source, amount);
-		if (this.level.isClientSide) return false;
-		else {
-			if (flag && source.getEntity() instanceof LivingEntity)
+		if (this.level.isClientSide) {
+			return false;
+		} else {
+			if (flag && source.getEntity() instanceof LivingEntity) {
 				PiglinPrisonerAi.wasHurtBy(this, (LivingEntity)source.getEntity());
+			}
 			return flag;
 		}
 	}
 
-	public void holdInMainHand(ItemStack stack) { this.setItemSlotAndDropWhenKilled(EquipmentSlot.MAINHAND, stack); }
+	public void holdInMainHand(ItemStack stack) {
+		this.setItemSlotAndDropWhenKilled(EquipmentSlot.MAINHAND, stack);
+	}
 
 	public void holdInOffHand(ItemStack stack) {
 		if (stack.isPiglinCurrency()) {
 			this.setItemSlot(EquipmentSlot.OFFHAND, stack);
 			this.setGuaranteedDrop(EquipmentSlot.OFFHAND);
-		} else
+		} else {
 			this.setItemSlotAndDropWhenKilled(EquipmentSlot.OFFHAND, stack);
+		}
 	}
 
 	@Override
@@ -281,18 +327,20 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 		return this.canReplaceCurrentItem(replacementStack, itemstack);
 	}
 
+	@Override
 	protected boolean canReplaceCurrentItem(ItemStack newStack, ItemStack oldStack) {
-		if (EnchantmentHelper.hasBindingCurse(oldStack))
+		if (EnchantmentHelper.hasBindingCurse(oldStack)) {
 			return false;
-		else {
+		} else {
 			boolean flag = PiglinPrisonerAi.isLovedItem(newStack) || newStack.is(Items.CROSSBOW);
 			boolean flag1 = PiglinPrisonerAi.isLovedItem(oldStack) || oldStack.is(Items.CROSSBOW);
-			if (flag && !flag1)
+			if (flag && !flag1) {
 				return true;
-			else if (!flag && flag1)
+			} else if (!flag && flag1) {
 				return false;
-			else
+			} else {
 				return (!this.isAdult() || newStack.is(Items.CROSSBOW) || !oldStack.is(Items.CROSSBOW)) && super.canReplaceCurrentItem(newStack, oldStack);
+			}
 		}
 	}
 
@@ -303,21 +351,34 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 	}
 
 	@Override
-	protected SoundEvent getAmbientSound() { return this.level.isClientSide ? null : PiglinPrisonerAi.getSoundForCurrentActivity(this).orElse(null); }
+	protected SoundEvent getAmbientSound() {
+		return this.level.isClientSide ? null : PiglinPrisonerAi.getSoundForCurrentActivity(this).orElse(null);
+	}
 
 	@Override
-	protected SoundEvent getHurtSound(DamageSource source) { return SoundEvents.PIGLIN_HURT; }
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return SoundEvents.PIGLIN_HURT;
+	}
 
 	@Override
-	protected SoundEvent getDeathSound() { return SoundEvents.PIGLIN_DEATH; }
+	protected SoundEvent getDeathSound() {
+		return SoundEvents.PIGLIN_DEATH;
+	}
 
 	@Override
-	protected void playStepSound(BlockPos blockpos, BlockState blockstate) { this.playSound(SoundEvents.PIGLIN_STEP, 0.15F, 1.0F); }
-
-	public void playSound(SoundEvent sound) { this.playSound(sound, this.getSoundVolume(), this.getVoicePitch()); }
+	protected void playStepSound(BlockPos blockpos, BlockState blockstate) {
+		this.playSound(SoundEvents.PIGLIN_STEP, 0.15F, 1.0F);
+	}
 
 	@Override
-	protected void playConvertedSound() { this.playSound(SoundEvents.PIGLIN_CONVERTED_TO_ZOMBIFIED); }
+	public void playSound(SoundEvent sound) {
+		this.playSound(sound, this.getSoundVolume(), this.getVoicePitch());
+	}
+
+	@Override
+	protected void playConvertedSound() {
+		this.playSound(SoundEvents.PIGLIN_CONVERTED_TO_ZOMBIFIED);
+	}
 
 	@Nullable
 	public Player getTempter() {
@@ -330,8 +391,12 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 	}
 
 	@Nullable
-	public UUID getTempterUUID() { return this.entityData.get(DATA_OWNERUUID_ID).orElse(null); }
+	public UUID getTempterUUID() {
+		return this.entityData.get(DATA_OWNERUUID_ID).orElse(null);
+	}
 
-	public void setTempterUUID(@Nullable UUID uuid) { this.entityData.set(DATA_OWNERUUID_ID, Optional.ofNullable(uuid)); }
+	public void setTempterUUID(@Nullable UUID uuid) {
+		this.entityData.set(DATA_OWNERUUID_ID, Optional.ofNullable(uuid));
+	}
 
 }

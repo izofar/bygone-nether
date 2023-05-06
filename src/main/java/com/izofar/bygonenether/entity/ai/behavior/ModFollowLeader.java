@@ -35,34 +35,39 @@ public class ModFollowLeader extends Behavior<PathfinderMob> {
     }
 
     private Optional<Player> getTemptingPlayer(PathfinderMob mob) {
-        return mob.getBrain().hasMemoryValue(MemoryModuleType.IS_TEMPTED)
-                ? mob.getBrain().getMemory(MemoryModuleType.TEMPTING_PLAYER)
-                : Optional.empty();
+        return mob.getBrain().hasMemoryValue(MemoryModuleType.IS_TEMPTED) ? mob.getBrain().getMemory(MemoryModuleType.TEMPTING_PLAYER) : Optional.empty();
     }
 
-    protected boolean timedOut(long p_147488_) {
+    @Override
+    protected boolean timedOut(long gameTime) {
         return false;
     }
 
-    protected boolean canStillUse(ServerLevel level, PathfinderMob mob, long p_147496_) {
+    @Override
+    protected boolean canStillUse(ServerLevel level, PathfinderMob mob, long gameTime) {
         return this.getTemptingPlayer(mob).isPresent();
     }
 
-    protected void stop(ServerLevel level, PathfinderMob mob, long p_147517_) {
+    @Override
+    protected void stop(ServerLevel level, PathfinderMob mob, long gameTime) {
         mob.getBrain().eraseMemory(MemoryModuleType.WALK_TARGET);
         mob.getBrain().eraseMemory(MemoryModuleType.TEMPTING_PLAYER);
         mob.getBrain().eraseMemory(MemoryModuleType.IS_TEMPTED);
     }
 
-    protected void tick(ServerLevel level, PathfinderMob mob, long p_147525_) {
-        if(this.isDistracted.test(mob)) return;
-        Brain<?> brain = mob.getBrain();
-        Player player = this.getTemptingPlayer(mob).get();
-        double dist = mob.distanceToSqr(player);
-        if (dist < TOO_CLOSE_DIST * TOO_CLOSE_DIST) {
-            brain.eraseMemory(MemoryModuleType.WALK_TARGET);
-        } else if(dist > CLOSE_ENOUGH_DIST * CLOSE_ENOUGH_DIST && dist < TOO_FAR_DIST * TOO_FAR_DIST) {
-            brain.setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(new EntityTracker(player, false), 1, 2));
+    @Override
+    protected void tick(ServerLevel level, PathfinderMob mob, long gameTime) {
+        if (this.isDistracted.test(mob)) {
+            return;
+        }
+
+        Player player = this.getTemptingPlayer(mob).orElse(null);
+        double dist = (player != null) ? mob.distanceToSqr(player) : 0;
+
+        if (player == null || dist < TOO_CLOSE_DIST * TOO_CLOSE_DIST) {
+            mob.getBrain().eraseMemory(MemoryModuleType.WALK_TARGET);
+        } else if (dist > CLOSE_ENOUGH_DIST * CLOSE_ENOUGH_DIST && dist < TOO_FAR_DIST * TOO_FAR_DIST) {
+            mob.getBrain().setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(new EntityTracker(player, false), 1, 2));
         }
     }
 }

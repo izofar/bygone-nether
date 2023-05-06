@@ -42,7 +42,9 @@ public class ModArmorItem extends ArmorItem {
 		} else if (this == ModItems.GILDED_NETHERITE_BOOTS.get()) {
 			item = Items.NETHERITE_BOOTS;
 			slot = 0;
-		}else return;
+		} else {
+			return;
+		}
 		
 		ItemStack newStack = new ItemStack(item, 1);
 		newStack.addTagElement("Enchantments", list);
@@ -51,6 +53,7 @@ public class ModArmorItem extends ArmorItem {
 	}
 
 	@Override
-	public boolean makesPiglinsNeutral(ItemStack stack, LivingEntity wearer) { return stack.getItem() instanceof ArmorItem && ((ArmorItem) stack.getItem()).getMaterial() == ModArmorMaterial.GILDED_NETHERITE; }
-
+	public boolean makesPiglinsNeutral(ItemStack stack, LivingEntity wearer) {
+		return stack.getItem() instanceof ArmorItem && ((ArmorItem) stack.getItem()).getMaterial() == ModArmorMaterial.GILDED_NETHERITE;
+	}
 }

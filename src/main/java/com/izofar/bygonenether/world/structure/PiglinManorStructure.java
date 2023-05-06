@@ -78,7 +78,9 @@ public class PiglinManorStructure extends Structure {
 
     @Override
     public Optional<Structure.GenerationStub> findGenerationPoint(Structure.GenerationContext context) {
-        if(!checkLocation(context)) return Optional.empty();
+        if(!checkLocation(context)) {
+            return Optional.empty();
+        }
 
         BlockPos blockpos = ModStructureUtils.getElevation(context, 34, ModStructureUtils.getScaledNetherHeight(72));
         return JigsawPlacement.addPieces(context, this.startPool, this.startJigsawName, this.size, blockpos, false, this.projectStartToHeightmap, this.maxDistanceFromCenter);

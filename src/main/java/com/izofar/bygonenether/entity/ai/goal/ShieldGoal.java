@@ -89,7 +89,9 @@ public class ShieldGoal<T extends Mob & IShieldedMob> extends Goal {
     }
 
     private static boolean targetDrawnBow(LivingEntity target) {
-        if (target == null) return false;
+        if (target == null) {
+            return false;
+        }
         for (InteractionHand interactionhand : InteractionHand.values()) {
             ItemStack itemstack = target.getItemInHand(interactionhand);
             boolean drawnBow = itemstack.is(Items.BOW) && target.isUsingItem();
@@ -108,7 +110,7 @@ public class ShieldGoal<T extends Mob & IShieldedMob> extends Goal {
     protected void findTarget() {
         LivingEntity potentialTarget;
         if (this.targetType != Player.class && this.targetType != ServerPlayer.class) {
-            potentialTarget = this.mob.level.getNearestEntity(this.mob.level.getEntitiesOfClass(this.targetType, this.getTargetSearchArea(this.getFollowDistance()), (p_148152_) -> true), this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
+            potentialTarget = this.mob.level.getNearestEntity(this.mob.level.getEntitiesOfClass(this.targetType, this.getTargetSearchArea(this.getFollowDistance()), (livingEntity) -> true), this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
         } else {
             potentialTarget = this.mob.level.getNearestPlayer(this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
         }

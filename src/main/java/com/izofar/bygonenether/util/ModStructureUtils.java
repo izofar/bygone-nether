@@ -28,16 +28,21 @@ public abstract class ModStructureUtils {
 	public static boolean isNearStructure(Structure.GenerationContext context, int radius, Holder<StructureSet> ...features) {
 		ChunkPos chunkPos = context.chunkPos();
 		boolean isNearStructure = false;
-		for (Holder<StructureSet> feature : features)
+		for (Holder<StructureSet> feature : features) {
 			isNearStructure = isNearStructure || context.chunkGenerator().hasStructureChunkInRange(feature, context.randomState(), context.seed(), chunkPos.x, chunkPos.z, radius);
+		}
 		return isNearStructure;
 	}
 
 	public static boolean isLavaLake(NoiseColumn blockReader) {
 		boolean isLake = true;
-		if(blockReader.getBlock(31).getBlock() != Blocks.LAVA) isLake = false;
-		else for(int i = 32; i < 70; i ++)
-			isLake = isLake && (isAir.test(blockReader.getBlock(i).getBlock()));
+		if (blockReader.getBlock(31).getBlock() != Blocks.LAVA) {
+			isLake = false;
+		} else {
+			for(int i = 32; i < 70; i ++) {
+				isLake = isLake && (isAir.test(blockReader.getBlock(i).getBlock()));
+			}
+		}
 		return isLake;
 	}
 	
@@ -45,8 +50,9 @@ public abstract class ModStructureUtils {
 
 		boolean found = false;
 		for (int i = min; i < max; i++) {
-			if (isAir.test(blockReader.getBlock(i + 1).getBlock()) && !isAir.test(blockReader.getBlock(i).getBlock()))
+			if (isAir.test(blockReader.getBlock(i + 1).getBlock()) && !isAir.test(blockReader.getBlock(i).getBlock())) {
 				found = true;
+			}
 		}
 		return !found;
 	}
@@ -54,8 +60,11 @@ public abstract class ModStructureUtils {
 	public static boolean verticalSpace(NoiseColumn blockReader, int min, int max, int height) {
 		int height_tracked = 0;
 		for(int i = max; i >= min && height_tracked < height; i --) {
-			if(isAir.test(blockReader.getBlock(i).getBlock())) height_tracked ++;
-			else height_tracked = 0;
+			if(isAir.test(blockReader.getBlock(i).getBlock())) {
+				height_tracked ++;
+			} else {
+				height_tracked = 0;
+			}
 		}
 		return height_tracked == height;
 	}
@@ -71,8 +80,9 @@ public abstract class ModStructureUtils {
 				found = true;
 			}
 		}
-		if (!found)
+		if (!found) {
 			blockpos = new BlockPos(blockpos.getX(), new Random(context.seed()).nextInt(max - min) + min, blockpos.getZ());
+		}
 		return blockpos;
 	}
 
@@ -94,7 +104,7 @@ public abstract class ModStructureUtils {
 		return blockState.isAir() || blockState.getMaterial().isLiquid() || blockState.getMaterial().isReplaceable();
 	}
 
-	public static int getScaledNetherHeight(int vanillaHeight){
+	public static int getScaledNetherHeight(int vanillaHeight) {
 		return (int) (vanillaHeight / 128.0F * (ModList.get().isLoaded("starmute") ? 256.0F : 128.0F));
 	}
 

@@ -29,15 +29,18 @@ public class WitherSkeletonHorse extends SkeletonHorse {
     }
 
     @Override
-    public boolean hurt(DamageSource source, float amount){
+    public boolean hurt(DamageSource source, float amount) {
         this.getPassengers().forEach((passenger) -> {
-            if(passenger instanceof AbstractPiglin piglin && source.getEntity() instanceof LivingEntity target)
+            if(passenger instanceof AbstractPiglin piglin && source.getEntity() instanceof LivingEntity target) {
                 PiglinPrisonerAi.setAngerTarget(piglin, target);
+            }
         });
         return super.hurt(source, amount);
     }
 
     @Override
-    public boolean isTamed() { return true; }
+    public boolean isTamed() {
+        return true;
+    }
 
 }

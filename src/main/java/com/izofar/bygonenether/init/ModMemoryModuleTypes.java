@@ -16,6 +16,6 @@ public static final DeferredRegister<MemoryModuleType<?>> MODDED_MEMORY_MODULE_T
 	
 	public static final RegistryObject<MemoryModuleType<Player>> NEAREST_TARGETABLE_PLAYER_NOT_WEARING_GILD = MODDED_MEMORY_MODULE_TYPES.register("nearest_targetable_player_not_wearing_gild", () -> new MemoryModuleType<>(Optional.empty())); 
 	
-	public static void register(IEventBus eventBus){ MODDED_MEMORY_MODULE_TYPES.register(eventBus); }
+	public static void register(IEventBus eventBus) { MODDED_MEMORY_MODULE_TYPES.register(eventBus); }
 	
 }

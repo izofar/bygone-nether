@@ -23,12 +23,12 @@ public class WraitherRenderer extends MobRenderer<Wraither, SkeletonModel<Wraith
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Wraither skeleton) {
-        return skeleton.isPossessed() ? POSSESSED_SKELETON_LOCATION : WITHER_SKELETON_LOCATION;
+    public ResourceLocation getTextureLocation(Wraither wraither) {
+        return wraither.isPossessed() ? POSSESSED_SKELETON_LOCATION : WITHER_SKELETON_LOCATION;
     }
 
     @Override
-    protected void scale(Wraither skeleton, PoseStack poseStack, float f){
+    protected void scale(Wraither wraither, PoseStack poseStack, float partialTicks) {
         poseStack.scale(1.2F, 1.2F, 1.2F);
     }
 }

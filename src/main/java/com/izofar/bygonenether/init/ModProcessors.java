@@ -14,7 +14,5 @@ public abstract class ModProcessors {
 
     public static final RegistryObject<StructureProcessorType<DataBlockProcessor>> DATA_BLOCK_PROCESSOR = STRUCTURE_PROCESSOR.register("data_block_processor", () -> () -> DataBlockProcessor.CODEC);
 
-    public static void register(IEventBus eventBus){
-        STRUCTURE_PROCESSOR.register(eventBus);
-    }
+    public static void register(IEventBus eventBus) { STRUCTURE_PROCESSOR.register(eventBus); }
 }
