@@ -1,6 +1,6 @@
 {
   "replace": false,
   "values": [
-    "#bygonenether:collections/nether"
+    "minecraft:basalt_deltas"
   ]
 }

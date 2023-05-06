@@ -51,22 +51,6 @@
         ]
       }
     },
-    "in_fortress": {
-      "trigger": "minecraft:location",
-      "conditions": {
-        "player": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "location": {
-                "structure": "minecraft:fortress"
-              }
-            }
-          }
-        ]
-      }
-    },
     "in_piglin_manor": {
       "trigger": "minecraft:location",
       "conditions": {
@@ -82,22 +66,6 @@
           }
         ]
       }
-    },
-    "in_bastion_remnant": {
-      "trigger": "minecraft:location",
-      "conditions": {
-        "player": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "location": {
-                "structure": "minecraft:bastion_remnant"
-              }
-            }
-          }
-        ]
-      }
     }
   },
   "requirements": [
@@ -108,13 +76,7 @@
       "in_citadel"
     ],
     [
-      "in_fortress"
-    ],
-    [
       "in_piglin_manor"
-    ],
-    [
-      "in_bastion_remnant"
     ]
   ]
 }
