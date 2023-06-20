@@ -390,6 +390,11 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 		}
 	}
 
+	public void getRescued() {
+		PiglinPrisonerAi.startDancing(this);
+		PiglinPrisonerAi.broadcastBeingRescued(this);
+	}
+
 	@Nullable
 	public UUID getTempterUUID() {
 		return this.entityData.get(DATA_OWNERUUID_ID).orElse(null);

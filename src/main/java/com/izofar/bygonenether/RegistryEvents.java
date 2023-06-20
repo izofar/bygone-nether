@@ -44,6 +44,7 @@ public abstract class RegistryEvents {
 		event.registerEntityRenderer(ModEntityTypes.CORPOR.get(), CorporRenderer::new);
 		event.registerEntityRenderer(ModEntityTypes.WITHER_SKELETON_HORSE.get(), WitherSkeletonHorseRenderer::new);
 		event.registerEntityRenderer(ModEntityTypes.WARPED_ENDER_PEARL.get(), ThrownItemRenderer::new);
+		event.registerBlockEntityRenderer(ModEntityTypes.NETHERITE_BELL.get(), NetheriteBellRenderer::new);
 	}
 
 }

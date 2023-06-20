@@ -29,7 +29,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.entity.monster.piglin.PiglinAi;
-import net.minecraft.world.entity.monster.piglin.RememberIfHoglinWasKilled;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.item.CrossbowItem;
@@ -477,9 +476,14 @@ public class PiglinPrisonerAi {
 		list.stream().filter(PiglinAi::isIdle).filter((piglin) -> !requireVisibility || BehaviorUtils.canSee(piglin, player)).forEach(PiglinPrisonerAi::startDancing);
 	}
 
-	private static void startDancing(PiglinPrisoner piglinPrisoner) {
+	public static void startDancing(PiglinPrisoner piglinPrisoner) {
 		piglinPrisoner.getBrain().setMemoryWithExpiry(MemoryModuleType.DANCING, true, CELEBRATION_TIME);
 		piglinPrisoner.getBrain().setMemoryWithExpiry(MemoryModuleType.CELEBRATE_LOCATION, piglinPrisoner.blockPosition(), CELEBRATION_TIME);
+	}
+
+	private static void startDancing(Piglin piglin) {
+		piglin.getBrain().setMemoryWithExpiry(MemoryModuleType.DANCING, true, CELEBRATION_TIME);
+		piglin.getBrain().setMemoryWithExpiry(MemoryModuleType.CELEBRATE_LOCATION, piglin.blockPosition(), CELEBRATION_TIME);
 	}
 
 	private static boolean seesPlayerHoldingLovedItem(PiglinPrisoner piglinPrisoner) {
@@ -505,11 +509,19 @@ public class PiglinPrisonerAi {
 	}
 
 	protected static void broadcastAngerTarget(AbstractPiglin piglin, LivingEntity target) {
-		getAdultPiglins(piglin).forEach((adultPiglin) -> setAngerTargetIfCloserThanCurrent(adultPiglin, target));
+		getAdultAbstractPiglins(piglin).forEach((adultPiglin) -> setAngerTargetIfCloserThanCurrent(adultPiglin, target));
 	}
 
-	private static List<AbstractPiglin> getAdultPiglins(AbstractPiglin piglin) {
+	public static void broadcastBeingRescued(AbstractPiglin piglin) {
+		getAdultPiglins(piglin).forEach(PiglinPrisonerAi::startDancing);
+	}
+
+	private static List<AbstractPiglin> getAdultAbstractPiglins(AbstractPiglin piglin) {
 		return piglin.getBrain().getMemory(MemoryModuleType.NEARBY_ADULT_PIGLINS).orElse(ImmutableList.of());
+	}
+
+	private static List<Piglin> getAdultPiglins(AbstractPiglin piglin) {
+		return piglin.getBrain().getMemory(MemoryModuleType.NEARBY_ADULT_PIGLINS).orElse(ImmutableList.of()).stream().filter((abstractPiglin) -> abstractPiglin instanceof Piglin).map((abstractPiglin -> (Piglin) abstractPiglin)).toList();
 	}
 
 	private static void setAngerTargetIfCloserThanCurrent(AbstractPiglin piglin, LivingEntity target) {

@@ -35,6 +35,7 @@
 	"item.bygonenether.wither_waltz_music_disc.desc": "izofar - Wither Waltz",
 
 	"item.bygonenether.warped_ender_pearl": "Warped Ender Pearl",
+	"item.bygonenether.netherite_bell": "Netherite Bell",
 
 	"block.bygonenether.cobbled_blackstone": "Cobbled Blackstone",
 	"block.bygonenether.withered_blackstone": "Withered Blackstone",
@@ -89,5 +90,7 @@
 	"advancements.bygonenether.root.title": "Bygone Nether",
 	"advancements.bygonenether.root.description": "Explore the Nether for New Structures!",
 	"advancements.bygonenether.summon_enderman.title": "A Little Off the Top",
-	"advancements.bygonenether.summon_enderman.description": "Trim the Warp off of an Enderman"
+	"advancements.bygonenether.summon_enderman.description": "Trim the Warp off of an Enderman",
+
+	"itemGroup.bygonenethertab": "Bygone Nether"
 }
