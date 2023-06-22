@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-public class PiglinPrisonerSpecificSensor extends Sensor<LivingEntity>{
+public class PiglinPrisonerSpecificSensor extends Sensor<LivingEntity> {
 
 	@Override
 	public Set<MemoryModuleType<?>> requires() {
@@ -36,6 +36,7 @@ public class PiglinPrisonerSpecificSensor extends Sensor<LivingEntity>{
 				MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
 				MemoryModuleType.NEAREST_LIVING_ENTITIES,
 				MemoryModuleType.NEAREST_VISIBLE_NEMESIS,
+				MemoryModuleType.NEAREST_VISIBLE_PLAYER,
 				MemoryModuleType.NEAREST_PLAYER_HOLDING_WANTED_ITEM,
 				MemoryModuleType.NEAREST_VISIBLE_ADULT_PIGLINS,
 				MemoryModuleType.NEARBY_ADULT_PIGLINS,
@@ -44,14 +45,14 @@ public class PiglinPrisonerSpecificSensor extends Sensor<LivingEntity>{
 		);
 	}
 
-
 	@Override
-	protected void doTick(ServerLevel level, LivingEntity piglinprisoner) {
-		Brain<?> brain = piglinprisoner.getBrain();
-		brain.setMemory(MemoryModuleType.NEAREST_REPELLENT, findNearestRepellent(level, piglinprisoner));
+	protected void doTick(ServerLevel level, LivingEntity piglinPrisoner) {
+		Brain<?> brain = piglinPrisoner.getBrain();
+		brain.setMemory(MemoryModuleType.NEAREST_REPELLENT, findNearestRepellent(level, piglinPrisoner));
 		Optional<Mob> optional = Optional.empty();
 		Optional<Piglin> optional3 = Optional.empty();
 		Optional<LivingEntity> optional4 = Optional.empty();
+		Optional<Player> optional5 = Optional.empty();
 		Optional<Player> optional6 = Optional.empty();
 		List<AbstractPiglin> list = Lists.newArrayList();
 		List<AbstractPiglin> list1 = Lists.newArrayList();
@@ -65,6 +66,13 @@ public class PiglinPrisonerSpecificSensor extends Sensor<LivingEntity>{
 					optional3 = Optional.of(piglin);
 				} else if (piglin.isAdult()) {
 					list.add(piglin);
+				}
+			} else if (livingentity instanceof Player player) {
+				if (optional5.isEmpty()) {
+					optional5 = Optional.of(player);
+				}
+				if (optional6.isEmpty() && !player.isSpectator() && PiglinAi.isPlayerHoldingLovedItem(player)) {
+					optional6 = Optional.of(player);
 				}
 			} else if (optional.isPresent() || !(livingentity instanceof WitherSkeleton) && !(livingentity instanceof WitherBoss) && !(livingentity instanceof Hoglin hoglin && hoglin.isAdult())) {
 				if (optional4.isEmpty() && PiglinAi.isZombified(livingentity.getType())) {
@@ -85,6 +93,7 @@ public class PiglinPrisonerSpecificSensor extends Sensor<LivingEntity>{
 
 		brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_NEMESIS, optional);
 		brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_ZOMBIFIED, optional4);
+		brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_PLAYER, optional5);
 		brain.setMemory(MemoryModuleType.NEAREST_PLAYER_HOLDING_WANTED_ITEM, optional6);
 		brain.setMemory(MemoryModuleType.NEARBY_ADULT_PIGLINS, list1);
 		brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_ADULT_PIGLINS, list);
@@ -92,7 +101,9 @@ public class PiglinPrisonerSpecificSensor extends Sensor<LivingEntity>{
 
 	}
 
-	private static Optional<BlockPos> findNearestRepellent(ServerLevel p_26735_, LivingEntity p_26736_) { return BlockPos.findClosestMatch(p_26736_.blockPosition(), 8, 4, (p_186160_) -> isValidRepellent(p_26735_, p_186160_)); }
+	private static Optional<BlockPos> findNearestRepellent(ServerLevel level, LivingEntity livingEntity) {
+		return BlockPos.findClosestMatch(livingEntity.blockPosition(), 8, 4, (blockPos) -> isValidRepellent(level, blockPos));
+	}
 
 	private static boolean isValidRepellent(ServerLevel serverlevel, BlockPos blockpos) {
 		BlockState blockstate = serverlevel.getBlockState(blockpos);

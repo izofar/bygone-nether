@@ -24,7 +24,6 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShieldItem;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.entity.BannerBlockEntity;
 import net.minecraft.world.level.block.entity.BannerPattern;
 import net.minecraftforge.api.distmarker.Dist;
@@ -39,8 +38,8 @@ import java.util.List;
 public class ModShieldRenderer extends BlockEntityWithoutLevelRenderer {
 
     private static ModShieldRenderer instance;
-    private static ClampedItemPropertyFunction isBlocking = (stack, world, entity, seed) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F;
 
+    private static final ClampedItemPropertyFunction isBlocking = (stack, world, entity, seed) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F;
     private static final Material GILDED_NETHERITE_SHIELD_BASE_LOCATION = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation(BygoneNetherMod.MODID, "entity/gilded_netherite_shield_base"));
     private static final Material GILDED_NETHERITE_SHIELD_BASE_NOPATTERN_LOCATION = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation(BygoneNetherMod.MODID, "entity/gilded_netherite_shield_base_nopattern"));
 

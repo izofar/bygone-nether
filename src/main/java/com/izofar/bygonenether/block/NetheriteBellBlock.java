@@ -54,7 +54,7 @@ public class NetheriteBellBlock extends BaseEntityBlock {
 
     public NetheriteBellBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(ATTACHMENT, BellAttachType.FLOOR).setValue(POWERED, Boolean.valueOf(false)));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(ATTACHMENT, BellAttachType.FLOOR).setValue(POWERED, false));
     }
 
     @Override
@@ -206,7 +206,7 @@ public class NetheriteBellBlock extends BaseEntityBlock {
                 if (bellAttachType == BellAttachType.DOUBLE_WALL && !neighborState.isFaceSturdy(level, neighborPos, direction)) {
                     return state.setValue(ATTACHMENT, BellAttachType.SINGLE_WALL).setValue(FACING, direction.getOpposite());
                 }
-                if (bellAttachType == BellAttachType.SINGLE_WALL && direction2.getOpposite() == direction && neighborState.isFaceSturdy(level, neighborPos, (Direction)state.getValue(FACING))) {
+                if (bellAttachType == BellAttachType.SINGLE_WALL && direction2.getOpposite() == direction && neighborState.isFaceSturdy(level, neighborPos, state.getValue(FACING))) {
                     return state.setValue(ATTACHMENT, BellAttachType.DOUBLE_WALL);
                 }
             }

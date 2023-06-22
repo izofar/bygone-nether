@@ -180,15 +180,7 @@ public class PiglinPrisonerAi {
 	public static void updateActivity(PiglinPrisoner piglinPrisoner) {
 		Brain<PiglinPrisoner> brain = piglinPrisoner.getBrain();
 		Activity activity = brain.getActiveNonCoreActivity().orElse(null);
-		brain.setActiveActivityToFirstValid(
-				ImmutableList.of(
-						Activity.ADMIRE_ITEM,
-						Activity.FIGHT,
-						Activity.AVOID,
-						Activity.CELEBRATE,
-						Activity.IDLE
-				)
-		);
+		brain.setActiveActivityToFirstValid(ImmutableList.of(Activity.ADMIRE_ITEM, Activity.FIGHT, Activity.AVOID, Activity.CELEBRATE, Activity.IDLE));
 
 		Activity activity1 = brain.getActiveNonCoreActivity().orElse(null);
 		if (activity != activity1) {
@@ -225,7 +217,7 @@ public class PiglinPrisonerAi {
 		}
 	}
 
-	private static void holdInOffhand(PiglinPrisoner piglinPrisoner, ItemStack stack) {
+	public static void holdInOffhand(PiglinPrisoner piglinPrisoner, ItemStack stack) {
 		if (isHoldingItemInOffHand(piglinPrisoner)) {
 			piglinPrisoner.spawnAtLocation(piglinPrisoner.getItemInHand(InteractionHand.OFF_HAND));
 		}
@@ -247,33 +239,24 @@ public class PiglinPrisonerAi {
 	public static void stopHoldingOffHandItem(PiglinPrisoner piglinPrisoner, boolean shouldThrowItems) {
 		ItemStack itemstack = piglinPrisoner.getItemInHand(InteractionHand.OFF_HAND);
 		piglinPrisoner.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
-		if (piglinPrisoner.isAdult()) {
-			boolean flag = itemstack.isPiglinCurrency();
-			if (shouldThrowItems && flag) {
-				putInInventory(piglinPrisoner, itemstack);
-			} else if (!flag) {
-				boolean flag1 = piglinPrisoner.equipItemIfPossible(itemstack);
-				if (!flag1) {
-					throwItems(piglinPrisoner, Collections.singletonList(itemstack));
-				}
-			}
-		} else {
-			boolean flag2 = piglinPrisoner.equipItemIfPossible(itemstack);
-			if (!flag2) {
-				ItemStack itemstack1 = piglinPrisoner.getMainHandItem();
-				if (isLovedItem(itemstack1)) {
-					putInInventory(piglinPrisoner, itemstack1);
-				} else {
-					throwItems(piglinPrisoner, Collections.singletonList(itemstack1));
-				}
-				piglinPrisoner.holdInMainHand(itemstack);
+		boolean flag = itemstack.isPiglinCurrency();
+		if (shouldThrowItems && flag) {
+			putInInventory(piglinPrisoner, itemstack);
+		} else if (!flag) {
+			boolean flag1 = piglinPrisoner.equipItemIfPossible(itemstack);
+			if (!flag1) {
+				throwItems(piglinPrisoner, Collections.singletonList(itemstack));
 			}
 		}
 	}
 
-	private static void throwItems(PiglinPrisoner piglinPrisoner, List<ItemStack> stackList) {
+	public static void throwItems(PiglinPrisoner piglinPrisoner, List<ItemStack> stackList) {
+		Player tempter = piglinPrisoner.getTempter();
 		Optional<Player> optional = piglinPrisoner.getBrain().getMemory(MemoryModuleType.NEAREST_VISIBLE_PLAYER);
-		if (optional.isPresent()) {
+		if (tempter != null) {
+			throwItemsTowardPlayer(piglinPrisoner, tempter, stackList);
+		}
+		else if (optional.isPresent()) {
 			throwItemsTowardPlayer(piglinPrisoner, optional.get(), stackList);
 		}
 		else {
@@ -390,7 +373,6 @@ public class PiglinPrisonerAi {
 	public static boolean canAdmire(PiglinPrisoner piglinPrisoner, ItemStack stack) {
 		return !isAdmiringDisabled(piglinPrisoner)
 				&& !isAdmiringItem(piglinPrisoner)
-				&& piglinPrisoner.isAdult()
 				&& (stack.isPiglinCurrency() || isLovedItem(stack));
 	}
 

@@ -42,7 +42,7 @@ public class PiglinBruteSpecificSensor extends Sensor<LivingEntity> {
 
 		Optional<Player> optional5 = Optional.empty();
 
-		for(LivingEntity livingentity : nearestvisiblelivingentities.findAll((p_186157_) -> true) )
+		for(LivingEntity livingentity : nearestvisiblelivingentities.findAll((target) -> true) )
 			if (livingentity instanceof Player player && optional5.isEmpty() && !ModPiglinBruteAi.isWearingGild(player) && entity.canAttack(livingentity))
 				optional5 = Optional.of(player);
 		

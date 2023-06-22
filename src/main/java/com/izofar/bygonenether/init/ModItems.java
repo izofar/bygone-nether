@@ -55,7 +55,7 @@ public abstract class ModItems {
 	public static final RegistryObject<Item> WARPED_NETHER_BRICK_STAIRS = MODDED_ITEMS.register("warped_nether_brick_stairs", () -> new BlockItem(ModBlocks.WARPED_NETHER_BRICK_STAIRS.get(), new Item.Properties().tab(ModCreativeModeTabs.MOD_TAB)));
 	public static final RegistryObject<Item> WARPED_NETHER_BRICK_SLAB = MODDED_ITEMS.register("warped_nether_brick_slab", () -> new BlockItem(ModBlocks.WARPED_NETHER_BRICK_SLAB.get(), new Item.Properties().tab(ModCreativeModeTabs.MOD_TAB)));
 
-	public static final RegistryObject<Item> WITHER_WALTZ_MUSIC_DISC = MODDED_ITEMS.register("wither_waltz_music_disc", () -> new RecordItem(4, () -> ModSounds.WITHER_WALTZ.get(), new Item.Properties().tab(ModCreativeModeTabs.MOD_TAB).stacksTo(1).rarity(Rarity.RARE), 5040));
+	public static final RegistryObject<Item> WITHER_WALTZ_MUSIC_DISC = MODDED_ITEMS.register("wither_waltz_music_disc", () -> new RecordItem(4, ModSounds.WITHER_WALTZ, new Item.Properties().tab(ModCreativeModeTabs.MOD_TAB).stacksTo(1).rarity(Rarity.RARE), 5040));
 	public static final RegistryObject<Item> WARPED_ENDER_PEARL = MODDED_ITEMS.register("warped_ender_pearl", () -> new WarpedEnderpearlItem((new Item.Properties()).stacksTo(16).tab(ModCreativeModeTabs.MOD_TAB).rarity(Rarity.RARE)));
 
 	public static final RegistryObject<Item> NETHERITE_BELL = MODDED_ITEMS.register("netherite_bell", () -> new BlockItem(ModBlocks.NETHERITE_BELL.get(), new Item.Properties().tab(ModCreativeModeTabs.MOD_TAB)));

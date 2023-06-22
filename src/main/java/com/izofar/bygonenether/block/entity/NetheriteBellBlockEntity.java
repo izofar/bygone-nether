@@ -1,7 +1,6 @@
 package com.izofar.bygonenether.block.entity;
 
 import com.izofar.bygonenether.entity.PiglinPrisoner;
-import com.izofar.bygonenether.entity.ai.PiglinPrisonerAi;
 import com.izofar.bygonenether.init.ModEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -14,7 +13,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -119,7 +117,7 @@ public class NetheriteBellBlockEntity  extends BlockEntity {
 
     private static boolean arePiglinPrisonersNearby(BlockPos blockPos, List<LivingEntity> piglinPrisoners) {
         for (LivingEntity livingentity : piglinPrisoners) {
-            if (isPiglinPrisonerWithinRange(blockPos, livingentity, HEAR_BELL_RADIUS)) {
+            if (isRescuedPiglinPrisonerWithinRange(blockPos, livingentity, HEAR_BELL_RADIUS)) {
                 return true;
             }
         }
@@ -127,13 +125,13 @@ public class NetheriteBellBlockEntity  extends BlockEntity {
     }
 
     private static void completePiglinPrisoneRescue(Level level, BlockPos blockPos, List<LivingEntity> piglinPrisoners) {
-        piglinPrisoners.stream().filter((piglinPrisoner) -> isPiglinPrisonerWithinRange(blockPos, piglinPrisoner, HIGHLIGHT_PIGLIN_PRISONERS_RADIUS)).forEach(NetheriteBellBlockEntity::rescue);
+        piglinPrisoners.stream().filter((piglinPrisoner) -> isRescuedPiglinPrisonerWithinRange(blockPos, piglinPrisoner, HIGHLIGHT_PIGLIN_PRISONERS_RADIUS)).forEach(NetheriteBellBlockEntity::rescue);
     }
 
     private static void showBellParticles(Level level, BlockPos blockPos, List<LivingEntity> piglinPrisoners) {
         MutableInt mutableint = new MutableInt(16700985);
         int i = (int)piglinPrisoners.stream().filter((piglinPrisoner) -> blockPos.closerToCenterThan(piglinPrisoner.position(), HIGHLIGHT_PIGLIN_PRISONERS_RADIUS)).count();
-        piglinPrisoners.stream().filter((piglinPrisoner) -> isPiglinPrisonerWithinRange(blockPos, piglinPrisoner, HIGHLIGHT_PIGLIN_PRISONERS_RADIUS)).forEach((p_155195_) -> {
+        piglinPrisoners.stream().filter((piglinPrisoner) -> isRescuedPiglinPrisonerWithinRange(blockPos, piglinPrisoner, HIGHLIGHT_PIGLIN_PRISONERS_RADIUS)).forEach((p_155195_) -> {
             double d0 = Math.sqrt((p_155195_.getX() - (double)blockPos.getX()) * (p_155195_.getX() - (double)blockPos.getX()) + (p_155195_.getZ() - (double)blockPos.getZ()) * (p_155195_.getZ() - (double)blockPos.getZ()));
             double d1 = (double)((float)blockPos.getX() + 0.5F) + 1.0D / d0 * (p_155195_.getX() - (double)blockPos.getX());
             double d2 = (double)((float)blockPos.getZ() + 0.5F) + 1.0D / d0 * (p_155195_.getZ() - (double)blockPos.getZ());
@@ -152,8 +150,8 @@ public class NetheriteBellBlockEntity  extends BlockEntity {
         return livingentity.isAlive() && !livingentity.isRemoved() && blockPos.closerToCenterThan(livingentity.position(), radius);
     }
 
-    private static boolean isPiglinPrisonerWithinRange(BlockPos blockPos, LivingEntity livingEntity, int radius) {
-        return isLivingEntityWithinRange(blockPos, livingEntity, radius) && livingEntity.getType() == ModEntityTypes.PIGLIN_PRISONER.get();
+    private static boolean isRescuedPiglinPrisonerWithinRange(BlockPos blockPos, LivingEntity livingEntity, int radius) {
+        return isLivingEntityWithinRange(blockPos, livingEntity, radius) && livingEntity.getType() == ModEntityTypes.PIGLIN_PRISONER.get() && ((PiglinPrisoner) livingEntity).getTempter() != null;
     }
 
     private static void rescue(LivingEntity entity) {
@@ -166,7 +164,7 @@ public class NetheriteBellBlockEntity  extends BlockEntity {
     }
 
     private static void broadcastRescue(LivingEntity entity) {
-        ((PiglinPrisoner)entity).getRescued();
+        ((PiglinPrisoner)entity).rescue();
     }
 
     @FunctionalInterface

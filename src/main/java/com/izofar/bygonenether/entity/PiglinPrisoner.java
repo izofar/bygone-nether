@@ -2,9 +2,12 @@ package com.izofar.bygonenether.entity;
 
 import com.google.common.collect.ImmutableList;
 import com.izofar.bygonenether.entity.ai.PiglinPrisonerAi;
+import com.izofar.bygonenether.init.ModItems;
 import com.izofar.bygonenether.init.ModSensorTypes;
+import com.izofar.bygonenether.util.ModLists;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -12,11 +15,12 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.VisibleForDebug;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -28,7 +32,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.CrossbowAttackMob;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
-import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.entity.monster.piglin.PiglinArmPose;
 import net.minecraft.world.entity.npc.InventoryCarrier;
 import net.minecraft.world.entity.player.Player;
@@ -40,9 +43,12 @@ import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -51,6 +57,12 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 	private static final EntityDataAccessor<Boolean> DATA_IS_CHARGING_CROSSBOW = SynchedEntityData.defineId(PiglinPrisoner.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> DATA_IS_DANCING = SynchedEntityData.defineId(PiglinPrisoner.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Optional<UUID>> DATA_OWNERUUID_ID = SynchedEntityData.defineId(PiglinPrisoner.class, EntityDataSerializers.OPTIONAL_UUID);
+
+	protected static final int RESCUE_TIME = 75;
+	protected int timeBeingRescued;
+	protected boolean isBeingRescued;
+
+	protected boolean hasTempter;
 
 	protected static final ImmutableList<SensorType<? extends Sensor<? super PiglinPrisoner>>> SENSOR_TYPES = ImmutableList.of(
 			SensorType.NEAREST_LIVING_ENTITIES,
@@ -103,9 +115,20 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 	}
 
 	@Override
+	public void tick () {
+		super.tick();
+		if (this.level.isClientSide && !this.hasTempter && this.getTempter() != null) {
+			this.hasTempter = true;
+			this.spawnHeartParticles();
+		}
+	}
+
+	@Override
 	public void addAdditionalSaveData(CompoundTag tag) {
 		super.addAdditionalSaveData(tag);
 		tag.put("Inventory", this.inventory.createTag());
+		tag.putInt("TimeBeingRescued", this.timeBeingRescued);
+		tag.putBoolean("IsBeingRescued", this.isBeingRescued);
 		if (this.getTempterUUID() != null) {
 			tag.putUUID("Tempter", this.getTempterUUID());
 		}
@@ -115,12 +138,35 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 	public void readAdditionalSaveData(CompoundTag tag) {
 		super.readAdditionalSaveData(tag);
 		this.inventory.fromTag(tag.getList("Inventory", 10));
+		this.timeBeingRescued = tag.getInt("TimeBeingRescued");
+		this.isBeingRescued = tag.getBoolean("IsBeingRescued");
 		UUID uuid;
 		if (tag.hasUUID("Tempter")) {
 			uuid = tag.getUUID("Tempter");
 			this.setTempterUUID(uuid);
+			this.hasTempter = true;
 			PiglinPrisonerAi.reloadAllegiance(this, this.getTempter());
 		}
+	}
+
+	@Override
+	protected void customServerAiStep() {
+		this.level.getProfiler().push("piglinBrain");
+		this.getBrain().tick((ServerLevel)this.level, this);
+		this.level.getProfiler().pop();
+		PiglinPrisonerAi.updateActivity(this);
+		if (this.isBeingRescued) {
+			this.timeBeingRescued ++;
+		}
+		else{
+			this.timeBeingRescued = 0;
+		}
+
+		if (this.timeBeingRescued > RESCUE_TIME) {
+			this.playConvertedSound();
+			this.finishRescue();
+		}
+		super.customServerAiStep();
 	}
 
 	@Override
@@ -136,7 +182,6 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 	public boolean canAddToInventory(ItemStack stack) {
 		return this.inventory.canAddItem(stack);
 	}
-
 
 	@Override
 	protected void defineSynchedData() {
@@ -175,7 +220,7 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 
 	@Override
 	public Brain<PiglinPrisoner> getBrain() {
-		return  (Brain<PiglinPrisoner>) super.getBrain();
+		return (Brain<PiglinPrisoner>) super.getBrain();
 	}
 
 	@Override
@@ -204,15 +249,6 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 	@Override
 	public boolean isBaby() {
 		return false;
-	}
-
-	@Override
-	protected void customServerAiStep() {
-		this.level.getProfiler().push("piglinBrain");
-		this.getBrain().tick((ServerLevel)this.level, this);
-		this.level.getProfiler().pop();
-		PiglinPrisonerAi.updateActivity(this);
-		super.customServerAiStep();
 	}
 
 	@Override
@@ -256,7 +292,6 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 		return item == Items.CROSSBOW;
 	}
 
-	@VisibleForDebug
 	@Override
 	public SimpleContainer getInventory() {
 		return this.inventory;
@@ -301,10 +336,6 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 			}
 			return flag;
 		}
-	}
-
-	public void holdInMainHand(ItemStack stack) {
-		this.setItemSlotAndDropWhenKilled(EquipmentSlot.MAINHAND, stack);
 	}
 
 	public void holdInOffHand(ItemStack stack) {
@@ -390,11 +421,6 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 		}
 	}
 
-	public void getRescued() {
-		PiglinPrisonerAi.startDancing(this);
-		PiglinPrisonerAi.broadcastBeingRescued(this);
-	}
-
 	@Nullable
 	public UUID getTempterUUID() {
 		return this.entityData.get(DATA_OWNERUUID_ID).orElse(null);
@@ -402,6 +428,32 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 
 	public void setTempterUUID(@Nullable UUID uuid) {
 		this.entityData.set(DATA_OWNERUUID_ID, Optional.ofNullable(uuid));
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	public void spawnHeartParticles() {
+		for(int i = 0; i < 5; ++i) {
+			double d0 = this.random.nextGaussian() * 0.02D;
+			double d1 = this.random.nextGaussian() * 0.02D;
+			double d2 = this.random.nextGaussian() * 0.02D;
+			this.level.addParticle(ParticleTypes.HEART, this.getRandomX(1.0D), this.getRandomY() + 1.0D, this.getRandomZ(1.0D), d0, d1, d2);
+		}
+	}
+
+	public void rescue() {
+		PiglinPrisonerAi.startDancing(this);
+		PiglinPrisonerAi.broadcastBeingRescued(this);
+		this.isBeingRescued = true;
+	}
+
+	protected void finishRescue() {
+		PiglinPrisonerAi.throwItems(this, Collections.singletonList(new ItemStack(ModItems.GILDED_NETHERITE_SHIELD.get())));
+		AbstractPiglin piglin = this.convertTo(ModLists.PIGLIN_PRISONER_CONVERSIONS.getRandom(this.random).get().getData().get(), true);
+		if (piglin != null) {
+			piglin.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 200, 0));
+			ForgeEventFactory.onLivingConvert(this, piglin);
+		}
+
 	}
 
 }
