@@ -7,6 +7,8 @@ import net.minecraft.client.model.PiglinModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -36,6 +38,25 @@ public class PiglinHunterModel extends PiglinModel<PiglinHunter> {
         } else {
             this.hoglinSkull.y = 15.5F;
         }
+
+        if (piglinHunter.isAlive() && piglinHunter.isUsingShield()) {
+            boolean flag = piglinHunter.getMainArm() == HumanoidArm.RIGHT;
+            if ((piglinHunter.getShieldHand() == InteractionHand.MAIN_HAND) == flag) {
+                this.poseRightArmShield();
+            } else if ((piglinHunter.getShieldHand() == InteractionHand.OFF_HAND) == flag) {
+                this.poseLeftArmShield();
+            }
+        }
+    }
+
+    private void poseRightArmShield() {
+        this.rightArm.xRot = (-(float)Math.PI / 2F) * 0.5F - 0.9424779F + ((float)Math.PI / 4F);
+        this.rightArm.yRot = (-(float)Math.PI / 6F);
+    }
+
+    private void poseLeftArmShield() {
+        this.leftArm.xRot = (-(float)Math.PI / 2F) * 0.5F - 0.9424779F + ((float)Math.PI / 4F);
+        this.leftArm.yRot = ((float)Math.PI / 6F);
     }
 
     @Override
