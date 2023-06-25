@@ -1,12 +1,12 @@
 {
-  "name": "bygonenether:piglin_manor/start_pool",
+  "name": "bygonenether:citadel/top",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 4,
       "element": {
-        "location": "bygonenether:piglin_manor/piglin_manor_1",
-        "processors": "bygonenether:piglin_manor/piglin_manor",
+        "location": "bygonenether:citadel/citadel_top",
+        "processors": "bygonenether:citadel/citadel",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"
       }
@@ -14,8 +14,8 @@
     {
       "weight": 3,
       "element": {
-        "location": "bygonenether:piglin_manor/piglin_manor_2",
-        "processors": "bygonenether:piglin_manor/piglin_manor",
+        "location": "bygonenether:citadel/citadel_branch_top",
+        "processors": "bygonenether:citadel/citadel",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"
       }

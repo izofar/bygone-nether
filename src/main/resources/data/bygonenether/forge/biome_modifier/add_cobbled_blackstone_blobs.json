@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#bygonenether:nether",
+  "features": "bygonenether:cobbled_blackstone_blobs",
+  "step": "underground_decoration"
+}

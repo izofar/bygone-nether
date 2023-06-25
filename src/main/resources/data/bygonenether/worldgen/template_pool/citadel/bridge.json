@@ -1,11 +1,11 @@
 {
-  "name": "bygonenether:citadel/start_pool",
+  "name": "bygonenether:citadel/bridge",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
-        "location": "bygonenether:citadel/citadel_base",
+        "location": "bygonenether:citadel/citadel_bridge",
         "processors": "bygonenether:citadel/citadel",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"

@@ -58,8 +58,8 @@ public abstract class ModItems {
 	public static final RegistryObject<Item> WITHER_WALTZ_MUSIC_DISC = MODDED_ITEMS.register("wither_waltz_music_disc", () -> new RecordItem(4, ModSounds.WITHER_WALTZ, new Item.Properties().tab(ModCreativeModeTabs.MOD_TAB).stacksTo(1).rarity(Rarity.RARE), 5040));
 	public static final RegistryObject<Item> WARPED_ENDER_PEARL = MODDED_ITEMS.register("warped_ender_pearl", () -> new WarpedEnderpearlItem((new Item.Properties()).stacksTo(16).tab(ModCreativeModeTabs.MOD_TAB).rarity(Rarity.RARE)));
 
-	public static final RegistryObject<Item> NETHERITE_BELL = MODDED_ITEMS.register("netherite_bell", () -> new BlockItem(ModBlocks.NETHERITE_BELL.get(), new Item.Properties().tab(ModCreativeModeTabs.MOD_TAB)));
-	public static final RegistryObject<Item> GILDED_NETHERITE_SHIELD = MODDED_ITEMS.register("gilded_netherite_shield", () -> new ModShieldItem((new Item.Properties()).durability(1512).tab(ModCreativeModeTabs.MOD_TAB)));
+	public static final RegistryObject<Item> NETHERITE_BELL = MODDED_ITEMS.register("netherite_bell", () -> new BlockItem(ModBlocks.NETHERITE_BELL.get(), new Item.Properties().tab(ModCreativeModeTabs.MOD_TAB).rarity(Rarity.EPIC).fireResistant()));
+	public static final RegistryObject<Item> GILDED_NETHERITE_SHIELD = MODDED_ITEMS.register("gilded_netherite_shield", () -> new ModShieldItem((new Item.Properties()).durability(1512).tab(ModCreativeModeTabs.MOD_TAB).rarity(Rarity.RARE).fireResistant()));
 
 	public static void register(IEventBus eventBus) { MODDED_ITEMS.register(eventBus); }
 

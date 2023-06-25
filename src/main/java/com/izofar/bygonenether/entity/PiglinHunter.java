@@ -1,6 +1,5 @@
 package com.izofar.bygonenether.entity;
 
-import com.izofar.bygonenether.BygoneNetherMod;
 import com.izofar.bygonenether.entity.ai.goal.ShieldGoal;
 import com.izofar.bygonenether.init.ModItems;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -12,13 +11,13 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -27,13 +26,15 @@ import java.util.UUID;
 
 public class PiglinHunter extends Piglin implements IShieldedMob{
 
-    private static final EntityDataAccessor<Boolean> DATA_IS_SHIELDED = SynchedEntityData.defineId(WitherSkeletonKnight.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> DATA_SHIELD_HAND = SynchedEntityData.defineId(WitherSkeletonKnight.class, EntityDataSerializers.BOOLEAN); // True for Main Hand, False for Offhand
-    private static final EntityDataAccessor<Integer> DATA_SHIELD_COOLDOWN = SynchedEntityData.defineId(WitherSkeletonKnight.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> DATA_IS_SHIELDED = SynchedEntityData.defineId(PiglinHunter.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> DATA_SHIELD_HAND = SynchedEntityData.defineId(PiglinHunter.class, EntityDataSerializers.BOOLEAN); // True for Main Hand, False for Offhand
+    private static final EntityDataAccessor<Integer> DATA_SHIELD_COOLDOWN = SynchedEntityData.defineId(PiglinHunter.class, EntityDataSerializers.INT);
 
     private static final UUID SPEED_MODIFIER_ATTACKING_UUID = UUID.fromString("0B51435E-10B6-11EE-BE56-0242AC120002");
     private static final AttributeModifier SPEED_MODIFIER_BLOCKING = new AttributeModifier(SPEED_MODIFIER_ATTACKING_UUID, "Shielded speed penalty", -0.10D, AttributeModifier.Operation.ADDITION);
-    private static final float SHIELDED_BASE_PROBABILITY = 0.05F;
+    private static final float SHIELDED_BASE_PROBABILITY = 0.35F;
+    private static final float GILDED_SHIELDED_BASE_PROBABILITY = 0.05F;
+    private static final float CROSSBOW_PROBABILITY = 0.5F;
 
     public PiglinHunter(EntityType<? extends AbstractPiglin> entityType, Level level) {
         super(entityType, level);
@@ -64,9 +65,10 @@ public class PiglinHunter extends Piglin implements IShieldedMob{
     @Override
     public void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
         super.populateDefaultEquipmentSlots(random, difficulty);
-        float f = SHIELDED_BASE_PROBABILITY + 0.1F * difficulty.getEffectiveDifficulty() / 2.25F;
-        if (this.random.nextFloat() < f) {
-            this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(ModItems.GILDED_NETHERITE_SHIELD.get()));
+        float f = SHIELDED_BASE_PROBABILITY + 0.4F * difficulty.getEffectiveDifficulty() / 2.25F / CROSSBOW_PROBABILITY;
+        if (!this.getItemBySlot(EquipmentSlot.MAINHAND).is(Items.CROSSBOW) && this.random.nextFloat() < f) {
+            Item shield = this.random.nextFloat() < GILDED_SHIELDED_BASE_PROBABILITY * f ? ModItems.GILDED_NETHERITE_SHIELD.get() : Items.SHIELD;
+            this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(shield));
         }
     }
 

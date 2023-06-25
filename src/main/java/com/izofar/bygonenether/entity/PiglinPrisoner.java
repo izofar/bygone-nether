@@ -6,6 +6,7 @@ import com.izofar.bygonenether.init.ModItems;
 import com.izofar.bygonenether.init.ModSensorTypes;
 import com.izofar.bygonenether.util.ModLists;
 import com.mojang.serialization.Dynamic;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -13,6 +14,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -443,6 +445,7 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 	public void rescue() {
 		PiglinPrisonerAi.startDancing(this);
 		PiglinPrisonerAi.broadcastBeingRescued(this);
+		CriteriaTriggers.SUMMONED_ENTITY.trigger((ServerPlayer) this.getTempter(), this);
 		this.isBeingRescued = true;
 	}
 
