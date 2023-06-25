@@ -38,7 +38,7 @@ The structures should be as procedural as possible so that few many spawns play 
 * Added the **Piglin Prisoner**, which spawns as a hostage in catacomb ribs and can be rescued for a unique reward
 * Added the **Piglin Hunter**, which spawns in piglin manors, sometimes on wither skeleton horses
 * Added the **Warped Enderman**, a hostile enderman variant that spawns in citadels, whose vines can be sheared
-* Added the **Wither Skeleton horse**, a fire-immune skeleton horse that rides over lava and can be found outside piglin_manors
+* Added the **Wither Skeleton horse**, a fire-immune skeleton horse that rides over lava and can be found outside piglin manors
 * Added the **Corpor**, a brutish wither skeleton, that is slow yet deals significant damage. Spawns in catacombs
 * Added the **Wither Skeleton Knight**, an armored wither skeleton, whose armor can be broken before defeat. Spawns in catacombs
 * Added the **Wraither**, a speedy and posessed wither skeleton, whose inhabiting wex will escape upon near death. Spawns in catacombs
@@ -60,6 +60,23 @@ The structures should be as procedural as possible so that few many spawns play 
 <hr/>
 
 ## 📦 CHANGELOG
+### v1.3.0
+#### Feature
+* Added Gilded Netherite Shield, obtained by rescuring Piglin Prisoners
+* Added Netherite Bell, which generates in Piglin Manors
+* Added Piglin Prisoner rescue behavior
+* Piglin Hunters now spawn with shields
+* Added new Citadel variant
+* Added new Piglin Manor variant
+* Nerfed Citadel loot
+* Added new advancement for rescuing Piglin Prisoners
+* Wither Skeleton Horses now ride over lava
+* Removed Bygone Fortress (to be included in its own mod/datapack)
+* Added new creative mode tab for Bygone Nether additions
+* Added Spanish Localization
+#### Bug
+* Fixed Soul Stone and Cobbled Blackstone blobs not spawning
+* Removed unnecessary Bastion modifcations in datapacks
 
 ### v1.2.2
 #### Bug
