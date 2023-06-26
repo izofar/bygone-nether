@@ -23,13 +23,13 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.entity.BannerBlockEntity;
 import net.minecraft.world.level.block.entity.BannerPattern;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
 
-@OnlyIn(Dist.CLIENT)
+@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = BygoneNetherMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModShieldRenderer extends BlockEntityWithoutLevelRenderer {
 
     private static ModShieldRenderer instance;
