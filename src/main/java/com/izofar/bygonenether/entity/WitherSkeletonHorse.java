@@ -66,8 +66,8 @@ public class WitherSkeletonHorse extends SkeletonHorse {
 
     @Override
     protected void playStepSound(BlockPos blockPos, BlockState blockState) {
-        if (blockState.getMaterial().isLiquid()) {
-            SoundType soundtype = blockState.getSoundType(level, blockPos, this);
+        if (blockState.liquid()) {
+            SoundType soundtype = blockState.getSoundType(this.level(), blockPos, this);
             if (this.isVehicle() && this.canGallop) {
                 ++this.gallopSoundCounter;
                 if (this.gallopSoundCounter > 5 && this.gallopSoundCounter % 3 == 0) {
@@ -82,8 +82,8 @@ public class WitherSkeletonHorse extends SkeletonHorse {
     private void floatHorse() {
         if (this.isInLava()) {
             CollisionContext collisioncontext = CollisionContext.of(this);
-            if (collisioncontext.isAbove(LiquidBlock.STABLE_SHAPE, this.blockPosition(), true) && !this.level.getFluidState(this.blockPosition().above()).is(FluidTags.LAVA)) {
-                this.onGround = true;
+            if (collisioncontext.isAbove(LiquidBlock.STABLE_SHAPE, this.blockPosition(), true) && !this.level().getFluidState(this.blockPosition().above()).is(FluidTags.LAVA)) {
+                this.setOnGround(true);
             } else {
                 this.setDeltaMovement(this.getDeltaMovement().scale(0.5D).add(0.0D, 0.05D, 0.0D));
             }

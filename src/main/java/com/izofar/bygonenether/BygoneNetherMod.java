@@ -23,6 +23,7 @@ public class BygoneNetherMod
 
         ModItems.register(eventBus);
         ModBlocks.register(eventBus);
+        ModCreativeModeTabs.register(eventBus);
         ModEntityTypes.register(eventBus);
         ModStructures.register(eventBus);
         ModSensorTypes.register(eventBus);

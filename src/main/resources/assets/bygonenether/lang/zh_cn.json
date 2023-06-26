@@ -96,5 +96,5 @@
 	"advancements.bygonenether.rescue_piglin_prisoner.title": "Saving Private Swine",
 	"advancements.bygonenether.rescue_piglin_prisoner.description": "Rescue a Piglin Prisoner",
 
-	"creativemodetab.bygonenethertab": "Bygone Nether"
+	"itemGroup.bygonenether": "Bygone Nether"
 }

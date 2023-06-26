@@ -49,7 +49,7 @@ public class PiglinHunter extends Piglin implements IShieldedMob{
     @Override
     public void tick() {
         super.tick();
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             this.decrementShieldCooldown();
         }
     }
@@ -87,7 +87,7 @@ public class PiglinHunter extends Piglin implements IShieldedMob{
         if (!this.isUsingShield()) {
             super.knockback(x, y, z);
         } else {
-            this.playSound(SoundEvents.SHIELD_BLOCK, 1.0F, 0.8F + this.level.random.nextFloat() * 0.4F);
+            this.playSound(SoundEvents.SHIELD_BLOCK, 1.0F, 0.8F + this.level().random.nextFloat() * 0.4F);
         }
     }
 

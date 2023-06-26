@@ -110,9 +110,9 @@ public class ShieldGoal<T extends Mob & IShieldedMob> extends Goal {
     protected void findTarget() {
         LivingEntity potentialTarget;
         if (this.targetType != Player.class && this.targetType != ServerPlayer.class) {
-            potentialTarget = this.mob.level.getNearestEntity(this.mob.level.getEntitiesOfClass(this.targetType, this.getTargetSearchArea(this.getFollowDistance()), (livingEntity) -> true), this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
+            potentialTarget = this.mob.level().getNearestEntity(this.mob.level().getEntitiesOfClass(this.targetType, this.getTargetSearchArea(this.getFollowDistance()), (livingEntity) -> true), this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
         } else {
-            potentialTarget = this.mob.level.getNearestPlayer(this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
+            potentialTarget = this.mob.level().getNearestPlayer(this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
         }
         this.target = targetDrawnBow(potentialTarget) ? potentialTarget : null;
     }

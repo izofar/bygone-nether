@@ -65,7 +65,7 @@ public class Wraither extends WitherSkeleton {
     private void dispossess() {
         this.setPossessed(false);
         this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.25D);
-        if (this.getLevel() instanceof ServerLevel serverLevel) {
+        if (this.level() instanceof ServerLevel serverLevel) {
             Wex wex = ModEntityTypes.WEX.get().create(serverLevel);
             if (wex != null) {
                 wex.moveTo(this.blockPosition().above(), this.yBodyRot, this.xRotO);

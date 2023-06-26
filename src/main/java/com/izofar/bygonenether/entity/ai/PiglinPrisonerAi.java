@@ -6,7 +6,6 @@ import com.izofar.bygonenether.entity.PiglinPrisoner;
 import com.izofar.bygonenether.entity.ai.behavior.*;
 import com.izofar.bygonenether.init.ModEntityTypes;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
@@ -455,7 +454,7 @@ public class PiglinPrisonerAi {
 	}
 
 	public static void exciteNearbyPiglins(Player player, boolean requireVisibility) {
-		List<PiglinPrisoner> list = player.level.getEntitiesOfClass(PiglinPrisoner.class, player.getBoundingBox().inflate(16.0D));
+		List<PiglinPrisoner> list = player.level().getEntitiesOfClass(PiglinPrisoner.class, player.getBoundingBox().inflate(16.0D));
 		list.stream().filter(PiglinAi::isIdle).filter((piglin) -> !requireVisibility || BehaviorUtils.canSee(piglin, player)).forEach(PiglinPrisonerAi::startDancing);
 	}
 

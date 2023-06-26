@@ -50,17 +50,17 @@ public class ThrownWarpedEnderpearl extends ThrowableItemProjectile {
         super.onHit(result);
 
         for (int i = 0; i < 32; ++i) {
-            this.level.addParticle(ParticleTypes.PORTAL, this.getX(), this.getY() + this.random.nextDouble() * 2.0D, this.getZ(), this.random.nextGaussian(), 0.0D, this.random.nextGaussian());
+            this.level().addParticle(ParticleTypes.PORTAL, this.getX(), this.getY() + this.random.nextDouble() * 2.0D, this.getZ(), this.random.nextGaussian(), 0.0D, this.random.nextGaussian());
         }
 
-        if (!this.level.isClientSide && !this.isRemoved()) {
+        if (!this.level().isClientSide && !this.isRemoved()) {
             Entity entity = this.getOwner();
             if (entity instanceof ServerPlayer serverplayer) {
-                if (serverplayer.connection.isAcceptingMessages() && serverplayer.level == this.level && !serverplayer.isSleeping()) {
-                    if (this.random.nextFloat() < 0.05F && this.level.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING)) {
-                        Endermite endermite = EntityType.ENDERMITE.create(this.level);
+                if (serverplayer.connection.isAcceptingMessages() && serverplayer.level() == this.level() && !serverplayer.isSleeping()) {
+                    if (this.random.nextFloat() < 0.05F && this.level().getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING)) {
+                        Endermite endermite = EntityType.ENDERMITE.create(this.level());
                         endermite.moveTo(entity.getX(), entity.getY(), entity.getZ(), entity.getYRot(), entity.getXRot());
-                        this.level.addFreshEntity(endermite);
+                        this.level().addFreshEntity(endermite);
                     }
 
                     if (entity.isPassenger()) {
@@ -70,11 +70,11 @@ public class ThrownWarpedEnderpearl extends ThrowableItemProjectile {
                     entity.teleportTo(this.getX(), this.getY(), this.getZ());
                     entity.resetFallDistance();
 
-                    if (this.getLevel().getBlockState(this.blockPosition()).is(Blocks.WATER)) {
+                    if (this.level().getBlockState(this.blockPosition()).is(Blocks.WATER)) {
                         serverplayer.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 300));
-                    } else if (entity.isInLava() || this.getLevel().getBlockState(this.blockPosition()).is(Blocks.LAVA)) {
+                    } else if (entity.isInLava() || this.level().getBlockState(this.blockPosition()).is(Blocks.LAVA)) {
                         serverplayer.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 900));
-                    } else if (!this.isOnGround()) {
+                    } else if (!this.onGround()) {
                         serverplayer.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 160));
                         serverplayer.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 300, 1));
                     }
@@ -104,7 +104,7 @@ public class ThrownWarpedEnderpearl extends ThrowableItemProjectile {
     @Override
     public Entity changeDimension(ServerLevel serverlevel, ITeleporter teleporter) {
         Entity entity = this.getOwner();
-        if (entity != null && entity.level.dimension() != serverlevel.dimension()) {
+        if (entity != null && entity.level().dimension() != serverlevel.dimension()) {
             this.setOwner(null);
         }
         return super.changeDimension(serverlevel, teleporter);
