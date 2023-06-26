@@ -29,16 +29,21 @@ public abstract class ModStructureUtils {
 
 	public static boolean isNearStructure(ChunkGenerator chunk, long seed, ChunkPos inChunkPos, int radius, ResourceKey<StructureSet> ...features) {
 		boolean isNearStructure = false;
-		for (ResourceKey<StructureSet> feature : features)
+		for (ResourceKey<StructureSet> feature : features) {
 			isNearStructure = isNearStructure || chunk.hasFeatureChunkInRange(feature, seed, inChunkPos.x, inChunkPos.z, radius);
+		}
 		return isNearStructure;
 	}
 
 	public static boolean isLavaLake(NoiseColumn blockReader) {
 		boolean isLake = true;
-		if(blockReader.getBlock(31).getBlock() != Blocks.LAVA) isLake = false;
-		else for(int i = 32; i < 70; i ++)
-			isLake = isLake && (isAir.test(blockReader.getBlock(i).getBlock()));
+		if(blockReader.getBlock(31).getBlock() != Blocks.LAVA) {
+			isLake = false;
+		} else {
+			for (int i = 32; i < 70; i ++) {
+				isLake = isLake && (isAir.test(blockReader.getBlock(i).getBlock()));
+			}
+		}
 		return isLake;
 	}
 	
@@ -46,17 +51,21 @@ public abstract class ModStructureUtils {
 
 		boolean found = false;
 		for (int i = min; i < max; i++) {
-			if (isAir.test(blockReader.getBlock(i + 1).getBlock()) && !isAir.test(blockReader.getBlock(i).getBlock()))
+			if (isAir.test(blockReader.getBlock(i + 1).getBlock()) && !isAir.test(blockReader.getBlock(i).getBlock())) {
 				found = true;
+			}
 		}
 		return !found;
 	}
 	
 	public static boolean verticalSpace(NoiseColumn blockReader, int min, int max, int height) {
 		int height_tracked = 0;
-		for(int i = max; i >= min && height_tracked < height; i --) {
-			if(isAir.test(blockReader.getBlock(i).getBlock())) height_tracked ++;
-			else height_tracked = 0;
+		for (int i = max; i >= min && height_tracked < height; i --) {
+			if(isAir.test(blockReader.getBlock(i).getBlock())) {
+				height_tracked ++;
+			} else {
+				height_tracked = 0;
+			}
 		}
 		return height_tracked == height;
 	}
@@ -72,8 +81,9 @@ public abstract class ModStructureUtils {
 				found = true;
 			}
 		}
-		if (!found)
+		if (!found) {
 			blockpos = new BlockPos(blockpos.getX(), new Random(context.seed()).nextInt(max - min) + min, blockpos.getZ());
+		}
 		return blockpos;
 	}
 
@@ -83,7 +93,7 @@ public abstract class ModStructureUtils {
 		ChunkAccess currentChunk = worldView.getChunk(mutable);
 		BlockState currentState = currentChunk.getBlockState(mutable);
 
-		while(mutable.getY() >= worldView.getMinBuildHeight() && isReplaceableByStructures(currentState)) {
+		while (mutable.getY() >= worldView.getMinBuildHeight() && isReplaceableByStructures(currentState)) {
 			mutable.move(Direction.DOWN);
 			currentState = currentChunk.getBlockState(mutable);
 		}

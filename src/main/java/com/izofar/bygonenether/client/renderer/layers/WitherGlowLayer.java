@@ -18,14 +18,18 @@ public class WitherGlowLayer<T extends AbstractSkeleton, M extends SkeletonModel
 
     private static final RenderType WITHER_GLOW = RenderType.eyes(new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/wither/wraither_eyes.png"));
 
-    public WitherGlowLayer(RenderLayerParent<T, M> layer) { super(layer); }
-
-    @Override
-    public void render(PoseStack stack, MultiBufferSource buffer, int light, T entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch){
-        if(entity instanceof Wraither wraither && wraither.isPossessed())
-            super.render(stack, buffer, light, entity, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
+    public WitherGlowLayer(RenderLayerParent<T, M> layer) {
+        super(layer);
     }
 
     @Override
-    public RenderType renderType() { return WITHER_GLOW; }
+    public void render(PoseStack poseStack, MultiBufferSource buffer, int light, T entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch){
+        if(entity instanceof Wraither wraither && wraither.isPossessed())
+            super.render(poseStack, buffer, light, entity, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
+    }
+
+    @Override
+    public RenderType renderType() {
+        return WITHER_GLOW;
+    }
 }

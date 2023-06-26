@@ -13,23 +13,16 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.List;
 
+@OnlyIn(Dist.CLIENT)
 public class WitherSkeletonKnightModel extends HumanoidModel<WitherSkeletonKnight> {
-
-    private final List<ModelPart> armor;
 
     public WitherSkeletonKnightModel(ModelPart root) {
         super(root);
-        this.armor = ImmutableList.of(
-                root.getChild("hat"),
-                root.getChild("body").getChild("bodywear"),
-                root.getChild("left_arm").getChild("left_armwear"),
-                root.getChild("right_arm").getChild("right_armwear"),
-                root.getChild("left_leg").getChild("left_legwear"),
-                root.getChild("right_leg").getChild("right_legwear")
-        );
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -83,22 +76,22 @@ public class WitherSkeletonKnightModel extends HumanoidModel<WitherSkeletonKnigh
             AnimationUtils.bobArms(this.rightArm, this.leftArm, ageInTicks);
         }
 
-        if(witherSkeletonKnight.isAlive() && witherSkeletonKnight.isUsingShield()){
+        if (witherSkeletonKnight.isAlive() && witherSkeletonKnight.isUsingShield()){
             boolean flag = witherSkeletonKnight.getMainArm() == HumanoidArm.RIGHT;
             if ((witherSkeletonKnight.getShieldHand() == InteractionHand.MAIN_HAND) == flag) {
                 this.poseRightArmShield();
-            } else if ((witherSkeletonKnight.getShieldHand() == InteractionHand.OFF_HAND) == flag){
+            } else if ((witherSkeletonKnight.getShieldHand() == InteractionHand.OFF_HAND) == flag) {
                 this.poseLeftArmShield();
             }
         }
     }
 
-    private void poseRightArmShield(){
+    private void poseRightArmShield() {
         this.rightArm.xRot = this.rightArm.xRot * 0.5F - 0.9424779F + ((float)Math.PI / 4F);
         this.rightArm.yRot = (-(float)Math.PI / 6F);
     }
 
-    private void poseLeftArmShield(){
+    private void poseLeftArmShield() {
         this.leftArm.xRot = this.leftArm.xRot * 0.5F - 0.9424779F + ((float)Math.PI / 4F);
         this.leftArm.yRot = ((float)Math.PI / 6F);
     }
@@ -110,9 +103,5 @@ public class WitherSkeletonKnightModel extends HumanoidModel<WitherSkeletonKnigh
         modelpart.x += f;
         modelpart.translateAndRotate(pose);
         modelpart.x -= f;
-    }
-
-    public List<ModelPart> getArmor(){
-        return this.armor;
     }
 }

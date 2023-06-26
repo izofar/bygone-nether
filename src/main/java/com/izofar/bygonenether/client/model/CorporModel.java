@@ -12,12 +12,17 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class CorporModel extends HumanoidModel<Corpor> {
 
-    public CorporModel(ModelPart root) { super(root); }
+    public CorporModel(ModelPart root) {
+        super(root);
+    }
 
-    public static LayerDefinition createBodyLayer(){
+    public static LayerDefinition createBodyLayer() {
         MeshDefinition meshdefinition = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
         PartDefinition partdefinition = meshdefinition.getRoot();
         partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.5F, -9.0F, -4.0F, 9.0F, 10.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
@@ -62,11 +67,11 @@ public class CorporModel extends HumanoidModel<Corpor> {
 
     }
 
-    public void translateToHand(HumanoidArm arm, PoseStack pose) {
-        float f = arm == HumanoidArm.RIGHT ? 1.0F : -1.0F;
-        ModelPart modelpart = this.getArm(arm);
+    public void translateToHand(HumanoidArm side, PoseStack poseStack) {
+        float f = side == HumanoidArm.RIGHT ? 1.0F : -1.0F;
+        ModelPart modelpart = this.getArm(side);
         modelpart.x += f;
-        modelpart.translateAndRotate(pose);
+        modelpart.translateAndRotate(poseStack);
         modelpart.x -= f;
     }
 }

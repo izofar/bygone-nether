@@ -3,13 +3,16 @@ package com.izofar.bygonenether.init;
 import com.google.common.collect.ImmutableList;
 import com.izofar.bygonenether.BygoneNetherMod;
 import com.izofar.bygonenether.entity.*;
+import net.minecraft.Util;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.monster.piglin.PiglinBrute;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -18,6 +21,7 @@ import net.minecraftforge.registries.RegistryObject;
 public abstract class ModEntityTypes {
 
 	public static final DeferredRegister<EntityType<?>> MOD_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, BygoneNetherMod.MODID);
+	public static final DeferredRegister<BlockEntityType<?>> MOD_BLOCK_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, BygoneNetherMod.MODID);
 
 	public static final RegistryObject<EntityType<Wex>> WEX = MOD_ENTITY_TYPES.register("wex", () -> EntityType.Builder.of(Wex::new, MobCategory.MONSTER).fireImmune().sized(0.4F, 0.8F).clientTrackingRange(8).build(new ResourceLocation(BygoneNetherMod.MODID, "wex").toString()));
 	public static final RegistryObject<EntityType<WarpedEnderMan>> WARPED_ENDERMAN = MOD_ENTITY_TYPES.register("warped_enderman", () -> EntityType.Builder.of(WarpedEnderMan::new, MobCategory.MONSTER).fireImmune().sized(0.6F, 2.9F).clientTrackingRange(8).build(new ResourceLocation(BygoneNetherMod.MODID, "warped_enderman").toString()));
@@ -34,7 +38,12 @@ public abstract class ModEntityTypes {
 
 	public static final RegistryObject<EntityType<ThrownWarpedEnderpearl>> WARPED_ENDER_PEARL = MOD_ENTITY_TYPES.register("warped_ender_pearl", () -> EntityType.Builder.<ThrownWarpedEnderpearl>of(ThrownWarpedEnderpearl::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10).build(new ResourceLocation(BygoneNetherMod.MODID, "warped_ender_pearl").toString()));
 
-	public static void register(IEventBus eventBus) { MOD_ENTITY_TYPES.register(eventBus); }
+	public static final RegistryObject<BlockEntityType<NetheriteBellBlockEntity>> NETHERITE_BELL = MOD_BLOCK_ENTITY_TYPES.register("netherite_bell", () -> BlockEntityType.Builder.of(NetheriteBellBlockEntity::new, ModBlocks.NETHERITE_BELL.get()).build(Util.fetchChoiceType(References.BLOCK_ENTITY, new ResourceLocation(BygoneNetherMod.MODID, "netherite_bell").toString())));
+
+	public static void register(IEventBus eventBus) {
+		MOD_ENTITY_TYPES.register(eventBus);
+		MOD_BLOCK_ENTITY_TYPES.register(eventBus);
+	}
 
 	public static void modifyPiglinMemoryAndSensors() {
 		PiglinBrute.SENSOR_TYPES = ImmutableList.of(

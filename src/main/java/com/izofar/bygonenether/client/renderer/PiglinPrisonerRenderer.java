@@ -19,5 +19,7 @@ public class PiglinPrisonerRenderer extends PiglinRenderer {
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(Mob mob) { return PIGLIN_PRISONER_LOCATION; }
+	public ResourceLocation getTextureLocation(Mob mob) {
+		return PIGLIN_PRISONER_LOCATION;
+	}
 }

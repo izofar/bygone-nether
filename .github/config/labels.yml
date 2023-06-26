@@ -4,3 +4,9 @@
   - "1.18.2"
 1.19.2:
   - "1.19.2"
+forge:
+  - "Forge"
+fabric:
+  - "Fabric"
+crash:
+  - "crash"

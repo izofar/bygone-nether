@@ -34,19 +34,22 @@ public class ThrownWarpedEnderpearl extends ThrowableItemProjectile {
         super(ModEntityTypes.WARPED_ENDER_PEARL.get(), entity, level);
     }
 
+    @Override
     protected Item getDefaultItem() {
         return ModItems.WARPED_ENDER_PEARL.get();
     }
 
+    @Override
     protected void onHitEntity(EntityHitResult result) {
         super.onHitEntity(result);
         result.getEntity().hurt(DamageSource.thrown(this, this.getOwner()), 0.0F);
     }
 
+    @Override
     protected void onHit(HitResult result) {
         super.onHit(result);
 
-        for(int i = 0; i < 32; ++i) {
+        for (int i = 0; i < 32; ++i) {
             this.level.addParticle(ParticleTypes.PORTAL, this.getX(), this.getY() + this.random.nextDouble() * 2.0D, this.getZ(), this.random.nextGaussian(), 0.0D, this.random.nextGaussian());
         }
 
@@ -67,11 +70,11 @@ public class ThrownWarpedEnderpearl extends ThrowableItemProjectile {
                     entity.teleportTo(this.getX(), this.getY(), this.getZ());
                     entity.resetFallDistance();
 
-                    if(this.getLevel().getBlockState(this.blockPosition()).is(Blocks.WATER)){
+                    if (this.getLevel().getBlockState(this.blockPosition()).is(Blocks.WATER)) {
                         serverplayer.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 300));
-                    }else if(entity.isInLava() || this.getLevel().getBlockState(this.blockPosition()).is(Blocks.LAVA)){
+                    } else if(entity.isInLava() || this.getLevel().getBlockState(this.blockPosition()).is(Blocks.LAVA)) {
                         serverplayer.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 900));
-                    }else if(!this.isOnGround()){
+                    } else if(!this.isOnGround()) {
                         serverplayer.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 160));
                         serverplayer.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 300, 1));
                     }
@@ -87,6 +90,7 @@ public class ThrownWarpedEnderpearl extends ThrowableItemProjectile {
 
     }
 
+    @Override
     public void tick() {
         Entity entity = this.getOwner();
         if (entity instanceof Player && !entity.isAlive()) {
@@ -94,10 +98,10 @@ public class ThrownWarpedEnderpearl extends ThrowableItemProjectile {
         } else {
             super.tick();
         }
-
     }
 
     @Nullable
+    @Override
     public Entity changeDimension(ServerLevel serverlevel, ITeleporter teleporter) {
         Entity entity = this.getOwner();
         if (entity != null && entity.level.dimension() != serverlevel.dimension()) {

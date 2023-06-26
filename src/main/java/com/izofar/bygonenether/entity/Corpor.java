@@ -13,7 +13,9 @@ import net.minecraft.world.level.Level;
 
 public class Corpor extends WitherSkeleton {
 
-    public Corpor(EntityType<? extends WitherSkeleton> entityType, Level level) { super(entityType, level); }
+    public Corpor(EntityType<? extends WitherSkeleton> entityType, Level level) {
+        super(entityType, level);
+    }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()

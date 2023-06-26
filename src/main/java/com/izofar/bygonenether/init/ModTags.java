@@ -7,9 +7,10 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 
 public class ModTags {
+
     public static TagKey<ConfiguredStructureFeature<?, ?>> NO_BASALT;
 
-    public static void initTags(){
+    public static void initTags() {
        NO_BASALT = TagKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, new ResourceLocation(BygoneNetherMod.MODID, "no_basalt"));
     }
 }

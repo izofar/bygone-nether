@@ -40,4 +40,10 @@ public abstract class ModLists {
 			new ModWeightedEntry<>(ModEntityTypes.WRAITHER::get, 3),
 			new ModWeightedEntry<>(() -> EntityType.WITHER_SKELETON, 1)
 	);
+
+	public static final WeightedRandomList<ModWeightedEntry<Supplier<EntityType<? extends AbstractPiglin>>>> PIGLIN_PRISONER_CONVERSIONS = WeightedRandomList.create(
+			new ModWeightedEntry<>(() -> EntityType.PIGLIN, 4),
+			new ModWeightedEntry<>(ModEntityTypes.PIGLIN_HUNTER::get, 3),
+			new ModWeightedEntry<>(() -> EntityType.PIGLIN_BRUTE, 1)
+	);
 }

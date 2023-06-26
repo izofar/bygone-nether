@@ -40,28 +40,36 @@ public class ModFollowLeader extends Behavior<PathfinderMob> {
                 : Optional.empty();
     }
 
-    protected boolean timedOut(long p_147488_) {
+    @Override
+    protected boolean timedOut(long gameTime) {
         return false;
     }
 
-    protected boolean canStillUse(ServerLevel level, PathfinderMob mob, long p_147496_) {
+    @Override
+    protected boolean canStillUse(ServerLevel level, PathfinderMob mob, long gameTime) {
         return this.getTemptingPlayer(mob).isPresent();
     }
 
-    protected void stop(ServerLevel level, PathfinderMob mob, long p_147517_) {
+    @Override
+    protected void stop(ServerLevel level, PathfinderMob mob, long gameTime) {
         mob.getBrain().eraseMemory(MemoryModuleType.WALK_TARGET);
         mob.getBrain().eraseMemory(MemoryModuleType.TEMPTING_PLAYER);
         mob.getBrain().eraseMemory(MemoryModuleType.IS_TEMPTED);
     }
 
-    protected void tick(ServerLevel level, PathfinderMob mob, long p_147525_) {
-        if(this.isDistracted.test(mob)) return;
+    @Override
+    protected void tick(ServerLevel level, PathfinderMob mob, long gameTime) {
+        if (this.isDistracted.test(mob)) {
+            return;
+        }
+
         Brain<?> brain = mob.getBrain();
         Player player = this.getTemptingPlayer(mob).get();
         double dist = mob.distanceToSqr(player);
+
         if (dist < TOO_CLOSE_DIST * TOO_CLOSE_DIST) {
             brain.eraseMemory(MemoryModuleType.WALK_TARGET);
-        } else if(dist > CLOSE_ENOUGH_DIST * CLOSE_ENOUGH_DIST && dist < TOO_FAR_DIST * TOO_FAR_DIST) {
+        } else if (dist > CLOSE_ENOUGH_DIST * CLOSE_ENOUGH_DIST && dist < TOO_FAR_DIST * TOO_FAR_DIST) {
             brain.setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(new EntityTracker(player, false), 1, 2));
         }
     }

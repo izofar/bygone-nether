@@ -29,10 +29,14 @@ public class CitadelStructure extends StructureFeature<JigsawConfiguration> {
 
 	private static final int STRUCTURE_SEARCH_RADIUS = 4;
 
-	public CitadelStructure(Codec<JigsawConfiguration> codec) { super(codec, CitadelStructure::createPiecesGenerator, PostPlacementProcessor.NONE); }
+	public CitadelStructure(Codec<JigsawConfiguration> codec) {
+		super(codec, CitadelStructure::createPiecesGenerator, PostPlacementProcessor.NONE);
+	}
 
 	@Override
-	public GenerationStep.Decoration step() { return GenerationStep.Decoration.SURFACE_STRUCTURES; }
+	public GenerationStep.Decoration step() {
+		return GenerationStep.Decoration.SURFACE_STRUCTURES;
+	}
 	
 	private static boolean checkLocation(Context<JigsawConfiguration> context) {
 		BlockPos blockpos  = context.chunkPos().getMiddleBlockPosition(0);
@@ -50,7 +54,9 @@ public class CitadelStructure extends StructureFeature<JigsawConfiguration> {
 	}
 	
 	public static Optional<PieceGenerator<JigsawConfiguration>> createPiecesGenerator( PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
-		if(!checkLocation(context)) return Optional.empty();
+		if (!checkLocation(context)) {
+			return Optional.empty();
+		}
 
 		BlockPos blockpos = ModStructureUtils.getElevation(context, 48, ModStructureUtils.getScaledNetherHeight(70));
 		return JigsawPlacement.addPieces(context, PoolElementStructurePiece::new, blockpos, false, false);

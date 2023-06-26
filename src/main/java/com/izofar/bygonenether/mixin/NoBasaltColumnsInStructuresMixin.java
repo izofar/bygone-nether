@@ -24,9 +24,9 @@ public class NoBasaltColumnsInStructuresMixin {
             method = "canPlaceAt(Lnet/minecraft/world/level/LevelAccessor;ILnet/minecraft/core/BlockPos$MutableBlockPos;)Z",
             at = @At(value = "HEAD"),
             cancellable = true
-		)
+    )
     private static void bygonenether_noBasaltColumnsInStructures(LevelAccessor levelAccessor, int seaLevel, BlockPos.MutableBlockPos mutableBlockPos, CallbackInfoReturnable<Boolean> cir) {
-        if(!(levelAccessor instanceof WorldGenRegion)) {
+        if (!(levelAccessor instanceof WorldGenRegion)) {
             return;
         }
 

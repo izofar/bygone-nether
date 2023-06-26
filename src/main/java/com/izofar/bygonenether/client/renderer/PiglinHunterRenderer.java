@@ -24,10 +24,12 @@ public class PiglinHunterRenderer extends HumanoidMobRenderer<PiglinHunter, Pigl
     }
 
     @Override
-    public ResourceLocation getTextureLocation(PiglinHunter hunter) throws IllegalArgumentException {
+    public ResourceLocation getTextureLocation(PiglinHunter piglinHunter) {
         return PIGLIN_HUNTER_LOCATION;
     }
 
     @Override
-    protected boolean isShaking(PiglinHunter hunter) { return super.isShaking(hunter) || hunter instanceof AbstractPiglin && hunter.isConverting(); }
+    protected boolean isShaking(PiglinHunter piglinHunter) {
+        return super.isShaking(piglinHunter) || piglinHunter.isConverting();
+    }
 }
