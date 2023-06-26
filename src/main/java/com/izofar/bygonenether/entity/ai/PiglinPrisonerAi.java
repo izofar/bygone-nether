@@ -22,6 +22,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.*;
+import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
@@ -78,11 +79,11 @@ public class PiglinPrisonerAi {
 						new ModFollowLeader(isDistracted),
 						new LookAtTargetSink(45, 90),
 						new MoveToTargetSink(),
-						new InteractWithDoor(),
+						InteractWithDoor.create(),
 						avoidZombified(),
 						new ModStopHoldingItemIfNoLongerAdmiring<>(),
 						new ModStartAdmiringItemIfSeen<>(120),
-						new StopBeingAngryIfTargetDead<>()
+						StopBeingAngryIfTargetDead.create()
 				)
 		);
 	}
@@ -90,25 +91,25 @@ public class PiglinPrisonerAi {
 	private static void initIdleActivity(Brain<PiglinPrisoner> brain) {
 		brain.addActivity(Activity.IDLE, 10,
 				ImmutableList.of(
-						new SetEntityLookTarget(PiglinPrisonerAi::isPlayerHoldingLovedItem, 14.0F),
-						new StartAttacking<>(AbstractPiglin::isAdult, PiglinPrisonerAi::findNearestValidAttackTarget),
+						SetEntityLookTarget.create(PiglinPrisonerAi::isPlayerHoldingLovedItem, 14.0F),
+						StartAttacking.create(AbstractPiglin::isAdult, PiglinPrisonerAi::findNearestValidAttackTarget),
 						avoidRepellent(),
 						createIdleLookBehaviors(),
 						createIdleMovementBehaviors(),
-						new SetLookAndInteract(EntityType.PLAYER, 4)
+						SetLookAndInteract.create(EntityType.PLAYER, 4)
 				)
 		);
 	}
 
 	private static void initFightActivity(PiglinPrisoner piglinPrisoner, Brain<PiglinPrisoner> brain) {
 		brain.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 10,
-				ImmutableList.<Behavior<? super PiglinPrisoner>>of(
-						new StopAttackingIfTargetInvalid<>((target) -> !isNearestValidAttackTarget(piglinPrisoner, target)),
-						new RunIf<>(PiglinPrisonerAi::hasCrossbow, new BackUpIfTooClose<>(5, 0.75F)),
-						new SetWalkTargetFromAttackTargetIfTargetOutOfReach(1.0F),
-						new MeleeAttack(20),
+				ImmutableList.<BehaviorControl<? super PiglinPrisoner>>of(
+						StopAttackingIfTargetInvalid.create((target) -> !isNearestValidAttackTarget(piglinPrisoner, target)),
+						BehaviorBuilder.triggerIf(PiglinPrisonerAi::hasCrossbow, BackUpIfTooClose.create(5, 0.75F)),
+						SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
+						MeleeAttack.create(20),
 						new CrossbowAttack<>(),
-						new EraseMemoryIf<>(PiglinPrisonerAi::isNearZombified, MemoryModuleType.ATTACK_TARGET)
+						EraseMemoryIf.create(PiglinPrisonerAi::isNearZombified, MemoryModuleType.ATTACK_TARGET)
 				),
 				MemoryModuleType.ATTACK_TARGET);
 	}
@@ -117,15 +118,15 @@ public class PiglinPrisonerAi {
 		brain.addActivityAndRemoveMemoryWhenStopped(Activity.CELEBRATE, 10,
 				ImmutableList.of(
 						avoidRepellent(),
-						new SetEntityLookTarget(PiglinPrisonerAi::isPlayerHoldingLovedItem, 14.0F),
-						new StartAttacking<>(AbstractPiglin::isAdult, PiglinPrisonerAi::findNearestValidAttackTarget),
-						new RunIf<>(PiglinPrisoner::isDancing, new GoToTargetLocation<>(MemoryModuleType.CELEBRATE_LOCATION, 2, 1.0F)),
-						new RunIf<>(PiglinPrisoner::isDancing, new GoToTargetLocation<>(MemoryModuleType.CELEBRATE_LOCATION, 4, 0.6F)),
+						SetEntityLookTarget.create(PiglinPrisonerAi::isPlayerHoldingLovedItem, 14.0F),
+						StartAttacking.create(AbstractPiglin::isAdult, PiglinPrisonerAi::findNearestValidAttackTarget),
+						BehaviorBuilder.triggerIf(PiglinPrisoner::isDancing, GoToTargetLocation.create(MemoryModuleType.CELEBRATE_LOCATION, 2, 1.0F)),
+						BehaviorBuilder.triggerIf(PiglinPrisoner::isDancing, GoToTargetLocation.create(MemoryModuleType.CELEBRATE_LOCATION, 4, 0.6F)),
 						new RunOne<>(ImmutableList.of(
-									Pair.of(new SetEntityLookTarget(ModEntityTypes.PIGLIN_PRISONER.get(), 8.0F), 1),
-									Pair.of(new RandomStroll(0.6F, 2, 1), 1),
-									Pair.of(new DoNothing(10, 20), 1)
-								)
+								Pair.of(SetEntityLookTarget.create(ModEntityTypes.PIGLIN_PRISONER.get(), 8.0F), 1),
+								Pair.of(RandomStroll.stroll(0.6F, 2, 1), 1),
+								Pair.of(new DoNothing(10, 20), 1)
+						)
 						)
 				),
 				MemoryModuleType.CELEBRATE_LOCATION);
@@ -134,20 +135,20 @@ public class PiglinPrisonerAi {
 	private static void initAdmireItemActivity(Brain<PiglinPrisoner> brain) {
 		brain.addActivityAndRemoveMemoryWhenStopped(Activity.ADMIRE_ITEM, 10,
 				ImmutableList.of(
-						new GoToWantedItem<>(PiglinPrisonerAi::isNotHoldingLovedItemInOffHand, 1.0F, true, 9),
+						GoToWantedItem.create(PiglinPrisonerAi::isNotHoldingLovedItemInOffHand, 1.0F, true, 9),
 						new ModStopAdmiringIfItemTooFarAway<>(9),
 						new ModStopAdmiringIfTiredOfTryingToReachItem<>(200, 200)
 				),
 				MemoryModuleType.ADMIRING_ITEM);
 	}
 
-	private static RunOne<PiglinPrisoner> createIdleLookBehaviors() {
+	private static RunOne<LivingEntity> createIdleLookBehaviors() {
 		return new RunOne<>(
 				ImmutableList.of(
-						Pair.of(new SetEntityLookTarget(EntityType.PLAYER, 8.0F), 1),
-						Pair.of(new SetEntityLookTarget(EntityType.PIGLIN, 8.0F), 1),
-						Pair.of(new SetEntityLookTarget(ModEntityTypes.PIGLIN_PRISONER.get(), 8.0F), 1),
-						Pair.of(new SetEntityLookTarget(8.0F), 1),
+						Pair.of(SetEntityLookTarget.create(EntityType.PLAYER, 8.0F), 1),
+						Pair.of(SetEntityLookTarget.create(EntityType.PIGLIN, 8.0F), 1),
+						Pair.of(SetEntityLookTarget.create(ModEntityTypes.PIGLIN_PRISONER.get(), 8.0F), 1),
+						Pair.of(SetEntityLookTarget.create(8.0F), 1),
 						Pair.of(new DoNothing(30, 60), 1)
 				)
 		);
@@ -156,7 +157,7 @@ public class PiglinPrisonerAi {
 	private static RunOne<PiglinPrisoner> createIdleMovementBehaviors() {
 		return new RunOne<>(
 				ImmutableList.of(
-						Pair.of(new RandomStroll(0.6F), 2),
+						Pair.of(RandomStroll.stroll(0.6F), 2),
 						Pair.of(InteractWith.of(EntityType.PIGLIN, 8, MemoryModuleType.INTERACTION_TARGET, 0.6F, 2), 2),
 						Pair.of(InteractWith.of(ModEntityTypes.PIGLIN_PRISONER.get(), 8, MemoryModuleType.INTERACTION_TARGET, 0.6F, 2), 2),
 						Pair.of(new DoNothing(30, 60), 1)
@@ -164,12 +165,12 @@ public class PiglinPrisonerAi {
 		);
 	}
 
-	private static SetWalkTargetAwayFrom<BlockPos> avoidRepellent() {
+	private static BehaviorControl<PathfinderMob> avoidRepellent() {
 		return SetWalkTargetAwayFrom.pos(MemoryModuleType.NEAREST_REPELLENT, 1.0F, 8, false);
 	}
 
-	private static CopyMemoryWithExpiry<PiglinPrisoner, LivingEntity> avoidZombified() {
-		return new CopyMemoryWithExpiry<>(
+	private static BehaviorControl<PiglinPrisoner> avoidZombified() {
+		return CopyMemoryWithExpiry.create(
 				PiglinPrisonerAi::isNearZombified,
 				MemoryModuleType.NEAREST_VISIBLE_ZOMBIFIED,
 				MemoryModuleType.AVOID_TARGET,
@@ -212,7 +213,7 @@ public class PiglinPrisonerAi {
 			admireGoldItem(piglinPrisoner);
 		} else if (isFood(itemstack) && !hasEatenRecently(piglinPrisoner)) {
 			eat(piglinPrisoner);
-		} else if (!piglinPrisoner.equipItemIfPossible(itemstack)) {
+		} else if (piglinPrisoner.equipItemIfPossible(itemstack).isEmpty()) {
 			putInInventory(piglinPrisoner, itemstack);
 		}
 	}
@@ -243,7 +244,7 @@ public class PiglinPrisonerAi {
 		if (shouldThrowItems && flag) {
 			putInInventory(piglinPrisoner, itemstack);
 		} else if (!flag) {
-			boolean flag1 = piglinPrisoner.equipItemIfPossible(itemstack);
+			boolean flag1 = !piglinPrisoner.equipItemIfPossible(itemstack).isEmpty();
 			if (!flag1) {
 				throwItems(piglinPrisoner, Collections.singletonList(itemstack));
 			}

@@ -9,7 +9,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms.TransformType;
 import net.minecraft.client.renderer.blockentity.BannerRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -20,28 +19,24 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ShieldItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.entity.BannerBlockEntity;
 import net.minecraft.world.level.block.entity.BannerPattern;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 import java.util.List;
 
-@EventBusSubscriber(value = Dist.CLIENT, modid = BygoneNetherMod.MODID, bus = EventBusSubscriber.Bus.MOD)
+@OnlyIn(Dist.CLIENT)
 public class ModShieldRenderer extends BlockEntityWithoutLevelRenderer {
 
     private static ModShieldRenderer instance;
 
     private static final ClampedItemPropertyFunction isBlocking = (stack, world, entity, seed) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F;
-    private static final Material GILDED_NETHERITE_SHIELD_BASE_LOCATION = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation(BygoneNetherMod.MODID, "entity/gilded_netherite_shield_base"));
-    private static final Material GILDED_NETHERITE_SHIELD_BASE_NOPATTERN_LOCATION = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation(BygoneNetherMod.MODID, "entity/gilded_netherite_shield_base_nopattern"));
+    private static final Material GILDED_NETHERITE_SHIELD_BASE_LOCATION = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation(BygoneNetherMod.MODID, "entity/shield/gilded_netherite_shield_base"));
+    private static final Material GILDED_NETHERITE_SHIELD_BASE_NOPATTERN_LOCATION = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation(BygoneNetherMod.MODID, "entity/shield/gilded_netherite_shield_base_nopattern"));
 
     public ModShieldRenderer(BlockEntityRenderDispatcher dispatcher, EntityModelSet modelSet) {
         super(dispatcher, modelSet);
@@ -54,14 +49,6 @@ public class ModShieldRenderer extends BlockEntityWithoutLevelRenderer {
         event.registerReloadListener(instance);
     }
 
-    @SubscribeEvent
-    public static void onStitch(TextureStitchEvent.Pre event) {
-        if (event.getAtlas().location().equals(TextureAtlas.LOCATION_BLOCKS)) {
-            event.addSprite(GILDED_NETHERITE_SHIELD_BASE_LOCATION.texture());
-            event.addSprite(GILDED_NETHERITE_SHIELD_BASE_NOPATTERN_LOCATION.texture());
-        }
-    }
-
     public static void addShieldPropertyOverrides() {
         ItemProperties.register(ModItems.GILDED_NETHERITE_SHIELD.get(), new ResourceLocation(BygoneNetherMod.MODID, "blocking"), isBlocking);
     }
@@ -71,7 +58,7 @@ public class ModShieldRenderer extends BlockEntityWithoutLevelRenderer {
     }
 
     @Override
-    public void renderByItem(ItemStack stack, TransformType transformType, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay) {
+    public void renderByItem(ItemStack stack, ItemDisplayContext displayContext, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay) {
         poseStack.pushPose();
         poseStack.scale(1, -1, -1);
         boolean flag = stack.getTagElement("BlockEntityTag") != null;

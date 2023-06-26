@@ -27,7 +27,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> WARPED_ENDERMAN_STARE = register("entity.warped_enderman.stare");
 
     private static RegistryObject<SoundEvent> register(String name) {
-        return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(BygoneNetherMod.MODID, name)));
+        return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(BygoneNetherMod.MODID, name)));
     }
 
     public static void register(IEventBus eventBus) { SOUND_EVENTS.register(eventBus); }

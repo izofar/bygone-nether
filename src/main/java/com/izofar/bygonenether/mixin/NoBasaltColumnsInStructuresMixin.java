@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.SectionPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.WorldGenRegion;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.StructureManager;
@@ -35,7 +36,7 @@ public class NoBasaltColumnsInStructuresMixin {
             BygoneNetherMod.LOGGER.warn("Bygone Nether: Detected a mod with a broken basalt columns configuredfeature that is trying to place blocks outside the 3x3 safe chunk area for features. Find the broken mod and report to them to fix the placement of their basalt columns feature.");
             return;
         }
-        Registry<Structure> configuredStructureFeatureRegistry = levelAccessor.registryAccess().registryOrThrow(Registry.STRUCTURE_REGISTRY);
+        Registry<Structure> configuredStructureFeatureRegistry = levelAccessor.registryAccess().registryOrThrow(Registries.STRUCTURE);
         StructureManager structureFeatureManager = ((WorldGenRegionAccessor)levelAccessor).getStructureFeatureManager();
         for (Holder<Structure> configuredStructureFeature : configuredStructureFeatureRegistry.getOrCreateTag(ModTags.NO_BASALT)) {
             if (structureFeatureManager.getStructureAt(mutableBlockPos, configuredStructureFeature.value()).isValid()) {

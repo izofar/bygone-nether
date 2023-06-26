@@ -4,7 +4,7 @@ import com.izofar.bygonenether.BygoneNetherMod;
 import com.izofar.bygonenether.world.structure.CatacombStructure;
 import com.izofar.bygonenether.world.structure.CitadelStructure;
 import com.izofar.bygonenether.world.structure.PiglinManorStructure;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -12,7 +12,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public abstract class ModStructures {
 
-	public static final DeferredRegister<StructureType<?>> MODDED_STRUCTURES = DeferredRegister.create(Registry.STRUCTURE_TYPE_REGISTRY, BygoneNetherMod.MODID);
+	public static final DeferredRegister<StructureType<?>> MODDED_STRUCTURES = DeferredRegister.create(Registries.STRUCTURE_TYPE, BygoneNetherMod.MODID);
 
 	public static final RegistryObject<StructureType<CatacombStructure>> CATACOMB = MODDED_STRUCTURES.register("catacomb", () -> () -> CatacombStructure.CODEC);
 	public static final RegistryObject<StructureType<CitadelStructure>> CITADEL = MODDED_STRUCTURES.register("citadel", () -> () -> CitadelStructure.CODEC);

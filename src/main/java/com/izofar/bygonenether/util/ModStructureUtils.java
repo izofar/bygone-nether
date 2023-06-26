@@ -25,15 +25,6 @@ public abstract class ModStructureUtils {
 
 	private static final Predicate<Block> isAir = (block) -> block == Blocks.AIR || block == Blocks.CAVE_AIR;
 
-	public static boolean isNearStructure(Structure.GenerationContext context, int radius, Holder<StructureSet> ...features) {
-		ChunkPos chunkPos = context.chunkPos();
-		boolean isNearStructure = false;
-		for (Holder<StructureSet> feature : features) {
-			isNearStructure = isNearStructure || context.chunkGenerator().hasStructureChunkInRange(feature, context.randomState(), context.seed(), chunkPos.x, chunkPos.z, radius);
-		}
-		return isNearStructure;
-	}
-
 	public static boolean isLavaLake(NoiseColumn blockReader) {
 		boolean isLake = true;
 		if (blockReader.getBlock(31).getBlock() != Blocks.LAVA) {
@@ -84,24 +75,6 @@ public abstract class ModStructureUtils {
 			blockpos = new BlockPos(blockpos.getX(), new Random(context.seed()).nextInt(max - min) + min, blockpos.getZ());
 		}
 		return blockpos;
-	}
-
-	public static int getFirstLandYFromPos(LevelReader worldView, BlockPos pos) {
-		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-		mutable.set(pos);
-		ChunkAccess currentChunk = worldView.getChunk(mutable);
-		BlockState currentState = currentChunk.getBlockState(mutable);
-
-		while(mutable.getY() >= worldView.getMinBuildHeight() && isReplaceableByStructures(currentState)) {
-			mutable.move(Direction.DOWN);
-			currentState = currentChunk.getBlockState(mutable);
-		}
-
-		return mutable.getY();
-	}
-
-	private static boolean isReplaceableByStructures(BlockState blockState) {
-		return blockState.isAir() || blockState.getMaterial().isLiquid() || blockState.getMaterial().isReplaceable();
 	}
 
 	public static int getScaledNetherHeight(int vanillaHeight) {

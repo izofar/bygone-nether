@@ -3,7 +3,6 @@ package com.izofar.bygonenether.item;
 import com.izofar.bygonenether.init.ModItems;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -12,7 +11,7 @@ import java.util.function.Consumer;
 
 public class ModArmorItem extends ArmorItem {
 
-	public ModArmorItem(ArmorMaterial material, EquipmentSlot slot, Properties properties) { super(material, slot, properties); }
+	public ModArmorItem(ArmorMaterial material, ArmorItem.Type armorType, Properties properties) { super(material, armorType, properties); }
 	
 	@Override
 	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {

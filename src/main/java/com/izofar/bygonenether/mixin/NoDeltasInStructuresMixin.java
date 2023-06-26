@@ -3,6 +3,7 @@ package com.izofar.bygonenether.mixin;
 import com.izofar.bygonenether.init.ModTags;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.levelgen.feature.DeltaFeature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
@@ -22,7 +23,7 @@ public class NoDeltasInStructuresMixin {
             cancellable = true
 		)
     private void bygonenether_noDeltasInStructures(FeaturePlaceContext<DeltaFeatureConfiguration> context, CallbackInfoReturnable<Boolean> cir) {
-        Registry<Structure> configuredStructureFeatureRegistry = context.level().registryAccess().registryOrThrow(Registry.STRUCTURE_REGISTRY);
+        Registry<Structure> configuredStructureFeatureRegistry = context.level().registryAccess().registryOrThrow(Registries.STRUCTURE);
         StructureManager structureFeatureManager = ((WorldGenRegionAccessor)context.level()).getStructureFeatureManager();
         for (Holder<Structure> configuredStructureFeature : configuredStructureFeatureRegistry.getOrCreateTag(ModTags.NO_BASALT)) {
             if (structureFeatureManager.getStructureAt(context.origin(), configuredStructureFeature.value()).isValid()) {

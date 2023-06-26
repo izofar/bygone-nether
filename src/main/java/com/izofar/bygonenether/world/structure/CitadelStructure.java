@@ -24,8 +24,6 @@ import java.util.Optional;
 
 public class CitadelStructure extends Structure {
 
-	private static final int STRUCTURE_SEARCH_RADIUS = 4;
-
 	public static final Codec<CitadelStructure> CODEC = RecordCodecBuilder.<CitadelStructure>mapCodec(instance ->
 			instance.group(CitadelStructure.settingsCodec(instance),
 					StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
@@ -68,8 +66,7 @@ public class CitadelStructure extends Structure {
 		NoiseColumn blockReader = context.chunkGenerator().getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor(), context.randomState());
 		return checkChunk(context)
 				&& !ModStructureUtils.isLavaLake(blockReader)
-				&& ModStructureUtils.verticalSpace(blockReader, 34, ModStructureUtils.getScaledNetherHeight(72), 12)
-				&& !ModStructureUtils.isNearStructure(context, STRUCTURE_SEARCH_RADIUS, StructureSets.NETHER_COMPLEXES);
+				&& ModStructureUtils.verticalSpace(blockReader, 34, ModStructureUtils.getScaledNetherHeight(72), 12);
 	}
 
 	private static boolean checkChunk(Structure.GenerationContext context) {

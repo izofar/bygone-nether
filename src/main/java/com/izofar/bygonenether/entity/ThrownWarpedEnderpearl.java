@@ -42,7 +42,7 @@ public class ThrownWarpedEnderpearl extends ThrowableItemProjectile {
     @Override
     protected void onHitEntity(EntityHitResult result) {
         super.onHitEntity(result);
-        result.getEntity().hurt(DamageSource.thrown(this, this.getOwner()), 0.0F);
+        result.getEntity().hurt(this.damageSources().thrown(this, this.getOwner()), 0.0F);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class ThrownWarpedEnderpearl extends ThrowableItemProjectile {
         if (!this.level.isClientSide && !this.isRemoved()) {
             Entity entity = this.getOwner();
             if (entity instanceof ServerPlayer serverplayer) {
-                if (serverplayer.connection.getConnection().isConnected() && serverplayer.level == this.level && !serverplayer.isSleeping()) {
+                if (serverplayer.connection.isAcceptingMessages() && serverplayer.level == this.level && !serverplayer.isSleeping()) {
                     if (this.random.nextFloat() < 0.05F && this.level.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING)) {
                         Endermite endermite = EntityType.ENDERMITE.create(this.level);
                         endermite.moveTo(entity.getX(), entity.getY(), entity.getZ(), entity.getYRot(), entity.getXRot());

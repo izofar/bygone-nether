@@ -1,37 +1,50 @@
 package com.izofar.bygonenether.item;
 
 import com.izofar.bygonenether.BygoneNetherMod;
+import net.minecraft.Util;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.LazyLoadedValue;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import java.util.EnumMap;
 import java.util.function.Supplier;
 
 @SuppressWarnings("deprecation")
 public enum ModArmorMaterial implements ArmorMaterial {
 	
-	GILDED_NETHERITE(BygoneNetherMod.MODID + ":gilded_netherite", 8, new int[] {3, 6, 8, 3}, 20, SoundEvents.ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F, () -> Ingredient.of(Items.NETHERITE_INGOT));
+	GILDED_NETHERITE(BygoneNetherMod.MODID + ":gilded_netherite", 8, Util.make(new EnumMap<>(ArmorItem.Type.class), (armorMap) -> {
+		armorMap.put(ArmorItem.Type.BOOTS, 3);
+		armorMap.put(ArmorItem.Type.LEGGINGS, 6);
+		armorMap.put(ArmorItem.Type.CHESTPLATE, 8);
+		armorMap.put(ArmorItem.Type.HELMET, 3);
+	}), 20, SoundEvents.ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F, () -> Ingredient.of(Items.NETHERITE_INGOT));
 
-	private static final int[] HEALTH_PER_SLOT = new int[] { 13, 15, 16, 11 };
 	private final String name;
 	private final int durabilityMultiplier;
-	private final int[] slotProtections;
+	private final EnumMap<ArmorItem.Type, Integer> protectionFunctionForType;
 	private final int enchantmentValue;
 	private final SoundEvent sound;
 	private final float toughness;
 	private final float knockbackResistance;
 	private final LazyLoadedValue<Ingredient> repairIngredient;
 
-	ModArmorMaterial(String name, int durabilityMultiplier, int[] slotProtections, int enchantmentValue, SoundEvent sound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
+	private static final EnumMap<ArmorItem.Type, Integer> HEALTH_FUNCTION_FOR_TYPE = Util.make(new EnumMap<>(ArmorItem.Type.class), (armorMap) -> {
+		armorMap.put(ArmorItem.Type.BOOTS, 13);
+		armorMap.put(ArmorItem.Type.LEGGINGS, 15);
+		armorMap.put(ArmorItem.Type.CHESTPLATE, 16);
+		armorMap.put(ArmorItem.Type.HELMET, 11);
+	});
+
+	ModArmorMaterial(String name, int durabilityMultiplier, EnumMap<ArmorItem.Type, Integer> protectionFunctionForType, int enchantmentValue, SoundEvent sound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
 		this.name = name;
 		this.durabilityMultiplier = durabilityMultiplier;
-		this.slotProtections = slotProtections;
+		this.protectionFunctionForType = protectionFunctionForType;
 		this.enchantmentValue = enchantmentValue;
 		this.sound = sound;
 		this.toughness = toughness;
@@ -39,12 +52,12 @@ public enum ModArmorMaterial implements ArmorMaterial {
 		this.repairIngredient = new LazyLoadedValue<>(repairIngredient);
 	}
 
-	public int getDurabilityForSlot(EquipmentSlot slot) {
-		return HEALTH_PER_SLOT[slot.getIndex()] * this.durabilityMultiplier;
+	public int getDurabilityForType(ArmorItem.Type armorType) {
+		return HEALTH_FUNCTION_FOR_TYPE.get(armorType) * this.durabilityMultiplier;
 	}
 
-	public int getDefenseForSlot(EquipmentSlot slot) {
-		return this.slotProtections[slot.getIndex()];
+	public int getDefenseForType(ArmorItem.Type armorType) {
+		return this.protectionFunctionForType.get(armorType);
 	}
 
 	public int getEnchantmentValue() {

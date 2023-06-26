@@ -23,8 +23,6 @@ import java.util.Optional;
 
 public class PiglinManorStructure extends Structure {
 
-    private static final int STRUCTURE_SEARCH_RADIUS = 6;
-
     public static final Codec<PiglinManorStructure> CODEC = RecordCodecBuilder.<PiglinManorStructure>mapCodec(instance ->
             instance.group(PiglinManorStructure.settingsCodec(instance),
                     StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
@@ -68,8 +66,7 @@ public class PiglinManorStructure extends Structure {
         NoiseColumn blockReader = context.chunkGenerator().getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor(), context.randomState());
         return checkChunk(context)
                 && !ModStructureUtils.isLavaLake(blockReader)
-                && ModStructureUtils.verticalSpace(blockReader, 34, ModStructureUtils.getScaledNetherHeight(72), 24)
-                && !ModStructureUtils.isNearStructure(context, STRUCTURE_SEARCH_RADIUS, StructureSets.NETHER_COMPLEXES);
+                && ModStructureUtils.verticalSpace(blockReader, 34, ModStructureUtils.getScaledNetherHeight(72), 24);
     }
 
     private static boolean checkChunk(Structure.GenerationContext context) {

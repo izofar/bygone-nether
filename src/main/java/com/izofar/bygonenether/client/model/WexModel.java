@@ -5,6 +5,8 @@ import com.google.common.collect.Iterables;
 import com.izofar.bygonenether.entity.Wex;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraftforge.api.distmarker.Dist;
@@ -22,6 +24,15 @@ public class WexModel extends HumanoidModel<Wex> {
       this.hat.visible = false;
       this.rightWing = part.getChild("right_wing");
       this.leftWing = part.getChild("left_wing");
+   }
+
+   public static LayerDefinition createBodyLayer() {
+      MeshDefinition meshDefinition = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
+      PartDefinition partDefinition = meshDefinition.getRoot();
+      partDefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(32, 0).addBox(-1.0F, -1.0F, -2.0F, 6.0F, 10.0F, 4.0F), PartPose.offset(-1.9F, 12.0F, 0.0F));
+      partDefinition.addOrReplaceChild("right_wing", CubeListBuilder.create().texOffs(0, 32).addBox(-20.0F, 0.0F, 0.0F, 20.0F, 12.0F, 1.0F), PartPose.ZERO);
+      partDefinition.addOrReplaceChild("left_wing", CubeListBuilder.create().texOffs(0, 32).mirror().addBox(0.0F, 0.0F, 0.0F, 20.0F, 12.0F, 1.0F), PartPose.ZERO);
+      return LayerDefinition.create(meshDefinition, 64, 64);
    }
 
    protected Iterable<ModelPart> bodyParts() {

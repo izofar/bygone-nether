@@ -4,22 +4,21 @@ import com.izofar.bygonenether.BygoneNetherMod;
 import com.izofar.bygonenether.client.model.WexModel;
 import com.izofar.bygonenether.entity.Wex;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
-import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class WexRenderer extends HumanoidMobRenderer<Wex, WexModel> {
+public class WexRenderer extends MobRenderer<Wex, WexModel> {
 
 	private static final ResourceLocation WEX_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/wex/wex.png");
 	private static final ResourceLocation WEX_CHARGING_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/wex/wex_charging.png");
 
 	public WexRenderer(Context context) {
-		super(context, new WexModel(context.bakeLayer(ModelLayers.VEX)), 0.3F);
+		super(context, new WexModel(WexModel.createBodyLayer().bakeRoot()), 0.3F);
 	}
 
 	@Override

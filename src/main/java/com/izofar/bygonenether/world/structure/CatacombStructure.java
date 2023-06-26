@@ -11,6 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.NoiseColumn;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
+import net.minecraft.world.level.levelgen.structure.BuiltinStructureSets;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pools.JigsawPlacement;
@@ -19,8 +20,6 @@ import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import java.util.Optional;
 
 public class CatacombStructure extends Structure {
-
-	private static final int STRUCTURE_SEARCH_RADIUS = 8;
 
 	public static final Codec<CatacombStructure> CODEC = RecordCodecBuilder.<CatacombStructure>mapCodec(instance ->
 			instance.group(CatacombStructure.settingsCodec(instance),
@@ -59,8 +58,7 @@ public class CatacombStructure extends Structure {
 		BlockPos blockpos  = context.chunkPos().getMiddleBlockPosition(0);
 		NoiseColumn blockReader = context.chunkGenerator().getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor(), context.randomState());
 		return !ModStructureUtils.isBuried(blockReader, 48, ModStructureUtils.getScaledNetherHeight(72))
-				&& !ModStructureUtils.isLavaLake(blockReader)
-				&& !ModStructureUtils.isNearStructure(context, STRUCTURE_SEARCH_RADIUS, StructureSets.NETHER_COMPLEXES);
+				&& !ModStructureUtils.isLavaLake(blockReader);
 	}
 	
 	public Optional<Structure.GenerationStub> findGenerationPoint(Structure.GenerationContext context) {
