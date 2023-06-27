@@ -9,6 +9,7 @@
 		"ModifyDamageInSmithingRecipes",
 		"ModifyPiglinBruteAi",
 		"ModifyPiglinAi",
+		"NoAxeDisableModShieldMixin",
 		"WorldGenRegionAccessor"
 	],
 	"client": [

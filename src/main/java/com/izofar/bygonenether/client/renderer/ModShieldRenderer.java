@@ -40,8 +40,8 @@ public class ModShieldRenderer extends BlockEntityWithoutLevelRenderer {
     private static ModShieldRenderer instance;
 
     private static final ClampedItemPropertyFunction isBlocking = (stack, world, entity, seed) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F;
-    private static final Material GILDED_NETHERITE_SHIELD_BASE_LOCATION = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation(BygoneNetherMod.MODID, "entity/gilded_netherite_shield_base"));
-    private static final Material GILDED_NETHERITE_SHIELD_BASE_NOPATTERN_LOCATION = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation(BygoneNetherMod.MODID, "entity/gilded_netherite_shield_base_nopattern"));
+    private static final Material GILDED_NETHERITE_SHIELD_BASE_LOCATION = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation(BygoneNetherMod.MODID, "entity/shield/gilded_netherite_shield_base"));
+    private static final Material GILDED_NETHERITE_SHIELD_BASE_NOPATTERN_LOCATION = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation(BygoneNetherMod.MODID, "entity/shield/gilded_netherite_shield_base_nopattern"));
 
     public ModShieldRenderer(BlockEntityRenderDispatcher dispatcher, EntityModelSet modelSet) {
         super(dispatcher, modelSet);

@@ -2,7 +2,7 @@
   "type": "bygonenether:citadel",
   "config": {
     "start_pool": "bygonenether:citadel/start_pool",
-    "size": 1,
+    "size": 4,
     "max_y": 70,
     "min_y": 48
   },
