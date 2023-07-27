@@ -70,7 +70,7 @@ public class CitadelStructure extends Structure<NoFeatureConfig> {
 					dynamicRegistryManager,
 					new VillageConfig(() -> dynamicRegistryManager.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY)
 							.get(new ResourceLocation(BygoneNetherMod.MODID, CITADEL_START_POOL)),
-							1),
+							4),
 					AbstractVillagePiece::new,
 					chunkGenerator,
 					templateManagerIn,
