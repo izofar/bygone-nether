@@ -17,10 +17,12 @@ public class ModifyDamageInSmithingRecipes {
 			method="assemble(Lnet/minecraft/inventory/IInventory;)Lnet/minecraft/item/ItemStack;",
 			at = @At(value = "RETURN"),
 			cancellable = true
-		)
+	)
 	private void bygonenether_setDamage(IInventory inventory, CallbackInfoReturnable<ItemStack> cir) {
 		ItemStack itemstack = cir.getReturnValue();
-		if(!(itemstack.getItem() instanceof ModArmorItem)) return;
+		if(!(itemstack.getItem() instanceof ModArmorItem)) {
+			return;
+		}
 		int damage = itemstack.getDamageValue();
 		itemstack.getOrCreateTag().put("NetheriteDamage", IntNBT.valueOf(damage));
 		itemstack.setDamageValue(0);

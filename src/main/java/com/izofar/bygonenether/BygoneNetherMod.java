@@ -4,8 +4,8 @@ import com.izofar.bygonenether.client.renderer.*;
 import com.izofar.bygonenether.init.*;
 import com.izofar.bygonenether.world.feature.ModFeatureUtils;
 import com.izofar.bygonenether.util.ModStructureUtils;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -33,14 +33,13 @@ public class BygoneNetherMod
         ModFeatures.register(eventBus);
         ModSounds.register(eventBus);
 
-        eventBus.addListener(this::setup);
-        eventBus.addListener(this::doClientStuff);
+        eventBus.addListener(this::commonSetup);
+        eventBus.addListener(this::clientSetup);
     }
 
-    private void setup(final FMLCommonSetupEvent event) {
+    private void commonSetup(final FMLCommonSetupEvent event) {
         ModCriteriaTriggers.registerTriggers();
         event.enqueueWork(() -> {
-            ModProcessors.registerProcessors();
             ModStructures.setupStructures();
             ModConfiguredStructures.registerConfiguredStructures();
             ModConfiguredFeatures.registerConfiguredFeatures();
@@ -50,7 +49,11 @@ public class BygoneNetherMod
         });
     }
 
-    private void doClientStuff(final FMLClientSetupEvent event) {
+    private void clientSetup(final FMLClientSetupEvent event) {
+        event.enqueueWork(() -> {
+           ModShieldTileEntityRenderer.addShieldPropertyOverrides();
+        });
+
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.PIGLIN_PRISONER.get(), PiglinPrisonerRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.PIGLIN_HUNTER.get(), PiglinHunterRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WEX.get(), WexRenderer:: new);
@@ -60,5 +63,6 @@ public class BygoneNetherMod
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WITHER_SKELETON_KNIGHT.get(), WitherSkeletonKnightRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WRAITHER.get(), WraitherRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WARPED_ENDER_PEARL.get(), WarpedEnderpearlRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(ModEntityTypes.NETHERITE_BELL.get(), NetheriteBellTileEntityRenderer::new);
     }
 }

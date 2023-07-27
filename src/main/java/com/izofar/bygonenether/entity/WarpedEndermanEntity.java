@@ -72,12 +72,16 @@ public class WarpedEndermanEntity extends EndermanEntity {
 	}
 
 	@Override
-	public void tick(){
+	public void tick() {
 		super.tick();
-		if(!this.level.isClientSide) {
-			if (shearCooldownCounter > 0) shearCooldownCounter--;
-			else if (shearCooldownCounter < 0) shearCooldownCounter = 0;
-			if(this.toConvertToEnderman){
+		if (!this.level.isClientSide) {
+			if (shearCooldownCounter > 0) {
+				shearCooldownCounter--;
+			}
+			else if (shearCooldownCounter < 0) {
+				shearCooldownCounter = 0;
+			}
+			if (this.toConvertToEnderman) {
 				EndermanEntity enderman = this.convertTo(EntityType.ENDERMAN, false);
 				this.playShearSound(enderman);
 			}
@@ -85,9 +89,13 @@ public class WarpedEndermanEntity extends EndermanEntity {
 	}
 
 	@Override
-	public void playSound(SoundEvent event, float f1, float f2){ super.playSound(SOUND_MAP.getOrDefault(event, event), f1, f2); }
+	public void playSound(SoundEvent event, float f1, float f2) {
+		super.playSound(SOUND_MAP.getOrDefault(event, event), f1, f2);
+	}
 
-	private void playShearSound(EndermanEntity enderman){ this.level.playSound(null, enderman, SoundEvents.SHEEP_SHEAR, SoundCategory.PLAYERS, 1.0F, 1.0F); }
+	private void playShearSound(EndermanEntity enderman) {
+		this.level.playSound(null, enderman, SoundEvents.SHEEP_SHEAR, SoundCategory.PLAYERS, 1.0F, 1.0F);
+	}
 
 	@Override
 	protected void defineSynchedData() {
@@ -119,14 +127,14 @@ public class WarpedEndermanEntity extends EndermanEntity {
 	}
 
 	@Override
-	public ActionResultType mobInteract(PlayerEntity player, Hand hand){
+	public ActionResultType mobInteract(PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		if(stack.getItem() == Items.SHEARS) {
-			if(this.isReadyForShearing() && !this.level.isClientSide) {
+		if (stack.getItem() == Items.SHEARS) {
+			if (this.isReadyForShearing() && !this.level.isClientSide) {
 				boolean flag = this.toConvertToEnderman;
 				this.shearWarp();
 				stack.hurtAndBreak(1, player, (playerIn) -> playerIn.broadcastBreakEvent(hand));
-				if(this.toConvertToEnderman && !flag && player instanceof ServerPlayerEntity)
+				if (this.toConvertToEnderman && !flag && player instanceof ServerPlayerEntity)
 					CriteriaTriggers.SUMMONED_ENTITY.trigger((ServerPlayerEntity) player, this);
 				return ActionResultType.SUCCESS;
 			} else {
@@ -136,9 +144,11 @@ public class WarpedEndermanEntity extends EndermanEntity {
 		return super.mobInteract(player, hand);
 	}
 
-	private boolean isReadyForShearing() { return this.shearCooldownCounter == 0; }
+	private boolean isReadyForShearing() {
+		return this.shearCooldownCounter == 0;
+	}
 
-	private void shearWarp(){
+	private void shearWarp() {
 		ItemStack itemstack = new ItemStack(Items.TWISTING_VINES, this.getRandom().nextInt(2) + 1);
 		ItemEntity itementity = this.spawnAtLocation(itemstack);
 		itementity.setDeltaMovement(itementity.getDeltaMovement().add((this.random.nextFloat() - this.random.nextFloat()) * 0.1F, this.random.nextFloat() * 0.05F, (this.random.nextFloat() - this.random.nextFloat()) * 0.1F));
@@ -158,7 +168,9 @@ public class WarpedEndermanEntity extends EndermanEntity {
 		}
 	}
 
-	private static WarpedEnderManVariant randomVariant(Random random){ return VARIANTS[random.nextInt(VARIANTS.length)]; }
+	private static WarpedEnderManVariant randomVariant(Random random) {
+		return VARIANTS[random.nextInt(VARIANTS.length)];
+	}
 
 	public enum WarpedEnderManVariant {
 		FRESH, SHORT_VINE, LONG_VINE

@@ -12,6 +12,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class WexModel extends BipedModel<WexEntity> {
+
    private final ModelRenderer leftWing;
    private final ModelRenderer rightWing;
 
@@ -33,13 +34,13 @@ public class WexModel extends BipedModel<WexEntity> {
       return Iterables.concat(super.bodyParts(), ImmutableList.of(this.rightWing, this.leftWing));
    }
 
-   public void setupAnim(WexEntity pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
-      super.setupAnim(pEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
-      if (pEntity.isCharging()) {
-         if (pEntity.getMainHandItem().isEmpty()) {
+   public void setupAnim(WexEntity wexEntity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+      super.setupAnim(wexEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+      if (wexEntity.isCharging()) {
+         if (wexEntity.getMainHandItem().isEmpty()) {
             this.rightArm.xRot = ((float)Math.PI * 1.5F);
             this.leftArm.xRot = ((float)Math.PI * 1.5F);
-         } else if (pEntity.getMainArm() == HandSide.RIGHT) {
+         } else if (wexEntity.getMainArm() == HandSide.RIGHT) {
             this.rightArm.xRot = 3.7699115F;
          } else {
             this.leftArm.xRot = 3.7699115F;
@@ -51,7 +52,7 @@ public class WexModel extends BipedModel<WexEntity> {
       this.leftWing.z = 2.0F;
       this.rightWing.y = 1.0F;
       this.leftWing.y = 1.0F;
-      this.rightWing.yRot = 0.47123894F + MathHelper.cos(pAgeInTicks * 0.8F) * (float)Math.PI * 0.05F;
+      this.rightWing.yRot = 0.47123894F + MathHelper.cos(ageInTicks * 0.8F) * (float)Math.PI * 0.05F;
       this.leftWing.yRot = -this.rightWing.yRot;
       this.leftWing.zRot = -0.47123894F;
       this.leftWing.xRot = 0.47123894F;

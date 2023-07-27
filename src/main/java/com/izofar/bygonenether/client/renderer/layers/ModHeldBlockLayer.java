@@ -15,22 +15,24 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ModHeldBlockLayer extends LayerRenderer<WarpedEndermanEntity, WarpedEndermanModel> {
+
     public ModHeldBlockLayer(IEntityRenderer<WarpedEndermanEntity, WarpedEndermanModel> renderer) {
         super(renderer);
     }
 
-    public void render(MatrixStack pMatrixStack, IRenderTypeBuffer pBuffer, int pPackedLight, WarpedEndermanEntity pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
-        BlockState blockstate = pLivingEntity.getCarriedBlock();
+    @Override
+    public void render(MatrixStack matrixStack, IRenderTypeBuffer buffer, int packedLight, WarpedEndermanEntity warpedEndermanEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+        BlockState blockstate = warpedEndermanEntity.getCarriedBlock();
         if (blockstate != null) {
-            pMatrixStack.pushPose();
-            pMatrixStack.translate(0.0D, 0.6875D, -0.75D);
-            pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(20.0F));
-            pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(45.0F));
-            pMatrixStack.translate(0.25D, 0.1875D, 0.25D);
-            pMatrixStack.scale(-0.5F, -0.5F, 0.5F);
-            pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(90.0F));
-            Minecraft.getInstance().getBlockRenderer().renderSingleBlock(blockstate, pMatrixStack, pBuffer, pPackedLight, OverlayTexture.NO_OVERLAY);
-            pMatrixStack.popPose();
+            matrixStack.pushPose();
+            matrixStack.translate(0.0D, 0.6875D, -0.75D);
+            matrixStack.mulPose(Vector3f.XP.rotationDegrees(20.0F));
+            matrixStack.mulPose(Vector3f.YP.rotationDegrees(45.0F));
+            matrixStack.translate(0.25D, 0.1875D, 0.25D);
+            matrixStack.scale(-0.5F, -0.5F, 0.5F);
+            matrixStack.mulPose(Vector3f.YP.rotationDegrees(90.0F));
+            Minecraft.getInstance().getBlockRenderer().renderSingleBlock(blockstate, matrixStack, buffer, packedLight, OverlayTexture.NO_OVERLAY);
+            matrixStack.popPose();
         }
     }
 }

@@ -38,8 +38,8 @@ public class ModPiglinBruteSpecificSensor extends PiglinBruteSpecificSensor {
 		List<AbstractPiglinEntity> list = Lists.newArrayList();
 		Optional<MobEntity> optional1 = Optional.empty();
 
-		for(LivingEntity livingentity : brain.getMemory(MemoryModuleType.VISIBLE_LIVING_ENTITIES).orElse(ImmutableList.of())){
-			if(livingentity instanceof WitherSkeletonEntity || livingentity instanceof WitherEntity){
+		for (LivingEntity livingentity : brain.getMemory(MemoryModuleType.VISIBLE_LIVING_ENTITIES).orElse(ImmutableList.of())) {
+			if (livingentity instanceof WitherSkeletonEntity || livingentity instanceof WitherEntity) {
 				optional1 = Optional.of((MobEntity)livingentity);
 				break;
 			}
@@ -48,11 +48,13 @@ public class ModPiglinBruteSpecificSensor extends PiglinBruteSpecificSensor {
 		Optional<PlayerEntity> optional2 = Optional.empty();
 		
 		for (LivingEntity livingentity : brain.getMemory(MemoryModuleType.LIVING_ENTITIES).orElse(ImmutableList.of())) {
-			if (livingentity instanceof PlayerEntity && !optional2.isPresent() && !ModPiglinBruteAi.isWearingGild(livingentity) && entity.canAttack(livingentity))
-					optional2 = Optional.of((PlayerEntity) livingentity);
+			if (livingentity instanceof PlayerEntity && !optional2.isPresent() && !ModPiglinBruteAi.isWearingGild(livingentity) && entity.canAttack(livingentity)) {
+				optional2 = Optional.of((PlayerEntity) livingentity);
+			}
 
-			else if (livingentity instanceof AbstractPiglinEntity && ((AbstractPiglinEntity) livingentity).isAdult())
+			else if (livingentity instanceof AbstractPiglinEntity && ((AbstractPiglinEntity) livingentity).isAdult()) {
 				list.add((AbstractPiglinEntity) livingentity);
+			}
 		}
 
 		brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_NEMESIS, optional1);

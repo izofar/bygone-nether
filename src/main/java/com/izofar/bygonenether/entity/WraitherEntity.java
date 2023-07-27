@@ -19,46 +19,53 @@ public class WraitherEntity extends WitherSkeletonEntity {
 
     private static final DataParameter<Boolean> DATA_IS_POSSESSED = EntityDataManager.defineId(WraitherEntity.class, DataSerializers.BOOLEAN);
 
-    public WraitherEntity(EntityType<? extends WitherSkeletonEntity> entityType, World level) { super(entityType, level); }
+    public WraitherEntity(EntityType<? extends WitherSkeletonEntity> entityType, World level) {
+        super(entityType, level);
+    }
 
     public static AttributeModifierMap.MutableAttribute createAttributes() {
         return MonsterEntity.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, 0.32D).add(Attributes.MAX_HEALTH, 25.0D);
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundNBT tag){
+    public void addAdditionalSaveData(CompoundNBT tag) {
         super.addAdditionalSaveData(tag);
         tag.putBoolean("Possessed", this.isPossessed());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundNBT tag){
+    public void readAdditionalSaveData(CompoundNBT tag) {
         super.readAdditionalSaveData(tag);
         this.setPossessed(tag.getBoolean("Possessed"));
     }
 
     @Override
-    protected void defineSynchedData(){
+    protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_IS_POSSESSED, true);
     }
 
-    public boolean isPossessed(){ return this.entityData.get(DATA_IS_POSSESSED); }
+    public boolean isPossessed() {
+        return this.entityData.get(DATA_IS_POSSESSED);
+    }
 
-    private void setPossessed(boolean disarmored){ this.entityData.set(DATA_IS_POSSESSED, disarmored); }
+    private void setPossessed(boolean disarmored) {
+        this.entityData.set(DATA_IS_POSSESSED, disarmored);
+    }
 
     @Override
-    public boolean hurt(DamageSource source, float amount){
+    public boolean hurt(DamageSource source, float amount) {
         boolean ret = super.hurt(source, amount);
-        if(this.isPossessed() && this.getHealth() < 10.0F)
+        if (this.isPossessed() && this.getHealth() < 10.0F) {
             this.dispossess();
+        }
         return ret;
     }
 
-    private void dispossess(){
+    private void dispossess() {
         this.setPossessed(false);
         this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.25D);
-        if(this.level instanceof ServerWorld) {
+        if (this.level instanceof ServerWorld) {
             ServerWorld serverWorld = (ServerWorld) this.level;
             WexEntity wex = ModEntityTypes.WEX.get().create(serverWorld);
             wex.moveTo(this.blockPosition().above(), this.yBodyRot, this.xRotO);

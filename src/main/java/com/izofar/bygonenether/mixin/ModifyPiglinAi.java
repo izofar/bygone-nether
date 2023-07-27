@@ -24,10 +24,12 @@ public class ModifyPiglinAi {
     private static void bygonenether_angerNearbyPiglins(PlayerEntity player, boolean requireVisibility, CallbackInfo ci) {
         List<PiglinBruteEntity> list = player.level.getEntitiesOfClass(PiglinBruteEntity.class, player.getBoundingBox().inflate(16.0D));
         list.stream().filter(PiglinTasks::isIdle).filter((piglinBrute) -> !requireVisibility || BrainUtil.canSee(piglinBrute, player)).forEach((piglinBrute) -> {
-            if (piglinBrute.level.getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER))
+            if (piglinBrute.level.getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
                 ModPiglinBruteAi.setAngerTargetToNearestTargetablePlayerIfFound(piglinBrute, player);
-            else
+            }
+            else {
                 ModPiglinBruteAi.setAngerTarget(piglinBrute, player);
+            }
         });
     }
 }

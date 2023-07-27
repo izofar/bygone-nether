@@ -7,7 +7,10 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.entity.BipedRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class WitherSkeletonKnightRenderer extends BipedRenderer<WitherSkeletonKnightEntity, WitherSkeletonKnightModel> {
 
     private static final ResourceLocation ARMORED_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/wither/wither_skeleton_knight.png");
@@ -23,7 +26,8 @@ public class WitherSkeletonKnightRenderer extends BipedRenderer<WitherSkeletonKn
         return witherSkeletonKnightEntity.isDisarmored() ? DISARMORED_LOCATION : ARMORED_LOCATION;
     }
 
-    protected void scale(WitherSkeletonKnightEntity witherSkeletonKnightEntity, MatrixStack stack, float f) {
-        stack.scale(1.2F, 1.2F, 1.2F);
+    @Override
+    protected void scale(WitherSkeletonKnightEntity witherSkeletonKnightEntity, MatrixStack matrixStack, float partialTicks) {
+        matrixStack.scale(1.2F, 1.2F, 1.2F);
     }
 }

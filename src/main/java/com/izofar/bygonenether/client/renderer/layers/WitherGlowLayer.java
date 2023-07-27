@@ -20,11 +20,15 @@ public class WitherGlowLayer<T extends AbstractSkeletonEntity, M extends Skeleto
 
     public WitherGlowLayer(IEntityRenderer<T, M> layer) { super(layer); }
 
-    public void render(MatrixStack pMatrixStack, IRenderTypeBuffer pBuffer, int pPackedLight, T pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
-        if(pLivingEntity instanceof WraitherEntity && ((WraitherEntity)pLivingEntity).isPossessed())
-            super.render(pMatrixStack, pBuffer, pPackedLight, pLivingEntity, pLimbSwing, pLimbSwingAmount, pPartialTicks, pAgeInTicks, pNetHeadYaw, pHeadPitch);
+    @Override
+    public void render(MatrixStack matrixStack, IRenderTypeBuffer buffer, int packedLight, T livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+        if(livingEntity instanceof WraitherEntity && ((WraitherEntity)livingEntity).isPossessed()) {
+            super.render(matrixStack, buffer, packedLight, livingEntity, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
+        }
     }
 
     @Override
-    public RenderType renderType() { return WITHER_GLOW; }
+    public RenderType renderType() {
+        return WITHER_GLOW;
+    }
 }

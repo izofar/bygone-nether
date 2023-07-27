@@ -5,7 +5,10 @@ import com.izofar.bygonenether.entity.*;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Util;
+import net.minecraft.util.datafix.TypeReferences;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -14,6 +17,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public abstract class ModEntityTypes {
 
 	public static final DeferredRegister<EntityType<?>> MOD_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, BygoneNetherMod.MODID);
+	public static final DeferredRegister<TileEntityType<?>> MOD_TILE_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, BygoneNetherMod.MODID);
 
 	public static final RegistryObject<EntityType<WexEntity>> WEX = MOD_ENTITY_TYPES.register("wex", () -> EntityType.Builder.of(WexEntity::new, EntityClassification.MONSTER).fireImmune().sized(0.4F, 0.8F).clientTrackingRange(8).build(new ResourceLocation(BygoneNetherMod.MODID, "wex").toString()));
 	public static final RegistryObject<EntityType<WarpedEndermanEntity>> WARPED_ENDERMAN = MOD_ENTITY_TYPES.register("warped_enderman", () -> EntityType.Builder.of(WarpedEndermanEntity::new, EntityClassification.MONSTER).fireImmune().sized(0.6F, 2.9F).clientTrackingRange(8).build(new ResourceLocation(BygoneNetherMod.MODID, "warped_enderman").toString()));
@@ -29,6 +33,11 @@ public abstract class ModEntityTypes {
 
 	public static final RegistryObject<EntityType<ThrownWarpedEnderpearlEntity>> WARPED_ENDER_PEARL = MOD_ENTITY_TYPES.register("warped_ender_pearl", () -> EntityType.Builder.<ThrownWarpedEnderpearlEntity>of(ThrownWarpedEnderpearlEntity::new, EntityClassification.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10).build(new ResourceLocation(BygoneNetherMod.MODID, "warped_ender_pearl").toString()));
 
-	public static void register(IEventBus eventBus) { MOD_ENTITY_TYPES.register(eventBus); }
+	public static final RegistryObject<TileEntityType<NetheriteBellTileEntity>> NETHERITE_BELL = MOD_TILE_ENTITY_TYPES.register("netherite_bell", () -> TileEntityType.Builder.of(NetheriteBellTileEntity::new, ModBlocks.NETHERITE_BELL.get()).build(Util.fetchChoiceType(TypeReferences.BLOCK_ENTITY, new ResourceLocation(BygoneNetherMod.MODID, "netherite_bell").toString())));
+
+	public static void register(IEventBus eventBus) {
+		MOD_ENTITY_TYPES.register(eventBus);
+		MOD_TILE_ENTITY_TYPES.register(eventBus);
+	}
 
 }

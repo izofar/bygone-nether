@@ -15,7 +15,9 @@ public class WarpedEnderpearlItem extends EnderPearlItem {
 
     private static final int COOL_DOWN = 10;
 
-    public WarpedEnderpearlItem(Properties properties) { super(properties); }
+    public WarpedEnderpearlItem(Properties properties) {
+        super(properties);
+    }
 
     @Override
     public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {

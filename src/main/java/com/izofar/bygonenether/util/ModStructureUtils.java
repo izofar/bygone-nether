@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.izofar.bygonenether.init.ModBlocks;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SharedSeedRandom;
@@ -12,13 +11,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.BasaltColumnFeature;
 import net.minecraft.world.gen.feature.structure.BasaltDeltasStructure;
 import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.feature.structure.StructureFeatures;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
 
@@ -104,24 +100,6 @@ public abstract class ModStructureUtils {
 			blockpos = new BlockPos(blockpos.getX(), (max + min) / 2, blockpos.getZ());
 
 		return blockpos;
-	}
-
-	public static int getFirstLandYFromPos(IWorldReader worldView, BlockPos pos) {
-		BlockPos.Mutable mutable = new BlockPos.Mutable();
-		mutable.set(pos);
-		IChunk currentChunk = worldView.getChunk(mutable);
-		BlockState currentState = currentChunk.getBlockState(mutable);
-
-		while(mutable.getY() >= 0 && isReplaceableByStructures(currentState)) {
-			mutable.move(Direction.DOWN);
-			currentState = currentChunk.getBlockState(mutable);
-		}
-
-		return mutable.getY();
-	}
-
-	private static boolean isReplaceableByStructures(BlockState blockState) {
-		return isAir.test(blockState.getBlock()) || blockState.getMaterial().isLiquid() || blockState.getMaterial().isReplaceable();
 	}
 
 	public static <F extends Structure<?>> void setupMapSpacingAndLand(F structure, StructureSeparationSettings structureSeparationSettings, boolean transformLand) {

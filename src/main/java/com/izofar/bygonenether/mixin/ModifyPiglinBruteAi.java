@@ -31,7 +31,7 @@ public class ModifyPiglinBruteAi {
         Brain<PiglinBruteEntity> brain = (Brain<PiglinBruteEntity>) piglin.getBrain();
 
         Optional<LivingEntity> optional = BrainUtil.getLivingEntityFromUUIDMemory(piglin, MemoryModuleType.ANGRY_AT);
-        if (optional.isPresent() && EntityPredicates.ATTACK_ALLOWED.test(optional.get())){
+        if (optional.isPresent() && EntityPredicates.ATTACK_ALLOWED.test(optional.get())) {
             cir.setReturnValue(optional);
             return;
         }

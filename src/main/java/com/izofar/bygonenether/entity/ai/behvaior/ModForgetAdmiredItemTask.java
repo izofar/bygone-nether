@@ -11,6 +11,7 @@ import net.minecraft.world.server.ServerWorld;
 import java.util.Optional;
 
 public class ModForgetAdmiredItemTask<E extends PiglinPrisonerEntity> extends Task<E> {
+
     private final int maxDistanceToItem;
 
     public ModForgetAdmiredItemTask(int pMaxDistanceToItem) {
@@ -18,16 +19,18 @@ public class ModForgetAdmiredItemTask<E extends PiglinPrisonerEntity> extends Ta
         this.maxDistanceToItem = pMaxDistanceToItem;
     }
 
-    protected boolean checkExtraStartConditions(ServerWorld pLevel, E pOwner) {
-        if (!pOwner.getOffhandItem().isEmpty()) {
+    @Override
+    protected boolean checkExtraStartConditions(ServerWorld world, E piglingPrisonerEntity) {
+        if (!piglingPrisonerEntity.getOffhandItem().isEmpty()) {
             return false;
         } else {
-            Optional<ItemEntity> optional = pOwner.getBrain().getMemory(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
-            return optional.map(itemEntity -> !itemEntity.closerThan(pOwner, this.maxDistanceToItem)).orElse(true);
+            Optional<ItemEntity> optional = piglingPrisonerEntity.getBrain().getMemory(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
+            return optional.map(itemEntity -> !itemEntity.closerThan(piglingPrisonerEntity, this.maxDistanceToItem)).orElse(true);
         }
     }
 
-    protected void start(ServerWorld pLevel, E pEntity, long pGameTime) {
-        pEntity.getBrain().eraseMemory(MemoryModuleType.ADMIRING_ITEM);
+    @Override
+    protected void start(ServerWorld world, E entity, long gameTime) {
+        entity.getBrain().eraseMemory(MemoryModuleType.ADMIRING_ITEM);
     }
 }

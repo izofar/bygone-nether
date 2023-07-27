@@ -39,31 +39,33 @@ public class ModFollowLeaderTask<E extends CreatureEntity> extends Task<E> {
     }
 
     @Override
-    protected boolean timedOut(long pGameTime) {
+    protected boolean timedOut(long gameTime) {
         return false;
     }
 
     @Override
-    protected boolean canStillUse(ServerWorld level, CreatureEntity mob, long pGameTime) {
+    protected boolean canStillUse(ServerWorld world, CreatureEntity mob, long gameTime) {
         return this.getTemptingPlayer(mob).isPresent();
     }
 
     @Override
-    protected void stop(ServerWorld pLevel, E pEntity, long pGameTime){
-        pEntity.getBrain().eraseMemory(MemoryModuleType.WALK_TARGET);
-        pEntity.getBrain().eraseMemory(ModMemoryModuleTypes.TEMPTING_PLAYER.get());
-        pEntity.getBrain().eraseMemory(ModMemoryModuleTypes.IS_TEMPTED.get());
+    protected void stop(ServerWorld world, E mob, long gametime){
+        mob.getBrain().eraseMemory(MemoryModuleType.WALK_TARGET);
+        mob.getBrain().eraseMemory(ModMemoryModuleTypes.TEMPTING_PLAYER.get());
+        mob.getBrain().eraseMemory(ModMemoryModuleTypes.IS_TEMPTED.get());
     }
 
     @Override
-    protected void tick(ServerWorld level, E mob, long pGameTime) {
-        if(this.isDistracted.test(mob)) return;
+    protected void tick(ServerWorld world, E mob, long gameTime) {
+        if (this.isDistracted.test(mob)) {
+            return;
+        }
         Brain<?> brain = mob.getBrain();
         PlayerEntity player = this.getTemptingPlayer(mob).get();
         double dist = mob.distanceToSqr(player);
         if (dist < TOO_CLOSE_DIST * TOO_CLOSE_DIST) {
             brain.eraseMemory(MemoryModuleType.WALK_TARGET);
-        } else if(dist > CLOSE_ENOUGH_DIST * CLOSE_ENOUGH_DIST && dist < TOO_FAR_DIST * TOO_FAR_DIST) {
+        } else if (dist > CLOSE_ENOUGH_DIST * CLOSE_ENOUGH_DIST && dist < TOO_FAR_DIST * TOO_FAR_DIST) {
             brain.setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(new EntityPosWrapper(player, false), 1, 2));
         }
     }

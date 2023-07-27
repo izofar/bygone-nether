@@ -23,7 +23,9 @@ public class WexEntity extends VexEntity {
 			SoundEvents.VEX_CHARGE, ModSounds.WEX_CHARGE.get()
 		);
 
-	public WexEntity(EntityType<? extends VexEntity> entityType, World world) { super(entityType, world); }
+	public WexEntity(EntityType<? extends VexEntity> entityType, World world) {
+		super(entityType, world);
+	}
 
 	@Override
 	protected void populateDefaultEquipmentSlots(DifficultyInstance difficultyInstance) { }
@@ -35,6 +37,8 @@ public class WexEntity extends VexEntity {
 	}
 
 	@Override
-	public void playSound(SoundEvent event, float f1, float f2){ super.playSound(SOUND_MAP.getOrDefault(event, event), f1, f2); }
+	public void playSound(SoundEvent event, float f1, float f2){
+		super.playSound(SOUND_MAP.getOrDefault(event, event), f1, f2);
+	}
 
 }

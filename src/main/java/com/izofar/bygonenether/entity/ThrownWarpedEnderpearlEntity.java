@@ -37,19 +37,22 @@ public class ThrownWarpedEnderpearlEntity extends ProjectileItemEntity {
         super(ModEntityTypes.WARPED_ENDER_PEARL.get(), entity, level);
     }
 
+    @Override
     protected Item getDefaultItem() {
         return ModItems.WARPED_ENDER_PEARL.get();
     }
 
+    @Override
     protected void onHitEntity(EntityRayTraceResult result) {
         super.onHitEntity(result);
         result.getEntity().hurt(DamageSource.thrown(this, this.getOwner()), 0.0F);
     }
 
+    @Override
     protected void onHit(RayTraceResult result) {
         super.onHit(result);
 
-        for(int i = 0; i < 32; ++i) {
+        for (int i = 0; i < 32; ++i) {
             this.level.addParticle(ParticleTypes.PORTAL, this.getX(), this.getY() + this.random.nextDouble() * 2.0D, this.getZ(), this.random.nextGaussian(), 0.0D, this.random.nextGaussian());
         }
 
@@ -72,11 +75,11 @@ public class ThrownWarpedEnderpearlEntity extends ProjectileItemEntity {
                     entity.teleportTo(this.getX(), this.getY(), this.getZ());
                     entity.fallDistance = 0.0F;
 
-                    if(this.level.getBlockState(this.blockPosition()).is(Blocks.WATER)){
+                    if (this.level.getBlockState(this.blockPosition()).is(Blocks.WATER)) {
                         serverplayer.addEffect(new EffectInstance(Effects.WATER_BREATHING, 300));
-                    }else if(entity.isInLava() || this.level.getBlockState(this.blockPosition()).is(Blocks.LAVA)){
+                    } else if (entity.isInLava() || this.level.getBlockState(this.blockPosition()).is(Blocks.LAVA)) {
                         serverplayer.addEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 900));
-                    }else if(!this.isOnGround()){
+                    } else if (!this.isOnGround()) {
                         serverplayer.addEffect(new EffectInstance(Effects.SLOW_FALLING, 160));
                         serverplayer.addEffect(new EffectInstance(Effects.ABSORPTION, 300, 1));
                     }
@@ -92,6 +95,7 @@ public class ThrownWarpedEnderpearlEntity extends ProjectileItemEntity {
 
     }
 
+    @Override
     public void tick() {
         Entity entity = this.getOwner();
         if (entity instanceof PlayerEntity && !entity.isAlive()) {

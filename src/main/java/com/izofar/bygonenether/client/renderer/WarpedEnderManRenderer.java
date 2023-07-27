@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.izofar.bygonenether.BygoneNetherMod;
 import com.izofar.bygonenether.client.model.WarpedEndermanModel;
 import com.izofar.bygonenether.client.renderer.layers.ModEndermanEyesLayer;
+import com.izofar.bygonenether.client.renderer.layers.ModHeldBlockLayer;
 import com.izofar.bygonenether.entity.WarpedEndermanEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.BlockState;
@@ -32,26 +33,28 @@ public class WarpedEnderManRenderer extends MobRenderer<WarpedEndermanEntity, Wa
 	public WarpedEnderManRenderer(EntityRendererManager manager) {
 		super(manager, new WarpedEndermanModel(0.0F), 0.5F);
 		this.addLayer(new ModEndermanEyesLayer(this));
-		//this.addLayer(new ModHeldBlockLayer(this));
+		this.addLayer(new ModHeldBlockLayer(this));
 	}
 
 	@Override
-	public void render(WarpedEndermanEntity pEntity, float pEntityYaw, float pPartialTicks, MatrixStack pMatrixStack, IRenderTypeBuffer pBuffer, int pPackedLight) {
-		BlockState blockstate = pEntity.getCarriedBlock();
-		WarpedEndermanModel endermanmodel = this.getModel();
-		endermanmodel.carrying = blockstate != null;
-		endermanmodel.creepy = pEntity.isCreepy();
-		super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
+	public void render(WarpedEndermanEntity warpedEndermanEntity, float entityYaw, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int packedLight) {
+		BlockState blockstate = warpedEndermanEntity.getCarriedBlock();
+		WarpedEndermanModel warpedEndermanModel = this.getModel();
+		warpedEndermanModel.carrying = blockstate != null;
+		warpedEndermanModel.creepy = warpedEndermanEntity.isCreepy();
+		super.render(warpedEndermanEntity, entityYaw, partialTicks, matrixStack, buffer, packedLight);
 	}
 
 	@Override
-	public Vector3d getRenderOffset(WarpedEndermanEntity pEntity, float pPartialTicks) {
-		if (pEntity.isCreepy())
+	public Vector3d getRenderOffset(WarpedEndermanEntity warpedEndermanEntity, float partialTicks) {
+		if (warpedEndermanEntity.isCreepy())
 			return new Vector3d(this.random.nextGaussian() * 0.02D, 0.0D, this.random.nextGaussian() * 0.02D);
-		else return super.getRenderOffset(pEntity, pPartialTicks);
+		else return super.getRenderOffset(warpedEndermanEntity, partialTicks);
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(WarpedEndermanEntity enderman) { return WARPED_ENDERMAN_LOCATION_MAP.get(enderman.getVariant()); }
+	public ResourceLocation getTextureLocation(WarpedEndermanEntity warpedEndermanEntity) {
+		return WARPED_ENDERMAN_LOCATION_MAP.get(warpedEndermanEntity.getVariant());
+	}
 
 }

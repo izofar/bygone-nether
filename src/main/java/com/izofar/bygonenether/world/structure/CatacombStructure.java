@@ -64,7 +64,6 @@ public class CatacombStructure extends Structure<NoFeatureConfig> {
 			int x = chunkX * 16, z = chunkZ * 16;
 			BlockPos centerPos = ModStructureUtils.getElevation(chunkGenerator, x, z, 56, 84);
 
-
 			JigsawManager.addPieces(
 					dynamicRegistryManager,
 					new VillageConfig(() -> dynamicRegistryManager.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY)
@@ -82,7 +81,7 @@ public class CatacombStructure extends Structure<NoFeatureConfig> {
 			Vector3i structureCenter = this.pieces.get(0).getBoundingBox().getCenter();
 			int xOffset = centerPos.getX() - structureCenter.getX();
 			int zOffset = centerPos.getZ() - structureCenter.getZ();
-			for(StructurePiece structurePiece : this.pieces){
+			for (StructurePiece structurePiece : this.pieces) {
 				structurePiece.move(xOffset, 0, zOffset);
 			}
 

@@ -12,10 +12,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ModEndermanEyesLayer extends AbstractEyesLayer<WarpedEndermanEntity, WarpedEndermanModel> {
+
     private static final RenderType ENDERMAN_EYES = RenderType.eyes(new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/warped_enderman/warped_enderman_eyes.png"));
 
-    public ModEndermanEyesLayer(IEntityRenderer<WarpedEndermanEntity, WarpedEndermanModel> renderer) { super(renderer); }
+    public ModEndermanEyesLayer(IEntityRenderer<WarpedEndermanEntity, WarpedEndermanModel> renderer) {
+        super(renderer);
+    }
 
+    @Override
     public RenderType renderType() {
         return ENDERMAN_EYES;
     }

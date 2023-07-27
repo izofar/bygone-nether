@@ -1,6 +1,7 @@
 package com.izofar.bygonenether.init;
 
 import com.izofar.bygonenether.BygoneNetherMod;
+import com.izofar.bygonenether.block.NetheriteBellBlock;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -31,7 +32,8 @@ public abstract class ModBlocks {
 	public static final RegistryObject<Block> CHISELED_WARPED_NETHER_BRICKS = MODDED_BLOCKS.register("chiseled_warped_nether_bricks", () -> new Block(AbstractBlock.Properties.of(Material.STONE, MaterialColor.NETHER).requiresCorrectToolForDrops().strength(2.0F, 6.0F).sound(SoundType.NETHER_BRICKS)));
 	public static final RegistryObject<Block> WARPED_NETHER_BRICK_STAIRS = MODDED_BLOCKS.register("warped_nether_brick_stairs", () -> new StairsBlock(() -> WARPED_NETHER_BRICKS.get().defaultBlockState(), AbstractBlock.Properties.copy(WARPED_NETHER_BRICKS.get())));
 	public static final RegistryObject<Block> WARPED_NETHER_BRICK_SLAB = MODDED_BLOCKS.register("warped_nether_brick_slab",  () -> new SlabBlock(AbstractBlock.Properties.of(Material.STONE, MaterialColor.NETHER).requiresCorrectToolForDrops().strength(2.0F, 6.0F).sound(SoundType.NETHER_BRICKS)));
-	
+	public static final RegistryObject<Block> NETHERITE_BELL = MODDED_BLOCKS.register("netherite_bell", () -> new NetheriteBellBlock(AbstractBlock.Properties.of(Material.METAL, MaterialColor.NETHER).strength(50.0F).sound(SoundType.ANVIL)));
+
 	public static void register(IEventBus eventBus) { MODDED_BLOCKS.register(eventBus); }
 
 }

@@ -2,9 +2,12 @@ package com.izofar.bygonenether.entity;
 
 import com.google.common.collect.ImmutableList;
 import com.izofar.bygonenether.entity.ai.PiglinPrisonerAi;
+import com.izofar.bygonenether.init.ModItems;
 import com.izofar.bygonenether.init.ModMemoryModuleTypes;
 import com.izofar.bygonenether.init.ModSensorTypes;
+import com.izofar.bygonenether.util.ModLists;
 import com.mojang.serialization.Dynamic;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
@@ -19,6 +22,7 @@ import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.monster.piglin.AbstractPiglinEntity;
 import net.minecraft.entity.monster.piglin.PiglinAction;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.Inventory;
@@ -30,12 +34,19 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.particles.ParticleTypes;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -44,6 +55,12 @@ public class PiglinPrisonerEntity extends AbstractPiglinEntity implements ICross
 	private static final DataParameter<Boolean> DATA_IS_CHARGING_CROSSBOW = EntityDataManager.defineId(PiglinPrisonerEntity.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> DATA_IS_DANCING = EntityDataManager.defineId(PiglinPrisonerEntity.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Optional<UUID>> DATA_OWNERUUID_ID  = EntityDataManager.defineId(PiglinPrisonerEntity.class, DataSerializers.OPTIONAL_UUID);
+
+	protected static final int RESCUE_TIME = 75;
+	protected int timeBeingRescued;
+	protected boolean isBeingRescued;
+
+	protected boolean hasTempter;
 
 	private final Inventory inventory = new Inventory(8);
 
@@ -89,40 +106,80 @@ public class PiglinPrisonerEntity extends AbstractPiglinEntity implements ICross
 			ModMemoryModuleTypes.IS_TEMPTED.get()
 		);
 
-	public PiglinPrisonerEntity(EntityType<? extends AbstractPiglinEntity> entitytype, World world) {
-		super(entitytype, world);
+	public PiglinPrisonerEntity(EntityType<? extends AbstractPiglinEntity> entityType, World world) {
+		super(entityType, world);
 		this.xpReward = 5;
 	}
 
+	@Override
+	public void tick() {
+		super.tick();
+		if (this.level.isClientSide && !this.hasTempter && this.getTempter() != null) {
+			this.hasTempter = true;
+			this.spawnHeartParticles();
+		}
+	}
+
+	@Override
 	public void addAdditionalSaveData(CompoundNBT tag) {
 		super.addAdditionalSaveData(tag);
 		tag.put("Inventory", this.inventory.createTag());
-		if(this.getTempterUUID() != null){
+		tag.putInt("TimeBeingRescued", this.timeBeingRescued);
+		tag.putBoolean("IsBeingRescued", this.isBeingRescued);
+		if (this.getTempterUUID() != null) {
 			tag.putUUID("Tempter", this.getTempterUUID());
 		}
 	}
 
+	@Override
 	public void readAdditionalSaveData(CompoundNBT tag) {
 		super.readAdditionalSaveData(tag);
 		this.inventory.fromTag(tag.getList("Inventory", 10));
-		if(tag.hasUUID("Tempter")){
+		this.timeBeingRescued = tag.getInt("TimeBeingRescued");
+		this.isBeingRescued = tag.getBoolean("IsBeingRescued");
+		if (tag.hasUUID("Tempter")) {
 			UUID uuid = tag.getUUID("Tempter");
 			this.setTempterUUID(uuid);
+			this.hasTempter = true;
 			PiglinPrisonerAi.reloadAllegiance(this, this.getTempter());
 		}
 	}
 
+	@Override
+	protected void customServerAiStep() {
+		this.level.getProfiler().push("piglinBrain");
+		this.getBrain().tick((ServerWorld)this.level, this);
+		this.level.getProfiler().pop();
+		PiglinPrisonerAi.updateActivity(this);
+		if (this.isBeingRescued) {
+			this.timeBeingRescued ++;
+		}
+		else{
+			this.timeBeingRescued = 0;
+		}
+
+		if (this.timeBeingRescued > RESCUE_TIME) {
+			this.playConvertedSound();
+			this.finishRescue();
+		}
+		super.customServerAiStep();
+	}
+
+	@Override
 	protected void dropCustomDeathLoot(DamageSource source, int looting, boolean recentlyHit) {
 		super.dropCustomDeathLoot(source, looting, recentlyHit);
 		this.inventory.removeAllItems().forEach(this::spawnAtLocation);
 	}
 
-	public void addToInventory(ItemStack pStack) { this.inventory.addItem(pStack); }
-
-	public boolean canAddToInventory(ItemStack pStack) {
-		return this.inventory.canAddItem(pStack);
+	public void addToInventory(ItemStack stack) {
+		this.inventory.addItem(stack);
 	}
 
+	public boolean canAddToInventory(ItemStack stack) {
+		return this.inventory.canAddItem(stack);
+	}
+
+	@Override
 	protected void defineSynchedData() {
 		super.defineSynchedData();
 		this.entityData.define(DATA_IS_CHARGING_CROSSBOW, false);
@@ -137,80 +194,91 @@ public class PiglinPrisonerEntity extends AbstractPiglinEntity implements ICross
 				.add(Attributes.ATTACK_DAMAGE, 6.0D); 
 		}
 
-	protected boolean shouldDespawnInPeaceful() { return false; }
+	@Override
+	protected boolean shouldDespawnInPeaceful() {
+		return false;
+	}
 
-	public boolean removeWhenFarAway(double pDistanceToClosestPlayer) {
+	@Override
+	public boolean removeWhenFarAway(double distanceToClosestPlayer) {
 		return !this.isPersistenceRequired();
 	}
 
-
+	@Override
 	protected Brain.BrainCodec<PiglinPrisonerEntity> brainProvider() {
 		return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
 	}
 
 	@Override
-	protected Brain<?> makeBrain(Dynamic<?> dynamic) { return PiglinPrisonerAi.makeBrain(this, this.brainProvider().makeBrain(dynamic)); }
+	protected Brain<?> makeBrain(Dynamic<?> dynamic) {
+		return PiglinPrisonerAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
+	}
 
-	public Brain<PiglinPrisonerEntity> getBrain() { return (Brain<PiglinPrisonerEntity>) super.getBrain(); }
+	@Override
+	public Brain<PiglinPrisonerEntity> getBrain() {
+		return (Brain<PiglinPrisonerEntity>) super.getBrain();
+	}
 
-	public ActionResultType mobInteract(PlayerEntity pPlayer, Hand pHand) {
-		ActionResultType actionresulttype = super.mobInteract(pPlayer, pHand);
+	@Override
+	public ActionResultType mobInteract(PlayerEntity player, Hand hand) {
+		ActionResultType actionresulttype = super.mobInteract(player, hand);
 		if (actionresulttype.consumesAction()) {
 			return actionresulttype;
 		} else if (!this.level.isClientSide) {
-			return PiglinPrisonerAi.mobInteract(this, pPlayer, pHand);
+			return PiglinPrisonerAi.mobInteract(this, player, hand);
 		} else {
-			boolean flag = PiglinPrisonerAi.canAdmire(this, pPlayer.getItemInHand(pHand)) && this.getArmPose() != PiglinAction.ADMIRING_ITEM;
+			boolean flag = PiglinPrisonerAi.canAdmire(this, player.getItemInHand(hand)) && this.getArmPose() != PiglinAction.ADMIRING_ITEM;
 			return flag ? ActionResultType.SUCCESS : ActionResultType.PASS;
 		}
 	}
 
-	protected float getStandingEyeHeight(Pose pPose, EntitySize pSize) {
+	@Override
+	protected float getStandingEyeHeight(Pose pose, EntitySize entitySize) {
 		return 1.74F;
 	}
 
+	@Override
 	public double getPassengersRidingOffset() {
 		return (double)this.getBbHeight() * 0.92D;
 	}
 
+	@Override
 	public boolean isBaby() {
 		return false;
 	}
 
+	@Override
 	protected boolean canHunt() {
 		return false;
 	}
 
-	protected void customServerAiStep() {
-		this.level.getProfiler().push("piglinBrain");
-		this.getBrain().tick((ServerWorld) this.level, this);
-		this.level.getProfiler().pop();
-		PiglinPrisonerAi.updateActivity(this);
-		super.customServerAiStep();
-	}
-
-	protected int getExperienceReward(PlayerEntity pPlayer) {
+	@Override
+	protected int getExperienceReward(PlayerEntity player) {
 		return this.xpReward;
 	}
 
-	protected void finishConversion(ServerWorld pServerLevel) {
+	@Override
+	protected void finishConversion(ServerWorld serverWorld) {
 		PiglinPrisonerAi.cancelAdmiring(this);
 		this.inventory.removeAllItems().forEach(this::spawnAtLocation);
-		super.finishConversion(pServerLevel);
+		super.finishConversion(serverWorld);
 	}
 
 	private boolean isChargingCrossbow() {
 		return this.entityData.get(DATA_IS_CHARGING_CROSSBOW);
 	}
 
-	public void setChargingCrossbow(boolean pIsCharging) {
-		this.entityData.set(DATA_IS_CHARGING_CROSSBOW, pIsCharging);
+	@Override
+	public void setChargingCrossbow(boolean isCharging) {
+		this.entityData.set(DATA_IS_CHARGING_CROSSBOW, isCharging);
 	}
 
+	@Override
 	public void onCrossbowAttackPerformed() {
 		this.noActionTime = 0;
 	}
 
+	@Override
 	public PiglinAction getArmPose() {
 		if (this.isDancing()) {
 			return PiglinAction.DANCING;
@@ -229,93 +297,110 @@ public class PiglinPrisonerEntity extends AbstractPiglinEntity implements ICross
 		return this.entityData.get(DATA_IS_DANCING);
 	}
 
-	public void setDancing(boolean pDancing) {
-		this.entityData.set(DATA_IS_DANCING, pDancing);
+	public void setDancing(boolean isDancing) {
+		this.entityData.set(DATA_IS_DANCING, isDancing);
 	}
 
-	public boolean hurt(DamageSource pSource, float pAmount) {
-		boolean flag = super.hurt(pSource, pAmount);
-		if (this.level.isClientSide) return false;
-		else {
-			if (flag && pSource.getEntity() instanceof LivingEntity)
-				PiglinPrisonerAi.wasHurtBy(this, (LivingEntity)pSource.getEntity());
+	@Override
+	public boolean hurt(DamageSource damageSource, float amount) {
+		boolean flag = super.hurt(damageSource, amount);
+		if (this.level.isClientSide) {
+			return false;
+		} else {
+			if (flag && damageSource.getEntity() instanceof LivingEntity) {
+				PiglinPrisonerAi.wasHurtBy(this, (LivingEntity)damageSource.getEntity());
+			}
 			return flag;
 		}
 	}
 
-	public void performRangedAttack(LivingEntity pTarget, float pVelocity) {
+	@Override
+	public void performRangedAttack(LivingEntity target, float velocity) {
 		this.performCrossbowAttack(this, 1.6F);
 	}
 
-	public void shootCrossbowProjectile(LivingEntity pTarget, ItemStack pCrossbowStack, ProjectileEntity pProjectile, float pProjectileAngle) {
-		this.shootCrossbowProjectile(this, pTarget, pProjectile, pProjectileAngle, 1.6F);
+	@Override
+	public void shootCrossbowProjectile(LivingEntity taget, ItemStack crossbowStack, ProjectileEntity projectileEntity, float projectileAngle) {
+		this.shootCrossbowProjectile(this, taget, projectileEntity, projectileAngle, 1.6F);
 	}
 
-	public boolean canFireProjectileWeapon(ShootableItem pProjectileWeapon) {
-		return pProjectileWeapon == Items.CROSSBOW;
+	@Override
+	public boolean canFireProjectileWeapon(ShootableItem projectileWeapon) {
+		return projectileWeapon == Items.CROSSBOW;
 	}
 
-	public void holdInMainHand(ItemStack pStack) { this.setItemSlotAndDropWhenKilled(EquipmentSlotType.MAINHAND, pStack); }
+	public void holdInMainHand(ItemStack stack) {
+		this.setItemSlotAndDropWhenKilled(EquipmentSlotType.MAINHAND, stack);
+	}
 
-	public void holdInOffHand(ItemStack pStack) {
-		if (pStack.isPiglinCurrency()) {
-			this.setItemSlot(EquipmentSlotType.OFFHAND, pStack);
+	public void holdInOffHand(ItemStack stack) {
+		if (stack.isPiglinCurrency()) {
+			this.setItemSlot(EquipmentSlotType.OFFHAND, stack);
 			this.setGuaranteedDrop(EquipmentSlotType.OFFHAND);
-		} else
-			this.setItemSlotAndDropWhenKilled(EquipmentSlotType.OFFHAND, pStack);
+		} else {
+			this.setItemSlotAndDropWhenKilled(EquipmentSlotType.OFFHAND, stack);
+		}
 	}
 
-	public boolean wantsToPickUp(ItemStack pStack) {
-		return net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) && this.canPickUpLoot() && PiglinPrisonerAi.wantsToPickup(this, pStack);
+	@Override
+	public boolean wantsToPickUp(ItemStack stack) {
+		return net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) && this.canPickUpLoot() && PiglinPrisonerAi.wantsToPickup(this, stack);
 	}
 
-	public boolean canReplaceCurrentItem(ItemStack pCandidate) {
-		EquipmentSlotType equipmentslottype = MobEntity.getEquipmentSlotForItem(pCandidate);
+	public boolean canReplaceCurrentItem(ItemStack candidateStack) {
+		EquipmentSlotType equipmentslottype = MobEntity.getEquipmentSlotForItem(candidateStack);
 		ItemStack itemstack = this.getItemBySlot(equipmentslottype);
-		return this.canReplaceCurrentItem(pCandidate, itemstack);
+		return this.canReplaceCurrentItem(candidateStack, itemstack);
 	}
 
-	protected boolean canReplaceCurrentItem(ItemStack pCandidate, ItemStack pExisting) {
-		if (EnchantmentHelper.hasBindingCurse(pExisting)) {
+	@Override
+	protected boolean canReplaceCurrentItem(ItemStack candidateStack, ItemStack existingStack) {
+		if (EnchantmentHelper.hasBindingCurse(existingStack)) {
 			return false;
 		} else {
-			boolean flag = PiglinPrisonerAi.isLovedItem(pCandidate.getItem()) || pCandidate.getItem() == Items.CROSSBOW;
-			boolean flag1 = PiglinPrisonerAi.isLovedItem(pExisting.getItem()) || pExisting.getItem() == Items.CROSSBOW;
+			boolean flag = PiglinPrisonerAi.isLovedItem(candidateStack.getItem()) || candidateStack.getItem() == Items.CROSSBOW;
+			boolean flag1 = PiglinPrisonerAi.isLovedItem(existingStack.getItem()) || existingStack.getItem() == Items.CROSSBOW;
 			if (flag && !flag1) {
 				return true;
 			} else if (!flag && flag1) {
 				return false;
 			} else {
-				return (!this.isAdult() || pCandidate.getItem() == Items.CROSSBOW || pExisting.getItem() != Items.CROSSBOW) && super.canReplaceCurrentItem(pCandidate, pExisting);
+				return (!this.isAdult() || candidateStack.getItem() == Items.CROSSBOW || existingStack.getItem() != Items.CROSSBOW) && super.canReplaceCurrentItem(candidateStack, existingStack);
 			}
 		}
 	}
 
-	protected void pickUpItem(ItemEntity pItemEntity) {
-		this.onItemPickup(pItemEntity);
-		PiglinPrisonerAi.pickUpItem(this, pItemEntity);
+	@Override
+	protected void pickUpItem(ItemEntity itemEntity) {
+		this.onItemPickup(itemEntity);
+		PiglinPrisonerAi.pickUpItem(this, itemEntity);
 	}
 
+	@Override
 	protected SoundEvent getAmbientSound() {
 		return this.level.isClientSide ? null : PiglinPrisonerAi.getSoundForCurrentActivity(this).orElse(null);
 	}
 
-	protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSource) {
 		return SoundEvents.PIGLIN_HURT;
 	}
 
+	@Override
 	protected SoundEvent getDeathSound() {
 		return SoundEvents.PIGLIN_DEATH;
 	}
 
-	protected void playStepSound(BlockPos pPos, BlockState pBlock) {
+	@Override
+	protected void playStepSound(BlockPos blockPos, BlockState blockState) {
 		this.playSound(SoundEvents.PIGLIN_STEP, 0.15F, 1.0F);
 	}
 
-	public void playSound(SoundEvent pSound) {
-		this.playSound(pSound, this.getSoundVolume(), this.getVoicePitch());
+	public void playSound(SoundEvent sound) {
+		this.playSound(sound, this.getSoundVolume(), this.getVoicePitch());
 	}
 
+	@Override
 	protected void playConvertedSound() {
 		this.playSound(SoundEvents.PIGLIN_CONVERTED_TO_ZOMBIFIED);
 	}
@@ -331,8 +416,39 @@ public class PiglinPrisonerEntity extends AbstractPiglinEntity implements ICross
 	}
 
 	@Nullable
-	public UUID getTempterUUID() { return this.entityData.get(DATA_OWNERUUID_ID).orElse(null); }
+	public UUID getTempterUUID() {
+		return this.entityData.get(DATA_OWNERUUID_ID).orElse(null);
+	}
 
-	public void setTempterUUID(@Nullable UUID uuid) { this.entityData.set(DATA_OWNERUUID_ID, Optional.ofNullable(uuid)); }
+	public void setTempterUUID(@Nullable UUID uuid) {
+		this.entityData.set(DATA_OWNERUUID_ID, Optional.ofNullable(uuid));
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	public void spawnHeartParticles() {
+		for (int i = 0; i < 5; ++i) {
+			double d0 = this.random.nextGaussian() * 0.02D;
+			double d1 = this.random.nextGaussian() * 0.02D;
+			double d2 = this.random.nextGaussian() * 0.02D;
+			this.level.addParticle(ParticleTypes.HEART, this.getRandomX(1.0D), this.getRandomY() + 1.0D, this.getRandomZ(1.0D), d0, d1, d2);
+		}
+	}
+
+	public void rescue() {
+		PiglinPrisonerAi.startDancing(this);
+		PiglinPrisonerAi.broadcastBeingRescued(this);
+		CriteriaTriggers.SUMMONED_ENTITY.trigger((ServerPlayerEntity) this.getTempter(), this);
+		this.isBeingRescued = true;
+	}
+
+	protected void finishRescue() {
+		PiglinPrisonerAi.throwItems(this, Collections.singletonList(new ItemStack(ModItems.GILDED_NETHERITE_SHIELD.get())));
+		AbstractPiglinEntity piglin = this.convertTo(ModLists.PIGLIN_PRISONER_CONVERSIONS.getRandom(this.random).get(), true);
+		if (piglin != null) {
+			piglin.addEffect(new EffectInstance(Effects.CONFUSION, 200, 0));
+			ForgeEventFactory.onLivingConvert(this, piglin);
+		}
+
+	}
 
 }

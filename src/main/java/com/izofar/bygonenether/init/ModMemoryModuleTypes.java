@@ -18,6 +18,6 @@ public static final DeferredRegister<MemoryModuleType<?>> MODDED_MEMORY_MODULE_T
 	public static final RegistryObject<MemoryModuleType<PlayerEntity>> TEMPTING_PLAYER = MODDED_MEMORY_MODULE_TYPES.register("tempting_player", () -> new MemoryModuleType<>(Optional.empty()));
 	public static final RegistryObject<MemoryModuleType<Boolean>> IS_TEMPTED = MODDED_MEMORY_MODULE_TYPES.register("is_tempted", () -> new MemoryModuleType<>(Optional.empty()));
 	
-	public static void register(IEventBus eventBus){ MODDED_MEMORY_MODULE_TYPES.register(eventBus); }
+	public static void register(IEventBus eventBus) { MODDED_MEMORY_MODULE_TYPES.register(eventBus); }
 	
 }

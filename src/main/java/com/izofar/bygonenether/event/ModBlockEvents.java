@@ -16,16 +16,17 @@ public abstract class ModBlockEvents {
 	@SubscribeEvent
 	public static void enforceNetheriteToBreakWitheredStone(PlayerInteractEvent.LeftClickBlock event) {
 		Item item = event.getPlayer().getItemBySlot(EquipmentSlotType.MAINHAND).getItem();
-		if(!event.getPlayer().isCreative()
+		if (!event.getPlayer().isCreative()
 				&& ModLists.WITHERED_BLOCKS.contains(event.getWorld().getBlockState(event.getPos()).getBlock())
 				&& !(item instanceof TieredItem
-				&& ((TieredItem) item).getTier().getLevel() >= ItemTier.NETHERITE.getLevel()))
+				&& ((TieredItem) item).getTier().getLevel() >= ItemTier.NETHERITE.getLevel())) {
 			event.setCanceled(true);
+		}
 	}
 
 	@SubscribeEvent
 	public static void onIronBarsBroken(BlockEvent.BreakEvent event){
-		if(event.getState().getBlock() == Blocks.IRON_BARS){
+		if (event.getState().getBlock() == Blocks.IRON_BARS) {
 			PiglinPrisonerAi.exciteNearbyPiglins(event.getPlayer(), false);
 		}
 	}

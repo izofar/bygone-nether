@@ -9,7 +9,8 @@
 		"ModifyDamageInSmithingRecipes",
 		"ModifyPiglinBruteAi",
 		"ModifyPiglinAi",
-		"ModifyPiglinBruteBrain"
+		"ModifyPiglinBruteBrain",
+		"NoAxeDisableModShieldMixin"
 	],
 	"client": [
 	],

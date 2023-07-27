@@ -23,13 +23,12 @@ public class NoBasaltColumnsInStructuresMixin {
             method = "canPlaceAt(Lnet/minecraft/world/IWorld;ILnet/minecraft/util/math/BlockPos$Mutable;)Z",
             at = @At(value = "HEAD"),
             cancellable = true
-		)
+    )
     private static void bygonenether_noBasaltColumnsInStructures(IWorld world, int seaLevel, BlockPos.Mutable mutable, CallbackInfoReturnable<Boolean> cir) {
         SectionPos sectionPos = SectionPos.of(mutable);
         for (Supplier<Structure<?>> structure : ModLists.DELTALESS_STRUCTURES) {
             Optional<? extends StructureStart<?>> structureStart = ((ISeedReader)world).startsForFeature(sectionPos, structure.get()).findAny();
-            if (structureStart.isPresent() && structureStart.get().getPieces().stream().anyMatch(box -> box.getBoundingBox().isInside(mutable)))
-            {
+            if (structureStart.isPresent() && structureStart.get().getPieces().stream().anyMatch(box -> box.getBoundingBox().isInside(mutable))) {
                 cir.setReturnValue(false);
                 break;
             }

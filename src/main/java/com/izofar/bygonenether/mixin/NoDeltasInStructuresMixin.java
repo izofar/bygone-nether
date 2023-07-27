@@ -25,13 +25,12 @@ public class NoDeltasInStructuresMixin {
             method = "place(Lnet/minecraft/world/ISeedReader;Lnet/minecraft/world/gen/ChunkGenerator;Ljava/util/Random;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/world/gen/feature/BasaltDeltasFeature;)Z",
             at = @At(value = "HEAD"),
             cancellable = true
-		)
+    )
     private void bygonenether_noDeltasInStructures(ISeedReader serverWorldAccess, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, BasaltDeltasFeature config, CallbackInfoReturnable<Boolean> cir) {
         SectionPos sectionPos = SectionPos.of(blockPos);
         for (Supplier<Structure<?>> structure : ModLists.DELTALESS_STRUCTURES) {
             Optional<? extends StructureStart<?>> structureStart = serverWorldAccess.startsForFeature(sectionPos, structure.get()).findAny();
-            if (structureStart.isPresent() && structureStart.get().getPieces().stream().anyMatch(box -> box.getBoundingBox().isInside(blockPos)))
-            {
+            if (structureStart.isPresent() && structureStart.get().getPieces().stream().anyMatch(box -> box.getBoundingBox().isInside(blockPos))) {
                 cir.setReturnValue(false);
                 break;
             }

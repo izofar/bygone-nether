@@ -28,6 +28,7 @@ public class ModPiglinBruteAi {
 			SensorType.HURT_BY,
 			ModSensorTypes.PIGLIN_BRUTE_SPECIFIC_SENSOR.get()
 		);
+
 	public static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
 			MemoryModuleType.LOOK_TARGET,
 			MemoryModuleType.DOORS_TO_CLOSE,
@@ -57,21 +58,26 @@ public class ModPiglinBruteAi {
 		PiglinTasks.setAngerTarget(piglinBrute, optional.isPresent()? optional.get() : defaultEntity);
 	}
 
-	public static void setAngerTarget(PiglinBruteEntity piglinBrute, LivingEntity entity){
-		if(EntityPredicates.ATTACK_ALLOWED.test(entity)) {
+	public static void setAngerTarget(PiglinBruteEntity piglinBrute, LivingEntity entity) {
+		if (EntityPredicates.ATTACK_ALLOWED.test(entity)) {
 			piglinBrute.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
 			piglinBrute.getBrain().setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, entity.getUUID(), 600L);
-			if (entity.getType() == EntityType.PLAYER && piglinBrute.level.getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER))
+			if (entity.getType() == EntityType.PLAYER && piglinBrute.level.getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
 				piglinBrute.getBrain().setMemoryWithExpiry(MemoryModuleType.UNIVERSAL_ANGER, true, 600L);
+			}
 		}
 	}
 
 	public static boolean isWearingGild(LivingEntity entity) {
-		for (ItemStack itemstack : entity.getArmorSlots())
-			if (makesPiglinBrutesNeutral(itemstack))
+		for (ItemStack itemstack : entity.getArmorSlots()) {
+			if (makesPiglinBrutesNeutral(itemstack)) {
 				return true;
+			}
+		}
 		return false;
 	}
 
-	private static boolean makesPiglinBrutesNeutral(ItemStack stack) { return stack.getItem() instanceof ArmorItem && ((ArmorItem) stack.getItem()).getMaterial() instanceof ModArmorMaterial; }
+	private static boolean makesPiglinBrutesNeutral(ItemStack stack) {
+		return stack.getItem() instanceof ArmorItem && ((ArmorItem) stack.getItem()).getMaterial() instanceof ModArmorMaterial;
+	}
 }

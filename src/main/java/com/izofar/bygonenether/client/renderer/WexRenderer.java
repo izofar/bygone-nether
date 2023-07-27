@@ -17,15 +17,23 @@ public class WexRenderer extends BipedRenderer<WexEntity, WexModel> {
 	private static final ResourceLocation WEX_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/wex/wex.png");
 	private static final ResourceLocation WEX_CHARGING_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/wex/wex_charging.png");
 
-	public WexRenderer(EntityRendererManager entityRendererManager) { super(entityRendererManager, new WexModel(), 0.3F); }
+	public WexRenderer(EntityRendererManager entityRendererManager) {
+		super(entityRendererManager, new WexModel(), 0.3F);
+	}
 
 	@Override
-	protected int getBlockLightLevel(WexEntity wex, BlockPos blockPos) { return 15; }
+	protected int getBlockLightLevel(WexEntity wexEntity, BlockPos blockPos) {
+		return 15;
+	}
 
 	@Override
-	public ResourceLocation getTextureLocation(WexEntity wex) { return wex.isCharging() ? WEX_CHARGING_LOCATION : WEX_LOCATION; }
+	public ResourceLocation getTextureLocation(WexEntity wex) {
+		return wex.isCharging() ? WEX_CHARGING_LOCATION : WEX_LOCATION;
+	}
 
 	@Override
-	protected void scale(WexEntity wex, MatrixStack stack, float tickTime) { stack.scale(0.4F, 0.4F, 0.4F); }
+	protected void scale(WexEntity wexEntity, MatrixStack matrixStack, float partialTicks) {
+		matrixStack.scale(0.4F, 0.4F, 0.4F);
+	}
 
 }

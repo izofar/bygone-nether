@@ -8,7 +8,8 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class ModSounds {
+public abstract class ModSounds {
+
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, BygoneNetherMod.MODID);
 
     public static final RegistryObject<SoundEvent> WITHER_WALTZ = register("wither_waltz");
@@ -25,7 +26,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> WARPED_ENDERMAN_SCREAM = register("entity.warped_enderman.scream");
     public static final RegistryObject<SoundEvent> WARPED_ENDERMAN_STARE = register("entity.warped_enderman.stare");
 
-    private static RegistryObject<SoundEvent> register(String name){
+    private static RegistryObject<SoundEvent> register(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(BygoneNetherMod.MODID, name)));
     }
 

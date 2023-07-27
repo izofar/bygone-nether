@@ -4,7 +4,10 @@ import com.izofar.bygonenether.entity.WarpedEndermanEntity;
 import net.minecraft.client.renderer.entity.model.EndermanModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class WarpedEndermanModel extends EndermanModel<WarpedEndermanEntity> {
 
     private final ModelRenderer stemBody;
@@ -23,9 +26,9 @@ public class WarpedEndermanModel extends EndermanModel<WarpedEndermanEntity> {
     }
 
     @Override
-    public void setupAnim(WarpedEndermanEntity pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
-        super.setupAnim(pEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
-        float f3 = pAgeInTicks / 60.0F;
+    public void setupAnim(WarpedEndermanEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        super.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        float f3 = ageInTicks / 60.0F;
         this.stemBody.yRot = ((float)Math.PI / 180F) * MathHelper.sin(f3 * 3.5F) * 5.0F;
     }
 

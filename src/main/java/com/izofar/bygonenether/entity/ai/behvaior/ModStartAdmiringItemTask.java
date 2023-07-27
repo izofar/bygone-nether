@@ -9,15 +9,16 @@ import net.minecraft.entity.ai.brain.task.Task;
 import net.minecraft.world.server.ServerWorld;
 
 public class ModStartAdmiringItemTask<E extends PiglinPrisonerEntity> extends Task<E> {
+
     public ModStartAdmiringItemTask() {
         super(ImmutableMap.of(MemoryModuleType.ADMIRING_ITEM, MemoryModuleStatus.VALUE_ABSENT));
     }
 
-    protected boolean checkExtraStartConditions(ServerWorld pLevel, E pOwner) {
-        return !pOwner.getOffhandItem().isEmpty() && !pOwner.getOffhandItem().isShield(pOwner);
+    protected boolean checkExtraStartConditions(ServerWorld world, E piglingPrisonerEntity) {
+        return !piglingPrisonerEntity.getOffhandItem().isEmpty() && !piglingPrisonerEntity.getOffhandItem().isShield(piglingPrisonerEntity);
     }
 
-    protected void start(ServerWorld pLevel, E pEntity, long pGameTime) {
-        PiglinPrisonerAi.stopHoldingOffHandItem(pEntity, true);
+    protected void start(ServerWorld world, E piglingPrisonerEntity, long gameTime) {
+        PiglinPrisonerAi.stopHoldingOffHandItem(piglingPrisonerEntity, true);
     }
 }

@@ -13,7 +13,9 @@ import net.minecraft.world.World;
 
 public class CorporEntity extends WitherSkeletonEntity {
 
-    public CorporEntity(EntityType<? extends WitherSkeletonEntity> entityType, World world) { super(entityType, world); }
+    public CorporEntity(EntityType<? extends WitherSkeletonEntity> entityType, World world) {
+        super(entityType, world);
+    }
 
     public static AttributeModifierMap.MutableAttribute createAttributes() {
         return MonsterEntity.createMonsterAttributes()
@@ -23,7 +25,8 @@ public class CorporEntity extends WitherSkeletonEntity {
                 .add(Attributes.ATTACK_DAMAGE, 4.0D);
     }
 
-    protected void populateDefaultEquipmentSlots(DifficultyInstance pDifficulty) {
+    @Override
+    protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {
         this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.STONE_AXE));
     }
 

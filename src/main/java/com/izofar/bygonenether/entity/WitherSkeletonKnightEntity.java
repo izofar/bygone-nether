@@ -48,9 +48,9 @@ public class WitherSkeletonKnightEntity extends WitherSkeletonEntity implements 
     }
 
     @Override
-    public void tick(){
+    public void tick() {
         super.tick();
-        if(!this.level.isClientSide){
+        if (!this.level.isClientSide) {
             this.decrementShieldCooldown();
         }
     }
@@ -76,7 +76,7 @@ public class WitherSkeletonKnightEntity extends WitherSkeletonEntity implements 
     }
 
     @Override
-    protected void defineSynchedData(){
+    protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_IS_DISARMORED, false);
         this.entityData.define(DATA_IS_SHIELDED, false);
@@ -90,18 +90,18 @@ public class WitherSkeletonKnightEntity extends WitherSkeletonEntity implements 
         this.setItemSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.SHIELD));
     }
 
-    public boolean isDisarmored(){
+    public boolean isDisarmored() {
         return this.entityData.get(DATA_IS_DISARMORED);
     }
 
-    private void setDisarmored(boolean disarmored){
+    private void setDisarmored(boolean disarmored) {
         this.entityData.set(DATA_IS_DISARMORED, disarmored);
     }
 
     @Override
-    public boolean hurt(DamageSource source, float damage){
+    public boolean hurt(DamageSource source, float damage) {
         boolean result = super.hurt(source, damage);
-        if(!this.isDisarmored() && this.getHealth() < BREAK_HEALTH) {
+        if (!this.isDisarmored() && this.getHealth() < BREAK_HEALTH) {
             this.setDisarmored(true);
             this.playSound(SoundEvents.SHIELD_BREAK, 1.2F, 0.8F + this.level.random.nextFloat() * 0.4F);
             this.setSpeed(0.25f);
@@ -110,10 +110,10 @@ public class WitherSkeletonKnightEntity extends WitherSkeletonEntity implements 
     }
 
     @Override
-    public void knockback(float strength, double x, double z){
-        if(!this.isUsingShield()){
+    public void knockback(float strength, double x, double z) {
+        if (!this.isUsingShield()) {
             super.knockback(strength, x, z);
-        }else{
+        } else {
             this.playSound(SoundEvents.SHIELD_BLOCK, 1.0F, 0.8F + this.level.random.nextFloat() * 0.4F);
         }
     }
@@ -134,14 +134,16 @@ public class WitherSkeletonKnightEntity extends WitherSkeletonEntity implements 
     }
 
     @Override
-    public boolean isShieldDisabled(){
+    public boolean isShieldDisabled() {
         return this.getShieldCooldown() > 0;
     }
 
     @Override
-    public void startUsingShield(){
-        if(this.isUsingShield() || this.isShieldDisabled()) return;
-        for(Hand interactionhand : Hand.values()) {
+    public void startUsingShield() {
+        if (this.isUsingShield() || this.isShieldDisabled()) {
+            return;
+        }
+        for (Hand interactionhand : Hand.values()) {
             if (this.getItemInHand(interactionhand).getItem() == Items.SHIELD) {
                 this.startUsingItem(interactionhand);
                 this.setUsingShield(true);
@@ -155,48 +157,51 @@ public class WitherSkeletonKnightEntity extends WitherSkeletonEntity implements 
     }
 
     @Override
-    public void stopUsingShield(){
-        if(!this.isUsingShield()) return;
-        for(Hand hand : Hand.values()) {
+    public void stopUsingShield() {
+        if (!this.isUsingShield()) {
+            return;
+        }
+        for (Hand hand : Hand.values()) {
             if (this.getItemInHand(hand).getItem() == Items.SHIELD) {
                 this.stopUsingItem();
                 this.setUsingShield(false);
                 ModifiableAttributeInstance attributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
-                if(attributeinstance != null)
+                if (attributeinstance != null) {
                     attributeinstance.removeModifier(SPEED_MODIFIER_BLOCKING);
+                }
             }
         }
     }
 
-    public boolean isUsingShield(){
+    public boolean isUsingShield() {
         return this.entityData.get(DATA_IS_SHIELDED);
     }
 
-    public void setUsingShield(boolean isShielded){
+    public void setUsingShield(boolean isShielded) {
         this.entityData.set(DATA_IS_SHIELDED, isShielded);
     }
 
-    private boolean isShieldMainhand(){
+    private boolean isShieldMainhand() {
         return this.entityData.get(DATA_SHIELD_HAND);
     }
 
-    private void setShieldMainhand(boolean isShieldedMainHand){
+    private void setShieldMainhand(boolean isShieldedMainHand) {
         this.entityData.set(DATA_SHIELD_HAND, isShieldedMainHand);
     }
 
-    private int getShieldCooldown(){
+    private int getShieldCooldown() {
         return this.entityData.get(DATA_SHIELD_COOLDOWN);
     }
 
-    private void setShieldCooldown(int newShieldCooldown){
+    private void setShieldCooldown(int newShieldCooldown) {
         this.entityData.set(DATA_SHIELD_COOLDOWN, newShieldCooldown);
     }
 
-    private void decrementShieldCooldown(){
+    private void decrementShieldCooldown() {
         this.setShieldCooldown(Math.max(this.getShieldCooldown() - 1, 0));
     }
 
-    public Hand getShieldHand(){
+    public Hand getShieldHand() {
         return this.isUsingShield() ? (this.isShieldMainhand() ? Hand.MAIN_HAND : Hand.OFF_HAND) : null;
     }
 }

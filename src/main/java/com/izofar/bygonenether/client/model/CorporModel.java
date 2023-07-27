@@ -10,7 +10,10 @@ import net.minecraft.item.Items;
 import net.minecraft.util.Hand;
 import net.minecraft.util.HandSide;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class CorporModel extends BipedModel<CorporEntity> {
     
     public CorporModel() { 
@@ -35,6 +38,7 @@ public class CorporModel extends BipedModel<CorporEntity> {
         this.leftLeg.setPos(2.0F, 12.0F, 0.0F);
     }
 
+    @Override
     public void prepareMobModel(CorporEntity corporEntity, float pitch, float yaw, float roll) {
         this.rightArmPose = BipedModel.ArmPose.EMPTY;
         this.leftArmPose = BipedModel.ArmPose.EMPTY;
@@ -49,6 +53,7 @@ public class CorporModel extends BipedModel<CorporEntity> {
         super.prepareMobModel(corporEntity, pitch, yaw, roll);
     }
 
+    @Override
     public void setupAnim(CorporEntity corporEntity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         super.setupAnim(corporEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         ItemStack itemstack = corporEntity.getMainHandItem();
@@ -68,6 +73,7 @@ public class CorporModel extends BipedModel<CorporEntity> {
 
     }
 
+    @Override
     public void translateToHand(HandSide arm, MatrixStack pose) {
         float f = arm == HandSide.RIGHT ? 1.0F : -1.0F;
         ModelRenderer modelpart = this.getArm(arm);
