@@ -17,6 +17,18 @@
     {
       "id": "byg:wailing_garth",
       "required": false
+    },
+    {
+      "id": "cinderscapes:ashy_shoals",
+      "required": false
+    },
+    {
+      "id": "cinderscapes:blackstone_shales",
+      "required": false
+    },
+    {
+      "id": "betternether:soul_plain",
+      "required": false
     }
   ]
 }

@@ -9,6 +9,14 @@
     {
       "id": "byg:crimson_gardens",
       "required": false
+    },
+    {
+      "id": "betternether:crimson_glowing_woods",
+      "required": false
+    },
+    {
+      "id": "betternether:crimson_pinewood",
+      "required": false
     }
   ]
 }

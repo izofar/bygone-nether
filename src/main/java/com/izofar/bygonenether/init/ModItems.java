@@ -9,6 +9,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -61,6 +62,30 @@ public abstract class ModItems {
 	public static final RegistryObject<Item> NETHERITE_BELL = MODDED_ITEMS.register("netherite_bell", () -> new BlockItem(ModBlocks.NETHERITE_BELL.get(), new Item.Properties().tab(ModCreativeModeTabs.MOD_TAB).rarity(Rarity.EPIC).fireResistant()));
 	public static final RegistryObject<Item> GILDED_NETHERITE_SHIELD = MODDED_ITEMS.register("gilded_netherite_shield", () -> new ModShieldItem((new Item.Properties()).durability(1512).tab(ModCreativeModeTabs.MOD_TAB).rarity(Rarity.RARE).fireResistant()));
 
-	public static void register(IEventBus eventBus) { MODDED_ITEMS.register(eventBus); }
+	public static RegistryObject<Item> CRUSHED_WITHERED_DEBRIS;
+	public static RegistryObject<Item> NETHERITE_SCRAP_NUGGET;
+	public static RegistryObject<Item> NETHERITE_SCRAP_INGOT;
+
+	public static RegistryObject<Item> WITHERED_BLACKSTONE_VERTICAL_SLAB;
+	public static RegistryObject<Item> CRACKED_WITHERED_BLACKSTONE_VERTICAL_SLAB;
+	public static RegistryObject<Item> WARPED_NETHER_BRICK_VERTICAL_SLAB;
+
+	public static void register(IEventBus eventBus) {
+		registerModCompatibilityItems();
+		MODDED_ITEMS.register(eventBus);
+	}
+
+	private static void registerModCompatibilityItems() {
+		if (ModList.get().isLoaded("create")) {
+			CRUSHED_WITHERED_DEBRIS = MODDED_ITEMS.register("crushed_withered_debris", () -> new Item((new Item.Properties()).tab(ModCreativeModeTabs.MOD_TAB)));
+			NETHERITE_SCRAP_NUGGET = MODDED_ITEMS.register("netherite_scrap_nugget", () -> new Item((new Item.Properties()).tab(ModCreativeModeTabs.MOD_TAB)));
+			NETHERITE_SCRAP_INGOT = MODDED_ITEMS.register("netherite_scrap_ingot", () -> new Item((new Item.Properties()).tab(ModCreativeModeTabs.MOD_TAB)));
+		}
+		if (ModList.get().isLoaded("quark")) {
+			WITHERED_BLACKSTONE_VERTICAL_SLAB = MODDED_ITEMS.register("withered_blackstone_vertical_slab", () -> new BlockItem(ModBlocks.WITHERED_BLACKSTONE_VERTICAL_SLAB.get(), new Item.Properties().tab(ModCreativeModeTabs.MOD_TAB)));
+			CRACKED_WITHERED_BLACKSTONE_VERTICAL_SLAB = MODDED_ITEMS.register("cracked_withered_blackstone_vertical_slab", () -> new BlockItem(ModBlocks.CRACKED_WITHERED_BLACKSTONE_VERTICAL_SLAB.get(), new Item.Properties().tab(ModCreativeModeTabs.MOD_TAB)));
+			WARPED_NETHER_BRICK_VERTICAL_SLAB = MODDED_ITEMS.register("warped_nether_brick_vertical_slab", () -> new BlockItem(ModBlocks.WARPED_NETHER_BRICK_VERTICAL_SLAB.get(), new Item.Properties().tab(ModCreativeModeTabs.MOD_TAB)));
+		}
+	}
 
 }
