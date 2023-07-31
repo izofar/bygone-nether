@@ -1,11 +1,8 @@
 package com.izofar.bygonenether.init;
 
 import com.izofar.bygonenether.BygoneNetherMod;
-import com.izofar.bygonenether.item.ModArmorItem;
-import com.izofar.bygonenether.item.ModArmorMaterial;
 import com.izofar.bygonenether.item.ModShieldItem;
 import com.izofar.bygonenether.item.WarpedEnderpearlItem;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -26,11 +23,6 @@ public abstract class ModItems {
 	public static final RegistryObject<Item> CORPOR_SPAWN_EGG = MODDED_ITEMS.register("corpor_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityTypes.CORPOR, 0x141414, 0x4a5757, new Item.Properties()));
 	public static final RegistryObject<Item> WITHER_SKELETON_KNIGHT_SPAWN_EGG = MODDED_ITEMS.register("wither_skeleton_knight_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityTypes.WITHER_SKELETON_KNIGHT, 0x242424, 0x4e5252, new Item.Properties()));
 	public static final RegistryObject<Item> WITHER_SKELETON_HORSE_SPAWN_EGG = MODDED_ITEMS.register("wither_skeleton_horse_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityTypes.WITHER_SKELETON_HORSE, 0x242424, 0x4d4747, new Item.Properties()));
-
-	public static final RegistryObject<Item> GILDED_NETHERITE_HELMET = MODDED_ITEMS.register("gilded_netherite_helmet", () -> new ModArmorItem(ModArmorMaterial.GILDED_NETHERITE, ArmorItem.Type.HELMET, new Item.Properties().fireResistant()));
-	public static final RegistryObject<Item> GILDED_NETHERITE_CHESTPLATE = MODDED_ITEMS.register("gilded_netherite_chestplate", () -> new ModArmorItem(ModArmorMaterial.GILDED_NETHERITE, ArmorItem.Type.CHESTPLATE, new Item.Properties().fireResistant()));
-	public static final RegistryObject<Item> GILDED_NETHERITE_LEGGINGS = MODDED_ITEMS.register("gilded_netherite_leggings", () -> new ModArmorItem(ModArmorMaterial.GILDED_NETHERITE, ArmorItem.Type.LEGGINGS, new Item.Properties().fireResistant()));
-	public static final RegistryObject<Item> GILDED_NETHERITE_BOOTS = MODDED_ITEMS.register("gilded_netherite_boots", () -> new ModArmorItem(ModArmorMaterial.GILDED_NETHERITE, ArmorItem.Type.BOOTS, new Item.Properties().fireResistant()));
 
 	public static final RegistryObject<Item> COBBLED_BLACKSTONE = MODDED_ITEMS.register("cobbled_blackstone", () -> new BlockItem(ModBlocks.COBBLED_BLACKSTONE.get(), new Item.Properties()));
 

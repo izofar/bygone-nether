@@ -6,7 +6,6 @@
 	"mixins": [
 		"NoBasaltColumnsInStructuresMixin",
 		"NoDeltasInStructuresMixin",
-		"ModifyDamageInSmithingRecipes",
 		"ModifyPiglinBruteAi",
 		"ModifyPiglinAi",
 		"NoAxeDisableModShieldMixin",

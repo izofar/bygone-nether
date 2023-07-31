@@ -12,9 +12,9 @@ public abstract class ModCreativeModeTabs {
 
     public static final DeferredRegister<CreativeModeTab> MODDED_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, BygoneNetherMod.MODID);
 
-    public static final RegistryObject<CreativeModeTab> MOD_TAB = MODDED_TABS.register("bygonenether",
+    public static final RegistryObject<CreativeModeTab> MOD_TAB = MODDED_TABS.register(BygoneNetherMod.MODID,
             () -> CreativeModeTab.builder()
-                    .title(Component.translatable("itemGroup.bygonenether"))
+                    .title(Component.translatable("itemGroup.bygonenethertab"))
                     .icon(ModItems.WITHERED_DEBRIS.get()::getDefaultInstance)
                     .displayItems((displayParams, output) -> ModItems.MODDED_ITEMS.getEntries().forEach(itemLike -> output.accept(itemLike.get())))
                     .build()
