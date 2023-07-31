@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
-  "biomes": "#bygonenether:nether",
+  "biomes": "#bygonenether:has_structure/catacomb",
   "features": "bygonenether:soul_stone_blobs",
   "step": "underground_decoration"
 }

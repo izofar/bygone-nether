@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "type=north": { "model": "bygonenether:block/cracked_withered_blackstone_vertical_slab", "y": 0, "uvlock": true },
+    "type=south": { "model": "bygonenether:block/cracked_withered_blackstone_vertical_slab", "y": 180, "uvlock": true },
+    "type=east": { "model": "bygonenether:block/cracked_withered_blackstone_vertical_slab", "y": 90, "uvlock": true },
+    "type=west": { "model": "bygonenether:block/cracked_withered_blackstone_vertical_slab", "y": 270, "uvlock": true },
+    "type=double": { "model": "bygonenether:block/cracked_withered_blackstone" }
+  }
+}

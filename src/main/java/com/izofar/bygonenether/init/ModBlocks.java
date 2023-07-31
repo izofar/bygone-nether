@@ -2,6 +2,7 @@ package com.izofar.bygonenether.init;
 
 import com.izofar.bygonenether.BygoneNetherMod;
 import com.izofar.bygonenether.block.NetheriteBellBlock;
+import com.izofar.bygonenether.block.VerticalSlabBlock;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
@@ -19,11 +20,11 @@ public abstract class ModBlocks {
 
 	public static final RegistryObject<Block> WITHERED_BLACKSTONE = MODDED_BLOCKS.register("withered_blackstone", () -> new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(2.5F, 1200.0F).sound(SoundType.DEEPSLATE)));
 	public static final RegistryObject<Block> WITHERED_BLACKSTONE_STAIRS = MODDED_BLOCKS.register("withered_blackstone_stairs", () -> new StairBlock(() -> WITHERED_BLACKSTONE.get().defaultBlockState(), BlockBehaviour.Properties.copy(WITHERED_BLACKSTONE.get())));
-	public static final RegistryObject<Block> WITHERED_BLACKSTONE_SLAB = MODDED_BLOCKS.register("withered_blackstone_slab",  () -> new SlabBlock(BlockBehaviour.Properties.copy(WITHERED_BLACKSTONE.get())));
+	public static final RegistryObject<Block> WITHERED_BLACKSTONE_SLAB = MODDED_BLOCKS.register("withered_blackstone_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(WITHERED_BLACKSTONE.get())));
 
 	public static final RegistryObject<Block> CRACKED_WITHERED_BLACKSTONE = MODDED_BLOCKS.register("cracked_withered_blackstone", () -> new Block(BlockBehaviour.Properties.copy(WITHERED_BLACKSTONE.get())));
 	public static final RegistryObject<Block> CRACKED_WITHERED_BLACKSTONE_STAIRS = MODDED_BLOCKS.register("cracked_withered_blackstone_stairs", () -> new StairBlock(() -> WITHERED_BLACKSTONE.get().defaultBlockState(), BlockBehaviour.Properties.copy(WITHERED_BLACKSTONE.get())));
-	public static final RegistryObject<Block> CRACKED_WITHERED_BLACKSTONE_SLAB = MODDED_BLOCKS.register("cracked_withered_blackstone_slab",  () -> new SlabBlock(BlockBehaviour.Properties.copy(WITHERED_BLACKSTONE.get())));
+	public static final RegistryObject<Block> CRACKED_WITHERED_BLACKSTONE_SLAB = MODDED_BLOCKS.register("cracked_withered_blackstone_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(WITHERED_BLACKSTONE.get())));
 
 	public static final RegistryObject<Block> CHISELED_WITHERED_BLACKSTONE = MODDED_BLOCKS.register("chiseled_withered_blackstone", () -> new Block(BlockBehaviour.Properties.copy(WITHERED_BLACKSTONE.get())));
 
@@ -41,6 +42,19 @@ public abstract class ModBlocks {
 
 	public static final RegistryObject<Block> NETHERITE_BELL = MODDED_BLOCKS.register("netherite_bell", () -> new NetheriteBellBlock(BlockBehaviour.Properties.of(Material.METAL).strength(50.0F, 1200.0F).sound(SoundType.ANVIL)));
 
-	public static void register(IEventBus eventBus) { MODDED_BLOCKS.register(eventBus); }
+	public static RegistryObject<Block> WITHERED_BLACKSTONE_VERTICAL_SLAB;
+	public static RegistryObject<Block> CRACKED_WITHERED_BLACKSTONE_VERTICAL_SLAB;
+	public static RegistryObject<Block> WARPED_NETHER_BRICK_VERTICAL_SLAB;
+
+	public static void register(IEventBus eventBus) {
+		registerModCompatibilityBlocks();
+		MODDED_BLOCKS.register(eventBus);
+	}
+
+	private static void registerModCompatibilityBlocks() {
+		WITHERED_BLACKSTONE_VERTICAL_SLAB = MODDED_BLOCKS.register("withered_blackstone_vertical_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.copy(WITHERED_BLACKSTONE_SLAB.get())));
+		CRACKED_WITHERED_BLACKSTONE_VERTICAL_SLAB = MODDED_BLOCKS.register("cracked_withered_blackstone_vertical_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.copy(CRACKED_WITHERED_BLACKSTONE_SLAB.get())));
+		WARPED_NETHER_BRICK_VERTICAL_SLAB = MODDED_BLOCKS.register("warped_nether_brick_vertical_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.copy(WARPED_NETHER_BRICK_SLAB.get())));
+	}
 
 }

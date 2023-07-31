@@ -3,7 +3,7 @@ package com.izofar.bygonenether.init;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 
-public class ModCreativeModeTabs {
+public abstract class ModCreativeModeTabs {
 
     public static final CreativeModeTab MOD_TAB = new CreativeModeTab("bygonenethertab") {
         @Override

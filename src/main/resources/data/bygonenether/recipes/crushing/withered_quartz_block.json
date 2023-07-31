@@ -1,0 +1,35 @@
+{
+  "type": "create:crushing",
+  "ingredients": [
+    {
+      "item": "bygonenether:withered_quartz_block"
+    }
+  ],
+  "processingTime": 250,
+  "results": [
+    {
+      "count": 9,
+      "item": "minecraft:quartz"
+    },
+    {
+      "chance": 0.5,
+      "count": 4,
+      "item": "minecraft:quartz"
+    },
+    {
+      "chance": 0.125,
+      "count": 2,
+      "item": "bygonenether:crushed_withered_debris"
+    },
+    {
+      "chance": 0.025,
+      "item": "bygonenether:netherite_scrap_nugget"
+    }
+  ],
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ]
+}

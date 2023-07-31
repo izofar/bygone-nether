@@ -21,7 +21,7 @@ import org.apache.commons.lang3.mutable.MutableInt;
 
 import java.util.List;
 
-public class NetheriteBellBlockEntity  extends BlockEntity {
+public class NetheriteBellBlockEntity extends BlockEntity {
 
     private static final int DURATION = 50;
     private static final int GLOW_DURATION = 300; // PiglinPrisonerAi.CELEBRATION_TIME
