@@ -9,6 +9,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -48,13 +49,36 @@ public abstract class ModItems {
 	public static final RegistryObject<Item> CHISELED_WARPED_NETHER_BRICKS = MODDED_ITEMS.register("chiseled_warped_nether_bricks", () -> new BlockItem(ModBlocks.CHISELED_WARPED_NETHER_BRICKS.get(), new Item.Properties().tab(ModItemGroups.MOD_TAB)));
 	public static final RegistryObject<Item> WARPED_NETHER_BRICK_STAIRS = MODDED_ITEMS.register("warped_nether_brick_stairs", () -> new BlockItem(ModBlocks.WARPED_NETHER_BRICK_STAIRS.get(), new Item.Properties().tab(ModItemGroups.MOD_TAB)));
 	public static final RegistryObject<Item> WARPED_NETHER_BRICK_SLAB = MODDED_ITEMS.register("warped_nether_brick_slab", () -> new BlockItem(ModBlocks.WARPED_NETHER_BRICK_SLAB.get(), new Item.Properties().tab(ModItemGroups.MOD_TAB)));
-
 	public static final RegistryObject<Item> WITHER_WALTZ_MUSIC_DISC = MODDED_ITEMS.register("wither_waltz_music_disc", () -> new MusicDiscItem(4, ModSounds.WITHER_WALTZ, new Item.Properties().tab(ModItemGroups.MOD_TAB).stacksTo(1).rarity(Rarity.RARE)));
 	public static final RegistryObject<Item> WARPED_ENDER_PEARL = MODDED_ITEMS.register("warped_ender_pearl", () -> new WarpedEnderpearlItem((new Item.Properties()).stacksTo(16).tab(ModItemGroups.MOD_TAB).rarity(Rarity.RARE)));
 
 	public static final RegistryObject<Item> NETHERITE_BELL = MODDED_ITEMS.register("netherite_bell", () -> new BlockItem(ModBlocks.NETHERITE_BELL.get(), new Item.Properties().tab(ModItemGroups.MOD_TAB).rarity(Rarity.EPIC).fireResistant()));
 	public static final RegistryObject<Item> GILDED_NETHERITE_SHIELD = MODDED_ITEMS.register("gilded_netherite_shield", () -> new ModShieldItem((new Item.Properties()).durability(1512).tab(ModItemGroups.MOD_TAB).rarity(Rarity.RARE).fireResistant()));
 
-	public static void register(IEventBus eventBus) { MODDED_ITEMS.register(eventBus); }
+	public static RegistryObject<Item> CRUSHED_WITHERED_DEBRIS;
+	public static RegistryObject<Item> NETHERITE_SCRAP_NUGGET;
+	public static RegistryObject<Item> NETHERITE_SCRAP_INGOT;
+
+	public static RegistryObject<Item> WITHERED_BLACKSTONE_VERTICAL_SLAB;
+	public static RegistryObject<Item> CRACKED_WITHERED_BLACKSTONE_VERTICAL_SLAB;
+	public static RegistryObject<Item> WARPED_NETHER_BRICK_VERTICAL_SLAB;
+
+	public static void register(IEventBus eventBus) {
+		registerModCompatibilityItems();
+		MODDED_ITEMS.register(eventBus);
+	}
+
+	private static void registerModCompatibilityItems() {
+		if (ModList.get().isLoaded("create")) {
+			CRUSHED_WITHERED_DEBRIS = MODDED_ITEMS.register("crushed_withered_debris", () -> new Item((new Item.Properties()).tab(ModItemGroups.MOD_TAB)));
+			NETHERITE_SCRAP_NUGGET = MODDED_ITEMS.register("netherite_scrap_nugget", () -> new Item((new Item.Properties()).tab(ModItemGroups.MOD_TAB)));
+			NETHERITE_SCRAP_INGOT = MODDED_ITEMS.register("netherite_scrap_ingot", () -> new Item((new Item.Properties()).tab(ModItemGroups.MOD_TAB)));
+		}
+		if (ModList.get().isLoaded("quark")) {
+			WITHERED_BLACKSTONE_VERTICAL_SLAB = MODDED_ITEMS.register("withered_blackstone_vertical_slab", () -> new BlockItem(ModBlocks.WITHERED_BLACKSTONE_VERTICAL_SLAB.get(), new Item.Properties().tab(ModItemGroups.MOD_TAB)));
+			CRACKED_WITHERED_BLACKSTONE_VERTICAL_SLAB = MODDED_ITEMS.register("cracked_withered_blackstone_vertical_slab", () -> new BlockItem(ModBlocks.CRACKED_WITHERED_BLACKSTONE_VERTICAL_SLAB.get(), new Item.Properties().tab(ModItemGroups.MOD_TAB)));
+			WARPED_NETHER_BRICK_VERTICAL_SLAB = MODDED_ITEMS.register("warped_nether_brick_vertical_slab", () -> new BlockItem(ModBlocks.WARPED_NETHER_BRICK_VERTICAL_SLAB.get(), new Item.Properties().tab(ModItemGroups.MOD_TAB)));
+		}
+	}
 
 }

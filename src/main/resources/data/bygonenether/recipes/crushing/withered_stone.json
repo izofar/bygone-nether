@@ -1,0 +1,25 @@
+{
+  "type": "create:crushing",
+  "ingredients": [
+    {
+      "tag": "bygonenether:withered_stone"
+    }
+  ],
+  "processingTime": 250,
+  "results": [
+    {
+      "chance": 0.015,
+      "item": "bygonenether:crushed_withered_debris"
+    },
+    {
+      "chance": 0.0015,
+      "item": "bygonenether:netherite_scrap_nugget"
+    }
+  ],
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ]
+}

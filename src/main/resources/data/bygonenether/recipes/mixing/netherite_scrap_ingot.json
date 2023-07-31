@@ -1,0 +1,39 @@
+{
+  "type": "create:mixing",
+  "heatRequirement": "heated",
+  "ingredients": [
+    {
+      "item": "bygonenether:netherite_scrap_nugget"
+    },
+    {
+      "item": "bygonenether:netherite_scrap_nugget"
+    },
+    {
+      "item": "bygonenether:netherite_scrap_nugget"
+    },
+    {
+      "item": "bygonenether:netherite_scrap_nugget"
+    },
+    {
+      "item": "bygonenether:netherite_scrap_nugget"
+    },
+    {
+      "item": "bygonenether:netherite_scrap_nugget"
+    },
+    {
+      "item": "bygonenether:netherite_scrap_nugget"
+    },
+    {
+      "item": "bygonenether:netherite_scrap_nugget"
+    },
+    {
+      "item": "bygonenether:netherite_scrap_nugget"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "item": "bygonenether:netherite_scrap_ingot"
+    }
+  ]
+}

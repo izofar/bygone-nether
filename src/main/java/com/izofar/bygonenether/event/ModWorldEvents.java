@@ -51,7 +51,7 @@ public abstract class ModWorldEvents {
 
 			if (isLoaded("cinderscapes")) {
 				if (isBiome(event, "cinderscapes:ashy_shoals")
-						|| isBiome(event, "cinderscapes:blackstone_shales")) {
+					|| isBiome(event, "cinderscapes:blackstone_shales")) {
 					event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_CATACOMB);
 					event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> ModConfiguredFeatures.SOUL_STONE_BLOBS);
 				}

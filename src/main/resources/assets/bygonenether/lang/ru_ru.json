@@ -37,6 +37,13 @@
 	"item.bygonenether.warped_ender_pearl": "Искаженный эндер-жемчуг",
 	"item.bygonenether.netherite_bell": "Netherite Bell",
 	"item.bygonenether.gilded_netherite_shield": "Gilded Netherite Shield",
+	"item.bygonenether.crushed_withered_debris": "Crushed Withered Debris",
+	"item.bygonenether.netherite_scrap_nugget": "Netherite Scrap Nugget",
+	"item.bygonenether.netherite_scrap_ingot": "Netherite Scrap Ingot",
+
+	"item.bygonenether.withered_blackstone_vertical_slab": "Withered Blackstone Vertical Slab",
+	"item.bygonenether.cracked_withered_blackstone_vertical_slab": "Cracked Withered Blackstone Vertical Slab",
+	"item.bygonenether.warped_nether_brick_vertical_slab": "Warped Nether Brick Vertical Slab",
 
 	"block.bygonenether.cobbled_blackstone": "Колотый чернит",
 	"block.bygonenether.withered_blackstone": "Иссушенный чернит",
@@ -56,6 +63,10 @@
 	"block.bygonenether.withered_coal_block": "Иссушенный угольный блок",
 	"block.bygonenether.withered_quartz_block": "Иссушенный кварц",
 	"block.bygonenether.netherite_bell": "Netherite Bell",
+
+	"block.bygonenether.withered_blackstone_vertical_slab": "Withered Blackstone Vertical Slab",
+	"block.bygonenether.cracked_withered_blackstone_vertical_slab": "Cracked Withered Blackstone Vertical Slab",
+	"block.bygonenether.warped_nether_brick_vertical_slab": "Warped Nether Brick Vertical Slab",
 
 	"entity.bygonenether.piglin_prisoner": "Пиглин-заключённый",
 	"entity.bygonenether.piglin_hunter": "Пиглин-охотник",
