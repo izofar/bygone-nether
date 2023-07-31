@@ -1,0 +1,12 @@
+{
+  "type": "bygonenether:replace_item",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "bygonenether:chests/catacomb/treasure_rib"
+    }
+  ],
+  "target": "bygonenether:soul_stone",
+  "replacement": "infernalexp:soul_stone",
+  "mod_dependency": "infernalexp"
+}

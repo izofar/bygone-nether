@@ -83,9 +83,9 @@ public class PiglinHunter extends Piglin implements IShieldedMob{
     }
 
     @Override
-    public void knockback(double x, double y, double z) {
+    public void knockback(double strength, double x, double z) {
         if (!this.isUsingShield()) {
-            super.knockback(x, y, z);
+            super.knockback(strength, x, z);
         } else {
             this.playSound(SoundEvents.SHIELD_BLOCK, 1.0F, 0.8F + this.level().random.nextFloat() * 0.4F);
         }

@@ -60,8 +60,33 @@ The structures should be as procedural as possible so that few many spawns play 
 <hr/>
 
 ## 📦 CHANGELOG
+### v1.3.1
+#### Feature
+* Ported to 1.20.1
+* Added compatibility with Create Mod
+  * Crushed Withered Debris that can be turned into netherite scrap variants
+  * Crushing, mixing, and splashing recipes
+* Added compatibility with Quark Mod
+  * Vertical slabs for each slab variant
+* Added compatibility with Infernal Expansion:
+  * `infernalexp:soul_stone` now prioritized over `bygonenether:soul_stone`
+* Added biome compatibility for updated mods:
+  * Cinderscapes Reforged
+  * Better Nether Reforged
+* Nerfed Ancient Debris generation in Catacombs
+* Added Turkish Localization
+* [1.20.1] Wex model and texture now mirror 1.20.x+ Vex and Allay
+#### Bug
+* Fixed crash when paired with Amplified Nether
+* Removed erroneous fortress datapack files
+* Fixed blackstone and soul stone blob errors
+* [1.18.2] Fixed missing netherite bell item texture
+* [1.20.1] Removed gilded netherite armor, ported behavior to gold-trimmed armor
+<hr/>
+
 ### v1.3.0
 #### Feature
+* Ported to 1.19.4 and 1.20
 * Added Gilded Netherite Shield, obtained by rescuring Piglin Prisoners
 * Added Netherite Bell, which generates in Piglin Manors
 * Added Piglin Prisoner rescue behavior
@@ -76,7 +101,8 @@ The structures should be as procedural as possible so that few many spawns play 
 * Added Spanish Localization
 #### Bug
 * Fixed Soul Stone and Cobbled Blackstone blobs not spawning
-* Removed unnecessary Bastion modifcations in datapacks
+* Removed unnecessary Bastion modifications in datapacks
+<hr/>
 
 ### v1.2.2
 #### Bug
@@ -149,16 +175,15 @@ The structures should be as procedural as possible so that few many spawns play 
 * Modified blackstone recipes to mirror overworld stone
 * Added stonecutting and crafting recipes for warped netherbrick blocks
 * Structures now spawn in biomes from other mods! Added integration for:
-  * Better Nether Reforged (1.16.5)
-  * Cinderscapes Reforged (1.16.5)
-  * Infernal Expansion (1.16.5)
-  * Incendium (1.18.2)
-  * Amplified Nether (1.18.1+)
-  * Biomes O’Plenty (1.X)
+    * Better Nether Reforged (1.16.5)
+    * Cinderscapes Reforged (1.16.5)
+    * Infernal Expansion (1.16.5)
+    * Incendium (1.18.2)
+    * Amplified Nether (1.18.1+)
+    * Biomes O’Plenty (1.X)
 * Adjusted generation of structures to be more common
 * Added new pieces to fortress generation
 * Added downstairs features to piglin manors
 * Polished generation and surrounding terrain
 * Added Advancements to be achieved by exploring Bygone Nether’s features
 * <hr/>
-

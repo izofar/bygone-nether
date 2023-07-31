@@ -28,6 +28,6 @@ public class ModPiglinBruteAi {
 	}
 
 	private static boolean makesPiglinBrutesNeutral(ItemStack stack) {
-		return stack.getItem() instanceof ArmorItem && ((ArmorItem) stack.getItem()).getMaterial() instanceof ModArmorMaterial;
+		return stack.getItem() instanceof ArmorItem armorItem && armorItem.getMaterial() instanceof ModArmorMaterial;
 	}
 }

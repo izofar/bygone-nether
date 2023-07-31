@@ -26,8 +26,6 @@ public abstract class ModFeatures {
 	public static final RegistryObject<Feature<NoneFeatureConfiguration>> MOB_FEATURE_CATACOMB = MODDED_FEATURES.register("mob_feature_catacomb", () -> new MobFeature<>(ModLists.CATACOMB_MOBS));
 	public static final RegistryObject<Feature<NoneFeatureConfiguration>> MOB_FEATURE_WARPED_ENDERMAN = MODDED_FEATURES.register("mob_feature_warped_enderman", () -> new MobFeature<>(ModEntityTypes.WARPED_ENDERMAN::get));
 
-	public static final RegistryObject<Feature<ReplaceSphereConfiguration>> SOUL_STONE_BLOBS = MODDED_FEATURES.register("soul_stone_blobs", () -> new ReplaceBlobsFeature(ReplaceSphereConfiguration.CODEC));
-
 	public static void register(IEventBus eventBus) { MODDED_FEATURES.register(eventBus); }
 
 }

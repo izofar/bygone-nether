@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "bygonenether:crushed_withered_debris",
+      "required": false
+    }
+  ]
+}

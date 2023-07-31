@@ -1,6 +1,13 @@
 {
   "replace": false,
   "values": [
-    "bygonenether:soul_stone"
+    {
+      "id": "bygonenether:soul_stone",
+      "required": false
+    },
+    {
+      "id": "infernalexp:soul_stone",
+      "required": false
+    }
   ]
-} 
+}
