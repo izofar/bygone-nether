@@ -35,5 +35,11 @@
       "count": 1,
       "item": "bygonenether:netherite_scrap_ingot"
     }
+  ],
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
   ]
 }

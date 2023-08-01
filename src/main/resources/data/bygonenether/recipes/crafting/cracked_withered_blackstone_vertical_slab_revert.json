@@ -13,5 +13,11 @@
   "result": {
     "item": "bygonenether:cracked_withered_blackstone_vertical_slab",
     "count": 6
-  }
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "quark"
+    }
+  ]
 }

@@ -9,5 +9,11 @@
     {
       "item": "minecraft:netherite_scrap"
     }
+  ],
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
   ]
 }
