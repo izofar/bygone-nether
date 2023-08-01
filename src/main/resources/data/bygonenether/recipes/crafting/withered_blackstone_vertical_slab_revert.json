@@ -8,5 +8,11 @@
   "result": {
     "item": "bygonenether:withered_blackstone_slab",
     "count": 1
-  }
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "quark"
+    }
+  ]
 }

@@ -32,7 +32,7 @@ public class BygoneNetherMod
         ModMemoryModuleTypes.register(eventBus);
         ModFeatures.register(eventBus);
         ModSounds.register(eventBus);
-        ModLootModifers.register(eventBus);
+        ModLootModifiers.register(eventBus);
 
         eventBus.addListener(this::commonSetup);
         eventBus.addListener(this::clientSetup);

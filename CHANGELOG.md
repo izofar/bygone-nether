@@ -60,8 +60,32 @@ The structures should be as procedural as possible so that few many spawns play 
 <hr/>
 
 ## 📦 CHANGELOG
+### v1.3.1
+#### Feature
+* Ported to 1.20.1
+* Added compatibility with Create Mod
+  * Crushed Withered Debris that can be turned into netherite scrap variants
+  * Crushing, mixing, and splashing recipes
+* Added compatibility with Quark Mod
+  * Vertical slabs for each slab variant
+* Added compatibility with Infernal Expansion:
+  * `infernalexp:soul_stone` now prioritized over `bygonenether:soul_stone`
+* Added biome compatibility for updated mods:
+  * Cinderscapes Reforged
+  * Better Nether Reforged
+* Nerfed Ancient Debris generation in Catacombs
+* Added Turkish Localization
+#### Bug
+* Fixed crash when paired with Amplified Nether
+* Removed erroneous fortress datapack files
+* Fixed blackstone and soul stone blob errors
+* [1.18.2] Fixed missing netherite bell item texture
+* [1.20.1] Removed gilded netherite armor, ported behavior to gold-trimmed armor
+<hr/>
+
 ### v1.3.0
 #### Feature
+* Ported to 1.19.4 and 1.20
 * Added Gilded Netherite Shield, obtained by rescuring Piglin Prisoners
 * Added Netherite Bell, which generates in Piglin Manors
 * Added Piglin Prisoner rescue behavior
@@ -74,10 +98,10 @@ The structures should be as procedural as possible so that few many spawns play 
 * Removed Bygone Fortress (to be included in its own mod/datapack)
 * Added new creative mode tab for Bygone Nether additions
 * Added Spanish Localization
-* Ported mod to 1.19.4 and 1.20
 #### Bug
 * Fixed Soul Stone and Cobbled Blackstone blobs not spawning
 * Removed unnecessary Bastion modifications in datapacks
+<hr/>
 
 ### v1.2.2
 #### Bug

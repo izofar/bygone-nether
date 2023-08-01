@@ -16,14 +16,14 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
-public class ReplaceItemLootModifer extends LootModifier {
+public class ReplaceItemLootModifier extends LootModifier {
 
     private final Item target;
     private final Item replacement;
     private final String modDependency;
     private final UnaryOperator<ItemStack> conversion;
 
-    protected ReplaceItemLootModifer(ILootCondition[] conditions, Item target, Item replacement, String modDependency) {
+    protected ReplaceItemLootModifier(ILootCondition[] conditions, Item target, Item replacement, String modDependency) {
         super(conditions);
         this.target = target;
         this.replacement = replacement;
@@ -40,18 +40,18 @@ public class ReplaceItemLootModifer extends LootModifier {
         return generatedLoot;
     }
 
-    public static class Serializer extends GlobalLootModifierSerializer<ReplaceItemLootModifer> {
+    public static class Serializer extends GlobalLootModifierSerializer<ReplaceItemLootModifier> {
 
         @Override
-        public ReplaceItemLootModifer read(ResourceLocation name, JsonObject object, ILootCondition[] conditions) {
+        public ReplaceItemLootModifier read(ResourceLocation name, JsonObject object, ILootCondition[] conditions) {
             Item target = ForgeRegistries.ITEMS.getValue(new ResourceLocation(JSONUtils.getAsString(object, "target")));
             Item replacement = ForgeRegistries.ITEMS.getValue(new ResourceLocation(JSONUtils.getAsString(object, "replacement")));
             String modDependency = JSONUtils.getAsString(object, "mod_dependency");
-            return new ReplaceItemLootModifer(conditions, target, replacement, modDependency);
+            return new ReplaceItemLootModifier(conditions, target, replacement, modDependency);
         }
 
         @Override
-        public JsonObject write(ReplaceItemLootModifer instance) {
+        public JsonObject write(ReplaceItemLootModifier instance) {
             JsonObject json = makeConditions(instance.conditions);
             json.addProperty("target", ForgeRegistries.ITEMS.getKey(instance.target).toString());
             json.addProperty("replacement", ForgeRegistries.ITEMS.getKey(instance.replacement).toString());
