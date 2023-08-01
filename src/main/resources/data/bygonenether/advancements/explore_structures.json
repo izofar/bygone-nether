@@ -2,7 +2,8 @@
   "parent": "bygonenether:root",
   "display": {
     "icon": {
-      "item": "bygonenether:gilded_netherite_boots"
+      "item": "minecraft:netherite_boots",
+      "nbt": "{Trim: {material: gold, pattern:sentry}}"
     },
     "title": {
       "translate": "advancements.bygonenether.explore_structures.title"

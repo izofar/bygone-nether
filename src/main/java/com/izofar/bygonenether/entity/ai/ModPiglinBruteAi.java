@@ -33,7 +33,7 @@ public class ModPiglinBruteAi {
 		return stack.getItem() instanceof ArmorItem armorItem && armorItem.getMaterial() == ArmorMaterials.NETHERITE && armorIsGoldTrim(entity, stack);
 	}
 
-	private static boolean armorIsGoldTrim(LivingEntity entity, ItemStack stack) {
+	public static boolean armorIsGoldTrim(LivingEntity entity, ItemStack stack) {
 		Optional<ArmorTrim> armorTrim = ArmorTrim.getTrim(entity.level().registryAccess(), stack);
 		return armorTrim.isPresent() && armorTrim.get().material().is(TrimMaterials.GOLD);
 	}
