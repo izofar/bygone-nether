@@ -75,7 +75,6 @@ The structures should be as procedural as possible so that few many spawns play 
   * Better Nether Reforged
 * Nerfed Ancient Debris generation in Catacombs
 * Added Turkish Localization
-* [1.20.1] Wex model and texture now mirror 1.20.x+ Vex and Allay
 #### Bug
 * Fixed crash when paired with Amplified Nether
 * Removed erroneous fortress datapack files

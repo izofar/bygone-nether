@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -52,9 +53,11 @@ public abstract class ModBlocks {
 	}
 
 	private static void registerModCompatibilityBlocks() {
-		WITHERED_BLACKSTONE_VERTICAL_SLAB = MODDED_BLOCKS.register("withered_blackstone_vertical_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.copy(WITHERED_BLACKSTONE_SLAB.get())));
-		CRACKED_WITHERED_BLACKSTONE_VERTICAL_SLAB = MODDED_BLOCKS.register("cracked_withered_blackstone_vertical_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.copy(CRACKED_WITHERED_BLACKSTONE_SLAB.get())));
-		WARPED_NETHER_BRICK_VERTICAL_SLAB = MODDED_BLOCKS.register("warped_nether_brick_vertical_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.copy(WARPED_NETHER_BRICK_SLAB.get())));
+		if (ModList.get().isLoaded("quark")) {
+			WITHERED_BLACKSTONE_VERTICAL_SLAB = MODDED_BLOCKS.register("withered_blackstone_vertical_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.copy(WITHERED_BLACKSTONE_SLAB.get())));
+			CRACKED_WITHERED_BLACKSTONE_VERTICAL_SLAB = MODDED_BLOCKS.register("cracked_withered_blackstone_vertical_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.copy(CRACKED_WITHERED_BLACKSTONE_SLAB.get())));
+			WARPED_NETHER_BRICK_VERTICAL_SLAB = MODDED_BLOCKS.register("warped_nether_brick_vertical_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.copy(WARPED_NETHER_BRICK_SLAB.get())));
+		}
 	}
 
 }
