@@ -15,7 +15,6 @@ public class ModShieldItem extends ShieldItem {
         super(properties.setISTER(ModShieldItem::getISTER));
     }
 
-    @OnlyIn(Dist.CLIENT)
     private static Callable<ItemStackTileEntityRenderer> getISTER() {
         return ModShieldTileEntityRenderer::new;
     }
