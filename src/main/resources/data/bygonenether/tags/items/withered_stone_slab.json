@@ -1,0 +1,14 @@
+{
+  "values": [
+    "bygonenether:withered_blackstone_slab",
+    "bygonenether:cracked_withered_blackstone_slab",
+    {
+      "id": "bygonenether:withered_blackstone_vertical_slab",
+      "required": false
+    },
+    {
+      "id": "bygonenether:cracked_withered_blackstone_vertical_slab",
+      "required": false
+    }
+  ]
+}

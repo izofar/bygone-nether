@@ -2,10 +2,8 @@
   "values": [
     "bygonenether:withered_blackstone",
     "bygonenether:withered_blackstone_stairs",
-    "bygonenether:withered_blackstone_slab",
     "bygonenether:cracked_withered_blackstone",
     "bygonenether:cracked_withered_blackstone_stairs",
-    "bygonenether:cracked_withered_blackstone_slab",
     "bygonenether:chiseled_withered_blackstone"
   ]
 }
