@@ -22,14 +22,12 @@
     "rescue_prisoner": {
       "trigger": "minecraft:summoned_entity",
       "conditions": {
-        "player": [
+        "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
                 "type": "bygonenether:piglin_prisoner"
-              }
             }
           }
         ]

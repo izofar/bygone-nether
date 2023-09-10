@@ -1,4 +1,5 @@
-# Bygone Nether
+<p align="center"><img src="https://imgur.com/oPVtrP5.png" alt="Logo" width="672"></p>
+
 > To advance the ancient history of the nether dimension.
 
 Herein lies my changelog and motivation for developing a mod for Minecraft aiming to advance the lore behind the nether dimension, as well as provide additional challenges and compelling gameplay in the survival game mode.
@@ -60,6 +61,18 @@ The structures should be as procedural as possible so that few many spawns play 
 <hr/>
 
 ## 📦 CHANGELOG
+
+### v1.3.2
+#### Feature
+* Updated Github Issues Tracking
+* Updated graphics and logos
+* Added Create crushing recipes for cobbled blackstone and soul stone
+#### Bug
+* Fixed Saving Private Swine advancement being triggered when summoning any mob
+* Fixed poorly-balanced Create crushing recipes for warped nether brick
+* Added missing recipes for vertical slabs
+<hr/>
+
 ### v1.3.1
 #### Feature
 * Ported to 1.20.1

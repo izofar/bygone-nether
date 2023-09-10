@@ -2,23 +2,19 @@
   "type": "create:crushing",
   "ingredients": [
     {
-      "item": "bygonenether:warped_nether_brick_stairs"
+      "item": "bygonenether:warped_nether_brick_vertical_slab"
     }
   ],
   "processingTime": 250,
   "results": [
-    {
-      "count": 1,
-      "item": "minecraft:nether_brick"
-    },
     {
       "chance": 0.75,
       "count": 1,
       "item": "minecraft:nether_brick"
     },
     {
-      "chance": 0.5,
-      "count": 2,
+      "chance": 0.25,
+      "count": 1,
       "item": "minecraft:warped_roots"
     }
   ],
@@ -26,6 +22,10 @@
     {
       "type": "forge:mod_loaded",
       "modid": "create"
+    },
+    {
+      "type": "forge:mod_loaded",
+      "modid": "quark"
     }
   ]
 }
