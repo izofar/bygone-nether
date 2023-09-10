@@ -7,12 +7,12 @@
   ],
   "key": {
     "#": {
-      "item": "bygonenether:cracked_withered_blackstone"
+      "item": "bygonenether:withered_blackstone_slab"
     }
   },
   "result": {
-    "item": "bygonenether:cracked_withered_blackstone_vertical_slab",
-    "count": 6
+    "item": "bygonenether:withered_blackstone_vertical_slab",
+    "count": 3
   },
   "conditions": [
     {

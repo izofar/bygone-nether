@@ -1,18 +1,13 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "#",
-    "#",
-    "#"
-  ],
-  "key": {
-    "#": {
-      "item": "bygonenether:cracked_withered_blackstone"
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "bygonenether:cracked_withered_blackstone_vertical_slab"
     }
-  },
+  ],
   "result": {
-    "item": "bygonenether:cracked_withered_blackstone_vertical_slab",
-    "count": 6
+    "item": "bygonenether:cracked_withered_blackstone_slab",
+    "count": 1
   },
   "conditions": [
     {

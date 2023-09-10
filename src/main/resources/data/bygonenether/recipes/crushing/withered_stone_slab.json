@@ -2,20 +2,18 @@
   "type": "create:crushing",
   "ingredients": [
     {
-      "item": "bygonenether:warped_nether_brick_slab"
+      "tag": "bygonenether:withered_stone_slab"
     }
   ],
   "processingTime": 250,
   "results": [
     {
-      "chance": 0.75,
-      "count": 1,
-      "item": "minecraft:nether_brick"
+      "chance": 0.0075,
+      "item": "bygonenether:crushed_withered_debris"
     },
     {
-      "chance": 0.25,
-      "count": 1,
-      "item": "minecraft:warped_roots"
+      "chance": 0.00075,
+      "item": "bygonenether:netherite_scrap_nugget"
     }
   ],
   "conditions": [

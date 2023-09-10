@@ -1,4 +1,4 @@
-<p align="center"><img src="https://imgur.com/yrzI96y.png" alt="Logo" width="672"></p>
+<p align="center"><img src="https://imgur.com/oPVtrP5.png" alt="Logo" width="672"></p>
 
 <p align="center">
   <i>To advance the ancient history of the nether dimension</i>
@@ -18,4 +18,4 @@ Having been conceived as part of a Vanilla+ mod to bring back alpha difficulty, 
 
 <hr/>
 <h4 align="center">Find out more about Bygone Nether on <a href="https://www.curseforge.com/minecraft/mc-mods/bygone-nether">Curseforge</a> or <a href="https://modrinth.com/mod/bygone-nether">Modrinth</a> Page</h4>
-<h4 align="center">Looking for the Fabric port? <a href="https://www.curseforge.com/minecraft/mc-mods/bygone-nether">Find it here on Curseforge</a></h4>
+<h4 align="center">Looking for the Fabric port? <a href="https://www.curseforge.com/minecraft/mc-mods/bygone-nether-fabric">Find it here on Curseforge</a></h4>
