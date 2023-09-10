@@ -1,7 +1,8 @@
 
 modLoader="javafml"
 loaderVersion="${loader_version_range}"
-license="MIT"
+license="${license}"
+issueTrackerURL="${issues_link}"
 
 [[mods]]
 modId="${mod_id}"
@@ -11,6 +12,7 @@ logoFile="${banner_image}"
 authors="${mod_authors}"
 
 description='''${mod_description}'''
+displayTest="MATCH_VERSION"
 
 [[dependencies.bygonenether]]
     modId="minecraft"

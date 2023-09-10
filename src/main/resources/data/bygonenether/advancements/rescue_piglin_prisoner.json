@@ -1,0 +1,42 @@
+{
+  "parent": "bygonenether:piglin_manor",
+  "display": {
+    "icon": {
+      "item": "bygonenether:netherite_bell"
+    },
+    "title": {
+      "translate": "advancements.bygonenether.rescue_piglin_prisoner.title"
+    },
+    "description": {
+      "translate": "advancements.bygonenether.rescue_piglin_prisoner.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "rewards": {
+    "experience": 500
+  },
+  "criteria": {
+    "rescue_prisoner": {
+      "trigger": "minecraft:summoned_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+                "type": "bygonenether:piglin_prisoner"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "rescue_prisoner"
+    ]
+  ]
+}

@@ -8,12 +8,12 @@
   "processingTime": 250,
   "results": [
     {
-      "count": 3,
+      "count": 1,
       "item": "minecraft:nether_brick"
     },
     {
-      "chance": 0.25,
-      "count": 2,
+      "chance": 0.75,
+      "count": 1,
       "item": "minecraft:nether_brick"
     },
     {
