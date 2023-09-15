@@ -25,10 +25,14 @@ public class CatacombStructure extends StructureFeature<JigsawConfiguration> {
 
 	private static final int STRUCTURE_SEARCH_RADIUS = 8;
 	
-	public CatacombStructure(Codec<JigsawConfiguration> codec) { super(codec, CatacombStructure::createPiecesGenerator, PostPlacementProcessor.NONE); }
+	public CatacombStructure(Codec<JigsawConfiguration> codec) {
+		super(codec, CatacombStructure::createPiecesGenerator, PostPlacementProcessor.NONE);
+	}
 	
 	@Override
-	public GenerationStep.Decoration step() { return GenerationStep.Decoration.SURFACE_STRUCTURES; }
+	public GenerationStep.Decoration step() {
+		return GenerationStep.Decoration.SURFACE_STRUCTURES;
+	}
 	
 	private static boolean checkLocation(Context<JigsawConfiguration> context) {
 		BlockPos blockpos  = context.chunkPos().getMiddleBlockPosition(0);
@@ -39,7 +43,10 @@ public class CatacombStructure extends StructureFeature<JigsawConfiguration> {
 	}
 	
 	public static Optional<PieceGenerator<JigsawConfiguration>> createPiecesGenerator(PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
-		if(!checkLocation(context)) return Optional.empty();
+		if (!checkLocation(context)) {
+			return Optional.empty();
+		}
+
 		BlockPos blockpos = ModStructureUtils.getElevation(context, 56, ModStructureUtils.getScaledNetherHeight(84));
 		return JigsawPlacement.addPieces(context, PoolElementStructurePiece::new, blockpos, true, false);
 	}

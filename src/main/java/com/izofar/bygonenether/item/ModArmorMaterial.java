@@ -1,6 +1,5 @@
 package com.izofar.bygonenether.item;
 
-import com.izofar.bygonenether.BygoneNetherMod;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.LazyLoadedValue;
@@ -13,7 +12,7 @@ import java.util.function.Supplier;
 
 public enum ModArmorMaterial implements ArmorMaterial {
 	
-	GILDED_NETHERITE(BygoneNetherMod.MODID + ":gilded_netherite", 8, new int[]{3, 6, 8, 3}, 20, SoundEvents.ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F, () -> Ingredient.of(Items.NETHERITE_INGOT));
+	GILDED_NETHERITE("gilded_netherite", 8, new int[] {3, 6, 8, 3}, 20, SoundEvents.ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F, () -> Ingredient.of(Items.NETHERITE_INGOT));
 
 	private static final int[] HEALTH_PER_SLOT = new int[] { 13, 15, 16, 11 };
 	private final String name;
@@ -36,19 +35,43 @@ public enum ModArmorMaterial implements ArmorMaterial {
 		this.repairIngredient = new LazyLoadedValue<>(repairIngredient);
 	}
 
-	public int getDurabilityForSlot(EquipmentSlot slot) { return HEALTH_PER_SLOT[slot.getIndex()] * this.durabilityMultiplier; }
+	@Override
+	public int getDurabilityForSlot(EquipmentSlot slot) {
+		return HEALTH_PER_SLOT[slot.getIndex()] * this.durabilityMultiplier;
+	}
 
-	public int getDefenseForSlot(EquipmentSlot slot) { return this.slotProtections[slot.getIndex()]; }
+	@Override
+	public int getDefenseForSlot(EquipmentSlot slot) {
+		return this.slotProtections[slot.getIndex()];
+	}
 
-	public int getEnchantmentValue() { return this.enchantmentValue; }
+	@Override
+	public int getEnchantmentValue() {
+		return this.enchantmentValue;
+	}
 
-	public SoundEvent getEquipSound() { return this.sound; }
+	@Override
+	public SoundEvent getEquipSound() {
+		return this.sound;
+	}
 
-	public Ingredient getRepairIngredient() { return this.repairIngredient.get(); }
+	@Override
+	public Ingredient getRepairIngredient() {
+		return this.repairIngredient.get();
+	}
 
-	public String getName() { return this.name; }
+	@Override
+	public String getName() {
+		return this.name;
+	}
 
-	public float getToughness() { return this.toughness; }
+	@Override
+	public float getToughness() {
+		return this.toughness;
+	}
 
-	public float getKnockbackResistance() { return this.knockbackResistance; }
+	@Override
+	public float getKnockbackResistance() {
+		return this.knockbackResistance;
+	}
 }

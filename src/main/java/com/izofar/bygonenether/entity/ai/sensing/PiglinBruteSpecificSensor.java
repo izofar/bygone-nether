@@ -42,13 +42,17 @@ public class PiglinBruteSpecificSensor extends Sensor<LivingEntity> {
 
 		Optional<Player> optional5 = Optional.empty();
 
-		for(LivingEntity livingentity : nearestvisiblelivingentities.findAll((p_186157_) -> true) )
-			if (livingentity instanceof Player player && optional5.isEmpty() && !ModPiglinBruteAi.isWearingGild(player) && entity.canAttack(livingentity))
+		for (LivingEntity livingentity : nearestvisiblelivingentities.findAll((livingEntity) -> true)) {
+			if (livingentity instanceof Player player && optional5.isEmpty() && !ModPiglinBruteAi.isWearingGild(player) && entity.canAttack(livingentity)) {
 				optional5 = Optional.of(player);
+			}
+		}
 		
-		for (LivingEntity livingentity : brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of()))
-			if (livingentity instanceof AbstractPiglin && ((AbstractPiglin) livingentity).isAdult()) 
+		for (LivingEntity livingentity : brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of())) {
+			if (livingentity instanceof AbstractPiglin && ((AbstractPiglin) livingentity).isAdult()) {
 				list.add((AbstractPiglin) livingentity);
+			}
+		}
 
 		brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_NEMESIS, optional);
 		brain.setMemory(ModMemoryModuleTypes.NEAREST_TARGETABLE_PLAYER_NOT_WEARING_GILD, optional5);

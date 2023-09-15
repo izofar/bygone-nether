@@ -11,11 +11,8 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
-	maven { url "https://maven.parchmentmc.org" }
-	maven { url "https://api.modrinth.com/maven" }
-	maven { url "https://maven.terraformersmc.com/" }
-	maven { url "https://mvn.devos.one/snapshots/" }
-	maven { url 'https://jitpack.io' }
+	maven { url "https://maven.parchmentmc.org" }		// Parchment
+	maven { url "https://maven.terraformersmc.com/" }	// Mod Menu
 }
 
 dependencies {
@@ -26,11 +23,12 @@ dependencies {
 	}
 	modImplementation("net.fabricmc:fabric-loader:${project.loader_version}")
 	modImplementation("net.fabricmc.fabric-api:fabric-api:${project.fabric_version}")
-	modImplementation(include("maven.modrinth:midnightlib:${project.midnightlib_version}"))
+
+	// Mod Menu
 	modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}") {
 		exclude group: "net.fabricmc.fabric-api"
 	}
-	modImplementation(include("io.github.fabricators_of_create.Porting-Lib:porting-lib:${portinglib_version}"))
+
 }
 
 processResources {

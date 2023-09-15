@@ -23,7 +23,7 @@
       "com.izofar.bygonenether.BygoneNetherMod"
     ],
     "client": [
-      "com.izofar.bygonenether.client.BNClient"
+      "com.izofar.bygonenether.client.BygoneNetherClient"
     ]
   },
   "mixins": [
@@ -35,6 +35,9 @@
     "fabric-api": "*",
     "minecraft": "~1.18",
     "java": ">=17"
+  },
+  "conflicts" : {
+    "sihywtcamd": "<=1.7.2"
   },
   "accessWidener": "bygonenether.accessWidener"
 }

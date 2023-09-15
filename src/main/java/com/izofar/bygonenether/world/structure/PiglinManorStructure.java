@@ -33,11 +33,11 @@ public class PiglinManorStructure extends StructureFeature<JigsawConfiguration> 
     }
 
     @Override
-    public GenerationStep.@NotNull Decoration step() {
+    public GenerationStep.Decoration step() {
         return GenerationStep.Decoration.SURFACE_STRUCTURES;
     }
 
-    private static @NotNull boolean checkLocation(Context<JigsawConfiguration> context) {
+    private static boolean checkLocation(Context<JigsawConfiguration> context) {
         BlockPos blockpos = context.chunkPos().getMiddleBlockPosition(0);
         NoiseColumn blockReader = context.chunkGenerator().getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor());
         return checkChunk(context)

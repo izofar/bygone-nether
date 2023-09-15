@@ -9,6 +9,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.monster.WitherSkeleton;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -39,5 +40,41 @@ public abstract class ModLists {
 			new ModWeightedEntry<>(() -> ModEntityTypes.WITHER_SKELETON_KNIGHT, 2),
 			new ModWeightedEntry<>(() -> ModEntityTypes.WRAITHER, 3),
 			new ModWeightedEntry<>(() -> EntityType.WITHER_SKELETON, 1)
+	);
+
+	public static final WeightedRandomList<ModWeightedEntry<Supplier<EntityType<? extends AbstractPiglin>>>> PIGLIN_PRISONER_CONVERSIONS = WeightedRandomList.create(
+			new ModWeightedEntry<>(() -> EntityType.PIGLIN, 4),
+			new ModWeightedEntry<>(() -> ModEntityTypes.PIGLIN_HUNTER, 3),
+			new ModWeightedEntry<>(() -> EntityType.PIGLIN_BRUTE, 1)
+	);
+
+	public static final ImmutableList<Block> DETLALESS_BLOCKS = ImmutableList.of(
+			// Default
+			Blocks.LAVA,
+			Blocks.BEDROCK,
+			Blocks.MAGMA_BLOCK,
+			Blocks.SOUL_SAND,
+			Blocks.NETHER_BRICKS,
+			Blocks.NETHER_BRICK_FENCE,
+			Blocks.NETHER_BRICK_STAIRS,
+			Blocks.NETHER_WART,
+			Blocks.CHEST,
+			Blocks.SPAWNER,
+			// New Fortresses:
+			Blocks.NETHER_BRICK_SLAB,
+			Blocks.CRACKED_NETHER_BRICKS,
+			Blocks.CHISELED_NETHER_BRICKS,
+			Blocks.RED_NETHER_BRICKS,
+			Blocks.RED_NETHER_BRICK_STAIRS,
+			Blocks.RED_NETHER_BRICK_SLAB,
+			Blocks.CRIMSON_TRAPDOOR,
+			// Wither Forts:
+			ModBlocks.COBBLED_BLACKSTONE,
+			ModBlocks.WITHERED_BLACKSTONE,
+			ModBlocks.CHISELED_WITHERED_BLACKSTONE,
+			ModBlocks.CRACKED_WITHERED_BLACKSTONE,
+			ModBlocks.WITHERED_DEBRIS,
+			Blocks.IRON_BARS,
+			Blocks.COAL_BLOCK
 	);
 }

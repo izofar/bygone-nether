@@ -3,12 +3,16 @@ package com.izofar.bygonenether.client.model;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.izofar.bygonenether.entity.Wex;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 
+@Environment(EnvType.CLIENT)
 public class WexModel extends HumanoidModel<Wex> {
+
    private final ModelPart leftWing;
    private final ModelPart rightWing;
 
@@ -20,12 +24,14 @@ public class WexModel extends HumanoidModel<Wex> {
       this.leftWing = part.getChild("left_wing");
    }
 
+   @Override
    protected Iterable<ModelPart> bodyParts() {
       return Iterables.concat(super.bodyParts(), ImmutableList.of(this.rightWing, this.leftWing));
    }
 
-   public void setupAnim(Wex wex, float f0, float f1, float f2, float f3, float f4) {
-      super.setupAnim(wex, f0, f1, f2, f3, f4);
+   @Override
+   public void setupAnim(Wex wex, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+      super.setupAnim(wex, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
       if (wex.isCharging()) {
          if (wex.getMainHandItem().isEmpty()) {
             this.rightArm.xRot = ((float)Math.PI * 1.5F);
@@ -42,7 +48,7 @@ public class WexModel extends HumanoidModel<Wex> {
       this.leftWing.z = 2.0F;
       this.rightWing.y = 1.0F;
       this.leftWing.y = 1.0F;
-      this.rightWing.yRot = 0.47123894F + Mth.cos(f2 * 45.836624F * ((float)Math.PI / 180F)) * (float)Math.PI * 0.05F;
+      this.rightWing.yRot = 0.47123894F + Mth.cos(ageInTicks * 45.836624F * ((float)Math.PI / 180F)) * (float)Math.PI * 0.05F;
       this.leftWing.yRot = -this.rightWing.yRot;
       this.leftWing.zRot = -0.47123894F;
       this.leftWing.xRot = 0.47123894F;

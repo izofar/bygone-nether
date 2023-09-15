@@ -26,43 +26,44 @@ public class Wraither extends WitherSkeleton {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag tag){
+    public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putBoolean("Possessed", this.isPossessed());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag){
+    public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.setPossessed(tag.getBoolean("Possessed"));
     }
 
     @Override
-    protected void defineSynchedData(){
+    protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_IS_POSSESSED, true);
     }
 
-    public boolean isPossessed(){
+    public boolean isPossessed() {
         return this.entityData.get(DATA_IS_POSSESSED);
     }
 
-    private void setPossessed(boolean possessed){
+    private void setPossessed(boolean possessed) {
         this.entityData.set(DATA_IS_POSSESSED, possessed);
     }
 
     @Override
-    public boolean hurt(DamageSource source, float amount){
+    public boolean hurt(DamageSource source, float amount) {
         boolean ret = super.hurt(source, amount);
-        if(this.isPossessed() && this.getHealth() < 10.0F)
+        if (this.isPossessed() && this.getHealth() < 10.0F) {
             this.dispossess();
+        }
         return ret;
     }
 
-    private void dispossess(){
+    private void dispossess() {
         this.setPossessed(false);
         this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.25D);
-        if(this.getLevel() instanceof ServerLevel serverLevel) {
+        if (this.getLevel() instanceof ServerLevel serverLevel) {
             Wex wex = ModEntityTypes.WEX.create(serverLevel);
             wex.moveTo(this.blockPosition().above(), this.yBodyRot, this.xRotO);
             wex.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.CONVERSION, null, null);

@@ -19,7 +19,10 @@ public class ModifyDamageInSmithingRecipes {
     )
     private void bygonenether_setDamage(Container container, CallbackInfoReturnable<ItemStack> cir) {
         ItemStack itemstack = cir.getReturnValue();
-        if(!(itemstack.getItem() instanceof ModArmorItem)) return;
+        if (!(itemstack.getItem() instanceof ModArmorItem)) {
+            return;
+        }
+
         int damage = itemstack.getDamageValue();
         itemstack.getOrCreateTag().put("NetheriteDamage", IntTag.valueOf(damage));
         itemstack.setDamageValue(0);

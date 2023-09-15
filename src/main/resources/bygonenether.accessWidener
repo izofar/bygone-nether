@@ -12,3 +12,4 @@ mutable field net/minecraft/world/level/levelgen/feature/BasaltColumnsFeature CA
 mutable field net/minecraft/world/level/levelgen/feature/DeltaFeature CANNOT_REPLACE Lcom/google/common/collect/ImmutableList;
 accessible method net/minecraft/world/item/RecordItem <init> (ILnet/minecraft/sounds/SoundEvent;Lnet/minecraft/world/item/Item$Properties;)V
 accessible method net/minecraft/world/entity/ai/memory/MemoryModuleType <init> (Ljava/util/Optional;)V
+accessible method net/minecraft/world/entity/ai/sensing/SensorType <init> (Ljava/util/function/Supplier;)V

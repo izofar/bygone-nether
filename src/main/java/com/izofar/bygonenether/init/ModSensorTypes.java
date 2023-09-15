@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 
 public class ModSensorTypes {
+
     public static final SensorType<PiglinBruteSpecificSensor> PIGLIN_BRUTE_SPECIFIC_SENSOR = new SensorType<>(PiglinBruteSpecificSensor::new);
     public static final SensorType<PiglinPrisonerSpecificSensor> PIGLIN_PRISONER_SPECIFIC_SENSOR = new SensorType<>(PiglinPrisonerSpecificSensor::new);
 

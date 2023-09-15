@@ -13,8 +13,7 @@ import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.phys.AABB;
-
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 
 public class ShieldGoal<T extends Mob & IShieldedMob> extends Goal {
@@ -29,7 +28,7 @@ public class ShieldGoal<T extends Mob & IShieldedMob> extends Goal {
     protected LivingEntity target;
     protected final TargetingConditions targetConditions;
 
-    public ShieldGoal(T mob, Class<? extends LivingEntity> targetType){
+    public ShieldGoal(T mob, Class<? extends LivingEntity> targetType) {
         this.mob = mob;
         this.targetType = targetType;
         this.setFlags(EnumSet.of(Goal.Flag.TARGET));
@@ -44,11 +43,11 @@ public class ShieldGoal<T extends Mob & IShieldedMob> extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        if(this.mob.isShieldDisabled()){
+        if (this.mob.isShieldDisabled()) {
             return false;
-        } else if(this.target == null){
+        } else if (this.target == null) {
             return false;
-        }else if (!this.target.isAlive()) {
+        } else if (!this.target.isAlive()) {
             return false;
         } else if (this.mob.distanceToSqr(this.target) > this.getFollowDistance() * this.getFollowDistance()) {
             return false;
@@ -79,7 +78,7 @@ public class ShieldGoal<T extends Mob & IShieldedMob> extends Goal {
             case INACTIVE -> this.setDefaultCounters();
             case WARMUP -> this.shieldWarmup--;
             case ACTIVE -> {
-                if(this.mob.getTarget() == null) return;
+                if (this.mob.getTarget() == null) return;
                 this.mob.getLookControl().setLookAt(this.mob.getTarget().getX(), this.mob.getTarget().getEyeY(), this.mob.getTarget().getZ(), 10.0F, (float) this.mob.getMaxHeadXRot());
                 this.mob.startUsingShield();
                 this.setDefaultCounters();
@@ -89,7 +88,7 @@ public class ShieldGoal<T extends Mob & IShieldedMob> extends Goal {
     }
 
     private static boolean targetDrawnBow(LivingEntity target) {
-        if(target == null) return false;
+        if (target == null) return false;
         for(InteractionHand interactionhand : InteractionHand.values()) {
             ItemStack itemstack = target.getItemInHand(interactionhand);
             boolean drawnBow = itemstack.is(Items.BOW) && target.isUsingItem();
@@ -119,24 +118,24 @@ public class ShieldGoal<T extends Mob & IShieldedMob> extends Goal {
         return this.mob.getAttributeValue(Attributes.FOLLOW_RANGE);
     }
 
-    private void setDefaultCounters(){
+    private void setDefaultCounters() {
         this.shieldWarmup = this.shieldDelay;
         this.shieldCoolDown = this.shieldStagger;
     }
 
-    private ShieldStage getStage(){
-        if(targetDrawnBow(this.target)){
-            if(this.shieldWarmup <= 0){
+    private ShieldStage getStage() {
+        if (targetDrawnBow(this.target)) {
+            if (this.shieldWarmup <= 0) {
                 this.shieldWarmup = 0;
                 return ShieldStage.ACTIVE;
-            }else{
+            } else {
                 return ShieldStage.WARMUP;
             }
-        }else{
-            if(this.shieldCoolDown <= 0){
+        } else {
+            if (this.shieldCoolDown <= 0) {
                 this.shieldCoolDown = 0;
                 return ShieldStage.INACTIVE;
-            }else{
+            } else {
                 return ShieldStage.COOLDOWN;
             }
         }

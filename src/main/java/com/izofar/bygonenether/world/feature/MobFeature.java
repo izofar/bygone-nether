@@ -30,8 +30,10 @@ public class MobFeature<T extends Mob> extends Feature<NoneFeatureConfiguration>
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
 		BlockPos position = context.origin().below();
 		Mob entity = this.entityTypes.getRandom(context.random()).get().getData().get().create(context.level().getLevel());
-		if (entity == null)
+		if (entity == null) {
 			return false;
+		}
+
 		entity.moveTo((double) position.getX() + 0.5D, position.getY(), (double) position.getZ() + 0.5D, 0.0F, 0.0F);
 		entity.finalizeSpawn(context.level(), context.level().getCurrentDifficultyAt(position), MobSpawnType.SPAWNER, null, null);
 		entity.setPersistenceRequired();

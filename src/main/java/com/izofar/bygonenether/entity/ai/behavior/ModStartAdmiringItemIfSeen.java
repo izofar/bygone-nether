@@ -12,17 +12,19 @@ import net.minecraft.world.entity.item.ItemEntity;
 public class ModStartAdmiringItemIfSeen<E extends PiglinPrisoner> extends Behavior<E> {
     private final int admireDuration;
 
-    public ModStartAdmiringItemIfSeen(int p_35140_) {
+    public ModStartAdmiringItemIfSeen(int admireDuration) {
         super(ImmutableMap.of(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, MemoryStatus.VALUE_PRESENT, MemoryModuleType.ADMIRING_ITEM, MemoryStatus.VALUE_ABSENT, MemoryModuleType.ADMIRING_DISABLED, MemoryStatus.VALUE_ABSENT, MemoryModuleType.DISABLE_WALK_TO_ADMIRE_ITEM, MemoryStatus.VALUE_ABSENT));
-        this.admireDuration = p_35140_;
+        this.admireDuration = admireDuration;
     }
 
-    protected boolean checkExtraStartConditions(ServerLevel p_35149_, E p_35150_) {
-        ItemEntity itementity = p_35150_.getBrain().getMemory(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM).get();
+    @Override
+    protected boolean checkExtraStartConditions(ServerLevel serverLevel, E piglinPrisoner) {
+        ItemEntity itementity = piglinPrisoner.getBrain().getMemory(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM).get();
         return PiglinPrisonerAi.isLovedItem(itementity.getItem());
     }
 
-    protected void start(ServerLevel p_35152_, E p_35153_, long p_35154_) {
-        p_35153_.getBrain().setMemoryWithExpiry(MemoryModuleType.ADMIRING_ITEM, true, (long)this.admireDuration);
+    @Override
+    protected void start(ServerLevel serverLevel, E piglinPrisoner, long gameTime) {
+        piglinPrisoner.getBrain().setMemoryWithExpiry(MemoryModuleType.ADMIRING_ITEM, true, (long)this.admireDuration);
     }
 }

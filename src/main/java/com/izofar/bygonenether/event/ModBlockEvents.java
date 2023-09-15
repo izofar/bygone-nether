@@ -11,9 +11,10 @@ import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.block.Blocks;
 
 public class ModBlockEvents {
+
     public static void enforceNetheriteToBreakWitheredStone() {
         AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> {
-            if(!player.isCreative()
+            if (!player.isCreative()
                     && ModLists.WITHERED_BLOCKS.contains(world.getBlockState(pos).getBlock())
                     && !(player.getItemBySlot(EquipmentSlot.MAINHAND).getItem() instanceof TieredItem tieredItem
                     && tieredItem.getTier().getLevel() >= Tiers.NETHERITE.getLevel())) {
@@ -25,7 +26,7 @@ public class ModBlockEvents {
 
     public static void onIronBarsBroken() {
         PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
-            if(state.getBlock() == Blocks.IRON_BARS) {
+            if (state.getBlock() == Blocks.IRON_BARS) {
                 PiglinPrisonerAi.exciteNearbyPiglins(player, false);
             }
         });

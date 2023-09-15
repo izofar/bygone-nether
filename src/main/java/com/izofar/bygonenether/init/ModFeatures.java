@@ -13,6 +13,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 import net.minecraft.world.level.levelgen.feature.configurations.ReplaceSphereConfiguration;
 
 public class ModFeatures {
+
     public static final Feature<NoneFeatureConfiguration> MOB_FEATURE_PIGLIN_PRISONER = new MobFeature<>(() -> ModEntityTypes.PIGLIN_PRISONER);
     public static final Feature<NoneFeatureConfiguration> MOB_FEATURE_PIGLIN_MANOR_INSIDE = new MobFeature<>(ModLists.PIGLIN_MANOR_MOBS);
     public static final Feature<NoneFeatureConfiguration> MOB_FEATURE_PIGLIN_MANOR_OUTSIDE = new MobPassengerFeature<>(() -> ModEntityTypes.PIGLIN_HUNTER, () -> ModEntityTypes.WITHER_SKELETON_HORSE);

@@ -1,7 +1,6 @@
 package com.izofar.bygonenether.entity.ai;
 
 import com.izofar.bygonenether.item.ModArmorMaterial;
-import com.izofar.bygonenether.util.ForgeHelper;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.piglin.PiglinBrute;
@@ -20,13 +19,15 @@ public class ModPiglinBruteAi {
 	}
 
 	public static boolean isWearingGild(LivingEntity entity) {
-		for (ItemStack itemstack : entity.getArmorSlots())
-			if (makesPiglinBrutesNeutral(itemstack))
+		for (ItemStack itemstack : entity.getArmorSlots()) {
+			if (makesPiglinBrutesNeutral(itemstack)) {
 				return true;
+			}
+		}
 		return false;
 	}
 
-	private static boolean makesPiglinBrutesNeutral(ItemStack stack) {
-		return ForgeHelper.makesPiglinsNeutral(stack);
+	public static boolean makesPiglinBrutesNeutral(ItemStack stack) {
+		return stack.getItem() instanceof ArmorItem armorItem && armorItem.getMaterial() == ModArmorMaterial.GILDED_NETHERITE;
 	}
 }

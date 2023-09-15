@@ -19,17 +19,7 @@
     "in_citadel": {
       "trigger": "minecraft:location",
       "conditions": {
-        "player": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "location": {
-                "structure": "bygonenether:citadel"
-              }
-            }
-          }
-        ]
+        "feature": "bygonenether:citadel"
       }
     }
   },

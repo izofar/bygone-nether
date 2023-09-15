@@ -6,6 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 
 public class ModSounds {
+
     public static SoundEvent WITHER_WALTZ = sound("wither_waltz");
 
     public static SoundEvent WEX_CHARGE = sound("entity.wex.charge");

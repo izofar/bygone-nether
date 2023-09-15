@@ -33,7 +33,7 @@ public class ModifyPiglinBruteAi {
         Brain<PiglinBrute> brain = (Brain<PiglinBrute>) piglin.getBrain();
         Optional<LivingEntity> optional = BehaviorUtils.getLivingEntityFromUUIDMemory(piglin, MemoryModuleType.ANGRY_AT);
 
-        if (optional.isPresent() && Sensor.isEntityAttackableIgnoringLineOfSight(piglin, optional.get())){
+        if (optional.isPresent() && Sensor.isEntityAttackableIgnoringLineOfSight(piglin, optional.get())) {
             cir.setReturnValue(optional);
             return;
         }
@@ -61,7 +61,9 @@ public class ModifyPiglinBruteAi {
             at = @At(value = "RETURN")
     )
     private static void bygonenether_setAngerTarget(PiglinBrute piglin, LivingEntity entity, CallbackInfo ci) {
-        if (entity.getType() == EntityType.PLAYER && piglin.level.getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) piglin.getBrain().setMemoryWithExpiry(MemoryModuleType.UNIVERSAL_ANGER, true, 600L);
+        if (entity.getType() == EntityType.PLAYER && piglin.level.getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
+            piglin.getBrain().setMemoryWithExpiry(MemoryModuleType.UNIVERSAL_ANGER, true, 600L);
+        }
     }
 
 
