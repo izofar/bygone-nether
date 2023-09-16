@@ -1,0 +1,21 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "create"
+      ]
+    }
+  ],
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "item": "bygonenether:netherite_scrap_ingot"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:netherite_scrap"
+    }
+  ]
+}

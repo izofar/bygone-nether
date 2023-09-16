@@ -1,0 +1,29 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "create"
+      ]
+    }
+  ],
+  "type": "create:crushing",
+  "ingredients": [
+    {
+      "item": "bygonenether:warped_nether_brick_slab"
+    }
+  ],
+  "processingTime": 250,
+  "results": [
+    {
+      "chance": 0.75,
+      "count": 1,
+      "item": "minecraft:nether_brick"
+    },
+    {
+      "chance": 0.25,
+      "count": 1,
+      "item": "minecraft:warped_roots"
+    }
+  ]
+}

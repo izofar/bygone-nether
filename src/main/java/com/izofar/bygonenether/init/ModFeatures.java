@@ -13,6 +13,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 import net.minecraft.world.level.levelgen.feature.configurations.ReplaceSphereConfiguration;
 
 public class ModFeatures {
+
     public static final Feature<NoneFeatureConfiguration> MOB_FEATURE_PIGLIN_PRISONER = new MobFeature<>(() -> ModEntityTypes.PIGLIN_PRISONER);
     public static final Feature<NoneFeatureConfiguration> MOB_FEATURE_PIGLIN_MANOR_INSIDE = new MobFeature<>(ModLists.PIGLIN_MANOR_MOBS);
     public static final Feature<NoneFeatureConfiguration> MOB_FEATURE_PIGLIN_MANOR_OUTSIDE = new MobPassengerFeature<>(() -> ModEntityTypes.PIGLIN_HUNTER, () -> ModEntityTypes.WITHER_SKELETON_HORSE);
@@ -20,8 +21,6 @@ public class ModFeatures {
     public static final Feature<NoneFeatureConfiguration> MOB_FEATURE_WITHER_SKELETON = new MobFeature<>(() -> EntityType.WITHER_SKELETON);
     public static final Feature<NoneFeatureConfiguration> MOB_FEATURE_CATACOMB = new MobFeature<>(ModLists.CATACOMB_MOBS);
     public static final Feature<NoneFeatureConfiguration> MOB_FEATURE_WARPED_ENDERMAN = new MobFeature<>(() -> ModEntityTypes.WARPED_ENDERMAN);
-
-    public static final Feature<ReplaceSphereConfiguration> SOUL_STONE_BLOBS = new ReplaceBlobsFeature(ReplaceSphereConfiguration.CODEC);
 
     public static void registerFeatures() {
         Registry.register(Registry.FEATURE, new ResourceLocation(BygoneNetherMod.MODID, "mob_feature_piglin_prisoner"), MOB_FEATURE_PIGLIN_PRISONER);
@@ -31,6 +30,5 @@ public class ModFeatures {
         Registry.register(Registry.FEATURE, new ResourceLocation(BygoneNetherMod.MODID, "mob_feature_wither_skeleton"), MOB_FEATURE_WITHER_SKELETON);
         Registry.register(Registry.FEATURE, new ResourceLocation(BygoneNetherMod.MODID, "mob_feature_catacomb"), MOB_FEATURE_CATACOMB);
         Registry.register(Registry.FEATURE, new ResourceLocation(BygoneNetherMod.MODID, "mob_feature_warped_enderman"), MOB_FEATURE_WARPED_ENDERMAN);
-        Registry.register(Registry.FEATURE, new ResourceLocation(BygoneNetherMod.MODID, "soul_stone_blobs"), SOUL_STONE_BLOBS);
     }
 }

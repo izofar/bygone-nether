@@ -11,6 +11,7 @@ import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.block.Blocks;
 
 public class ModBlockEvents {
+
     public static void enforceNetheriteToBreakWitheredStone() {
         AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> {
             if(!player.isCreative()

@@ -4,6 +4,7 @@ import net.minecraft.util.random.Weight;
 import net.minecraft.util.random.WeightedEntry;
 
 public class ModWeightedEntry<T> implements WeightedEntry {
+
     private final T data;
     private final Weight weight;
 

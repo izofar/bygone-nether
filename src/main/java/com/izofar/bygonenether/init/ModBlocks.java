@@ -1,14 +1,17 @@
 package com.izofar.bygonenether.init;
 
 import com.izofar.bygonenether.BygoneNetherMod;
+import com.izofar.bygonenether.block.NetheriteBellBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 
 public class ModBlocks {
+
     public static final Block COBBLED_BLACKSTONE = new Block(FabricBlockSettings.of(Material.STONE).requiresCorrectToolForDrops().strength(2.0f, 6.0f));
 
     public static final Block WITHERED_BLACKSTONE = new Block(FabricBlockSettings.of(Material.STONE, MaterialColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(2.5F, 1200.0F).sound(SoundType.DEEPSLATE));
@@ -33,6 +36,8 @@ public class ModBlocks {
     public static final Block WARPED_NETHER_BRICK_STAIRS = new StairBlock(WARPED_NETHER_BRICKS.defaultBlockState(), FabricBlockSettings.copy(WARPED_NETHER_BRICKS));
     public static final Block WARPED_NETHER_BRICK_SLAB = new SlabBlock(FabricBlockSettings.copy(WARPED_NETHER_BRICKS));
 
+    public static final Block NETHERITE_BELL = new NetheriteBellBlock(BlockBehaviour.Properties.of(Material.METAL).strength(50.0F, 1200.0F).sound(SoundType.ANVIL));
+
     public static void registerBlocks() {
         Registry.register(Registry.BLOCK, new ResourceLocation(BygoneNetherMod.MODID, "cobbled_blackstone"), COBBLED_BLACKSTONE);
         Registry.register(Registry.BLOCK, new ResourceLocation(BygoneNetherMod.MODID, "withered_blackstone"), WITHERED_BLACKSTONE);
@@ -51,5 +56,6 @@ public class ModBlocks {
         Registry.register(Registry.BLOCK, new ResourceLocation(BygoneNetherMod.MODID, "chiseled_warped_nether_bricks"), CHISELED_WARPED_NETHER_BRICKS);
         Registry.register(Registry.BLOCK, new ResourceLocation(BygoneNetherMod.MODID, "warped_nether_brick_stairs"), WARPED_NETHER_BRICK_STAIRS);
         Registry.register(Registry.BLOCK, new ResourceLocation(BygoneNetherMod.MODID, "warped_nether_brick_slab"), WARPED_NETHER_BRICK_SLAB);
+        Registry.register(Registry.BLOCK, new ResourceLocation(BygoneNetherMod.MODID, "netherite_bell"), NETHERITE_BELL);
     }
 }

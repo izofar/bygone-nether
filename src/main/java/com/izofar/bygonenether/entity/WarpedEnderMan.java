@@ -35,6 +35,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.Map;
 
 public class WarpedEnderMan extends EnderMan {
+    
     private static final int SHEAR_COOLDOWN = 20;
     private static final WarpedEnderManVariant[] VARIANTS = WarpedEnderManVariant.values();
     private static final EntityDataAccessor<Integer> VARIANT_ID = SynchedEntityData.defineId(WarpedEnderMan.class, EntityDataSerializers.INT);
@@ -79,12 +80,16 @@ public class WarpedEnderMan extends EnderMan {
     }
 
     @Override
-    public void tick(){
+    public void tick() {
         super.tick();
-        if(!this.level.isClientSide) {
-            if (shearCooldownCounter > 0) shearCooldownCounter--;
-            else if (shearCooldownCounter < 0) shearCooldownCounter = 0;
-            if(this.toConvertToEnderman){
+        if (!this.level.isClientSide) {
+            if (shearCooldownCounter > 0) {
+                shearCooldownCounter--;
+            } else if (shearCooldownCounter < 0) {
+                shearCooldownCounter = 0;
+            }
+
+            if (this.toConvertToEnderman) {
                 EnderMan enderman = this.convertTo(EntityType.ENDERMAN, false);
                 this.playShearSound(enderman);
             }
@@ -92,9 +97,13 @@ public class WarpedEnderMan extends EnderMan {
     }
 
     @Override
-    public void playSound(SoundEvent event, float f1, float f2){ super.playSound(SOUND_MAP.getOrDefault(event, event), f1, f2); }
+    public void playSound(SoundEvent event, float volume, float pitch) {
+        super.playSound(SOUND_MAP.getOrDefault(event, event), volume, pitch);
+    }
 
-    private void playShearSound(EnderMan enderman){ this.level.playSound(null, enderman, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F); }
+    private void playShearSound(EnderMan enderman) {
+        this.level.playSound(null, enderman, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
+    }
 
     @Override
     protected void defineSynchedData() {
@@ -126,15 +135,15 @@ public class WarpedEnderMan extends EnderMan {
     }
 
     @Override
-    public InteractionResult mobInteract(Player player, InteractionHand hand){
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        if(stack.is(Items.SHEARS)) {
-            if(this.isReadyForShearing() && !this.level.isClientSide) {
+        if (stack.is(Items.SHEARS)) {
+            if (this.isReadyForShearing() && !this.level.isClientSide) {
                 boolean flag = this.toConvertToEnderman;
                 this.shearWarp();
                 this.gameEvent(GameEvent.SHEAR, player);
                 stack.hurtAndBreak(1, player, (playerIn) -> playerIn.broadcastBreakEvent(hand));
-                if(this.toConvertToEnderman && !flag && player instanceof ServerPlayer serverPlayer)
+                if (this.toConvertToEnderman && !flag && player instanceof ServerPlayer serverPlayer)
                     CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, this);
                 return InteractionResult.SUCCESS;
             } else {
@@ -144,9 +153,11 @@ public class WarpedEnderMan extends EnderMan {
         return super.mobInteract(player, hand);
     }
 
-    private boolean isReadyForShearing() { return this.shearCooldownCounter == 0; }
+    private boolean isReadyForShearing() {
+        return this.shearCooldownCounter == 0;
+    }
 
-    private void shearWarp(){
+    private void shearWarp() {
         ItemStack itemstack = new ItemStack(Items.TWISTING_VINES, this.getRandom().nextInt(2) + 1);
         BehaviorUtils.throwItem(this, itemstack, Vec3.ZERO.add(0.0D, 1.0D, 0.0D));
         this.shearCooldownCounter = SHEAR_COOLDOWN;
@@ -163,7 +174,9 @@ public class WarpedEnderMan extends EnderMan {
         }
     }
 
-    private static WarpedEnderManVariant randomVariant(RandomSource random){ return VARIANTS[random.nextInt(VARIANTS.length)]; }
+    private static WarpedEnderManVariant randomVariant(RandomSource random) {
+        return VARIANTS[random.nextInt(VARIANTS.length)];
+    }
 
     public enum WarpedEnderManVariant {
         FRESH, SHORT_VINE, LONG_VINE

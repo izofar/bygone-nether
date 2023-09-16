@@ -8,9 +8,6 @@
   "authors": [
     "Izofar"
   ],
-  "contributors": [
-    "ZestyBlaze"
-  ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/bygone-nether",
     "sources": "https://github.com/izofar/bygone-nether",
@@ -26,7 +23,7 @@
       "com.izofar.bygonenether.BygoneNetherMod"
     ],
     "client": [
-      "com.izofar.bygonenether.client.BNClient"
+      "com.izofar.bygonenether.client.BygoneNetherClient"
     ]
   },
   "mixins": [

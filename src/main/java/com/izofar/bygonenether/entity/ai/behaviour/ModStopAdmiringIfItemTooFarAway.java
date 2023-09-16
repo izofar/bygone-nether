@@ -13,21 +13,23 @@ import java.util.Optional;
 public class ModStopAdmiringIfItemTooFarAway<E extends PiglinPrisoner> extends Behavior<E> {
     private final int maxDistanceToItem;
 
-    public ModStopAdmiringIfItemTooFarAway(int p_35212_) {
+    public ModStopAdmiringIfItemTooFarAway(int maxDistanceToItem) {
         super(ImmutableMap.of(MemoryModuleType.ADMIRING_ITEM, MemoryStatus.VALUE_PRESENT, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, MemoryStatus.REGISTERED));
-        this.maxDistanceToItem = p_35212_;
+        this.maxDistanceToItem = maxDistanceToItem;
     }
 
-    protected boolean checkExtraStartConditions(ServerLevel p_35221_, E p_35222_) {
-        if (!p_35222_.getOffhandItem().isEmpty()) {
+    @Override
+    protected boolean checkExtraStartConditions(ServerLevel serverLevel, E owner) {
+        if (!owner.getOffhandItem().isEmpty()) {
             return false;
         } else {
-            Optional<ItemEntity> optional = p_35222_.getBrain().getMemory(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
-            return optional.map(itemEntity -> !itemEntity.closerThan(p_35222_, this.maxDistanceToItem)).orElse(true);
+            Optional<ItemEntity> optional = owner.getBrain().getMemory(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
+            return optional.map(itemEntity -> !itemEntity.closerThan(owner, this.maxDistanceToItem)).orElse(true);
         }
     }
 
-    protected void start(ServerLevel p_35224_, E p_35225_, long p_35226_) {
-        p_35225_.getBrain().eraseMemory(MemoryModuleType.ADMIRING_ITEM);
+    @Override
+    protected void start(ServerLevel serverLevel, E entity, long gameTime) {
+        entity.getBrain().eraseMemory(MemoryModuleType.ADMIRING_ITEM);
     }
 }

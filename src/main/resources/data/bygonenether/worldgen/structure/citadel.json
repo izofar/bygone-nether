@@ -1,7 +1,7 @@
 {
   "type": "bygonenether:citadel",
   "start_pool": "bygonenether:citadel/start_pool",
-  "size": 1,
+  "size": 4,
   "max_distance_from_center": 128,
   "start_height": {
     "type": "minecraft:uniform",

@@ -3,9 +3,18 @@
   "fallback": "minecraft:empty",
   "elements": [
     {
-      "weight": 1,
+      "weight": 4,
       "element": {
-        "location": "bygonenether:piglin_manor/piglin_manor_main",
+        "location": "bygonenether:piglin_manor/piglin_manor_1",
+        "processors": "bygonenether:piglin_manor/piglin_manor",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "location": "bygonenether:piglin_manor/piglin_manor_2",
         "processors": "bygonenether:piglin_manor/piglin_manor",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"

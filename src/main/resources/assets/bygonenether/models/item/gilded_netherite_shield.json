@@ -1,0 +1,14 @@
+{
+    "parent": "item/shield",
+    "textures": {
+        "particle": "block/crimson_planks"
+    },
+    "overrides": [
+        {
+            "predicate": {
+                "bygonenether:blocking": 1
+            },
+            "model": "bygonenether:item/gilded_netherite_shield_blocking"
+        }
+    ]
+}

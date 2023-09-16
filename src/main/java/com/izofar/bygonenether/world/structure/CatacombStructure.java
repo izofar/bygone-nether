@@ -63,8 +63,12 @@ public class CatacombStructure extends Structure {
                 && !ModStructureUtils.isNearStructure(context, STRUCTURE_SEARCH_RADIUS, StructureSets.NETHER_COMPLEXES);
     }
 
+    @Override
     public Optional<Structure.GenerationStub> findGenerationPoint(Structure.GenerationContext context) {
-        if(!checkLocation(context)) return Optional.empty();
+        if (!checkLocation(context)) {
+            return Optional.empty();
+        }
+
         BlockPos blockpos = ModStructureUtils.getElevation(context, 56, ModStructureUtils.getScaledNetherHeight(84));
         return JigsawPlacement.addPieces(context, this.startPool, this.startJigsawName, this.size, blockpos, false, this.projectStartToHeightmap, this.maxDistanceFromCenter);
     }

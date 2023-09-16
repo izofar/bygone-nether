@@ -9,6 +9,7 @@ import net.minecraft.world.entity.player.Player;
 import java.util.Optional;
 
 public class ModMemoryModuleTypes {
+
     public static final MemoryModuleType<Player> NEAREST_TARGETABLE_PLAYER_NOT_WEARING_GILD = new MemoryModuleType<>(Optional.empty());
 
     public static void registerModMemoryModuleTypes() {

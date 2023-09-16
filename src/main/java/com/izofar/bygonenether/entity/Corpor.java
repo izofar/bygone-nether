@@ -13,7 +13,10 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
 public class Corpor extends WitherSkeleton {
-    public Corpor(EntityType<? extends WitherSkeleton> entityType, Level level) { super(entityType, level); }
+
+    public Corpor(EntityType<? extends WitherSkeleton> entityType, Level level) {
+        super(entityType, level);
+    }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
@@ -24,7 +27,7 @@ public class Corpor extends WitherSkeleton {
     }
 
     @Override
-    public void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty){
+    public void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance difficulty){
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE));
     }
 

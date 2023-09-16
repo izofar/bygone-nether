@@ -25,12 +25,13 @@ import java.util.List;
 
 @Mixin(PiglinAi.class)
 public class ModifyPiglinAi {
+
     @Inject(method = "isWearingGold", at = @At("RETURN"), cancellable = true, locals = LocalCapture.CAPTURE_FAILHARD)
     private static void wearsGoldArmor(@NotNull LivingEntity entity, @NotNull CallbackInfoReturnable<Boolean> cir){
         Iterable<ItemStack> iterable = entity.getArmorSlots();
         Iterator<ItemStack> var2 = iterable.iterator();
 
-        if(!cir.getReturnValue()) {
+        if (!cir.getReturnValue()) {
             Item item;
             do {
                 if (!var2.hasNext()) {
@@ -53,10 +54,12 @@ public class ModifyPiglinAi {
     private static void bygonenether_angerNearbyPiglins(Player player, boolean requireVisibility, CallbackInfo ci) {
         List<PiglinBrute> list = player.level.getEntitiesOfClass(PiglinBrute.class, player.getBoundingBox().inflate(16.0D));
         list.stream().filter(PiglinAi::isIdle).filter((piglinBrute) -> !requireVisibility || BehaviorUtils.canSee(piglinBrute, player)).forEach((piglinBrute) -> {
-            if (piglinBrute.level.getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER))
+            if (piglinBrute.level.getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
                 ModPiglinBruteAi.setAngerTargetToNearestTargetablePlayerIfFound(piglinBrute, player);
-            else
+            }
+            else {
                 PiglinBruteAi.setAngerTarget(piglinBrute, player);
+            }
         });
     }
 }

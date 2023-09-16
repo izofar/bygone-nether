@@ -7,6 +7,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.levelgen.structure.Structure;
 
 public class ModTags {
+
     public static TagKey<Structure> NO_BASALT;
 
     public static void registerTags() {

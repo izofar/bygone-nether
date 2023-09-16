@@ -1,7 +1,6 @@
 package com.izofar.bygonenether;
 
 import com.izofar.bygonenether.event.ModBlockEvents;
-import com.izofar.bygonenether.event.ModEntityEvents;
 import com.izofar.bygonenether.init.*;
 import com.izofar.bygonenether.util.ModStructureUtils;
 import net.fabricmc.api.ModInitializer;
@@ -9,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class BygoneNetherMod implements ModInitializer {
+
 	public static final String MODID = "bygonenether";
 	public static final Logger LOGGER = LogManager.getLogger();
 
@@ -22,13 +22,11 @@ public class BygoneNetherMod implements ModInitializer {
 		ModMemoryModuleTypes.registerModMemoryModuleTypes();
 		ModFeatures.registerFeatures();
 		ModSounds.registerSounds();
-		ModProcessors.registerProcessors();
 
 		ModStructureUtils.addBasaltRestrictions();
 		ModEntityTypes.modifyPiglinMemoryAndSensors();
 		ModTags.registerTags();
 		ModBlockEvents.enforceNetheriteToBreakWitheredStone();
 		ModBlockEvents.onIronBarsBroken();
-		ModEntityEvents.preventPrisonersFromDespawning();
 	}
 }

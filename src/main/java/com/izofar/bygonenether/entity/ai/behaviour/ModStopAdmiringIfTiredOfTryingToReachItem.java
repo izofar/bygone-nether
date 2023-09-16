@@ -14,18 +14,20 @@ public class ModStopAdmiringIfTiredOfTryingToReachItem<E extends PiglinPrisoner>
     private final int maxTimeToReachItem;
     private final int disableTime;
 
-    public ModStopAdmiringIfTiredOfTryingToReachItem(int p_35230_, int p_35231_) {
+    public ModStopAdmiringIfTiredOfTryingToReachItem(int maxTimeToReachItem, int disableTime) {
         super(ImmutableMap.of(MemoryModuleType.ADMIRING_ITEM, MemoryStatus.VALUE_PRESENT, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, MemoryStatus.VALUE_PRESENT, MemoryModuleType.TIME_TRYING_TO_REACH_ADMIRE_ITEM, MemoryStatus.REGISTERED, MemoryModuleType.DISABLE_WALK_TO_ADMIRE_ITEM, MemoryStatus.REGISTERED));
-        this.maxTimeToReachItem = p_35230_;
-        this.disableTime = p_35231_;
+        this.maxTimeToReachItem = maxTimeToReachItem;
+        this.disableTime = disableTime;
     }
 
-    protected boolean checkExtraStartConditions(ServerLevel p_35240_, E p_35241_) {
-        return p_35241_.getOffhandItem().isEmpty();
+    @Override
+    protected boolean checkExtraStartConditions(ServerLevel serverLevel, E owner) {
+        return owner.getOffhandItem().isEmpty();
     }
 
-    protected void start(ServerLevel p_35243_, E p_35244_, long p_35245_) {
-        Brain<PiglinPrisoner> brain = p_35244_.getBrain();
+    @Override
+    protected void start(ServerLevel serverLevel, E entity, long gameTime) {
+        Brain<PiglinPrisoner> brain = entity.getBrain();
         Optional<Integer> optional = brain.getMemory(MemoryModuleType.TIME_TRYING_TO_REACH_ADMIRE_ITEM);
         if (optional.isEmpty()) {
             brain.setMemory(MemoryModuleType.TIME_TRYING_TO_REACH_ADMIRE_ITEM, 0);

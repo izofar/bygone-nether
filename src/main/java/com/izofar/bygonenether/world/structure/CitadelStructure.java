@@ -78,7 +78,9 @@ public class CitadelStructure extends Structure {
 
     @Override
     public Optional<Structure.GenerationStub> findGenerationPoint(Structure.GenerationContext context) {
-        if(!checkLocation(context)) return Optional.empty();
+        if (!checkLocation(context)) {
+            return Optional.empty();
+        }
 
         BlockPos blockpos = ModStructureUtils.getElevation(context, 48, ModStructureUtils.getScaledNetherHeight(70));
         return JigsawPlacement.addPieces(context, this.startPool, this.startJigsawName, this.size, blockpos, false, this.projectStartToHeightmap, this.maxDistanceFromCenter);

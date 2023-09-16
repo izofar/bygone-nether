@@ -13,6 +13,7 @@ import net.minecraft.world.item.*;
 import java.util.function.Consumer;
 
 public class ModArmorItem extends ArmorItem {
+
     public ModArmorItem(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, FabricItemSettings properties) {
         super(armorMaterial, equipmentSlot, properties.customDamage(new ModArmorItemDamageHandler()));
     }
@@ -48,7 +49,9 @@ public class ModArmorItem extends ArmorItem {
             } else if (brokenItem == ModItems.GILDED_NETHERITE_BOOTS) {
                 item = Items.NETHERITE_BOOTS;
                 slot = 0;
-            }else return;
+            }else {
+                return;
+            }
 
             ItemStack newStack = new ItemStack(item, 1);
             newStack.addTagElement("Enchantments", list);

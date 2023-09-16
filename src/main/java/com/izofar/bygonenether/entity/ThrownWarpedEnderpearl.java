@@ -2,7 +2,6 @@ package com.izofar.bygonenether.entity;
 
 import com.izofar.bygonenether.init.ModEntityTypes;
 import com.izofar.bygonenether.init.ModItems;
-import io.github.fabricators_of_create.porting_lib.extensions.ITeleporter;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -24,6 +23,7 @@ import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.Nullable;
 
 public class ThrownWarpedEnderpearl extends ThrowableItemProjectile {
+    
     public ThrownWarpedEnderpearl(EntityType<? extends ThrownWarpedEnderpearl> entityType, Level level) {
         super(entityType, level);
     }
@@ -32,19 +32,22 @@ public class ThrownWarpedEnderpearl extends ThrowableItemProjectile {
         super(ModEntityTypes.WARPED_ENDER_PEARL, entity, level);
     }
 
+    @Override
     protected Item getDefaultItem() {
         return ModItems.WARPED_ENDER_PEARL;
     }
 
+    @Override
     protected void onHitEntity(EntityHitResult result) {
         super.onHitEntity(result);
         result.getEntity().hurt(DamageSource.thrown(this, this.getOwner()), 0.0F);
     }
 
+    @Override
     protected void onHit(HitResult result) {
         super.onHit(result);
 
-        for(int i = 0; i < 32; ++i) {
+        for (int i = 0; i < 32; ++i) {
             this.level.addParticle(ParticleTypes.PORTAL, this.getX(), this.getY() + this.random.nextDouble() * 2.0D, this.getZ(), this.random.nextGaussian(), 0.0D, this.random.nextGaussian());
         }
 
@@ -65,11 +68,11 @@ public class ThrownWarpedEnderpearl extends ThrowableItemProjectile {
                     entity.teleportTo(this.getX(), this.getY(), this.getZ());
                     entity.resetFallDistance();
 
-                    if(this.getLevel().getBlockState(this.blockPosition()).is(Blocks.WATER)){
+                    if (this.getLevel().getBlockState(this.blockPosition()).is(Blocks.WATER)) {
                         serverplayer.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 300));
-                    }else if(entity.isInLava() || this.getLevel().getBlockState(this.blockPosition()).is(Blocks.LAVA)){
+                    } else if (entity.isInLava() || this.getLevel().getBlockState(this.blockPosition()).is(Blocks.LAVA)) {
                         serverplayer.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 900));
-                    }else if(!this.isOnGround()){
+                    } else if (!this.isOnGround()) {
                         serverplayer.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 160));
                         serverplayer.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 300, 1));
                     }
@@ -85,6 +88,7 @@ public class ThrownWarpedEnderpearl extends ThrowableItemProjectile {
 
     }
 
+    @Override
     public void tick() {
         Entity entity = this.getOwner();
         if (entity instanceof Player && !entity.isAlive()) {
@@ -96,12 +100,12 @@ public class ThrownWarpedEnderpearl extends ThrowableItemProjectile {
     }
 
     @Nullable
-    public Entity changeDimension(ServerLevel serverlevel, ITeleporter teleporter) {
+    @Override
+    public Entity changeDimension(ServerLevel serverlevel) {
         Entity entity = this.getOwner();
         if (entity != null && entity.level.dimension() != serverlevel.dimension()) {
             this.setOwner(null);
         }
-
-        return super.changeDimension(serverlevel, teleporter);
+        return super.changeDimension(serverlevel);
     }
 }

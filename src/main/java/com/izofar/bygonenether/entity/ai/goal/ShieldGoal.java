@@ -89,7 +89,10 @@ public class ShieldGoal<T extends Mob & IShieldedMob> extends Goal {
     }
 
     private static boolean targetDrawnBow(LivingEntity target) {
-        if (target == null) return false;
+        if (target == null) {
+            return false;
+        }
+
         for (InteractionHand interactionhand : InteractionHand.values()) {
             ItemStack itemstack = target.getItemInHand(interactionhand);
             boolean drawnBow = itemstack.is(Items.BOW) && target.isUsingItem();

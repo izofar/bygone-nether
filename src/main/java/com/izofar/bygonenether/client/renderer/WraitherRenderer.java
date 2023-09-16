@@ -4,12 +4,16 @@ import com.izofar.bygonenether.BygoneNetherMod;
 import com.izofar.bygonenether.client.renderer.layers.WitherGlowLayer;
 import com.izofar.bygonenether.entity.Wraither;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.model.SkeletonModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
+@Environment(EnvType.CLIENT)
 public class WraitherRenderer extends MobRenderer<Wraither, SkeletonModel<Wraither>> {
+
     private static final ResourceLocation POSSESSED_SKELETON_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/wither/wraither.png");
     private static final ResourceLocation WITHER_SKELETON_LOCATION = new ResourceLocation("textures/entity/skeleton/wither_skeleton.png");
 
@@ -24,7 +28,7 @@ public class WraitherRenderer extends MobRenderer<Wraither, SkeletonModel<Wraith
     }
 
     @Override
-    protected void scale(Wraither skeleton, PoseStack poseStack, float f){
-        poseStack.scale(1.2F, 1.2F, 1.2F);
+    protected void scale(Wraither skeleton, PoseStack matrixStack, float partialTickTime){
+        matrixStack.scale(1.2F, 1.2F, 1.2F);
     }
 }

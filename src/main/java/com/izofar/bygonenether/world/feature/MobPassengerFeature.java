@@ -14,6 +14,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 import java.util.function.Supplier;
 
 public class MobPassengerFeature<P extends Mob, V extends Mob> extends Feature<NoneFeatureConfiguration> {
+
     private final WeightedRandomList<ModWeightedEntry<Pair<Supplier<EntityType<? extends P>>, Supplier<EntityType<? extends V>>>>> entityTypes;
 
     public MobPassengerFeature(Supplier<EntityType<? extends P>> passenger, Supplier<EntityType<? extends V>> vehicle) {

@@ -1,0 +1,23 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "create"
+      ]
+    }
+  ],
+  "type": "create:crushing",
+  "ingredients": [
+    {
+      "item": "bygonenether:soul_stone"
+    }
+  ],
+  "processingTime": 250,
+  "results": [
+    {
+      "count": 1,
+      "item": "minecraft:soul_soil"
+    }
+  ]
+}

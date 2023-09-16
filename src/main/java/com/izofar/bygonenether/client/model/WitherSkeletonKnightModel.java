@@ -3,6 +3,8 @@ package com.izofar.bygonenether.client.model;
 import com.google.common.collect.ImmutableList;
 import com.izofar.bygonenether.entity.WitherSkeletonKnight;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.model.AnimationUtils;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -16,20 +18,11 @@ import net.minecraft.world.item.Items;
 
 import java.util.List;
 
+@Environment(EnvType.CLIENT)
 public class WitherSkeletonKnightModel extends HumanoidModel<WitherSkeletonKnight> {
-
-    private final List<ModelPart> armor;
 
     public WitherSkeletonKnightModel(ModelPart root) {
         super(root);
-        this.armor = ImmutableList.of(
-                root.getChild("hat"),
-                root.getChild("body").getChild("bodywear"),
-                root.getChild("left_arm").getChild("left_armwear"),
-                root.getChild("right_arm").getChild("right_armwear"),
-                root.getChild("left_leg").getChild("left_legwear"),
-                root.getChild("right_leg").getChild("right_legwear")
-        );
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -52,6 +45,7 @@ public class WitherSkeletonKnightModel extends HumanoidModel<WitherSkeletonKnigh
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
 
+    @Override
     public void prepareMobModel(WitherSkeletonKnight witherSkeletonKnight, float pitch, float yaw, float roll) {
         this.rightArmPose = HumanoidModel.ArmPose.EMPTY;
         this.leftArmPose = HumanoidModel.ArmPose.EMPTY;
@@ -66,6 +60,7 @@ public class WitherSkeletonKnightModel extends HumanoidModel<WitherSkeletonKnigh
         super.prepareMobModel(witherSkeletonKnight, pitch, yaw, roll);
     }
 
+    @Override
     public void setupAnim(WitherSkeletonKnight witherSkeletonKnight, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         super.setupAnim(witherSkeletonKnight, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         ItemStack itemstack = witherSkeletonKnight.getMainHandItem();
@@ -104,15 +99,11 @@ public class WitherSkeletonKnightModel extends HumanoidModel<WitherSkeletonKnigh
     }
 
     @Override
-    public void translateToHand(HumanoidArm arm, PoseStack pose) {
-        float f = arm == HumanoidArm.RIGHT ? 1.0F : -1.0F;
-        ModelPart modelpart = this.getArm(arm);
+    public void translateToHand(HumanoidArm side, PoseStack stack) {
+        float f = side == HumanoidArm.RIGHT ? 1.0F : -1.0F;
+        ModelPart modelpart = this.getArm(side);
         modelpart.x += f;
-        modelpart.translateAndRotate(pose);
+        modelpart.translateAndRotate(stack);
         modelpart.x -= f;
-    }
-
-    public List<ModelPart> getArmor(){
-        return this.armor;
     }
 }
