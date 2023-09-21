@@ -10,3 +10,4 @@ accessible field net/minecraft/world/level/levelgen/feature/BasaltColumnsFeature
 accessible field net/minecraft/world/level/levelgen/feature/DeltaFeature CANNOT_REPLACE Lcom/google/common/collect/ImmutableList;
 mutable field net/minecraft/world/level/levelgen/feature/BasaltColumnsFeature CANNOT_PLACE_ON Lcom/google/common/collect/ImmutableList;
 mutable field net/minecraft/world/level/levelgen/feature/DeltaFeature CANNOT_REPLACE Lcom/google/common/collect/ImmutableList;
+accessible field net/minecraft/client/renderer/BlockEntityWithoutLevelRenderer shieldModel Lnet/minecraft/client/model/ShieldModel;

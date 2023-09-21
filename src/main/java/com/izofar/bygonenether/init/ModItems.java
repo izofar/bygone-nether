@@ -5,19 +5,12 @@ import com.izofar.bygonenether.item.ModArmorItem;
 import com.izofar.bygonenether.item.ModArmorMaterial;
 import com.izofar.bygonenether.item.ModShieldItem;
 import com.izofar.bygonenether.item.WarpedEnderpearlItem;
-import net.fabricmc.fabric.api.item.v1.CustomDamageHandler;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Registry;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-
-import java.util.function.Consumer;
 
 public class ModItems {
 

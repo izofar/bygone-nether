@@ -1,6 +1,5 @@
 package com.izofar.bygonenether.init;
 
-import com.google.common.collect.ImmutableList;
 import com.izofar.bygonenether.BygoneNetherMod;
 import com.izofar.bygonenether.entity.*;
 import com.izofar.bygonenether.util.ModLists;
@@ -14,8 +13,6 @@ import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.monster.piglin.PiglinBrute;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;

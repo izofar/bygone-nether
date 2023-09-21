@@ -1,6 +1,5 @@
 package com.izofar.bygonenether.client.model;
 
-import com.google.common.collect.ImmutableList;
 import com.izofar.bygonenether.entity.WitherSkeletonKnight;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
@@ -15,8 +14,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-
-import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class WitherSkeletonKnightModel extends HumanoidModel<WitherSkeletonKnight> {

@@ -1,26 +1,26 @@
 package com.izofar.bygonenether.item;
 
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import com.izofar.bygonenether.BygoneNetherMod;
+import com.izofar.bygonenether.init.ModItems;
+import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
+import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShieldItem;
 
 public class ModShieldItem extends ShieldItem {
 
+    private static final ClampedItemPropertyFunction isBlocking = (stack, world, entity, seed) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F;
+
     public ModShieldItem(Properties properties) {
         super(properties);
     }
 
-    /*
-    @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new IClientItemExtensions() {
-            @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                return ModShieldRenderer.getInstance();
-            }
-        });
-    }*/
+    public static void addShieldPropertyOverrides() {
+        ItemProperties.register(ModItems.GILDED_NETHERITE_SHIELD, new ResourceLocation(BygoneNetherMod.MODID, "blocking"), isBlocking);
+    }
 
+    @Override
     public boolean isValidRepairItem(ItemStack stack, ItemStack repairCandidate) {
         return false;
     }

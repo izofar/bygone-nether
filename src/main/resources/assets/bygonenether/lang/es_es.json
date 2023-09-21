@@ -41,10 +41,6 @@
 	"item.bygonenether.netherite_scrap_nugget": "Netherite Scrap Nugget",
 	"item.bygonenether.netherite_scrap_ingot": "Netherite Scrap Ingot",
 
-	"item.bygonenether.withered_blackstone_vertical_slab": "Withered Blackstone Vertical Slab",
-	"item.bygonenether.cracked_withered_blackstone_vertical_slab": "Cracked Withered Blackstone Vertical Slab",
-	"item.bygonenether.warped_nether_brick_vertical_slab": "Warped Nether Brick Vertical Slab",
-
 	"block.bygonenether.cobbled_blackstone": "Piedra negra rocosa",
 	"block.bygonenether.withered_blackstone": "Piedra negra marchita",
 	"block.bygonenether.withered_blackstone_stairs": "Escaleras de piedra negra marchita",
@@ -63,10 +59,6 @@
 	"block.bygonenether.withered_coal_block": "Bloque de carbón marchito",
 	"block.bygonenether.withered_quartz_block": "Bloque de cuarzo marchito",
 	"block.bygonenether.netherite_bell": "Netherite Bell",
-
-	"block.bygonenether.withered_blackstone_vertical_slab": "Withered Blackstone Vertical Slab",
-	"block.bygonenether.cracked_withered_blackstone_vertical_slab": "Cracked Withered Blackstone Vertical Slab",
-	"block.bygonenether.warped_nether_brick_vertical_slab": "Warped Nether Brick Vertical Slab",
 
 	"entity.bygonenether.piglin_prisoner": "Piglin prisionero",
 	"entity.bygonenether.piglin_hunter": "Piglin cazador",
@@ -107,5 +99,5 @@
 	"advancements.bygonenether.rescue_piglin_prisoner.title": "Saving Private Swine",
 	"advancements.bygonenether.rescue_piglin_prisoner.description": "Rescue a Piglin Prisoner",
 
-	"itemGroup.bygonenethertab": "Bygone Nether"
+	"itemGroup.bygonenether.bygonenethertab": "Bygone Nether"
 }

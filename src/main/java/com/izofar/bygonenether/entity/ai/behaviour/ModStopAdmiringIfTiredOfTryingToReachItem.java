@@ -36,7 +36,7 @@ public class ModStopAdmiringIfTiredOfTryingToReachItem<E extends PiglinPrisoner>
             if (i > this.maxTimeToReachItem) {
                 brain.eraseMemory(MemoryModuleType.ADMIRING_ITEM);
                 brain.eraseMemory(MemoryModuleType.TIME_TRYING_TO_REACH_ADMIRE_ITEM);
-                brain.setMemoryWithExpiry(MemoryModuleType.DISABLE_WALK_TO_ADMIRE_ITEM, true, (long)this.disableTime);
+                brain.setMemoryWithExpiry(MemoryModuleType.DISABLE_WALK_TO_ADMIRE_ITEM, true, this.disableTime);
             } else {
                 brain.setMemory(MemoryModuleType.TIME_TRYING_TO_REACH_ADMIRE_ITEM, i + 1);
             }

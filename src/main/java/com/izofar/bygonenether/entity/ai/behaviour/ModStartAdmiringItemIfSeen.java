@@ -25,6 +25,6 @@ public class ModStartAdmiringItemIfSeen<E extends PiglinPrisoner> extends Behavi
 
     @Override
     protected void start(ServerLevel serverLevel, E entity, long gameTime) {
-        entity.getBrain().setMemoryWithExpiry(MemoryModuleType.ADMIRING_ITEM, true, (long)this.admireDuration);
+        entity.getBrain().setMemoryWithExpiry(MemoryModuleType.ADMIRING_ITEM, true, this.admireDuration);
     }
 }
