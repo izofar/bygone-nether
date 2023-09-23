@@ -1,0 +1,12 @@
+{
+  "sources": [
+    {
+      "type": "single",
+      "resource": "bygonenether:entity/shield/gilded_netherite_shield_base"
+    },
+    {
+      "type": "single",
+      "resource": "bygonenether:entity/shield/gilded_netherite_shield_base_nopattern"
+    }
+  ]
+}

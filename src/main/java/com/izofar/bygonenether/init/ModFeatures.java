@@ -5,6 +5,7 @@ import com.izofar.bygonenether.util.ModLists;
 import com.izofar.bygonenether.world.feature.MobFeature;
 import com.izofar.bygonenether.world.feature.MobPassengerFeature;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -21,12 +22,12 @@ public class ModFeatures {
     public static final Feature<NoneFeatureConfiguration> MOB_FEATURE_WARPED_ENDERMAN = new MobFeature<>(() -> ModEntityTypes.WARPED_ENDERMAN);
 
     public static void registerFeatures() {
-        Registry.register(Registry.FEATURE, new ResourceLocation(BygoneNetherMod.MODID, "mob_feature_piglin_prisoner"), MOB_FEATURE_PIGLIN_PRISONER);
-        Registry.register(Registry.FEATURE, new ResourceLocation(BygoneNetherMod.MODID, "mob_feature_piglin_manor_inside"), MOB_FEATURE_PIGLIN_MANOR_INSIDE);
-        Registry.register(Registry.FEATURE, new ResourceLocation(BygoneNetherMod.MODID, "mob_feature_piglin_manor_outside"), MOB_FEATURE_PIGLIN_MANOR_OUTSIDE);
-        Registry.register(Registry.FEATURE, new ResourceLocation(BygoneNetherMod.MODID, "mob_feature_strider"), MOB_FEATURE_STRIDER);
-        Registry.register(Registry.FEATURE, new ResourceLocation(BygoneNetherMod.MODID, "mob_feature_wither_skeleton"), MOB_FEATURE_WITHER_SKELETON);
-        Registry.register(Registry.FEATURE, new ResourceLocation(BygoneNetherMod.MODID, "mob_feature_catacomb"), MOB_FEATURE_CATACOMB);
-        Registry.register(Registry.FEATURE, new ResourceLocation(BygoneNetherMod.MODID, "mob_feature_warped_enderman"), MOB_FEATURE_WARPED_ENDERMAN);
+        Registry.register(BuiltInRegistries.FEATURE, new ResourceLocation(BygoneNetherMod.MODID, "mob_feature_piglin_prisoner"), MOB_FEATURE_PIGLIN_PRISONER);
+        Registry.register(BuiltInRegistries.FEATURE, new ResourceLocation(BygoneNetherMod.MODID, "mob_feature_piglin_manor_inside"), MOB_FEATURE_PIGLIN_MANOR_INSIDE);
+        Registry.register(BuiltInRegistries.FEATURE, new ResourceLocation(BygoneNetherMod.MODID, "mob_feature_piglin_manor_outside"), MOB_FEATURE_PIGLIN_MANOR_OUTSIDE);
+        Registry.register(BuiltInRegistries.FEATURE, new ResourceLocation(BygoneNetherMod.MODID, "mob_feature_strider"), MOB_FEATURE_STRIDER);
+        Registry.register(BuiltInRegistries.FEATURE, new ResourceLocation(BygoneNetherMod.MODID, "mob_feature_wither_skeleton"), MOB_FEATURE_WITHER_SKELETON);
+        Registry.register(BuiltInRegistries.FEATURE, new ResourceLocation(BygoneNetherMod.MODID, "mob_feature_catacomb"), MOB_FEATURE_CATACOMB);
+        Registry.register(BuiltInRegistries.FEATURE, new ResourceLocation(BygoneNetherMod.MODID, "mob_feature_warped_enderman"), MOB_FEATURE_WARPED_ENDERMAN);
     }
 }

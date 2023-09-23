@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.Util;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.world.entity.EntityDimensions;
@@ -44,16 +45,16 @@ public class ModEntityTypes {
         FabricDefaultAttributeRegistry.register(WITHER_SKELETON_KNIGHT, WitherSkeletonKnight.createAttributes());
         FabricDefaultAttributeRegistry.register(CORPOR, Corpor.createAttributes());
         FabricDefaultAttributeRegistry.register(WITHER_SKELETON_HORSE, WitherSkeletonHorse.createAttributes());
-        Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(BygoneNetherMod.MODID, "wex"), WEX);
-        Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(BygoneNetherMod.MODID, "warped_enderman"), WARPED_ENDERMAN);
-        Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(BygoneNetherMod.MODID, "piglin_prisoner"), PIGLIN_PRISONER);
-        Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(BygoneNetherMod.MODID, "piglin_hunter"), PIGLIN_HUNTER);
-        Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(BygoneNetherMod.MODID, "wraither"), WRAITHER);
-        Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(BygoneNetherMod.MODID, "wither_skeleton_knight"), WITHER_SKELETON_KNIGHT);
-        Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(BygoneNetherMod.MODID, "corpor"), CORPOR);
-        Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(BygoneNetherMod.MODID, "wither_skeleton_horse"), WITHER_SKELETON_HORSE);
-        Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(BygoneNetherMod.MODID, "warped_ender_pearl"), WARPED_ENDER_PEARL);
-        Registry.register(Registry.BLOCK_ENTITY_TYPE, new ResourceLocation(BygoneNetherMod.MODID, "netherite_bell"), NETHERITE_BELL);
+        Registry.register(BuiltInRegistries.ENTITY_TYPE, new ResourceLocation(BygoneNetherMod.MODID, "wex"), WEX);
+        Registry.register(BuiltInRegistries.ENTITY_TYPE, new ResourceLocation(BygoneNetherMod.MODID, "warped_enderman"), WARPED_ENDERMAN);
+        Registry.register(BuiltInRegistries.ENTITY_TYPE, new ResourceLocation(BygoneNetherMod.MODID, "piglin_prisoner"), PIGLIN_PRISONER);
+        Registry.register(BuiltInRegistries.ENTITY_TYPE, new ResourceLocation(BygoneNetherMod.MODID, "piglin_hunter"), PIGLIN_HUNTER);
+        Registry.register(BuiltInRegistries.ENTITY_TYPE, new ResourceLocation(BygoneNetherMod.MODID, "wraither"), WRAITHER);
+        Registry.register(BuiltInRegistries.ENTITY_TYPE, new ResourceLocation(BygoneNetherMod.MODID, "wither_skeleton_knight"), WITHER_SKELETON_KNIGHT);
+        Registry.register(BuiltInRegistries.ENTITY_TYPE, new ResourceLocation(BygoneNetherMod.MODID, "corpor"), CORPOR);
+        Registry.register(BuiltInRegistries.ENTITY_TYPE, new ResourceLocation(BygoneNetherMod.MODID, "wither_skeleton_horse"), WITHER_SKELETON_HORSE);
+        Registry.register(BuiltInRegistries.ENTITY_TYPE, new ResourceLocation(BygoneNetherMod.MODID, "warped_ender_pearl"), WARPED_ENDER_PEARL);
+        Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, new ResourceLocation(BygoneNetherMod.MODID, "netherite_bell"), NETHERITE_BELL);
     }
 
     public static void modifyPiglinMemoryAndSensors() {

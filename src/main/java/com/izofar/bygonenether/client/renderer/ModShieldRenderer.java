@@ -11,7 +11,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
-import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.minecraft.client.model.ShieldModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BannerRenderer;
@@ -48,11 +47,6 @@ public class ModShieldRenderer {
         ModShieldSetModelCallback.EVENT.register((loader) -> {
             shieldModel = new ShieldModel(loader.bakeLayer(BygoneNetherClient.GILDED_NETHERITE_SHIELD_MODEL_LAYER));
             return InteractionResult.PASS;
-        });
-
-        ClientSpriteRegistryCallback.event(TextureAtlas.LOCATION_BLOCKS).register((atlasTexture, registry) -> {
-            registry.register(GILDED_NETHERITE_SHIELD_BASE_LOCATION);
-            registry.register(GILDED_NETHERITE_SHIELD_BASE_NOPATTERN_LOCATION);
         });
 
         BuiltinItemRendererRegistry.INSTANCE.register(ModItems.GILDED_NETHERITE_SHIELD, (stack, transformType, poseStack, buffer, packedLight, packedOverlay) -> renderByItem(stack, poseStack, buffer, packedLight, packedOverlay));

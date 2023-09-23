@@ -16,6 +16,7 @@ public class BygoneNetherMod implements ModInitializer {
 	public void onInitialize() {
 		ModItems.registerItems();
 		ModBlocks.registerBlocks();
+		ModCreativeModeTabs.registerCreativeModeTabs();
 		ModEntityTypes.registerEntityTypes();
 		ModStructures.registerStructures();
 		ModSensorTypes.registerSensorTypes();

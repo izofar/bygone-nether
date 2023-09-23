@@ -9,6 +9,10 @@
     "type": "minecraft:random_spread",
     "spacing": 12,
     "separation": 4,
-    "salt": 292421824
+    "salt": 292421824,
+    "exclusion_zone": {
+      "chunk_count": 8,
+      "other_set": "minecraft:nether_complexes"
+    }
   }
 }

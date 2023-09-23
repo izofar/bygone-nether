@@ -22,6 +22,7 @@ import net.minecraft.world.entity.monster.WitherSkeleton;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.level.Level;
 
 import java.util.UUID;
@@ -51,7 +52,7 @@ public class WitherSkeletonKnight extends WitherSkeleton implements IShieldedMob
     @Override
     public void tick() {
         super.tick();
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             this.decrementShieldCooldown();
         }
     }
@@ -104,7 +105,7 @@ public class WitherSkeletonKnight extends WitherSkeleton implements IShieldedMob
         boolean result = super.hurt(source, damage);
         if (!this.isDisarmored() && this.getHealth() < BREAK_HEALTH) {
             this.setDisarmored(true);
-            this.playSound(SoundEvents.SHIELD_BREAK, 1.2F, 0.8F + this.level.random.nextFloat() * 0.4F);
+            this.playSound(SoundEvents.SHIELD_BREAK, 1.2F, 0.8F + this.level().random.nextFloat() * 0.4F);
             this.setSpeed(0.25f);
         }
         return result;
@@ -115,7 +116,7 @@ public class WitherSkeletonKnight extends WitherSkeleton implements IShieldedMob
         if (!this.isUsingShield()) {
             super.knockback(strength, x, z);
         } else {
-            this.playSound(SoundEvents.SHIELD_BLOCK, 1.0F, 0.8F + this.level.random.nextFloat() * 0.4F);
+            this.playSound(SoundEvents.SHIELD_BLOCK, 1.0F, 0.8F + this.level().random.nextFloat() * 0.4F);
         }
     }
 
@@ -130,8 +131,8 @@ public class WitherSkeletonKnight extends WitherSkeleton implements IShieldedMob
     private void disableShield() {
         this.setShieldCooldown(60);
         this.stopUsingShield();
-        this.level.broadcastEntityEvent(this, (byte)30);
-        this.playSound(SoundEvents.SHIELD_BREAK, 0.8F, 0.8F + this.level.random.nextFloat() * 0.4F);
+        this.level().broadcastEntityEvent(this, (byte)30);
+        this.playSound(SoundEvents.SHIELD_BREAK, 0.8F, 0.8F + this.level().random.nextFloat() * 0.4F);
     }
 
     @Override
@@ -146,7 +147,7 @@ public class WitherSkeletonKnight extends WitherSkeleton implements IShieldedMob
         }
 
         for (InteractionHand interactionhand : InteractionHand.values()) {
-            if (this.getItemInHand(interactionhand).is(Items.SHIELD)) {
+            if (this.getItemInHand(interactionhand).getItem() instanceof ShieldItem) {
                 this.startUsingItem(interactionhand);
                 this.setUsingShield(true);
                 this.setShieldMainhand(interactionhand == InteractionHand.MAIN_HAND);
@@ -165,7 +166,7 @@ public class WitherSkeletonKnight extends WitherSkeleton implements IShieldedMob
         }
 
         for (InteractionHand interactionhand : InteractionHand.values()) {
-            if (this.getItemInHand(interactionhand).is(Items.SHIELD)) {
+            if (this.getItemInHand(interactionhand).getItem() instanceof ShieldItem) {
                 this.stopUsingItem();
                 this.setUsingShield(false);
                 AttributeInstance attributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);

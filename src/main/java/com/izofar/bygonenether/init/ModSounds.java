@@ -2,6 +2,7 @@ package com.izofar.bygonenether.init;
 
 import com.izofar.bygonenether.BygoneNetherMod;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 
@@ -22,17 +23,17 @@ public class ModSounds {
     public static SoundEvent WARPED_ENDERMAN_STARE = sound("entity.warped_enderman.stare");
 
     public static void registerSounds() {
-        Registry.register(Registry.SOUND_EVENT, id("wither_waltz"), WITHER_WALTZ);
-        Registry.register(Registry.SOUND_EVENT, id("entity.wex.charge"), WEX_CHARGE);
-        Registry.register(Registry.SOUND_EVENT, id("entity.wex.death"), WEX_DEATH);
-        Registry.register(Registry.SOUND_EVENT, id("entity.wex.hurt"), WEX_HURT);
-        Registry.register(Registry.SOUND_EVENT, id("entity.wex.ambient"), WEX_AMBIENT);
-        Registry.register(Registry.SOUND_EVENT, id("entity.warped_enderman.death"), WARPED_ENDERMAN_DEATH);
-        Registry.register(Registry.SOUND_EVENT, id("entity.warped_enderman.hurt"), WARPED_ENDERMAN_HURT);
-        Registry.register(Registry.SOUND_EVENT, id("entity.warped_enderman.ambient"), WARPED_ENDERMAN_AMBIENT);
-        Registry.register(Registry.SOUND_EVENT, id("entity.warped_enderman.teleport"), WARPED_ENDERMAN_TELEPORT);
-        Registry.register(Registry.SOUND_EVENT, id("entity.warped_enderman.scream"), WARPED_ENDERMAN_SCREAM);
-        Registry.register(Registry.SOUND_EVENT, id("entity.warped_enderman.stare"), WARPED_ENDERMAN_STARE);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, id("wither_waltz"), WITHER_WALTZ);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, id("entity.wex.charge"), WEX_CHARGE);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, id("entity.wex.death"), WEX_DEATH);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, id("entity.wex.hurt"), WEX_HURT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, id("entity.wex.ambient"), WEX_AMBIENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, id("entity.warped_enderman.death"), WARPED_ENDERMAN_DEATH);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, id("entity.warped_enderman.hurt"), WARPED_ENDERMAN_HURT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, id("entity.warped_enderman.ambient"), WARPED_ENDERMAN_AMBIENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, id("entity.warped_enderman.teleport"), WARPED_ENDERMAN_TELEPORT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, id("entity.warped_enderman.scream"), WARPED_ENDERMAN_SCREAM);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, id("entity.warped_enderman.stare"), WARPED_ENDERMAN_STARE);
     }
 
     private static ResourceLocation id(String id) {
@@ -40,6 +41,6 @@ public class ModSounds {
     }
 
     private static SoundEvent sound(String sound) {
-        return new SoundEvent(id(sound));
+        return SoundEvent.createVariableRangeEvent(id(sound));
     }
 }

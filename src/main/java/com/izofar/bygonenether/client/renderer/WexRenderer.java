@@ -6,7 +6,6 @@ import com.izofar.bygonenether.entity.Wex;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.core.BlockPos;
@@ -19,7 +18,7 @@ public class WexRenderer extends HumanoidMobRenderer<Wex, WexModel> {
     private static final ResourceLocation WEX_CHARGING_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "textures/entity/wex/wex_charging.png");
 
     public WexRenderer(EntityRendererProvider.Context context) {
-        super(context, new WexModel(context.bakeLayer(ModelLayers.VEX)), 0.3F);
+        super(context, new WexModel(WexModel.createBodyLayer().bakeRoot()), 0.3F);
     }
 
     @Override

@@ -82,7 +82,7 @@ public class WarpedEnderMan extends EnderMan {
     @Override
     public void tick() {
         super.tick();
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             if (shearCooldownCounter > 0) {
                 shearCooldownCounter--;
             } else if (shearCooldownCounter < 0) {
@@ -102,7 +102,7 @@ public class WarpedEnderMan extends EnderMan {
     }
 
     private void playShearSound(EnderMan enderman) {
-        this.level.playSound(null, enderman, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
+        this.level().playSound(null, enderman, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
     }
 
     @Override
@@ -138,7 +138,7 @@ public class WarpedEnderMan extends EnderMan {
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         if (stack.is(Items.SHEARS)) {
-            if (this.isReadyForShearing() && !this.level.isClientSide) {
+            if (this.isReadyForShearing() && !this.level().isClientSide) {
                 boolean flag = this.toConvertToEnderman;
                 this.shearWarp();
                 this.gameEvent(GameEvent.SHEAR, player);

@@ -7,7 +7,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.QuartPos;
-import net.minecraft.data.worldgen.StructureSets;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.NoiseColumn;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -66,8 +65,7 @@ public class CitadelStructure extends Structure {
         NoiseColumn blockReader = context.chunkGenerator().getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor(), context.randomState());
         return checkChunk(context)
                 && !ModStructureUtils.isLavaLake(blockReader)
-                && ModStructureUtils.verticalSpace(blockReader, 34, ModStructureUtils.getScaledNetherHeight(72), 12)
-                && !ModStructureUtils.isNearStructure(context, STRUCTURE_SEARCH_RADIUS, StructureSets.NETHER_COMPLEXES);
+                && ModStructureUtils.verticalSpace(blockReader, 34, ModStructureUtils.getScaledNetherHeight(72), 12);
     }
 
     private static boolean checkChunk(Structure.GenerationContext context) {

@@ -121,7 +121,7 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
     @Override
     public void tick () {
         super.tick();
-        if (this.level.isClientSide && !this.hasTempter && this.getTempter() != null) {
+        if (this.level().isClientSide && !this.hasTempter && this.getTempter() != null) {
             this.hasTempter = true;
             this.spawnHeartParticles();
         }
@@ -155,9 +155,9 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 
     @Override
     protected void customServerAiStep() {
-        this.level.getProfiler().push("piglinBrain");
-        this.getBrain().tick((ServerLevel)this.level, this);
-        this.level.getProfiler().pop();
+        this.level().getProfiler().push("piglinBrain");
+        this.getBrain().tick((ServerLevel)this.level(), this);
+        this.level().getProfiler().pop();
         PiglinPrisonerAi.updateActivity(this);
         if (this.isBeingRescued) {
             this.timeBeingRescued ++;
@@ -233,7 +233,7 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
         InteractionResult interactionresult = super.mobInteract(player, hand);
         if (interactionresult.consumesAction()) {
             return interactionresult;
-        } else if (!this.level.isClientSide) {
+        } else if (!this.level().isClientSide) {
             return PiglinPrisonerAi.mobInteract(this, player, hand);
         } else {
             boolean flag = PiglinPrisonerAi.canAdmire(this, player.getItemInHand(hand)) && this.getArmPose() != PiglinArmPose.ADMIRING_ITEM;
@@ -330,7 +330,7 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
     @Override
     public boolean hurt(DamageSource source, float amount) {
         boolean flag = super.hurt(source, amount);
-        if (this.level.isClientSide) {
+        if (this.level().isClientSide) {
             return false;
         } else {
             if (flag && source.getEntity() instanceof LivingEntity) {
@@ -355,7 +355,7 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 
     @Override
     public boolean wantsToPickUp(ItemStack itemstack) {
-        return level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && this.canPickUpLoot() && PiglinPrisonerAi.wantsToPickup(this, itemstack);
+        return level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && this.canPickUpLoot() && PiglinPrisonerAi.wantsToPickup(this, itemstack);
     }
 
     public boolean canReplaceCurrentItem(ItemStack replacementStack) {
@@ -389,7 +389,7 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.level.isClientSide ? null : PiglinPrisonerAi.getSoundForCurrentActivity(this).orElse(null);
+        return this.level().isClientSide ? null : PiglinPrisonerAi.getSoundForCurrentActivity(this).orElse(null);
     }
 
     @Override
@@ -420,7 +420,7 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
     public Player getTempter() {
         try {
             UUID uuid = this.getTempterUUID();
-            return uuid == null ? null : this.level.getPlayerByUUID(uuid);
+            return uuid == null ? null : this.level().getPlayerByUUID(uuid);
         } catch (IllegalArgumentException illegalargumentexception) {
             return null;
         }
@@ -441,7 +441,7 @@ public class PiglinPrisoner extends AbstractPiglin implements CrossbowAttackMob,
             double d0 = this.random.nextGaussian() * 0.02D;
             double d1 = this.random.nextGaussian() * 0.02D;
             double d2 = this.random.nextGaussian() * 0.02D;
-            this.level.addParticle(ParticleTypes.HEART, this.getRandomX(1.0D), this.getRandomY() + 1.0D, this.getRandomZ(1.0D), d0, d1, d2);
+            this.level().addParticle(ParticleTypes.HEART, this.getRandomX(1.0D), this.getRandomY() + 1.0D, this.getRandomZ(1.0D), d0, d1, d2);
         }
     }
 
