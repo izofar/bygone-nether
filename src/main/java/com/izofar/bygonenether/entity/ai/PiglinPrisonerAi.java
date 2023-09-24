@@ -506,18 +506,16 @@ public class PiglinPrisonerAi {
 		return abstractPiglin.getBrain().getMemory(MemoryModuleType.NEARBY_ADULT_PIGLINS).orElse(ImmutableList.of());
 	}
 
-	public static void broadcastBeingRescued(AbstractPiglin piglin) {
-		getAdultPiglins(piglin).forEach(PiglinPrisonerAi::startDancing);
-	}
-
 	private static List<Piglin> getAdultPiglins(AbstractPiglin abstractPiglin) {
-		return abstractPiglin.getBrain()
-				.getMemory(MemoryModuleType.NEARBY_ADULT_PIGLINS)
-				.orElse(ImmutableList.of())
+		return getAdultAbstractPiglins(abstractPiglin)
 				.stream()
 				.filter(Piglin.class::isInstance)
 				.map(Piglin.class::cast)
 				.toList();
+	}
+
+	public static void broadcastBeingRescued(AbstractPiglin piglin) {
+		getAdultPiglins(piglin).forEach(PiglinPrisonerAi::startDancing);
 	}
 
 	private static void setAngerTargetIfCloserThanCurrent(AbstractPiglin abstractPiglin, LivingEntity target) {

@@ -7,6 +7,7 @@ import com.izofar.bygonenether.client.model.WarpedEndermanModel;
 import com.izofar.bygonenether.client.model.WitherSkeletonKnightModel;
 import com.izofar.bygonenether.client.renderer.*;
 import com.izofar.bygonenether.init.ModEntityTypes;
+import com.izofar.bygonenether.item.ModShieldItem;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -19,10 +20,12 @@ import net.minecraft.resources.ResourceLocation;
 
 @Environment(EnvType.CLIENT)
 public class BygoneNetherClient implements ClientModInitializer {
+
     public static final ModelLayerLocation WARPED_ENDERMAN = new ModelLayerLocation(new ResourceLocation(BygoneNetherMod.MODID, "warped_enderman"), "main");
     public static final ModelLayerLocation PIGLIN_HUNTER = new ModelLayerLocation(new ResourceLocation(BygoneNetherMod.MODID, "piglin_hunter"), "main");
     public static final ModelLayerLocation CORPOR = new ModelLayerLocation(new ResourceLocation(BygoneNetherMod.MODID, "corpor"), "main");
     public static final ModelLayerLocation WITHER_SKELETON_KNIGHT = new ModelLayerLocation(new ResourceLocation(BygoneNetherMod.MODID, "wither_skeleton_knight"), "main");
+    public static final ModelLayerLocation GILDED_NETHERITE_SHIELD_MODEL_LAYER = new ModelLayerLocation(new ResourceLocation(BygoneNetherMod.MODID, "gilded_netherite_shield"),"main");
 
     @Override
     public void onInitializeClient() {
@@ -42,5 +45,8 @@ public class BygoneNetherClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(PIGLIN_HUNTER, PiglinHunterModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(CORPOR, CorporModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(WITHER_SKELETON_KNIGHT, WitherSkeletonKnightModel::createBodyLayer);
+
+        ModShieldItem.addShieldPropertyOverrides();
+        ModShieldRenderer.stitchTextureModelLayer();
     }
 }

@@ -8,6 +8,7 @@
     "ModifyPiglinAi",
     "ModifyPiglinBruteAi",
     "NoAxeDisableModShieldMixin",
+    "RenderModdedShieldMixin",
     "NoBasaltColumnsInStructuresMixin",
     "NoDeltasInStructuresMixin",
     "WorldGenRegionAccessor"

@@ -10,6 +10,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -19,6 +20,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.level.Level;
 
 import java.util.UUID;
@@ -92,8 +94,23 @@ public class PiglinHunter extends Piglin implements IShieldedMob{
     }
 
     @Override
+    protected void blockUsingShield(LivingEntity attacker) {
+        super.blockUsingShield(attacker);
+        if (IShieldedMob.canDisableShield(this.useItem)) {
+            this.disableShield();
+        }
+    }
+
+    private void disableShield() {
+        this.setShieldCooldown(60);
+        this.stopUsingShield();
+        this.level.broadcastEntityEvent(this, (byte)30);
+        this.playSound(SoundEvents.SHIELD_BREAK, 0.8F, 0.8F + this.level.random.nextFloat() * 0.4F);
+    }
+
+    @Override
     public boolean isShieldDisabled() {
-        return false;
+        return this.getShieldCooldown() > 0;
     }
 
     @Override
@@ -102,7 +119,7 @@ public class PiglinHunter extends Piglin implements IShieldedMob{
             return;
         }
         for (InteractionHand interactionhand : InteractionHand.values()) {
-            if (this.getItemInHand(interactionhand).is(ModItems.GILDED_NETHERITE_SHIELD)) {
+            if (this.getItemInHand(interactionhand).getItem() instanceof ShieldItem) {
                 this.startUsingItem(interactionhand);
                 this.setUsingShield(true);
                 this.setShieldMainhand(interactionhand == InteractionHand.MAIN_HAND);
@@ -120,7 +137,7 @@ public class PiglinHunter extends Piglin implements IShieldedMob{
             return;
         }
         for (InteractionHand interactionhand : InteractionHand.values()) {
-            if (this.getItemInHand(interactionhand).is(ModItems.GILDED_NETHERITE_SHIELD)) {
+            if (this.getItemInHand(interactionhand).getItem() instanceof ShieldItem) {
                 this.stopUsingItem();
                 this.setUsingShield(false);
                 AttributeInstance attributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);

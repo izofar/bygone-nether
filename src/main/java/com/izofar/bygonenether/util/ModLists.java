@@ -3,11 +3,17 @@ package com.izofar.bygonenether.util;
 import com.google.common.collect.ImmutableList;
 import com.izofar.bygonenether.init.ModBlocks;
 import com.izofar.bygonenether.init.ModEntityTypes;
+import com.izofar.bygonenether.init.ModMemoryModuleTypes;
+import com.izofar.bygonenether.init.ModSensorTypes;
 import com.izofar.bygonenether.util.random.ModWeightedEntry;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.sensing.Sensor;
+import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.monster.WitherSkeleton;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
+import net.minecraft.world.entity.monster.piglin.PiglinBrute;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
@@ -76,5 +82,37 @@ public abstract class ModLists {
 			ModBlocks.WITHERED_DEBRIS,
 			Blocks.IRON_BARS,
 			Blocks.COAL_BLOCK
+	);
+
+	public static final ImmutableList<SensorType<? extends Sensor<? super PiglinBrute>>> PIGLIN_BRUTE_SENSOR_TYPES = ImmutableList.of(
+			SensorType.NEAREST_LIVING_ENTITIES,
+			SensorType.NEAREST_PLAYERS,
+			SensorType.NEAREST_ITEMS,
+			SensorType.HURT_BY,
+			ModSensorTypes.PIGLIN_BRUTE_SPECIFIC_SENSOR
+	);
+
+	public static final ImmutableList<MemoryModuleType<?>> PIGLIN_BRUTE_MEMORY_TYPES = ImmutableList.of(
+			MemoryModuleType.LOOK_TARGET,
+			MemoryModuleType.DOORS_TO_CLOSE,
+			MemoryModuleType.NEAREST_LIVING_ENTITIES,
+			MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
+			MemoryModuleType.NEAREST_VISIBLE_PLAYER,
+			MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER,
+			MemoryModuleType.NEAREST_VISIBLE_ADULT_PIGLINS,
+			MemoryModuleType.NEARBY_ADULT_PIGLINS,
+			MemoryModuleType.HURT_BY,
+			MemoryModuleType.HURT_BY_ENTITY,
+			MemoryModuleType.WALK_TARGET,
+			MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
+			MemoryModuleType.ATTACK_TARGET,
+			MemoryModuleType.ATTACK_COOLING_DOWN,
+			MemoryModuleType.INTERACTION_TARGET,
+			MemoryModuleType.PATH,
+			MemoryModuleType.ANGRY_AT,
+			MemoryModuleType.NEAREST_VISIBLE_NEMESIS,
+			MemoryModuleType.HOME,
+			MemoryModuleType.UNIVERSAL_ANGER,
+			ModMemoryModuleTypes.NEAREST_TARGETABLE_PLAYER_NOT_WEARING_GILD
 	);
 }

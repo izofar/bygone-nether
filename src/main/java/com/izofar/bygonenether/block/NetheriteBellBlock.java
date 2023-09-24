@@ -130,7 +130,7 @@ public class NetheriteBellBlock extends BaseEntityBlock {
             }
 
             netheriteBellBlockEntity.onHit(direction);
-            level.playSound(null, pos, SoundEvents.BELL_BLOCK, SoundSource.BLOCKS, 2.0F, 1.0F);
+            level.playSound(null, pos, SoundEvents.BELL_BLOCK, SoundSource.BLOCKS, 4.5F, 0.5F);
             level.gameEvent(entity, GameEvent.RING_BELL, pos);
             return true;
         } else {

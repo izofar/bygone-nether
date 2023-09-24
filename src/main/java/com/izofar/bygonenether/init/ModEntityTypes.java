@@ -1,8 +1,8 @@
 package com.izofar.bygonenether.init;
 
-import com.google.common.collect.ImmutableList;
 import com.izofar.bygonenether.BygoneNetherMod;
 import com.izofar.bygonenether.entity.*;
+import com.izofar.bygonenether.util.ModLists;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -13,8 +13,6 @@ import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.monster.piglin.PiglinBrute;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -55,40 +53,11 @@ public class ModEntityTypes {
         Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(BygoneNetherMod.MODID, "corpor"), CORPOR);
         Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(BygoneNetherMod.MODID, "wither_skeleton_horse"), WITHER_SKELETON_HORSE);
         Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(BygoneNetherMod.MODID, "warped_ender_pearl"), WARPED_ENDER_PEARL);
-        Registry.register(Registry.BLOCK_ENTITY_TYPE, new ResourceLocation(BygoneNetherMod.MODID, ""), NETHERITE_BELL);
+        Registry.register(Registry.BLOCK_ENTITY_TYPE, new ResourceLocation(BygoneNetherMod.MODID, "netherite_bell"), NETHERITE_BELL);
     }
 
     public static void modifyPiglinMemoryAndSensors() {
-        PiglinBrute.SENSOR_TYPES = ImmutableList.of(
-                SensorType.NEAREST_LIVING_ENTITIES,
-                SensorType.NEAREST_PLAYERS,
-                SensorType.NEAREST_ITEMS,
-                SensorType.HURT_BY,
-                ModSensorTypes.PIGLIN_BRUTE_SPECIFIC_SENSOR
-        );
-
-        PiglinBrute.MEMORY_TYPES = ImmutableList.of(
-                MemoryModuleType.LOOK_TARGET,
-                MemoryModuleType.DOORS_TO_CLOSE,
-                MemoryModuleType.NEAREST_LIVING_ENTITIES,
-                MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
-                MemoryModuleType.NEAREST_VISIBLE_PLAYER,
-                MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER,
-                MemoryModuleType.NEAREST_VISIBLE_ADULT_PIGLINS,
-                MemoryModuleType.NEARBY_ADULT_PIGLINS,
-                MemoryModuleType.HURT_BY,
-                MemoryModuleType.HURT_BY_ENTITY,
-                MemoryModuleType.WALK_TARGET,
-                MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
-                MemoryModuleType.ATTACK_TARGET,
-                MemoryModuleType.ATTACK_COOLING_DOWN,
-                MemoryModuleType.INTERACTION_TARGET,
-                MemoryModuleType.PATH,
-                MemoryModuleType.ANGRY_AT,
-                MemoryModuleType.NEAREST_VISIBLE_NEMESIS,
-                MemoryModuleType.HOME,
-                MemoryModuleType.UNIVERSAL_ANGER,
-                ModMemoryModuleTypes.NEAREST_TARGETABLE_PLAYER_NOT_WEARING_GILD
-        );
+        PiglinBrute.SENSOR_TYPES = ModLists.PIGLIN_BRUTE_SENSOR_TYPES;
+        PiglinBrute.MEMORY_TYPES = ModLists.PIGLIN_BRUTE_MEMORY_TYPES;
     }
 }
