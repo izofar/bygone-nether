@@ -22,6 +22,7 @@ import net.minecraft.world.entity.monster.WitherSkeleton;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.level.Level;
 
 import java.util.UUID;
@@ -146,7 +147,7 @@ public class WitherSkeletonKnight extends WitherSkeleton implements IShieldedMob
         }
 
         for (InteractionHand interactionhand : InteractionHand.values()) {
-            if (this.getItemInHand(interactionhand).is(Items.SHIELD)) {
+            if (this.getItemInHand(interactionhand).getItem() instanceof ShieldItem) {
                 this.startUsingItem(interactionhand);
                 this.setUsingShield(true);
                 this.setShieldMainhand(interactionhand == InteractionHand.MAIN_HAND);
@@ -165,7 +166,7 @@ public class WitherSkeletonKnight extends WitherSkeleton implements IShieldedMob
         }
 
         for (InteractionHand interactionhand : InteractionHand.values()) {
-            if (this.getItemInHand(interactionhand).is(Items.SHIELD)) {
+            if (this.getItemInHand(interactionhand).getItem() instanceof ShieldItem) {
                 this.stopUsingItem();
                 this.setUsingShield(false);
                 AttributeInstance attributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
