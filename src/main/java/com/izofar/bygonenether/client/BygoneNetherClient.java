@@ -7,7 +7,6 @@ import com.izofar.bygonenether.client.model.WarpedEndermanModel;
 import com.izofar.bygonenether.client.model.WitherSkeletonKnightModel;
 import com.izofar.bygonenether.client.renderer.*;
 import com.izofar.bygonenether.init.ModEntityTypes;
-import com.izofar.bygonenether.item.ModShieldItem;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -46,7 +45,7 @@ public class BygoneNetherClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(CORPOR, CorporModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(WITHER_SKELETON_KNIGHT, WitherSkeletonKnightModel::createBodyLayer);
 
-        ModShieldItem.addShieldPropertyOverrides();
+        ModShieldRenderer.addShieldPropertyOverrides();
         ModShieldRenderer.stitchTextureModelLayer();
     }
 }

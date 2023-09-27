@@ -15,6 +15,8 @@ import net.minecraft.client.model.ShieldModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BannerRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBakery;
@@ -34,6 +36,8 @@ import java.util.List;
 public class ModShieldRenderer {
 
     private static ShieldModel shieldModel;
+
+    private static final ClampedItemPropertyFunction isBlocking = (stack, world, entity, seed) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F;
 
     private static final ResourceLocation GILDED_NETHERITE_SHIELD_BASE_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "entity/shield/gilded_netherite_shield_base");
     private static final ResourceLocation GILDED_NETHERITE_SHIELD_BASE_NOPATTERN_LOCATION = new ResourceLocation(BygoneNetherMod.MODID, "entity/shield/gilded_netherite_shield_base_nopattern");
@@ -74,4 +78,7 @@ public class ModShieldRenderer {
         poseStack.popPose();
     }
 
+    public static void addShieldPropertyOverrides() {
+        ItemProperties.register(ModItems.GILDED_NETHERITE_SHIELD, new ResourceLocation(BygoneNetherMod.MODID, "blocking"), isBlocking);
+    }
 }
