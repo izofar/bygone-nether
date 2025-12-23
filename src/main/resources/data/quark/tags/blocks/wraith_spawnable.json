@@ -2,6 +2,6 @@
   "replace": false,
   "values": [
     "bygonenether:soul_stone",
-    "quark:soul_stone"
+    { "id": "quark:soul_sandstone", "required": false }
   ]
 }
